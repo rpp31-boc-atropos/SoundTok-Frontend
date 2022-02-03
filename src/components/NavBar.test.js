@@ -6,6 +6,6 @@ import NavBar from './NavBar';
 
 
 test('Heading should exist', () => {
-  render(<NavBar />)
-  expect(screen.getByRole('heading')).toHaveTextContent('SoundTok')
+  render(<NavBar />);
+  expect(screen.getByRole('heading')).toHaveTextContent('SoundTok');
 });

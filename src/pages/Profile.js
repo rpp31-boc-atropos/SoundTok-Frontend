@@ -6,7 +6,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 const Profile = () => {
 
-  const { user } = useAuth()
+  const { user } = useAuth();
 
   //Nested routes
   return (
@@ -30,7 +30,7 @@ const Profile = () => {
       </Routes>
 
     </>
-  )
+  );
 };
 
 export default Profile;

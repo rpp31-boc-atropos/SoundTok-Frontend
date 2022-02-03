@@ -1,6 +1,6 @@
 
-import { render, screen } from '@testing-library/react'
-import { AuthContext, AuthProvider } from './AuthContext'
+import { render, screen } from '@testing-library/react';
+import { AuthContext, AuthProvider } from './AuthContext';
 
 describe('AuthProvider', () => {
 
@@ -10,10 +10,10 @@ describe('AuthProvider', () => {
       <AuthContext.Consumer>
         {value => <span>Is logged in: {value.login.toString()}</span>}
       </AuthContext.Consumer>
-    </AuthProvider>)
+    </AuthProvider>);
 
-    expect(screen.getByText('Is logged in: false')).toBeTruthy()
-  })
+    expect(screen.getByText('Is logged in: false')).toBeTruthy();
+  });
 
 
-})
+});
