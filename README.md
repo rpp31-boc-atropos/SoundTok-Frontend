@@ -4,5 +4,4 @@
 
 ### `npm start`
 
-### `npm run test .`
-
+### `npm run test` then select watch usage
