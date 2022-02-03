@@ -8,7 +8,7 @@ const NavBar = () => {
 
   return (
     <div>
-      <h1>Blue Ocean</h1>
+      <h1>SoundTok</h1>
       <ul className='nav'>
         <li>
           <Link to='/'>Home</Link>

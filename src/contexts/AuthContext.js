@@ -1,8 +1,8 @@
 import React, { createContext, useState } from 'react'
 
-const AuthContext = createContext({})
+const AuthContext = createContext()
 
-const AuthProvider = (props) => {
+const AuthProvider = ({ children }) => {
 
   //need to add authentication
 
@@ -11,9 +11,12 @@ const AuthProvider = (props) => {
 
   const authContextValue = { login, setLogin, user, setUser }
 
-  return <AuthContext.Provider value={authContextValue} {...props} />
+  return <AuthContext.Provider value={authContextValue}>
+    {children}
+  </AuthContext.Provider>
+
 }
 
 const useAuth = () => React.useContext(AuthContext)
 
-export { AuthProvider, useAuth }
+export { AuthContext, AuthProvider, useAuth }
