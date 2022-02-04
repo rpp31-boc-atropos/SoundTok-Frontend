@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 const EditProfile = () => {
 
-  const { user, setUser } = useAuth()
+  const { user, setUser } = useAuth();
 
   //temporary username update
 
@@ -14,6 +14,6 @@ const EditProfile = () => {
       <button onClick={() => setUser('Updated Username')}>Change User Name</button>
     </>
 
-  )
-}
+  );
+};
 export default EditProfile;

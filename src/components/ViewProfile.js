@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 const ViewProfile = () => {
 
-  const { user } = useAuth()
+  const { user } = useAuth();
 
   return (
     <>

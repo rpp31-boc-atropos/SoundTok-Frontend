@@ -4,12 +4,12 @@ import { useAuth } from '../contexts/AuthContext';
 
 const Home = () => {
 
-  const { user } = useAuth()
+  const { user } = useAuth();
 
   //start from the top on each page
   useEffect(() => {
-    window.scroll(0, 0)
-  })
+    window.scroll(0, 0);
+  });
 
 
   return (
@@ -18,7 +18,7 @@ const Home = () => {
       <p>User from context: {user}</p>
 
     </div>
-  )
+  );
 };
 
 export default Home;
