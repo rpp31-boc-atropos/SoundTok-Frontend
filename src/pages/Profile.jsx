@@ -1,8 +1,8 @@
 import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
-import EditProfile from '../components/EditProfile';
-import ViewProfile from '../components/ViewProfile';
-import { useAuth } from '../contexts/AuthContext';
+import EditProfile from '../components/EditProfile.jsx';
+import ViewProfile from '../components/ViewProfile.jsx';
+import { useAuth } from '../contexts/AuthContext.jsx';
 
 const Profile = () => {
 

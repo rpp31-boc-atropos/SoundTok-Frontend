@@ -1,0 +1,25 @@
+/*!******************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/App.css ***!
+  \******************************************************************************************************/
+.App {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.nav {
+  list-style-type: none;
+  width: 500px;
+  display: flex;
+  background-color: grey;
+  justify-content: space-evenly;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  color: whitesmoke;
+}

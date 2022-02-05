@@ -1,11 +1,12 @@
 import './App.css';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import NavBar from './components/NavBar';
-import Home from './pages/Home';
-import Profile from './pages/Profile';
-import NotFound from './pages/NotFound';
-import Studio from './pages/Studio';
-import { useAuth } from './contexts/AuthContext';
+import NavBar from './components/NavBar.jsx';
+import Home from './pages/Home.jsx';
+import Profile from './pages/Profile.jsx';
+import NotFound from './pages/NotFound.jsx';
+import Studio from './pages/Studio.jsx';
+import { useAuth } from './contexts/AuthContext.jsx';
 
 
 

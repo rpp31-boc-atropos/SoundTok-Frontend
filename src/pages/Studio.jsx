@@ -1,8 +1,8 @@
 import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import Upload from '../components/Upload';
+import { useLocation } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext.jsx';
+import Upload from '../components/Upload.jsx';
 
 const Studio = () => {
 
