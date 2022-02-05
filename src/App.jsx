@@ -16,9 +16,10 @@ import { useAuth } from './contexts/AuthContext.jsx';
 
 //log in to view/edit profile, otherwise the profile will be redirected to the homepage
 
+// eslint-disable-next-line
 function App() {
 
-  const { login } = useAuth()
+  const { login } = useAuth();
 
   return (
     <Router>

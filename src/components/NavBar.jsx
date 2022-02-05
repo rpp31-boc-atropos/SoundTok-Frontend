@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext.jsx';
 
 const NavBar = () => {
 
-  const { user, setUser, login, setLogin } = useAuth()
+  const { user, setUser, login, setLogin } = useAuth();
 
   return (
     <div>
@@ -22,14 +22,14 @@ const NavBar = () => {
         <li>User: {user}</li>
 
         <button onClick={() => {
-          setLogin(!login)
-          user === 'visitor' ? setUser('Registered user') : setUser('visitor')
+          setLogin(!login);
+          user === 'visitor' ? setUser('Registered user') : setUser('visitor');
         }}>{login ? 'log out' : 'login'}</button>
 
       </ul>
 
     </div >
-  )
+  );
 };
 
 export default NavBar;

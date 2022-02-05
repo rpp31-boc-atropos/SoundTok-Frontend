@@ -5,7 +5,7 @@ import { useAuth } from '../contexts/AuthContext.jsx';
 
 const Upload = () => {
 
-  const { user } = useAuth()
+  const { user } = useAuth();
 
   return (
     <>
