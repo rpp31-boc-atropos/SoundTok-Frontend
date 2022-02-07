@@ -5,6 +5,7 @@
   --main-color-black: #000000;
   --main-color-blue-light: #33495C;
   --font-line-color-yellow: #FFFACE;
+  --font-line-color-yellow-transparent: #FFFACE40;
   --sound-bar-green: #128110;
   --sound-bar-purple: #8944E0;
 }
@@ -15,7 +16,6 @@ html, body, #root, .App {
   margin: 0;
   padding: 0;
   color: var(--font-line-color-yellow);
-  border-color: white;
 }
 
 .App {
@@ -27,7 +27,9 @@ html, body, #root, .App {
 
 .nav {
   list-style-type: none;
-  width: 500px;
+  width: 600px;
+  margin: inherit;
+  padding: inherit;
   display: flex;
   background-color: grey;
   justify-content: space-evenly;
