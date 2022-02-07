@@ -1,3 +1,12 @@
+:root {
+  --main-color-blue-gradient: #253A4E;
+  --main-color-blue-light: #33495C;
+  --main-color-black: #000000;
+  --font-line-color-yellow: #FFFACE;
+  --sound-bar-green: #128110;
+  --sound-bar-purple: #8944E0;
+}
+
 .App{
   display: flex;
   align-items: center;
