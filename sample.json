@@ -22,4 +22,8 @@
     "id": 3000
   }],
   "__comment":"Please shape/change JSON as you need and refer to https://github.com/rpp31-boc-atropos/SoundTok-Backend/blob/main/database/schema.sql if needed."
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 50807686269e17a2e97872f66bb11d1623cc33df
