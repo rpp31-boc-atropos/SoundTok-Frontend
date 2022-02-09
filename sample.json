@@ -1,6 +1,3 @@
-//Schema can be found here: https://github.com/rpp31-boc-atropos/SoundTok-Backend/blob/main/database/schema.sql
-//Feel free to add different data points as needed to the JSON, we can adjust the schema on the back later
-
 {
   "data": [{
     "username": "DjBubbles415",
@@ -23,5 +20,6 @@
     }],
   "drafts": [{
     "id": 3000
-  }]
+  }],
+  "__comment":"Please shape/change JSON as you need and refer to https://github.com/rpp31-boc-atropos/SoundTok-Backend/blob/main/database/schema.sql if needed."
 }
