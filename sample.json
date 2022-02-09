@@ -1,0 +1,27 @@
+//Schema can be found here: https://github.com/rpp31-boc-atropos/SoundTok-Backend/blob/main/database/schema.sql
+//Feel free to add different data points as needed to the JSON, we can adjust the schema on the back later
+
+{
+  "data": [{
+    "username": "DjBubbles415",
+    "password": "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824",
+    "id": 1
+  }],
+  "projects": [{
+    "project_description": "A really cool project",
+    "project_image": "https://picsum.photos/200",
+    "created": "2021-05-22T14:56:29.000Z",
+    "updated": "2021-05-22T14:56:28.000Z",
+    "tags": ["classical", "djbubbles", "san francisco"],
+    "Tracks": {
+      "author": "Dj Bubbles",
+      "title": "Bay Area Life",
+      "url": "http://google.com",
+      "track_description": "Muni bus bangers",
+      "track_image": "https://picsum.photos/201"
+    }
+    }],
+  "drafts": [{
+    "id": 3000
+  }]
+}
