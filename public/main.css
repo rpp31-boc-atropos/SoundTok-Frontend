@@ -19,6 +19,7 @@ html, body, #root, .App {
   margin: 0;
   padding: 0;
   color: var(--font-line-color-yellow);
+  font-family: "Open Sans", sans-serif;
 }
 
 .App {
