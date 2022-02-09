@@ -2,12 +2,13 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import { useAuth } from '../contexts/AuthContext.jsx';
-import Feed from '../components/Home/Feed.jsx';
+import Post from '../components/Home/Post.jsx';
 
-const Home = styled.div`
+const Feed = styled.div`
   max-width: 600px;
   height: 100%;
-  border: solid 1px;
+  border-left: solid 1px;
+  border-right: solid 1px;
   background: var(--main-color-black);
   border-color: var(--font-line-color-yellow-transparent)
 `;
@@ -23,9 +24,10 @@ const Component = () => {
 
 
   return (
-    <Home>
-      <Feed></Feed>
-    </Home>
+    <Feed>
+      <Post></Post>
+      <Post></Post>
+    </Feed>
   );
 };
 
