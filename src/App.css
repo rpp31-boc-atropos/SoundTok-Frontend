@@ -1,12 +1,36 @@
-.App{
+:root {
+  --main-color-blue-gradient-light: #253A4E;
+  --main-color-blue-gradient-dark: #14202B;
+  --background-gradient: linear-gradient(180deg, var(--main-color-black) 0%, var(--main-color-blue-gradient-dark) 75%, var(--main-color-blue-gradient-light) 100%);
+  --main-color-black: #000000;
+  --main-color-blue-light: #33495C;
+  --font-line-color-yellow: #FFFACE;
+  --font-line-color-yellow-transparent: #FFFACE60;
+  --sound-bar-green: #128110;
+  --sound-bar-purple: #8944E0;
+}
+
+html, body, #root, .App {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  color: var(--font-line-color-yellow);
+  font-family: 'Open Sans', sans-serif;
+}
+
+.App {
   display: flex;
   align-items: center;
   flex-direction: column;
+  background: var(--background-gradient)
 }
 
-.nav{
+.nav {
   list-style-type: none;
-  width: 500px;
+  width: 600px;
+  margin: inherit;
+  padding: inherit;
   display: flex;
   background-color: grey;
   justify-content: space-evenly;
@@ -20,4 +44,14 @@ a {
 
 a:hover {
   color: whitesmoke;
+}
+
+button {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
 }
