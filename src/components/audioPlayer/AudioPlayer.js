@@ -1,7 +1,7 @@
 import React from 'react';
 import './AudioPlayer.css';
 import './input.css';
-import Playlist from './playlist/Playilst';
+import Playlist from './playlist/Playlist';
 import Controls from './Controls';
 
 //Replace the playlist with feeds

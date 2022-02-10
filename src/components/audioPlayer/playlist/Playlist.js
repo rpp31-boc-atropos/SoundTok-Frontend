@@ -6,7 +6,7 @@ import { songsArr } from './songs';
 
 //Playlist will be replaced by the feeds
 
-const Playilst = () => {
+const Playlist = () => {
   const { SetCurrent, currentSong, songs } = usePlayer();
 
   return (
@@ -30,4 +30,4 @@ const Playilst = () => {
   );
 };
 
-export default Playilst;
+export default Playlist;
