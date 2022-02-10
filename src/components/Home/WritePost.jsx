@@ -1,7 +1,7 @@
-import * as React from "react";
-import styled from "styled-components";
+import * as React from 'react';
+import styled from 'styled-components';
 
-const WritePost = styled.div`
+const WritePostWrapper = styled.div`
   width: 100%;
   padding: 16px;
   display: flex;
@@ -36,17 +36,30 @@ const Inputs = styled.div`
   flex-direction: row;
 `;
 
+const ProjectTitle = styled.input`
+  width: 100%;
+  font-size: inherit;
+  margin-bottom: 4px;
+`;
+
 const TextInput = styled.textarea`
   width: 100%;
   min-height: 20px;
-  max-height: 60px;
+  max-height: 96px;
   background: none;
-  border-style: none;
   box-sizing: border-box;
+  border-top: 1px solid var(--font-line-color-yellow-transparent);
   border-bottom: 1px solid var(--font-line-color-yellow);
+  padding-bottom: 12px;
   font-family: inherit;
   font-size: 20px;
   color: var(--font-line-color-yellow);
+  overflow-wrap: break-word;
+`;
+
+const CharacterCount = styled.span`
+  font-size: 12px;
+  color: var(--font-line-color-yellow-transparent);
 `;
 
 const AudioInputArea = styled.div`
@@ -59,77 +72,87 @@ const AudioInputArea = styled.div`
 `;
 
 const Submit = styled.button`
+  width: 96px;
   align-self: flex-end;
+  text-align: center;
+  border: 1px solid white;
 `;
 
-// const WritePostContent = styled.div`
-//   width: 100%;
-//   display: flex;
-//   flex-direction: column;
-//   box-sizing: border-box;
-// `;
+const WritePost = () => {
+  const maxCharacters = 140;
+  const [textCharacterCount, setTextCharacterCount] = React.useState(0);
 
-// const WritePostText = styled.form`
-//   padding-bottom: 12px;
-//   border-bottom: 1px solid var(--font-line-color-yellow);
-// `;
+  const handleTitleCharacterCount = (event) => {
+    event.preventDefault();
+    const count = event.target.value.length;
+    if (count > maxCharacters) {
+      event.target.value = event.target.value.slice(0, maxCharacters);
+    }
+  };
 
-// const WritePostTextInput = styled.input`
-//   width: 100%;
-//   background: none;
-//   border-style: none;
-// `;
+  const handleTextCharacterCount = (event) => {
+    event.preventDefault();
+    const count = event.target.value.length;
+    if (count > maxCharacters) {
+      event.target.value = event.target.value.slice(0, maxCharacters);
+      setTextCharacterCount(maxCharacters);
+    } else {
+      setTextCharacterCount(count);
+    }
+  };
 
-// const WritePostAudioInput = styled.input`
-//   width: 36px;
-//   height: 36px;
-// `;
-
-// const WritePostSubmitButton = styled.button`
-// `;
-
-// const WritePostCharacterCount = styled.div`
-//   text-align: right;
-//   font-size: 12px;
-//   color: var(--font-line-color-yellow-transparent);
-// `;
-
-const Component = () => {
   return (
-    <WritePost>
+    <WritePostWrapper>
       <ProfilePicButton>
-        <ProfilePic src="https://i.pinimg.com/474x/a3/89/f5/a389f597020f361f7f6d9b79323598fc.jpg"></ProfilePic>
+        <ProfilePic src='https://i.pinimg.com/474x/a3/89/f5/a389f597020f361f7f6d9b79323598fc.jpg'></ProfilePic>
       </ProfilePicButton>
       <Form>
         <FlexColumn>
           <Inputs>
-            <label htmlFor="post-text">
-              <TextInput
-                type="text"
-                id="post-text"
-                name="postText"
-                maxlength="140"
-                rows="3"
-                cols="50"
-                placeholder="Share your sound"
-              ></TextInput>
-            </label>
+            <FlexColumn>
+              <label htmlFor='project-title'>
+                <ProjectTitle
+                  type='text'
+                  id='project-title'
+                  name='projectTitle'
+                  maxlength='60'
+                  rows='1'
+                  cols='60'
+                  placeholder='Project Title'
+                  onChange={handleTitleCharacterCount}
+                ></ProjectTitle>
+              </label>
+              <label htmlFor='post-text'>
+                <TextInput
+                  id='post-text'
+                  name='postText'
+                  maxlength='140'
+                  rows='2'
+                  cols='70'
+                  placeholder='Share your sound'
+                  onChange={handleTextCharacterCount}
+                ></TextInput>
+              </label>
+              <CharacterCount>
+                <span>{textCharacterCount}</span>/140
+              </CharacterCount>
+            </FlexColumn>
             <AudioInputArea>
-              <label htmlFor="post-audio">
+              <label htmlFor='post-audio'>
                 <input
-                  type="file"
-                  id="post-audio"
-                  name="projectAudioLink"
-                  accept="audio/*"
+                  type='file'
+                  id='post-audio'
+                  name='projectAudioLink'
+                  accept='audio/*'
                 ></input>
               </label>
             </AudioInputArea>
           </Inputs>
-          <Submit type="submit">Post</Submit>
+          <Submit type='submit'>Post</Submit>
         </FlexColumn>
       </Form>
-    </WritePost>
+    </WritePostWrapper>
   );
 };
 
-export default Component;
+export default WritePost;
