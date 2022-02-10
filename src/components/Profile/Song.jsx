@@ -30,9 +30,6 @@ const Song = () => {
 
   return (
     <SingleSong>
-      <LogoButton>
-        <Logo src='https://yahoofantasysports-res.cloudinary.com/image/upload/fantasy-logos/56486518431_55caf6.jpg'></Logo>
-      </LogoButton>
       {/* <img alt='logo' src='https://yahoofantasysports-res.cloudinary.com/image/upload/fantasy-logos/56486518431_55caf6.jpg'></img> */}
       <div>@Eiffel 65</div>
       <div>This song is great #meowmix</div>
@@ -41,6 +38,9 @@ const Song = () => {
       <button>Play Song</button>
       <button>Use Track in Studio</button>
 
+      <LogoButton>
+        <Logo src='https://yahoofantasysports-res.cloudinary.com/image/upload/fantasy-logos/56486518431_55caf6.jpg'></Logo>
+      </LogoButton>
     </SingleSong>
   );
 };

@@ -4,6 +4,16 @@ import EditProfile from '../components/Profile/EditProfile.jsx';
 import UserProfile from '../components/Profile/UserProfile.jsx';
 import UserPosts from '../components/Profile/UserPosts.jsx';
 // import { useAuth } from '../contexts/AuthContext.jsx';
+import styled from 'styled-components';
+
+const ProfilePage = styled.div`
+  max-width: 1000px;
+  height: 100%;
+  border-left: solid 1px;
+  border-right: solid 1px;
+  background: var(--main-color-black);
+  border-color: var(--font-line-color-yellow-transparent)
+`;
 
 const Profile = () => {
 
@@ -15,10 +25,10 @@ const Profile = () => {
       {/* <h1>Profile Page</h1>
       <p>User from context: {user}</p> */}
 
-      <div>
+      <ProfilePage>
         <UserProfile></UserProfile>
         <UserPosts></UserPosts>
-      </div>
+      </ProfilePage>
 
 
       <ul className='nav'>
