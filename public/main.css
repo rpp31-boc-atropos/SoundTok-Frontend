@@ -47,6 +47,303 @@ a {
 a:hover {
   color: whitesmoke;
 }
+<<<<<<< HEAD
+/*!*************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/audioPlayer/AudioPlayer.css ***!
+  \*************************************************************************************************************************************/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: montserrat;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.hide {
+  display: none;
+}
+
+.main {
+  display: flex;
+  width: 800px;
+  flex-direction: column;
+}
+
+.playlist {
+  background: #e3e3e3;
+  margin-top: 15px;
+  border-radius: 5px;
+  height: 300px;
+  width: 220px;
+}
+
+.selected {
+  background: white;
+}
+
+.songContainer {
+  cursor: pointer;
+  user-select: none;
+}
+
+.loi {
+  margin: 0;
+  list-style: none;
+  padding: 10px;
+}
+
+.loi li {
+  padding: 4px 0;
+  font-weight: 450;
+}
+
+.songlist {
+  overflow-y: scroll;
+  height: 271px;
+}
+
+.song {
+  padding: 10px;
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  height: 60px;
+  background: #128110;
+  color: #ffface;
+  align-items: center;
+  position: relative;
+}
+
+.vlme {
+  display: flex;
+  align-content: center;
+  overflow: hidden;
+  width: 25px;
+  transition: all 500ms;
+  position: absolute;
+  left: 0;
+}
+
+.vlme:hover {
+  width: 90px;
+}
+
+.volum {
+  padding: 10px;
+}
+
+#volBar {
+  padding: 0;
+  margin: 0;
+  width: 50px;
+  background: transparent;
+}
+
+#volBar::-moz-range-thumb {
+  height: 10px;
+  width: 3px;
+  background: #ffface;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.musicControls {
+  margin-left: 90px;
+}
+
+.musicControls span {
+  cursor: pointer;
+}
+
+.musicControls span:hover {
+  color: #253A4E;
+}
+
+.play {
+  background: #33495C;
+  padding: 15px 18px;
+  border-radius: 100%;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+  position: relative;
+  z-index: 3;
+}
+
+.play:active {
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+}
+
+.play:hover {
+  box-shadow: 0px 0px 2px rgba(12, 10, 10, 0.4);
+}
+
+.prev {
+  background: #33495C;
+  border-radius: 10px 0 0px 10px;
+  padding-left: 15px;
+  padding-right: 10px;
+  margin-right: -5px;
+  z-index: 1;
+}
+
+.next {
+  background: #33495C;
+  border-radius: 0px 10px 10px 0px;
+  padding-right: 15px;
+  padding-left: 10px;
+  margin-left: -5px;
+  z-index: 1;
+}
+
+.progressb {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 490px;
+  margin-left: 20px;
+}
+
+.progressb .songtitle {
+  margin-right: 20px;
+}
+
+#prgbar {
+  background: transparent;
+  width: 350px;
+}
+
+.plsoptions {
+  display: flex;
+  justify-content: space-evenly;
+  flex: 1;
+}
+
+.plsoptions span {
+  cursor: pointer;
+}
+
+.plsoptions span:hover {
+  color: #253A4E;
+}
+
+.plsoptions span.active {
+  color: #204d68;
+}
+
+.currentT, .totalT {
+  width: 35px;
+}
+/*!*******************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/audioPlayer/input.css ***!
+  \*******************************************************************************************************************************/
+input[type=range] {
+  -webkit-appearance: none;
+  margin: 10px 0;
+  width: 100%;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 0px #000000;
+  background: #253A4E;
+  border-radius: 5px;
+  border: 0px solid #000000;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 0px 0px 1px #000000;
+  border: 0px solid #000000;
+  height: 13px;
+  width: 4px;
+  border-radius: 50px;
+  background: #33495C;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -4px;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #33495C;
+}
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 0px #000000;
+  background: #33495C;
+  border-radius: 5px;
+  border: 0px solid #000000;
+}
+
+input[type=range]::-moz-range-thumb {
+  box-shadow: 0px 0px 1px #000000;
+  border: 0px solid #000000;
+  height: 13px;
+  width: 4px;
+  border-radius: 50px;
+  background: #33495C;
+  cursor: pointer;
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+
+input[type=range]::-ms-fill-lower {
+  background: #33495C;
+  border: 0px solid #000000;
+  border-radius: 10px;
+  box-shadow: 0px 0px 0px #000000;
+}
+
+input[type=range]::-ms-fill-upper {
+  background: #33495C;
+  border: 0px solid #000000;
+  border-radius: 10px;
+  box-shadow: 0px 0px 0px #000000;
+}
+
+input[type=range]::-ms-thumb {
+  box-shadow: 0px 0px 1px #000000;
+  border: 0px solid #000000;
+  height: 13px;
+  width: 4px;
+  border-radius: 50px;
+  background: #2a6586;
+  cursor: pointer;
+}
+
+input[type=range]:focus::-ms-fill-lower {
+  background: #33495C;
+}
+
+input[type=range]:focus::-ms-fill-upper {
+  background: #33495C;
+}
+
+.plsoptions {
+  justify-self: flex-end;
+=======
 
 button {
   background: none;
@@ -56,4 +353,5 @@ button {
   font: inherit;
   cursor: pointer;
   outline: inherit;
+>>>>>>> 5a88bc3171dd556f6054139254de643c88d088e9
 }

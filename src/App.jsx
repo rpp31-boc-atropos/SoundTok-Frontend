@@ -7,6 +7,7 @@ import Profile from './pages/Profile.jsx';
 import NotFound from './pages/NotFound.jsx';
 import Studio from './pages/Studio.jsx';
 import { useAuth } from './contexts/AuthContext.jsx';
+import AudioPlayer from './components/audioPlayer/AudioPlayer';
 
 
 
@@ -32,6 +33,7 @@ function App() {
 
           <Route path='/*' element={<NotFound />} />
         </Routes>
+        <AudioPlayer />
       </div>
     </Router>
   );
