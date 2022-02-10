@@ -2,6 +2,6 @@
 
 ### `npm install`
 
-### `npm start`
+### `npm run build`
 
-### `npm run test` then select watch usage
+### `npm run test`
