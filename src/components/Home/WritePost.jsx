@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
+/* STYLED COMPONENTS */
 const WritePostWrapper = styled.div`
   width: 100%;
   padding: 16px;
@@ -34,27 +35,56 @@ const FlexColumn = styled.div`
 const Inputs = styled.div`
   display: inherit;
   flex-direction: row;
+  justify-content: space-between;
+`;
+
+const PostHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const ProjectTitle = styled.input`
-  width: 100%;
-  font-size: inherit;
+  width: 300px;
+  line-height: 24px;
   margin-bottom: 4px;
+  cursor: text;
+`;
+
+const AudioIcons = styled.div`
+  width: 84px;
+  display: inherit;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const PostAudioIcon = styled.div`
+  color: var(--font-line-color-yellow-transparent);
+  &:hover {
+    color: var(--font-line-color-yellow);
+  }
+`;
+
+const UploadFile = styled.input`
+  display: none;
 `;
 
 const TextInput = styled.textarea`
-  width: 100%;
+  width: 400px;
   min-height: 20px;
   max-height: 96px;
   background: none;
   box-sizing: border-box;
   border-top: 1px solid var(--font-line-color-yellow-transparent);
   border-bottom: 1px solid var(--font-line-color-yellow);
-  padding-bottom: 12px;
+  padding: 4px 0px 12px 0px;
   font-family: inherit;
   font-size: 20px;
   color: var(--font-line-color-yellow);
   overflow-wrap: break-word;
+  cursor: text;
 `;
 
 const CharacterCount = styled.span`
@@ -62,7 +92,7 @@ const CharacterCount = styled.span`
   color: var(--font-line-color-yellow-transparent);
 `;
 
-const AudioInputArea = styled.div`
+const UploadedAudio = styled.div`
   width: 96px;
   height: 96px;
   border-radius: 12px;
@@ -85,8 +115,8 @@ const WritePost = () => {
   const handleTitleCharacterCount = (event) => {
     event.preventDefault();
     const count = event.target.value.length;
-    if (count > maxCharacters) {
-      event.target.value = event.target.value.slice(0, maxCharacters);
+    if (count > 40) {
+      event.target.value = event.target.value.slice(0, 40);
     }
   };
 
@@ -95,10 +125,9 @@ const WritePost = () => {
     const count = event.target.value.length;
     if (count > maxCharacters) {
       event.target.value = event.target.value.slice(0, maxCharacters);
-      setTextCharacterCount(maxCharacters);
-    } else {
-      setTextCharacterCount(count);
     }
+
+    setTextCharacterCount(count);
   };
 
   return (
@@ -110,18 +139,58 @@ const WritePost = () => {
         <FlexColumn>
           <Inputs>
             <FlexColumn>
-              <label htmlFor='project-title'>
-                <ProjectTitle
-                  type='text'
-                  id='project-title'
-                  name='projectTitle'
-                  maxlength='60'
-                  rows='1'
-                  cols='60'
-                  placeholder='Project Title'
-                  onChange={handleTitleCharacterCount}
-                ></ProjectTitle>
-              </label>
+              <PostHeader>
+                <label htmlFor='project-title'>
+                  <ProjectTitle
+                    type='text'
+                    id='project-title'
+                    name='projectTitle'
+                    maxlength='60'
+                    rows='1'
+                    cols='60'
+                    placeholder='Project Title'
+                    onChange={handleTitleCharacterCount}
+                  ></ProjectTitle>
+                </label>
+                <AudioIcons>
+                  <PostAudioIcon>
+                    <label htmlFor='post-audio'>
+                      <i className='ri-folder-upload-line'></i>
+                    </label>
+                    <UploadFile
+                      type='file'
+                      id='post-audio'
+                      name='projectAudioLink'
+                      accept='audio/*'
+                    ></UploadFile>
+                  </PostAudioIcon>
+                  <PostAudioIcon>
+                    <label htmlFor='post-audio'>
+                      <button>
+                        <i className='ri-draft-line'></i>
+                      </button>
+                    </label>
+                  </PostAudioIcon>
+                  <PostAudioIcon>
+                    <label htmlFor='post-audio'>
+                      <button>
+                        <i className='ri-mic-line'></i>
+                      </button>
+                    </label>
+                  </PostAudioIcon>
+                  <PostAudioIcon>
+                    <label htmlFor='post-image'>
+                      <i className='ri-image-2-line'></i>
+                    </label>
+                    <UploadFile
+                      type='file'
+                      id='post-image'
+                      name='projectImageLink'
+                      accept='image/*'
+                    ></UploadFile>
+                  </PostAudioIcon>
+                </AudioIcons>
+              </PostHeader>
               <label htmlFor='post-text'>
                 <TextInput
                   id='post-text'
@@ -137,16 +206,7 @@ const WritePost = () => {
                 <span>{textCharacterCount}</span>/140
               </CharacterCount>
             </FlexColumn>
-            <AudioInputArea>
-              <label htmlFor='post-audio'>
-                <input
-                  type='file'
-                  id='post-audio'
-                  name='projectAudioLink'
-                  accept='audio/*'
-                ></input>
-              </label>
-            </AudioInputArea>
+            <UploadedAudio></UploadedAudio>
           </Inputs>
           <Submit type='submit'>Post</Submit>
         </FlexColumn>
