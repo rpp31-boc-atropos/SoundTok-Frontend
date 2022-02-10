@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import { useAuth } from '../contexts/AuthContext.jsx';
+import WritePost from '../components/Home/WritePost.jsx';
 import Post from '../components/Home/Post.jsx';
 
 const Feed = styled.div`
@@ -25,6 +26,7 @@ const Component = () => {
 
   return (
     <Feed>
+      <WritePost></WritePost>
       <Post></Post>
       <Post></Post>
     </Feed>
