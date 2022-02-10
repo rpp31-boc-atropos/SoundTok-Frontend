@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.jsx';
 
 const NavBar = () => {
@@ -8,7 +8,6 @@ const NavBar = () => {
 
   return (
     <div>
-      <h1>SoundTok</h1>
       <ul className='nav'>
         <li>
           <Link to='/'>Home</Link>
