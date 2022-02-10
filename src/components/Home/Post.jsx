@@ -37,7 +37,6 @@ const PostHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-  margin-bottom: 12px;
 `;
 
 const PostUsernameAndTime = styled.button`
@@ -53,13 +52,12 @@ const PostRemixButton = styled.button`
   }
 `;
 
-const PostText = styled.div`
+const PostText = styled.p`
 `;
 
 const PostAudio = styled.div`
   width: 100%;
   height: 96px;
-  margin-top: 12px;
   border-radius: 12px;
   box-sizing: border-box;
   background: var(--main-color-blue-light);
