@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-const Post = styled.div`
+const PostWrapper = styled.div`
   width: 100%;
   padding: 16px;
   display: flex;
@@ -11,8 +11,7 @@ const Post = styled.div`
   border-bottom: 1px solid var(--font-line-color-yellow-transparent);
 `;
 
-const ProfilePicButton = styled.button`
-`;
+const ProfilePicButton = styled.button``;
 
 const ProfilePic = styled.img`
   width: 48px;
@@ -52,8 +51,7 @@ const PostRemixButton = styled.button`
   }
 `;
 
-const PostText = styled.p`
-`;
+const PostText = styled.p``;
 
 const PostAudio = styled.div`
   width: 100%;
@@ -69,26 +67,30 @@ const PostAudioInfo = styled.div`
   color: var(--font-line-color-yellow-transparent);
 `;
 
-const Component = () => {
+const Post = () => {
   return (
-    <Post>
+    <PostWrapper>
       <ProfilePicButton>
-        <ProfilePic src="https://i.pinimg.com/474x/a3/89/f5/a389f597020f361f7f6d9b79323598fc.jpg"></ProfilePic>
+        <ProfilePic src='https://i.pinimg.com/474x/a3/89/f5/a389f597020f361f7f6d9b79323598fc.jpg'></ProfilePic>
       </ProfilePicButton>
       <PostContent>
         <PostHeader>
           <PostUsernameAndTime>@atrophos · 3h</PostUsernameAndTime>
           <PostRemixButton>
-            <i className="ri-sound-module-line"></i>
+            <i className='ri-sound-module-line'></i>
           </PostRemixButton>
         </PostHeader>
-        <PostText>I have been waiting to release this for so long. pls no hate thx. #meow
+        <PostText>
+          I have been waiting to release this for so long. pls no hate thx.
+          #meow
         </PostText>
         <PostAudio></PostAudio>
-        <PostAudioInfo>group meow · <time>1:38</time></PostAudioInfo>
+        <PostAudioInfo>
+          group meow · <time>1:38</time>
+        </PostAudioInfo>
       </PostContent>
-    </Post>
+    </PostWrapper>
   );
 };
 
-export default Component;
+export default Post;
