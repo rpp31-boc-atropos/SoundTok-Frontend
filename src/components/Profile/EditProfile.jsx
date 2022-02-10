@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuth } from '../contexts/AuthContext.jsx';
+import { useAuth } from '../../contexts/AuthContext.jsx';
 
 const EditProfile = () => {
 
@@ -17,3 +17,4 @@ const EditProfile = () => {
   );
 };
 export default EditProfile;
+
