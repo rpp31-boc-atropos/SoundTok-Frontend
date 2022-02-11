@@ -86,6 +86,7 @@ const TextInput = styled.textarea`
   font-size: 20px;
   color: var(--font-line-color-yellow);
   overflow-wrap: break-word;
+  overflow: hidden;
   cursor: text;
 `;
 
@@ -125,11 +126,11 @@ const WritePost = () => {
   const handleTextCharacterCount = (event) => {
     event.preventDefault();
     const count = event.target.value.length;
-    if (count > maxCharacters) {
-      event.target.value = event.target.value.slice(0, maxCharacters);
-    }
-
     setTextCharacterCount(count);
+
+    if (count >= maxCharacters) {
+      event.target.value = event.target.value.slice(0, maxCharacters - 1);
+    }
   };
 
   return (
