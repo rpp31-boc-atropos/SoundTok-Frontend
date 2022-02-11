@@ -1,9 +1,10 @@
 import React from 'react';
 // import { useAuth } from '../../contexts/AuthContext.jsx';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const DraftWrapper = styled.div`
-  width: 30%;
+  width: 100%;
   padding: 16px;
   display: flex;
   flex-direction: row;
@@ -39,9 +40,11 @@ const Draft = () => {
     <DraftWrapper>
       <DraftHeader>
         <DraftText>2:34</DraftText>
-        <PostRemixButton>
-          <i className='ri-sound-module-line'></i>
-        </PostRemixButton>
+        <Link to='/studio'>
+          <PostRemixButton>
+            <i className='ri-sound-module-line'></i>
+          </PostRemixButton>
+        </Link>
       </DraftHeader>
       <DraftText>This draft is great #meowinprogress</DraftText>
       <button>Play Draft</button>

@@ -1,6 +1,7 @@
 import React from 'react';
 // import { useAuth } from '../../contexts/AuthContext.jsx';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const SingleSong = styled.div`
   width: 100%;
@@ -54,9 +55,11 @@ const Song = () => {
         </LogoButton>
         <SongText>@Eiffel 65</SongText>
         <div>2:45</div>
-        <PostRemixButton>
-          <i className='ri-sound-module-line'></i>
-        </PostRemixButton>
+        <Link to='/studio'>
+          <PostRemixButton>
+            <i className='ri-sound-module-line'></i>
+          </PostRemixButton>
+        </Link>
         <button>Select song for deletion</button>
       </SongHeader>
       <button>Play Song</button>
