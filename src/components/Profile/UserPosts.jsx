@@ -5,7 +5,6 @@ import Draft from './Draft.jsx';
 import dummySongs from './dummySongs.jsx';
 import dummyDrafts from './dummyDrafts.jsx';
 
-
 const UserPosts = ({isCurrentUser}) => {
 
   // const { user } = useAuth();
@@ -22,18 +21,15 @@ const UserPosts = ({isCurrentUser}) => {
     }
   };
 
-
-
   return (
     <>
       <h2>Post Section</h2>
-      {/* <div onClick={updateTab} >Posts</div> */}
       <button onClick={() => setTab('Posts')} >Posts</button>
       {isCurrentUser ?
         <button onClick={() => setTab('Drafts')}>Drafts</button>
         : null}
       {/* <p>User from context: {user}</p> */}
-      {(tab === 'Posts') ? songs.map((song, i) => {
+      {(tab === 'Posts' || !isCurrentUser) ? songs.map((song, i) => {
         return (
           <Song
             key={i}
@@ -49,7 +45,7 @@ const UserPosts = ({isCurrentUser}) => {
           ></Song>
         );
       }) : null}
-      {(tab === 'Drafts') ? drafts.map((draft, i) => {
+      {(tab === 'Drafts' && isCurrentUser) ? drafts.map((draft, i) => {
         return (
           <Draft
             key={i}
@@ -65,11 +61,6 @@ const UserPosts = ({isCurrentUser}) => {
           ></Draft>
         );
       }) : null}
-
-
-      {/* {(tab === 'Posts') ? <Song></Song> : null}
-      {(tab === 'Posts') ? <Song></Song> : null} */}
-      {/* {(tab === 'Drafts') ? <Draft></Draft> : null} */}
     </>
   );
 };

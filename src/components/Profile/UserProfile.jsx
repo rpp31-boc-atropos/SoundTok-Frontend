@@ -9,7 +9,6 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser}) => {
 
   //add state for bio
   const [bio, setBio] = useState('I am a mystical corgi and Celtic Rock is my jam');
-  //add modal for editing bio
   const [isOpen, setModal] = useState(false);
 
   const closeModal = () => {
@@ -29,7 +28,7 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser}) => {
         <button onClick={() => setModal(true)}>Edit profile</button>
         : null}
       <button onClick={() => setIsCurrentUser(!isCurrentUser)}>Change isCurrentUser</button>
-      {isOpen ?
+      {(isOpen && isCurrentUser) ?
         <BioModal
           isOpen={isOpen}
           currentBio={bio}
