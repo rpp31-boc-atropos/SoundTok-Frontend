@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import NavBar from './components/NavBar.jsx';
 import Home from './pages/Home.jsx';
 import Profile from './pages/Profile.jsx';
@@ -26,7 +26,7 @@ function App() {
 
 
   return (
-    <Router>
+    <HashRouter>
       <Auth0ProviderWithHistory>
         <div className='App'>
           <NavBar />
@@ -41,7 +41,7 @@ function App() {
           <AudioPlayer />
         </div>
       </Auth0ProviderWithHistory>
-    </Router>
+    </HashRouter>
   );
 }
 
