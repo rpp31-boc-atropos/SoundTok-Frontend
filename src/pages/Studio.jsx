@@ -6,11 +6,13 @@ import Upload from '../components/Upload.jsx';
 
 const Studio = () => {
 
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
 
   //get query from url
   //example, /studio?id=250, get the id number from the query
   const query = new URLSearchParams(useLocation().search);
+  console.log(user);
+  console.log(isAuthenticated);
 
   //Nested routes
   return (

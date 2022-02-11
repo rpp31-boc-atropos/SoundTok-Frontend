@@ -9,6 +9,7 @@ import Studio from './pages/Studio.jsx';
 // import { useAuth } from './contexts/AuthContext.jsx';
 import AudioPlayer from './components/audioPlayer/AudioPlayer';
 import Auth0ProviderWithHistory from './components/Authentication/Auth0.jsx';
+import PrivateRoute from './components/Authentication/private-route.jsx';
 import { useAuth0 } from "@auth0/auth0-react";
 
 
@@ -35,7 +36,6 @@ function App() {
             {/* <Route path='/profile/*' element={isAuthenticated ? <Profile /> : <Navigate to='/' />} /> */}
             <Route path='/profile/*' element={<Profile/>} />
             <Route path='/studio/*' element={<Studio />} />
-
             <Route path='/*' element={<NotFound />} />
           </Routes>
           <AudioPlayer />
