@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react';
 import { HashRouter, BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import NavBar from './components/NavBar.jsx';
+import NavBar from './components/Nav/NavBar.jsx';
 import Home from './pages/Home.jsx';
 import Profile from './pages/Profile.jsx';
 import NotFound from './pages/NotFound.jsx';
@@ -9,7 +9,6 @@ import Studio from './pages/Studio.jsx';
 // import { useAuth } from './contexts/AuthContext.jsx';
 import AudioPlayer from './components/audioPlayer/AudioPlayer';
 import Auth0ProviderWithHistory from './components/Authentication/Auth0.jsx';
-import PrivateRoute from './components/Authentication/private-route.jsx';
 import { useAuth0 } from "@auth0/auth0-react";
 
 
@@ -23,7 +22,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 // eslint-disable-next-line
 function App() {
 
-  const { isAuthenticated} = useAuth0();
+  const { isAuthenticated } = useAuth0();
 
 
   return (
