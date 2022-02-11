@@ -10,6 +10,9 @@
 
 # production
 /build
+/public/index.js
+/public/index.js.gz
+
 
 # misc
 .DS_Store
@@ -20,4 +23,4 @@
 
 npm-debug.log*
 .env
-package-lock.json
+/src/config/.auth0.js
