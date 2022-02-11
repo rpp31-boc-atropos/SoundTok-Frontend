@@ -13,10 +13,14 @@ const UserPosts = ({isCurrentUser}) => {
   const [songs, setSongs] = useState(dummySongs);
   const [drafts, setDrafts] = useState(dummyDrafts);
 
+  const removeSong = (songId) => {
+    // needs call to remove from db. stretch goal - select and remove multiple songs
+    setSongs(songs.filter(song => song.songId !== songId));
+  };
+
   return (
     <>
       <h2>Post Section</h2>
-
       {/* <div onClick={updateTab} >Posts</div> */}
       <button onClick={() => setTab('Posts')} >Posts</button>
       {isCurrentUser ?
@@ -27,6 +31,8 @@ const UserPosts = ({isCurrentUser}) => {
         return (
           <Song
             key={i}
+            index={i}
+            songId={song.songId}
             username={song.username}
             profilePicture={song.profilePicture}
             projectTitle={song.projectTitle}
@@ -34,6 +40,7 @@ const UserPosts = ({isCurrentUser}) => {
             projectAudioLink={song.projectAudioLink}
             projectLength={song.projectLength}
             tags={song.tags}
+            removeSong={removeSong}
           ></Song>
         );
       }) : null}

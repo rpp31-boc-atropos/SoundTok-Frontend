@@ -47,6 +47,12 @@ const SongText = styled.p``;
 
 const Song = (props) => {
   // const { user } = useAuth();
+
+  const deleteSong = () => {
+    // add confirmation popup?
+    props.removeSong(props.songId);
+  };
+
   return (
     <SingleSong>
       <SongHeader>
@@ -60,7 +66,7 @@ const Song = (props) => {
             <i className='ri-sound-module-line'></i>
           </PostRemixButton>
         </Link>
-        <button>XX</button>
+        <button onClick={() => deleteSong()}>XX</button>
       </SongHeader>
       <button>Play Song</button>
       <div>{props.postDescription}</div>

@@ -1,6 +1,7 @@
 let dummySongs;
 export default dummySongs = [
   {
+    songId: 23,
     profilePicture:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Yawning_horse%2C_Scotland.jpg/640px-Yawning_horse%2C_Scotland.jpg',
     timePosted: '2022-02-10 10:23:54+02',
@@ -16,6 +17,7 @@ export default dummySongs = [
     projectLength: '2:39',
   },
   {
+    songId: 24,
     profilePicture: 'https://home.adelphi.edu/~ne21709/bunny2.jpg',
     timePosted: '2022-01-19 10:23:54+02',
     username: 'Elsa',
@@ -30,6 +32,7 @@ export default dummySongs = [
     projectLength: '2:40',
   },
   {
+    songId: 25,
     profilePicture:
       'https://i.pinimg.com/474x/a3/89/f5/a389f597020f361f7f6d9b79323598fc.jpg',
     timePosted: '2021-10-19 10:23:54+02',
