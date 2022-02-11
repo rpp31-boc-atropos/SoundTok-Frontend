@@ -34,8 +34,11 @@ const PostRemixButton = styled.button`
 const DraftText = styled.p``;
 
 const Draft = (props) => {
-
   // const { user } = useAuth();
+  const deleteDraft = () => {
+    // Stretch goal - add confirmation popup
+    props.removeDraft(props.songId, 'Drafts');
+  };
 
   return (
     <DraftWrapper>
@@ -46,6 +49,7 @@ const Draft = (props) => {
             <i className='ri-sound-module-line'></i>
           </PostRemixButton>
         </Link>
+        <button onClick={() => deleteDraft()}>XX</button>
       </DraftHeader>
       <DraftText>{props.projectTitle}</DraftText>
       <DraftText>{props.postDescription}</DraftText>

@@ -50,7 +50,7 @@ const Song = (props) => {
 
   const deleteSong = () => {
     // add confirmation popup?
-    props.removeSong(props.songId);
+    props.removeSong(props.songId, 'Posts');
   };
 
   return (

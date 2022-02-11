@@ -13,10 +13,16 @@ const UserPosts = ({isCurrentUser}) => {
   const [songs, setSongs] = useState(dummySongs);
   const [drafts, setDrafts] = useState(dummyDrafts);
 
-  const removeSong = (songId) => {
+  const removeSong = (songId, source) => {
     // needs call to remove from db. stretch goal - select and remove multiple songs
-    setSongs(songs.filter(song => song.songId !== songId));
+    if (source === 'Posts') {
+      setSongs(songs.filter(song => song.songId !== songId));
+    } else {
+      setDrafts(drafts.filter(draft => draft.songId !== songId));
+    }
   };
+
+
 
   return (
     <>
@@ -31,7 +37,6 @@ const UserPosts = ({isCurrentUser}) => {
         return (
           <Song
             key={i}
-            index={i}
             songId={song.songId}
             username={song.username}
             profilePicture={song.profilePicture}
@@ -48,6 +53,7 @@ const UserPosts = ({isCurrentUser}) => {
         return (
           <Draft
             key={i}
+            songId={draft.songId}
             username={draft.username}
             profilePicture={draft.profilePicture}
             projectTitle={draft.projectTitle}
@@ -55,6 +61,7 @@ const UserPosts = ({isCurrentUser}) => {
             projectAudioLink={draft.projectAudioLink}
             projectLength={draft.projectLength}
             tags={draft.tags}
+            removeDraft={removeSong}
           ></Draft>
         );
       }) : null}
