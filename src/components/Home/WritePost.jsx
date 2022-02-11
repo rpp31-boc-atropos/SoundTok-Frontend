@@ -2,6 +2,8 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import helpers from './helperFunctions.jsx';
+
 /* STYLED COMPONENTS */
 const WritePostWrapper = styled.div`
   width: 100%;
@@ -13,10 +15,6 @@ const WritePostWrapper = styled.div`
   border-bottom: 1px solid var(--font-line-color-yellow-transparent);
 `;
 
-const ProfilePicButton = styled.a`
-  overflow: hidden;
-`;
-
 const ProfilePic = styled.img`
   width: 48px;
   height: 48px;
@@ -24,6 +22,7 @@ const ProfilePic = styled.img`
   border-radius: 100%;
   box-sizing: border-box;
   border: 2px solid var(--font-line-color-yellow);
+  overflow: hidden;
 `;
 
 const Form = styled.form`
@@ -123,6 +122,7 @@ const WritePost = () => {
   const [textCharacterCount, setTextCharacterCount] = React.useState(0);
 
   const projectTitle = React.useRef(null);
+  const projectText = React.useRef(null);
 
   const handleTitleCharacterCount = (event) => {
     event.preventDefault();
@@ -145,19 +145,17 @@ const WritePost = () => {
 
   const handlePost = (event) => {
     event.preventDefault();
-    // const projectTitle = event.target.getElementsByTagName('input')[0].value;
-    const projectText = event.target.getElementsByTagName('textarea')[0].value;
-
-    // parse out hash tags
-
-    debugger;
+    const title = projectTitle.current.value;
+    const text = projectText.current.value;
+    const tags = helpers.parseTags(text);
   };
 
   return (
     <WritePostWrapper>
-      <ProfilePicButton>
+      {/* TODO: replace atrophos with username */}
+      <Link to={'/profile/' + 'atrophos'}>
         <ProfilePic src='https://i.pinimg.com/474x/a3/89/f5/a389f597020f361f7f6d9b79323598fc.jpg'></ProfilePic>
-      </ProfilePicButton>
+      </Link>
       <Form onSubmit={handlePost}>
         <FlexColumn>
           <Inputs>
@@ -217,6 +215,7 @@ const WritePost = () => {
               </PostHeader>
               <label htmlFor='post-text'>
                 <TextInput
+                  ref={projectText}
                   id='post-text'
                   name='postText'
                   maxlength='140'

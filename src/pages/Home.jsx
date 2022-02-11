@@ -43,8 +43,6 @@ const Component = () => {
           ></Post>
         );
       })}
-      {/* <Post></Post>
-      <Post></Post> */}
     </Feed>
   );
 };

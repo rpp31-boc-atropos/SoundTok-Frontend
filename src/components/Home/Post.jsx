@@ -2,6 +2,8 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import helpers from './helperFunctions.jsx';
+
 /* STYLED COMPONENTS */
 const PostWrapper = styled.div`
   width: 100%;
@@ -13,10 +15,6 @@ const PostWrapper = styled.div`
   border-bottom: 1px solid var(--font-line-color-yellow-transparent);
 `;
 
-const ProfilePicButton = styled.a`
-  overflow: hidden;
-`;
-
 const ProfilePic = styled.img`
   width: 48px;
   height: 48px;
@@ -24,6 +22,7 @@ const ProfilePic = styled.img`
   border-radius: 100%;
   box-sizing: border-box;
   border: 2px solid var(--font-line-color-yellow);
+  overflow: hidden;
 `;
 
 const PostContent = styled.div`
@@ -71,34 +70,18 @@ const PostAudioInfo = styled.div`
   color: var(--font-line-color-yellow-transparent);
 `;
 
-const secondsToLength = (seconds) => {
-  let length;
-  if (seconds < 60) {
-    length = seconds + 's';
-  } else {
-    let min = Math.floor(seconds / 60);
-    let sec = Math.floor(seconds % 60);
-
-    if (sec < 10) {
-      sec = '0' + sec;
-    }
-
-    length = min + ':' + sec;
-  }
-
-  return length;
-};
-
 const Post = (props) => {
   return (
     <PostWrapper>
-      <ProfilePicButton>
+      <Link to={'/profile/' + props.username}>
         <ProfilePic src={props.profilePicture}></ProfilePic>
-      </ProfilePicButton>
+      </Link>
       <PostContent>
         <PostHeader>
           <PostUsernameAndTime>
-            @{props.username} · <time>3h</time>
+            <Link to={'/profile/' + props.username}>@{props.username}</Link>
+            {' · '}
+            <time>3h</time>
           </PostUsernameAndTime>
           <Link to='/studio'>
             <PostRemixButton>
@@ -109,7 +92,7 @@ const Post = (props) => {
         <PostText>{props.postText}</PostText>
         <PostAudio></PostAudio>
         <PostAudioInfo>
-          {props.projectTitle} · {secondsToLength(props.projectLength)}
+          {props.projectTitle} · {helpers.secondsToLength(props.projectLength)}
         </PostAudioInfo>
       </PostContent>
     </PostWrapper>
