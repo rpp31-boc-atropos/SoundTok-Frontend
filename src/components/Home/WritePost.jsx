@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 /* STYLED COMPONENTS */
 const WritePostWrapper = styled.div`
@@ -176,9 +177,9 @@ const WritePost = () => {
                   </PostAudioIcon>
                   <PostAudioIcon>
                     <label htmlFor='post-audio'>
-                      <button>
+                      <Link to='/studio'>
                         <i className='ri-mic-line'></i>
-                      </button>
+                      </Link>
                     </label>
                   </PostAudioIcon>
                   <PostAudioIcon>

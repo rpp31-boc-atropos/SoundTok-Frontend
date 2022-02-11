@@ -69,26 +69,44 @@ const PostAudioInfo = styled.div`
   margin-left: 12px;
   color: var(--font-line-color-yellow-transparent);
 `;
-const Post = () => {
+
+const secondsToLength = (seconds) => {
+  let length;
+  if (seconds < 60) {
+    length = seconds + 's';
+  } else {
+    let min = Math.floor(seconds / 60);
+    let sec = Math.floor(seconds % 60);
+
+    if (sec < 10) {
+      sec = '0' + sec;
+    }
+
+    length = min + ':' + sec;
+  }
+
+  return length;
+};
+
+const Post = (props) => {
   return (
     <PostWrapper>
       <ProfilePicButton>
-        <ProfilePic src='https://i.pinimg.com/474x/a3/89/f5/a389f597020f361f7f6d9b79323598fc.jpg'></ProfilePic>
+        <ProfilePic src={props.profilePicture}></ProfilePic>
       </ProfilePicButton>
       <PostContent>
         <PostHeader>
-          <PostUsernameAndTime>@atrophos · 3h</PostUsernameAndTime>
+          <PostUsernameAndTime>
+            @{props.username} · <time>3h</time>
+          </PostUsernameAndTime>
           <PostRemixButton>
             <i className='ri-sound-module-line'></i>
           </PostRemixButton>
         </PostHeader>
-        <PostText>
-          I have been waiting to release this for so long. pls no hate thx.
-          #meow
-        </PostText>
+        <PostText>{props.postText}</PostText>
         <PostAudio></PostAudio>
         <PostAudioInfo>
-          group meow · <time>1:38</time>
+          {props.projectTitle} · {secondsToLength(props.projectLength)}
         </PostAudioInfo>
       </PostContent>
     </PostWrapper>
