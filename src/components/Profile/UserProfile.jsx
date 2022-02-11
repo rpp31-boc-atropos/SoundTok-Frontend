@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import BioModal from './BioModal.jsx';
 // import { useAuth } from '../../contexts/AuthContext.jsx';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
 const UserProfile = ({isCurrentUser, setIsCurrentUser}) => {
 

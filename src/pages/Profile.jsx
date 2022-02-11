@@ -6,6 +6,7 @@ import UserPosts from '../components/Profile/UserPosts.jsx';
 // import { useAuth } from '../contexts/AuthContext.jsx';
 import styled from 'styled-components';
 
+
 const ProfilePage = styled.div`
   max-width: 2000px;
   height: 100%;

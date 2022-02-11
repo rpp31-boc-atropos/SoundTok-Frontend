@@ -45,26 +45,26 @@ const PostRemixButton = styled.button`
 
 const SongText = styled.p``;
 
-const Song = () => {
+const Song = (props) => {
   // const { user } = useAuth();
   return (
     <SingleSong>
       <SongHeader>
         <LogoButton>
-          <Logo src='https://yahoofantasysports-res.cloudinary.com/image/upload/fantasy-logos/56486518431_55caf6.jpg'></Logo>
+          <Logo src={props.profilePicture}></Logo>
         </LogoButton>
-        <SongText>@Eiffel 65</SongText>
-        <div>2:45</div>
+        <SongText>{props.username}</SongText>
+        <div>{props.projectLength}</div>
         <Link to='/studio'>
           <PostRemixButton>
             <i className='ri-sound-module-line'></i>
           </PostRemixButton>
         </Link>
-        <button>Select song for deletion</button>
+        <button>XX</button>
       </SongHeader>
       <button>Play Song</button>
-      <div>This song is great #meowmix</div>
-      <SongText>Blue (Da Ba Dee)</SongText>
+      <div>{props.postDescription}</div>
+      <SongText>{props.projectTitle}</SongText>
     </SingleSong>
   );
 };
