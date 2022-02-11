@@ -1,5 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
+import helpers from './helperFunctions.js';
 
 /* STYLED COMPONENTS */
 const WritePostWrapper = styled.div`
@@ -12,8 +15,6 @@ const WritePostWrapper = styled.div`
   border-bottom: 1px solid var(--font-line-color-yellow-transparent);
 `;
 
-const ProfilePicButton = styled.button``;
-
 const ProfilePic = styled.img`
   width: 48px;
   height: 48px;
@@ -21,6 +22,7 @@ const ProfilePic = styled.img`
   border-radius: 100%;
   box-sizing: border-box;
   border: 2px solid var(--font-line-color-yellow);
+  overflow: hidden;
 `;
 
 const Form = styled.form`
@@ -84,6 +86,7 @@ const TextInput = styled.textarea`
   font-size: 20px;
   color: var(--font-line-color-yellow);
   overflow-wrap: break-word;
+  overflow: hidden;
   cursor: text;
 `;
 
@@ -99,55 +102,74 @@ const UploadedAudio = styled.div`
   box-sizing: border-box;
   background: var(--main-color-blue-light);
   margin-left: 12px;
+  margin-bottom: 6px;
 `;
 
 const Submit = styled.button`
   width: 96px;
+  height: 24px;
   align-self: flex-end;
   text-align: center;
-  border: 1px solid white;
+  background: var(--sound-bar-green);
+  border-radius: 8px;
+
+  &:hover {
+    background: var(--sound-bar-green-light);
+  }
 `;
 
 const WritePost = () => {
-  const maxCharacters = 140;
   const [textCharacterCount, setTextCharacterCount] = React.useState(0);
+
+  const projectTitle = React.useRef(null);
+  const projectText = React.useRef(null);
 
   const handleTitleCharacterCount = (event) => {
     event.preventDefault();
     const count = event.target.value.length;
-    if (count > 40) {
-      event.target.value = event.target.value.slice(0, 40);
+    if (count > 45) {
+      event.target.value = event.target.value.slice(0, 45);
     }
   };
 
   const handleTextCharacterCount = (event) => {
+    const maxCharacters = 140;
     event.preventDefault();
     const count = event.target.value.length;
-    if (count > maxCharacters) {
-      event.target.value = event.target.value.slice(0, maxCharacters);
-    }
-
     setTextCharacterCount(count);
+
+    if (count >= maxCharacters) {
+      event.target.value = event.target.value.slice(0, maxCharacters - 1);
+    }
+  };
+
+  const handlePost = (event) => {
+    event.preventDefault();
+    const title = projectTitle.current.value;
+    const text = projectText.current.value;
+    const tags = helpers.parseTags(text);
   };
 
   return (
     <WritePostWrapper>
-      <ProfilePicButton>
+      {/* TODO: replace atrophos with username */}
+      <Link to={'/profile/' + 'atrophos'}>
         <ProfilePic src='https://i.pinimg.com/474x/a3/89/f5/a389f597020f361f7f6d9b79323598fc.jpg'></ProfilePic>
-      </ProfilePicButton>
-      <Form>
+      </Link>
+      <Form onSubmit={handlePost}>
         <FlexColumn>
           <Inputs>
             <FlexColumn>
               <PostHeader>
                 <label htmlFor='project-title'>
                   <ProjectTitle
+                    ref={projectTitle}
                     type='text'
                     id='project-title'
                     name='projectTitle'
-                    maxlength='60'
+                    maxlength='45'
                     rows='1'
-                    cols='60'
+                    cols='45'
                     placeholder='Project Title'
                     onChange={handleTitleCharacterCount}
                   ></ProjectTitle>
@@ -155,7 +177,7 @@ const WritePost = () => {
                 <AudioIcons>
                   <PostAudioIcon>
                     <label htmlFor='post-audio'>
-                      <i className='ri-folder-upload-line'></i>
+                      <i className='ri-upload-2-line'></i>
                     </label>
                     <UploadFile
                       type='file'
@@ -167,15 +189,15 @@ const WritePost = () => {
                   <PostAudioIcon>
                     <label htmlFor='post-audio'>
                       <button>
-                        <i className='ri-draft-line'></i>
+                        <i className='ri-folder-upload-line'></i>
                       </button>
                     </label>
                   </PostAudioIcon>
                   <PostAudioIcon>
                     <label htmlFor='post-audio'>
-                      <button>
+                      <Link to='/studio'>
                         <i className='ri-mic-line'></i>
-                      </button>
+                      </Link>
                     </label>
                   </PostAudioIcon>
                   <PostAudioIcon>
@@ -193,6 +215,7 @@ const WritePost = () => {
               </PostHeader>
               <label htmlFor='post-text'>
                 <TextInput
+                  ref={projectText}
                   id='post-text'
                   name='postText'
                   maxlength='140'
@@ -206,9 +229,11 @@ const WritePost = () => {
                 <span>{textCharacterCount}</span>/140
               </CharacterCount>
             </FlexColumn>
-            <UploadedAudio></UploadedAudio>
+            <FlexColumn>
+              <UploadedAudio></UploadedAudio>
+              <Submit type='submit'>Post</Submit>
+            </FlexColumn>
           </Inputs>
-          <Submit type='submit'>Post</Submit>
         </FlexColumn>
       </Form>
     </WritePostWrapper>

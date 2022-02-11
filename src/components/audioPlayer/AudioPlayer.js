@@ -8,10 +8,8 @@ import Controls from './Controls';
 
 const AudioPlayer = () => {
   return (
-    <div className="main">
-      <div className="right">
-        <Playlist />
-      </div>
+    <div className='main'>
+      <div className='right'>{/* <Playlist /> */}</div>
       <Controls />
     </div>
   );
