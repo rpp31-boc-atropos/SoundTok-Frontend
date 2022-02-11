@@ -29,7 +29,7 @@
     "start": "nodemon server/server.js",
     "build": "webpack -w",
     "test1": "jest --coverage",
-    "test": "exit 0"
+    "test": "jest"
   },
   "eslintConfig": {
     "extends": [

@@ -12,6 +12,7 @@
   --font-line-color-yellow: #ffface;
   --font-line-color-yellow-transparent: #ffface60;
   --sound-bar-green: #128110;
+  --sound-bar-green-light: #08b808;
   --sound-bar-purple: #8944e0;
 }
 
@@ -24,7 +25,7 @@ body,
   margin: 0;
   padding: 0;
   color: var(--font-line-color-yellow);
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .App {

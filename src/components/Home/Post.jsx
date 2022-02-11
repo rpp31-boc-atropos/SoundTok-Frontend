@@ -1,5 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
+import helpers from './helperFunctions.js';
 
 /* STYLED COMPONENTS */
 const PostWrapper = styled.div`
@@ -12,8 +15,6 @@ const PostWrapper = styled.div`
   border-bottom: 1px solid var(--font-line-color-yellow-transparent);
 `;
 
-const ProfilePicButton = styled.button``;
-
 const ProfilePic = styled.img`
   width: 48px;
   height: 48px;
@@ -21,6 +22,7 @@ const ProfilePic = styled.img`
   border-radius: 100%;
   box-sizing: border-box;
   border: 2px solid var(--font-line-color-yellow);
+  overflow: hidden;
 `;
 
 const PostContent = styled.div`
@@ -52,14 +54,18 @@ const PostRemixButton = styled.button`
   }
 `;
 
-const PostText = styled.p``;
+const PostText = styled.p`
+  width: 480px;
+`;
 
 const PostAudio = styled.div`
-  width: 100%;
+  width: 480px;
   height: 96px;
   border-radius: 12px;
   box-sizing: border-box;
   background: var(--main-color-blue-light);
+  background-image: url('./wave.png');
+  margin-bottom: 4px;
 `;
 
 const PostAudioInfo = styled.div`
@@ -67,26 +73,30 @@ const PostAudioInfo = styled.div`
   margin-left: 12px;
   color: var(--font-line-color-yellow-transparent);
 `;
-const Post = () => {
+
+const Post = (props) => {
   return (
     <PostWrapper>
-      <ProfilePicButton>
-        <ProfilePic src='https://i.pinimg.com/474x/a3/89/f5/a389f597020f361f7f6d9b79323598fc.jpg'></ProfilePic>
-      </ProfilePicButton>
+      <Link to={'/profile/' + props.username}>
+        <ProfilePic src={props.profilePicture}></ProfilePic>
+      </Link>
       <PostContent>
         <PostHeader>
-          <PostUsernameAndTime>@atrophos · 3h</PostUsernameAndTime>
-          <PostRemixButton>
-            <i className='ri-sound-module-line'></i>
-          </PostRemixButton>
+          <PostUsernameAndTime>
+            <Link to={'/profile/' + props.username}>@{props.username}</Link>
+            {' · '}
+            <time>3h</time>
+          </PostUsernameAndTime>
+          <Link to='/studio'>
+            <PostRemixButton>
+              <i className='ri-sound-module-line'></i>
+            </PostRemixButton>
+          </Link>
         </PostHeader>
-        <PostText>
-          I have been waiting to release this for so long. pls no hate thx.
-          #meow
-        </PostText>
+        <PostText>{props.postText}</PostText>
         <PostAudio></PostAudio>
         <PostAudioInfo>
-          group meow · <time>1:38</time>
+          {props.projectTitle} · {helpers.secondsToLength(props.projectLength)}
         </PostAudioInfo>
       </PostContent>
     </PostWrapper>

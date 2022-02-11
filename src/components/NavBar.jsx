@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const NavBar = () => {
-
-  const {loginWithRedirect, logout, isLoading, user} = useAuth0();
-  console.log(user)
+  const { loginWithRedirect, logout, isLoading, user } = useAuth0();
+  // console.log(user)
   return (
     <div>
       <ul className='nav'>
@@ -20,22 +19,14 @@ const NavBar = () => {
         </li>
 
         {!isLoading && !user && (
-          <button
-            onClick={()=> loginWithRedirect()}>
-          Log In
-          </button>
+          <button onClick={() => loginWithRedirect()}>Log In</button>
         )}
 
         {!isLoading && user && (
-          <button
-            onClick={()=> logout()}>
-          Log Out
-          </button>
+          <button onClick={() => logout()}>Log Out</button>
         )}
-
       </ul>
-
-    </div >
+    </div>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import EditProfile from '../components/Profile/EditProfile.jsx';
 import UserProfile from '../components/Profile/UserProfile.jsx';
@@ -12,11 +12,10 @@ const ProfilePage = styled.div`
   border-left: solid 1px;
   border-right: solid 1px;
   background: var(--main-color-black);
-  border-color: var(--font-line-color-yellow-transparent)
+  border-color: var(--font-line-color-yellow-transparent);
 `;
 
 const Profile = () => {
-
   // const { user } = useAuth();
   const [isCurrentUser, setIsCurrentUser] = useState(true);
 
@@ -27,10 +26,15 @@ const Profile = () => {
       <p>User from context: {user}</p> */}
 
       <ProfilePage>
-        <UserProfile isCurrentUser={isCurrentUser} setIsCurrentUser= {setIsCurrentUser}></UserProfile>
-        <UserPosts isCurrentUser={isCurrentUser} setIsCurrentUser= {setIsCurrentUser}></UserPosts>
+        <UserProfile
+          isCurrentUser={isCurrentUser}
+          setIsCurrentUser={setIsCurrentUser}
+        ></UserProfile>
+        <UserPosts
+          isCurrentUser={isCurrentUser}
+          setIsCurrentUser={setIsCurrentUser}
+        ></UserPosts>
       </ProfilePage>
-
 
       <ul className='nav'>
         <li>
@@ -41,12 +45,10 @@ const Profile = () => {
         </li>
       </ul>
 
-
       <Routes>
         <Route path='userprofile' element={<UserProfile />} />
         <Route path='editprofile' element={<EditProfile />} />
       </Routes>
-
     </>
   );
 };
