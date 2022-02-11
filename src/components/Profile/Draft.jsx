@@ -32,21 +32,23 @@ const PostRemixButton = styled.button`
 `;
 
 const DraftText = styled.p``;
-const Draft = () => {
+
+const Draft = (props) => {
 
   // const { user } = useAuth();
 
   return (
     <DraftWrapper>
       <DraftHeader>
-        <DraftText>2:34</DraftText>
+        <DraftText>{props.projectLength}</DraftText>
         <Link to='/studio'>
           <PostRemixButton>
             <i className='ri-sound-module-line'></i>
           </PostRemixButton>
         </Link>
       </DraftHeader>
-      <DraftText>This draft is great #meowinprogress</DraftText>
+      <DraftText>{props.projectTitle}</DraftText>
+      <DraftText>{props.postDescription}</DraftText>
       <button>Play Draft</button>
     </DraftWrapper>
   );

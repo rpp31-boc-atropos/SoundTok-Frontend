@@ -13,7 +13,7 @@ export default dummySongs = [
     projectAudioLink:
       'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Satin/Kai_Engel_-_03_-_Contention.mp3',
     projectTitle: 'Hakuna Matata',
-    projectLength: 239,
+    projectLength: '2:39',
   },
   {
     profilePicture: 'https://home.adelphi.edu/~ne21709/bunny2.jpg',
@@ -27,13 +27,13 @@ export default dummySongs = [
     projectAudioLink:
       'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Satin/Kai_Engel_-_01_-_Augmentations.mp3',
     projectTitle: 'Let it go',
-    projectLength: 283,
+    projectLength: '2:40',
   },
   {
     profilePicture:
       'https://i.pinimg.com/474x/a3/89/f5/a389f597020f361f7f6d9b79323598fc.jpg',
     timePosted: '2021-10-19 10:23:54+02',
-    username: 'Woody',
+    username: 'Lin-Manuel',
     postLikes: 123,
     postSaved: false,
     postText:
@@ -41,7 +41,7 @@ export default dummySongs = [
     tags: ['meow'],
     projectAudioLink:
       'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Satin/Kai_Engel_-_08_-_Downfall.mp3',
-    projectTitle: 'You have a friend in me',
-    projectLength: 98,
+    projectTitle: 'Satisfied',
+    projectLength: '2:12',
   },
 ];

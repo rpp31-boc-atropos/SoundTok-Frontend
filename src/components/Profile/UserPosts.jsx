@@ -23,7 +23,7 @@ const UserPosts = ({isCurrentUser}) => {
         <button onClick={() => setTab('Drafts')}>Drafts</button>
         : null}
       {/* <p>User from context: {user}</p> */}
-      {songs.map((song, i) => {
+      {(tab === 'Posts') ? songs.map((song, i) => {
         return (
           <Song
             key={i}
@@ -36,11 +36,26 @@ const UserPosts = ({isCurrentUser}) => {
             tags={song.tags}
           ></Song>
         );
-      })}
+      }) : null}
+      {(tab === 'Drafts') ? drafts.map((draft, i) => {
+        return (
+          <Draft
+            key={i}
+            username={draft.username}
+            profilePicture={draft.profilePicture}
+            projectTitle={draft.projectTitle}
+            postDescription={draft.postText}
+            projectAudioLink={draft.projectAudioLink}
+            projectLength={draft.projectLength}
+            tags={draft.tags}
+          ></Draft>
+        );
+      }) : null}
+
 
       {/* {(tab === 'Posts') ? <Song></Song> : null}
       {(tab === 'Posts') ? <Song></Song> : null} */}
-      {(tab === 'Drafts') ? <Draft></Draft> : null}
+      {/* {(tab === 'Drafts') ? <Draft></Draft> : null} */}
     </>
   );
 };
