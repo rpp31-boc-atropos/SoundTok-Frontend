@@ -12,7 +12,9 @@ const WritePostWrapper = styled.div`
   border-bottom: 1px solid var(--font-line-color-yellow-transparent);
 `;
 
-const ProfilePicButton = styled.button``;
+const ProfilePicButton = styled.a`
+  overflow: hidden;
+`;
 
 const ProfilePic = styled.img`
   width: 48px;
