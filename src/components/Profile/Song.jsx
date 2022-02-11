@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 
 const SingleSong = styled.div`
   width: 30%;
+  height: 220px;
   padding: 16px;
+  margin: 6px;
   display: flex;
   flex-direction: column;
   align-items: center;

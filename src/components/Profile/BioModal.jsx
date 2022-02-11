@@ -12,6 +12,11 @@ const Overlay = styled.div`
   height: 100vh;
 `;
 
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const Button = styled.button`
   min-width: 100px;
   padding: 16px 32px;
@@ -21,6 +26,11 @@ const Button = styled.button`
   color: #fff;
   font-size: 24px
   cursor: pointer;
+`;
+
+const FormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const BioModal = ({ isOpen, currentBio, handleUpdateBio, closeModal }) => {
@@ -43,12 +53,14 @@ const BioModal = ({ isOpen, currentBio, handleUpdateBio, closeModal }) => {
         <React.Fragment>
           <Overlay>
             <form>
-              <div>
+              <ButtonWrapper>
                 <Button onClick={() => closeModal()}>X</Button>
-              </div>
+              </ButtonWrapper>
               <div>
                 <label>Please update your biography below</label>
-                <input type="text" name="summary" placeholder={currentBio} onChange={handleChange}></input>
+              </div>
+              <div>
+                <input type="text" name="summary" size="60" placeholder={currentBio} onChange={handleChange}></input>
               </div>
               <input type="submit" value="Update" onClick={handleSubmit}></input>
             </form>

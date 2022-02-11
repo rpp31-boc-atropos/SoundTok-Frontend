@@ -3,14 +3,16 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const DraftWrapper = styled.div`
-  width: 100%;
+const SingleDraft = styled.div`
+  width: 30%;
+  height: 220px;
   padding: 16px;
+  margin: 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  border-bottom: 1px solid var(--font-line-color-yellow-transparent);
+  border: 1px solid var(--font-line-color-yellow-transparent);
 `;
 
 const DraftHeader = styled.div`
@@ -41,7 +43,7 @@ const Draft = (props) => {
   };
 
   return (
-    <DraftWrapper>
+    <SingleDraft>
       <DraftHeader>
         <DraftText>{props.projectLength}</DraftText>
         <Link to='/studio'>
@@ -54,7 +56,7 @@ const Draft = (props) => {
       <DraftText>{props.projectTitle}</DraftText>
       <DraftText>{props.postDescription}</DraftText>
       <button>Play Draft</button>
-    </DraftWrapper>
+    </SingleDraft>
   );
 };
 
