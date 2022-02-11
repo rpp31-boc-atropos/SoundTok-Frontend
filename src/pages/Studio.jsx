@@ -1,8 +1,11 @@
 import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import Upload from '../components/Upload.jsx';
+import FeedVisualizer from '../components/Studio/FeedVisualizer.jsx';
+import { AudioPlayer } from '../components/Studio/Styles/styles.js';
+import song from '../../song.mp3';
 
 const Studio = () => {
 
@@ -29,6 +32,8 @@ const Studio = () => {
 
       </ul>
 
+      <FeedVisualizer />
+      <AudioPlayer src={song} controls />
 
       <Routes>
         <Route path='upload' element={<Upload />} />
