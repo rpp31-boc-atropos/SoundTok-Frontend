@@ -97,28 +97,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 
 /***/ }),
 
-/***/ "./src/components/Studio/FeedVisualizer.jsx":
-/*!**************************************************!*\
-  !*** ./src/components/Studio/FeedVisualizer.jsx ***!
-  \**************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var _song_mp3__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../song.mp3 */ \"./song.mp3\");\n/* harmony import */ var _Styles_styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Styles/styles */ \"./src/components/Studio/Styles/styles.js\");\n\n\n\n\nvar FeedVisualizer = function FeedVisualizer() {\n  var canvasRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();\n  var width = 550;\n  var height = 200;\n  var audioSource;\n  var analyser;\n  var ctx;\n  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {\n    var canvas = canvasRef.current;\n    ctx = canvas.getContext('2d');\n  });\n\n  var Bars = function Bars() {\n    var audio = document.querySelector('audio');\n    var audioCtx = new AudioContext(); // console.log('audio: ', audio)\n\n    audio.play();\n    audioSource = audioCtx.createMediaElementSource(audio);\n    analyser = audioCtx.createAnalyser();\n    audioSource.connect(analyser);\n    analyser.connect(audioCtx.destination);\n    analyser.fftSize = 256;\n    var bufferLength = analyser.frequencyBinCount;\n    var dataArray = new Uint8Array(bufferLength);\n    var barWidth = width / bufferLength;\n    var barHeight;\n    var x;\n\n    var Animate = function Animate() {\n      x = 0;\n      ctx.clearRect(0, 0, width, height);\n      analyser.getByteFrequencyData(dataArray);\n\n      for (var i = 0; i < bufferLength; i++) {\n        barHeight = dataArray[i];\n        ctx.fillStyle = 'white';\n        ctx.fillRect(x, height - barHeight + 25, barWidth, barHeight);\n        x += barWidth;\n      }\n\n      requestAnimationFrame(Animate);\n    };\n\n    Animate();\n  };\n\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Styles_styles__WEBPACK_IMPORTED_MODULE_2__.OuterBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"h4\", null, \"Feed Visualizer\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Styles_styles__WEBPACK_IMPORTED_MODULE_2__.Canvas, {\n    ref: canvasRef,\n    onClick: Bars\n  }));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (FeedVisualizer);\n\n//# sourceURL=webpack://SoundTok-Frontend/./src/components/Studio/FeedVisualizer.jsx?");
-
-/***/ }),
-
-/***/ "./src/components/Studio/Styles/styles.js":
-/*!************************************************!*\
-  !*** ./src/components/Studio/Styles/styles.js ***!
-  \************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"OuterBox\": function() { return /* binding */ OuterBox; },\n/* harmony export */   \"AudioPlayer\": function() { return /* binding */ AudioPlayer; },\n/* harmony export */   \"Canvas\": function() { return /* binding */ Canvas; }\n/* harmony export */ });\n/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ \"./node_modules/styled-components/dist/styled-components.browser.esm.js\");\n\nvar OuterBox = styled_components__WEBPACK_IMPORTED_MODULE_0__[\"default\"].div.withConfig({\n  displayName: \"styles__OuterBox\",\n  componentId: \"sc-1hyv09e-0\"\n})([\"display:flex;flex-direction:column;align-items:center;\"]);\nvar AudioPlayer = styled_components__WEBPACK_IMPORTED_MODULE_0__[\"default\"].audio.withConfig({\n  displayName: \"styles__AudioPlayer\",\n  componentId: \"sc-1hyv09e-1\"\n})([\"margin-top:50px;\"]);\nvar Canvas = styled_components__WEBPACK_IMPORTED_MODULE_0__[\"default\"].canvas.withConfig({\n  displayName: \"styles__Canvas\",\n  componentId: \"sc-1hyv09e-2\"\n})([\"border-radius:20px;width:500px;height:100px;\"]);\n\n//# sourceURL=webpack://SoundTok-Frontend/./src/components/Studio/Styles/styles.js?");
-
-/***/ }),
-
 /***/ "./src/components/Upload.jsx":
 /*!***********************************!*\
   !*** ./src/components/Upload.jsx ***!
@@ -203,18 +181,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ \"./node_modules/react-router-dom/index.js\");\n/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ \"./node_modules/react-router/index.js\");\n/* harmony import */ var _contexts_AuthContext_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../contexts/AuthContext.jsx */ \"./src/contexts/AuthContext.jsx\");\n/* harmony import */ var _components_Upload_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Upload.jsx */ \"./src/components/Upload.jsx\");\n/* harmony import */ var _components_Studio_FeedVisualizer_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Studio/FeedVisualizer.jsx */ \"./src/components/Studio/FeedVisualizer.jsx\");\n/* harmony import */ var _components_Studio_Styles_styles_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Studio/Styles/styles.js */ \"./src/components/Studio/Styles/styles.js\");\n/* harmony import */ var _song_mp3__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../song.mp3 */ \"./song.mp3\");\n\n\n\n\n\n\n\n\n\nvar Studio = function Studio() {\n  var _useAuth = (0,_contexts_AuthContext_jsx__WEBPACK_IMPORTED_MODULE_1__.useAuth)(),\n      user = _useAuth.user; //get query from url\n  //example, /studio?id=250, get the id number from the query\n\n\n  var query = new URLSearchParams((0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useLocation)().search); //Nested routes\n\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"h1\", null, \"Studio Page\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"p\", null, \"Id from url query: \", query.get('id')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"p\", null, \"User from context: \", user), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"ul\", {\n    className: \"nav\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"li\", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {\n    to: \"upload\"\n  }, \"Upload File\"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Studio_FeedVisualizer_jsx__WEBPACK_IMPORTED_MODULE_3__[\"default\"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Studio_Styles_styles_js__WEBPACK_IMPORTED_MODULE_4__.AudioPlayer, {\n    src: _song_mp3__WEBPACK_IMPORTED_MODULE_5__[\"default\"],\n    controls: true\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Routes, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {\n    path: \"upload\",\n    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Upload_jsx__WEBPACK_IMPORTED_MODULE_2__[\"default\"], null)\n  })));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Studio);\n\n//# sourceURL=webpack://SoundTok-Frontend/./src/pages/Studio.jsx?");
-
-/***/ }),
-
-/***/ "./song.mp3":
-/*!******************!*\
-  !*** ./song.mp3 ***!
-  \******************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = (__webpack_require__.p + \"b36ac074d8ae67664c33608eac9ba8a9.mp3\");\n\n//# sourceURL=webpack://SoundTok-Frontend/./song.mp3?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ \"./node_modules/react-router-dom/index.js\");\n/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ \"./node_modules/react-router/index.js\");\n/* harmony import */ var _contexts_AuthContext_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../contexts/AuthContext.jsx */ \"./src/contexts/AuthContext.jsx\");\n/* harmony import */ var _components_Upload_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Upload.jsx */ \"./src/components/Upload.jsx\");\n\n\n\n\n\n\nvar Studio = function Studio() {\n  var _useAuth = (0,_contexts_AuthContext_jsx__WEBPACK_IMPORTED_MODULE_1__.useAuth)(),\n      user = _useAuth.user; //get query from url\n  //example, /studio?id=250, get the id number from the query\n\n\n  var query = new URLSearchParams((0,react_router_dom__WEBPACK_IMPORTED_MODULE_3__.useLocation)().search); //Nested routes\n\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"h1\", null, \"Studio Page\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"p\", null, \"Id from url query: \", query.get('id')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"p\", null, \"User from context: \", user), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"ul\", {\n    className: \"nav\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"li\", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {\n    to: \"upload\"\n  }, \"Upload File\"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Routes, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Route, {\n    path: \"upload\",\n    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Upload_jsx__WEBPACK_IMPORTED_MODULE_2__[\"default\"], null)\n  })));\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Studio);\n\n//# sourceURL=webpack://SoundTok-Frontend/./src/pages/Studio.jsx?");
 
 /***/ }),
 
@@ -565,18 +532,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 		};
 /******/ 	}();
 /******/ 	
-/******/ 	/* webpack/runtime/global */
-/******/ 	!function() {
-/******/ 		__webpack_require__.g = (function() {
-/******/ 			if (typeof globalThis === 'object') return globalThis;
-/******/ 			try {
-/******/ 				return this || new Function('return this')();
-/******/ 			} catch (e) {
-/******/ 				if (typeof window === 'object') return window;
-/******/ 			}
-/******/ 		})();
-/******/ 	}();
-/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	!function() {
 /******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
@@ -591,26 +546,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/publicPath */
-/******/ 	!function() {
-/******/ 		var scriptUrl;
-/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
-/******/ 		var document = __webpack_require__.g.document;
-/******/ 		if (!scriptUrl && document) {
-/******/ 			if (document.currentScript)
-/******/ 				scriptUrl = document.currentScript.src
-/******/ 			if (!scriptUrl) {
-/******/ 				var scripts = document.getElementsByTagName("script");
-/******/ 				if(scripts.length) scriptUrl = scripts[scripts.length - 1].src
-/******/ 			}
-/******/ 		}
-/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
-/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
-/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
-/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
-/******/ 		__webpack_require__.p = scriptUrl;
 /******/ 	}();
 /******/ 	
 /************************************************************************/
