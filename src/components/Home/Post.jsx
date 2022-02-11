@@ -54,14 +54,18 @@ const PostRemixButton = styled.button`
   }
 `;
 
-const PostText = styled.p``;
+const PostText = styled.p`
+  width: 480px;
+`;
 
 const PostAudio = styled.div`
-  width: 100%;
+  width: 480px;
   height: 96px;
   border-radius: 12px;
   box-sizing: border-box;
   background: var(--main-color-blue-light);
+  background-image: url('./wave.png');
+  margin-bottom: 4px;
 `;
 
 const PostAudioInfo = styled.div`
