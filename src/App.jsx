@@ -32,7 +32,8 @@ function App() {
           <NavBar />
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/profile/*' element={isAuthenticated ? <Profile /> : <Navigate to='/' />} />
+            {/* <Route path='/profile/*' element={isAuthenticated ? <Profile /> : <Navigate to='/' />} /> */}
+            <Route path='/profile/*' element={<Profile/>} />
             <Route path='/studio/*' element={<Studio />} />
 
             <Route path='/*' element={<NotFound />} />
