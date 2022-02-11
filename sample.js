@@ -23,7 +23,7 @@
   }],
   "__comment":"Please shape/change JSON as you need and refer to https://github.com/rpp31-boc-atropos/SoundTok-Backend/blob/main/database/schema.sql if needed."
 }
-
+//Comments do not work in .json so this is changed to .js for now
 // post data
 {
   "profilePicture": "https://i.pinimg.com/474x/a3/89/f5/a389f597020f361f7f6d9b79323598fc.jpg",
