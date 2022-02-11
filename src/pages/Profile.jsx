@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import EditProfile from '../components/Profile/EditProfile.jsx';
 import UserProfile from '../components/Profile/UserProfile.jsx';
@@ -7,7 +7,7 @@ import UserPosts from '../components/Profile/UserPosts.jsx';
 import styled from 'styled-components';
 
 const ProfilePage = styled.div`
-  max-width: 1000px;
+  max-width: 2000px;
   height: 100%;
   border-left: solid 1px;
   border-right: solid 1px;
@@ -18,6 +18,7 @@ const ProfilePage = styled.div`
 const Profile = () => {
 
   // const { user } = useAuth();
+  const [isCurrentUser, setIsCurrentUser] = useState(true);
 
   //Nested routes
   return (
@@ -26,8 +27,8 @@ const Profile = () => {
       <p>User from context: {user}</p> */}
 
       <ProfilePage>
-        <UserProfile></UserProfile>
-        <UserPosts></UserPosts>
+        <UserProfile isCurrentUser={isCurrentUser} setIsCurrentUser= {setIsCurrentUser}></UserProfile>
+        <UserPosts isCurrentUser={isCurrentUser} setIsCurrentUser= {setIsCurrentUser}></UserPosts>
       </ProfilePage>
 
 

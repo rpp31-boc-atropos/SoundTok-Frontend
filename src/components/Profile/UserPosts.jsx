@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import Song from './Song.jsx';
 import Draft from './Draft.jsx';
 
-const UserPosts = () => {
+const UserPosts = ({isCurrentUser}) => {
 
   // const { user } = useAuth();
   const [tab, setTab] = useState('Posts');
@@ -13,8 +13,10 @@ const UserPosts = () => {
       <h2>Post Section</h2>
 
       {/* <div onClick={updateTab} >Posts</div> */}
-      <div onClick={() => setTab('Posts')} >Posts</div>
-      <div onClick={() => setTab('Drafts')}>Drafts</div>
+      <button onClick={() => setTab('Posts')} >Posts</button>
+      {isCurrentUser ?
+        <button onClick={() => setTab('Drafts')}>Drafts</button>
+        : null}
       {/* <p>User from context: {user}</p> */}
       {(tab === 'Posts') ? <Song></Song> : null}
       {(tab === 'Posts') ? <Song></Song> : null}

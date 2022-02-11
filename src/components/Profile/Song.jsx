@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SingleSong = styled.div`
-  width: 100%;
+  width: 30%;
   padding: 16px;
   display: flex;
   flex-direction: row;
@@ -24,23 +24,44 @@ const Logo = styled.img`
   border: 2px solid var(--font-line-color-yellow);
 `;
 
+const SongHeader = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+`;
+
+const PostRemixButton = styled.button`
+  color: var(--font-line-color-yellow-transparent);
+  font-size: 16px;
+
+  &:hover {
+    color: var(--font-line-color-yellow);
+  }
+`;
+
+const SongText = styled.p``;
+
 const Song = () => {
-
   // const { user } = useAuth();
-
   return (
     <SingleSong>
-      {/* <img alt='logo' src='https://yahoofantasysports-res.cloudinary.com/image/upload/fantasy-logos/56486518431_55caf6.jpg'></img> */}
-      <div>@Eiffel 65</div>
-      <div>This song is great #meowmix</div>
-      <h2>Blue (Da Ba Dee)</h2>
-      {/* <div>2:45</div> */}
+      <SongHeader>
+        <LogoButton>
+          <Logo src='https://yahoofantasysports-res.cloudinary.com/image/upload/fantasy-logos/56486518431_55caf6.jpg'></Logo>
+        </LogoButton>
+        <SongText>@Eiffel 65</SongText>
+        <div>2:45</div>
+        <PostRemixButton>
+          <i className='ri-sound-module-line'></i>
+        </PostRemixButton>
+        <button>Select song for deletion</button>
+      </SongHeader>
       <button>Play Song</button>
-      <button>Use Track in Studio</button>
-
-      <LogoButton>
-        <Logo src='https://yahoofantasysports-res.cloudinary.com/image/upload/fantasy-logos/56486518431_55caf6.jpg'></Logo>
-      </LogoButton>
+      <div>This song is great #meowmix</div>
+      <SongText>Blue (Da Ba Dee)</SongText>
     </SingleSong>
   );
 };
