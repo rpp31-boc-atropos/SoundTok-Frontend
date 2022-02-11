@@ -7,7 +7,7 @@ const DraftWrapper = styled.div`
   width: 100%;
   padding: 16px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   box-sizing: border-box;
   border-bottom: 1px solid var(--font-line-color-yellow-transparent);

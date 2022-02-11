@@ -4,13 +4,13 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const SingleSong = styled.div`
-  width: 100%;
+  width: 30%;
   padding: 16px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  border-bottom: 1px solid var(--font-line-color-yellow-transparent);
+  border: 1px solid var(--font-line-color-yellow-transparent);
 `;
 
 const LogoButton = styled.button`
