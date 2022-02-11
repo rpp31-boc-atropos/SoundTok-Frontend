@@ -17,4 +17,19 @@ export default helpers = {
 
     return length;
   },
+  parseTags: (text) => {
+    const regex = /#[^\s]*/g;
+    const tags = [];
+
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+      const match = regex.exec(text);
+      if (match) {
+        const [tag] = match;
+        tags.push([tag, match.index]);
+      } else {
+        return tags;
+      }
+    }
+  },
 };
