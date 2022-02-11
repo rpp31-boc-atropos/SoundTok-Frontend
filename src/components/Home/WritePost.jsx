@@ -155,7 +155,7 @@ const WritePost = () => {
                 <AudioIcons>
                   <PostAudioIcon>
                     <label htmlFor='post-audio'>
-                      <i className='ri-folder-upload-line'></i>
+                      <i className='ri-upload-2-line'></i>
                     </label>
                     <UploadFile
                       type='file'
@@ -167,7 +167,7 @@ const WritePost = () => {
                   <PostAudioIcon>
                     <label htmlFor='post-audio'>
                       <button>
-                        <i className='ri-draft-line'></i>
+                        <i className='ri-folder-upload-line'></i>
                       </button>
                     </label>
                   </PostAudioIcon>
