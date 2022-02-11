@@ -103,13 +103,20 @@ const UploadedAudio = styled.div`
   box-sizing: border-box;
   background: var(--main-color-blue-light);
   margin-left: 12px;
+  margin-bottom: 6px;
 `;
 
 const Submit = styled.button`
   width: 96px;
+  height: 24px;
   align-self: flex-end;
   text-align: center;
-  border: 1px solid white;
+  background: var(--sound-bar-green);
+  border-radius: 8px;
+
+  &:hover {
+    background: var(--sound-bar-green-light);
+  }
 `;
 
 const WritePost = () => {
@@ -119,8 +126,8 @@ const WritePost = () => {
   const handleTitleCharacterCount = (event) => {
     event.preventDefault();
     const count = event.target.value.length;
-    if (count > 40) {
-      event.target.value = event.target.value.slice(0, 40);
+    if (count > 45) {
+      event.target.value = event.target.value.slice(0, 45);
     }
   };
 
@@ -133,6 +140,8 @@ const WritePost = () => {
       event.target.value = event.target.value.slice(0, maxCharacters - 1);
     }
   };
+
+  const handlePost = (event) => {};
 
   return (
     <WritePostWrapper>
@@ -149,9 +158,9 @@ const WritePost = () => {
                     type='text'
                     id='project-title'
                     name='projectTitle'
-                    maxlength='60'
+                    maxlength='45'
                     rows='1'
-                    cols='60'
+                    cols='45'
                     placeholder='Project Title'
                     onChange={handleTitleCharacterCount}
                   ></ProjectTitle>
@@ -210,9 +219,11 @@ const WritePost = () => {
                 <span>{textCharacterCount}</span>/140
               </CharacterCount>
             </FlexColumn>
-            <UploadedAudio></UploadedAudio>
+            <FlexColumn>
+              <UploadedAudio></UploadedAudio>
+              <Submit type='submit'>Post</Submit>
+            </FlexColumn>
           </Inputs>
-          <Submit type='submit'>Post</Submit>
         </FlexColumn>
       </Form>
     </WritePostWrapper>
