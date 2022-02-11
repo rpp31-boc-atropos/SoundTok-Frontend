@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import helpers from './helperFunctions.jsx';
+import helpers from './helperFunctions.js';
 
 /* STYLED COMPONENTS */
 const PostWrapper = styled.div`
