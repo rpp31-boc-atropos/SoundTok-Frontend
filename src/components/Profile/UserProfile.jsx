@@ -12,7 +12,6 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser}) => {
   //add modal for editing bio
   const [isOpen, setModal] = useState(false);
 
-
   const closeModal = () => {
     setModal(false);
   };
