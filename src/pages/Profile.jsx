@@ -2,11 +2,11 @@ import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import EditProfile from '../components/EditProfile.jsx';
 import ViewProfile from '../components/ViewProfile.jsx';
-import { useAuth } from '../contexts/AuthContext.jsx';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Profile = () => {
 
-  const { user } = useAuth();
+  const { user } = useAuth0();
 
   //Nested routes
   return (
