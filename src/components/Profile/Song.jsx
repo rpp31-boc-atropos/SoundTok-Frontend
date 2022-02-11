@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SingleSong = styled.div`
-  width: 30%;
+  width: 100%;
   padding: 16px;
   display: flex;
   flex-direction: row;
