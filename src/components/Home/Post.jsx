@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 /* STYLED COMPONENTS */
 const PostWrapper = styled.div`
@@ -99,9 +100,11 @@ const Post = (props) => {
           <PostUsernameAndTime>
             @{props.username} · <time>3h</time>
           </PostUsernameAndTime>
-          <PostRemixButton>
-            <i className='ri-sound-module-line'></i>
-          </PostRemixButton>
+          <Link to='/studio'>
+            <PostRemixButton>
+              <i className='ri-sound-module-line'></i>
+            </PostRemixButton>
+          </Link>
         </PostHeader>
         <PostText>{props.postText}</PostText>
         <PostAudio></PostAudio>

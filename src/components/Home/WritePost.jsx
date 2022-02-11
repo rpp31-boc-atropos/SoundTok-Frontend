@@ -120,8 +120,9 @@ const Submit = styled.button`
 `;
 
 const WritePost = () => {
-  const maxCharacters = 140;
   const [textCharacterCount, setTextCharacterCount] = React.useState(0);
+
+  const projectTitle = React.useRef(null);
 
   const handleTitleCharacterCount = (event) => {
     event.preventDefault();
@@ -132,6 +133,7 @@ const WritePost = () => {
   };
 
   const handleTextCharacterCount = (event) => {
+    const maxCharacters = 140;
     event.preventDefault();
     const count = event.target.value.length;
     setTextCharacterCount(count);
@@ -141,20 +143,29 @@ const WritePost = () => {
     }
   };
 
-  const handlePost = (event) => {};
+  const handlePost = (event) => {
+    event.preventDefault();
+    // const projectTitle = event.target.getElementsByTagName('input')[0].value;
+    const projectText = event.target.getElementsByTagName('textarea')[0].value;
+
+    // parse out hash tags
+
+    debugger;
+  };
 
   return (
     <WritePostWrapper>
       <ProfilePicButton>
         <ProfilePic src='https://i.pinimg.com/474x/a3/89/f5/a389f597020f361f7f6d9b79323598fc.jpg'></ProfilePic>
       </ProfilePicButton>
-      <Form>
+      <Form onSubmit={handlePost}>
         <FlexColumn>
           <Inputs>
             <FlexColumn>
               <PostHeader>
                 <label htmlFor='project-title'>
                   <ProjectTitle
+                    ref={projectTitle}
                     type='text'
                     id='project-title'
                     name='projectTitle'
