@@ -10,7 +10,7 @@ const Auth0ProviderWithHistory = ({ children }) => {
 
   const domain = REACT_APP_AUTH0.DOMAIN;
   const clientId = REACT_APP_AUTH0.CLIENT_ID;
-
+  const audience = REACT_APP_AUTH0.AUDIENCE;
 
   const navigate = useNavigate();
 
@@ -24,6 +24,7 @@ const Auth0ProviderWithHistory = ({ children }) => {
       clientId={clientId}
       redirectUri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
+      // audience={audience}
     >
       {children}
     </Auth0Provider>
