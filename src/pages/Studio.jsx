@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+<<<<<<< HEAD
 import { useAuth } from '../contexts/AuthContext.jsx';
+=======
+import { useAuth0} from '@auth0/auth0-react';
+>>>>>>> main
 import Upload from '../components/Upload.jsx';
 
 
 const Studio = () => {
 
+<<<<<<< HEAD
   const { user } = useAuth();
+=======
+  const { user } = useAuth0();
+
+>>>>>>> main
   //get query from url
   //example, /studio?id=250, get the id number from the query
   const query = new URLSearchParams(useLocation().search);
@@ -19,8 +28,9 @@ const Studio = () => {
 
       <p>Id from url query: {query.get('id')}</p>
 
-      <p>User from context: {user}</p>
-
+      {user && (
+        <div> {user.given_name}</div>
+      )}
 
       <ul className='nav'>
         <li>

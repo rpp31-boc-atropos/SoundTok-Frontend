@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext.jsx';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const NavBar = () => {
-
-  const { user, setUser, login, setLogin } = useAuth();
-
+  const { loginWithRedirect, logout, isLoading, user } = useAuth0();
+  // console.log(user)
   return (
     <div>
       <ul className='nav'>
@@ -16,18 +15,18 @@ const NavBar = () => {
           <Link to='/studio'>Studio</Link>
         </li>
         <li>
-          <Link to='/profile'>Profile(login required)</Link>
+          <Link to='/profile'>Profile</Link>
         </li>
-        <li>User: {user}</li>
 
-        <button onClick={() => {
-          setLogin(!login);
-          user === 'visitor' ? setUser('Registered user') : setUser('visitor');
-        }}>{login ? 'log out' : 'login'}</button>
+        {!isLoading && !user && (
+          <button onClick={() => loginWithRedirect()}>Log In</button>
+        )}
 
+        {!isLoading && user && (
+          <button onClick={() => logout()}>Log Out</button>
+        )}
       </ul>
-
-    </div >
+    </div>
   );
 };
 
