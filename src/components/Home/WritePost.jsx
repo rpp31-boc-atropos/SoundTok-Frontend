@@ -4,121 +4,6 @@ import { Link } from 'react-router-dom';
 
 import helpers from './helperFunctions.js';
 
-/* STYLED COMPONENTS */
-const WritePostWrapper = styled.div`
-  width: 100%;
-  padding: 16px;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  box-sizing: border-box;
-  border: 1px solid var(--font-line-color-yellow-transparent);
-  border-bottom: none;
-`;
-
-const ProfilePic = styled.img`
-  width: 48px;
-  height: 48px;
-  margin-right: 12px;
-  border-radius: 100%;
-  box-sizing: border-box;
-  border: 2px solid var(--font-line-color-yellow);
-  overflow: hidden;
-`;
-
-const Form = styled.form`
-  width: 100%;
-`;
-
-const FlexColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Inputs = styled.div`
-  display: inherit;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-const PostHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const ProjectTitle = styled.input`
-  width: 300px;
-  line-height: 24px;
-  margin-bottom: 4px;
-  cursor: text;
-`;
-
-const AudioIcons = styled.div`
-  width: 84px;
-  display: inherit;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const PostAudioIcon = styled.div`
-  color: var(--font-line-color-yellow-transparent);
-  &:hover {
-    color: var(--font-line-color-yellow);
-  }
-`;
-
-const UploadFile = styled.input`
-  display: none;
-`;
-
-const TextInput = styled.textarea`
-  width: 400px;
-  min-height: 20px;
-  max-height: 96px;
-  background: none;
-  box-sizing: border-box;
-  border-top: 1px solid var(--font-line-color-yellow-transparent);
-  border-bottom: 1px solid var(--font-line-color-yellow);
-  padding: 4px 0px 12px 0px;
-  font-family: inherit;
-  font-size: 20px;
-  color: var(--font-line-color-yellow);
-  overflow-wrap: break-word;
-  overflow: hidden;
-  cursor: text;
-`;
-
-const CharacterCount = styled.span`
-  font-size: 12px;
-  color: var(--font-line-color-yellow-transparent);
-`;
-
-const UploadedAudio = styled.div`
-  width: 96px;
-  height: 96px;
-  border-radius: 12px;
-  box-sizing: border-box;
-  background: var(--main-color-blue-light);
-  margin-left: 12px;
-  margin-bottom: 6px;
-`;
-
-const Submit = styled.button`
-  width: 96px;
-  height: 24px;
-  align-self: flex-end;
-  text-align: center;
-  background: var(--sound-bar-green);
-  border-radius: 8px;
-
-  &:hover {
-    background: var(--sound-bar-green-light);
-  }
-`;
-
 const WritePost = () => {
   const [textCharacterCount, setTextCharacterCount] = React.useState(0);
 
@@ -242,3 +127,118 @@ const WritePost = () => {
 };
 
 export default WritePost;
+
+/* STYLED COMPONENTS */
+const WritePostWrapper = styled.div`
+  width: 100%;
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  box-sizing: border-box;
+  border: 1px solid var(--font-line-color-yellow-transparent);
+  border-bottom: none;
+`;
+
+const ProfilePic = styled.img`
+  width: 48px;
+  height: 48px;
+  margin-right: 12px;
+  border-radius: 100%;
+  box-sizing: border-box;
+  border: 2px solid var(--font-line-color-yellow);
+  overflow: hidden;
+`;
+
+const Form = styled.form`
+  width: 100%;
+`;
+
+const FlexColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Inputs = styled.div`
+  display: inherit;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const PostHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const ProjectTitle = styled.input`
+  width: 300px;
+  line-height: 24px;
+  margin-bottom: 4px;
+  cursor: text;
+`;
+
+const AudioIcons = styled.div`
+  width: 84px;
+  display: inherit;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const PostAudioIcon = styled.div`
+  color: var(--font-line-color-yellow-transparent);
+  &:hover {
+    color: var(--font-line-color-yellow);
+  }
+`;
+
+const UploadFile = styled.input`
+  display: none;
+`;
+
+const TextInput = styled.textarea`
+  width: 400px;
+  min-height: 20px;
+  max-height: 96px;
+  background: none;
+  box-sizing: border-box;
+  border-top: 1px solid var(--font-line-color-yellow-transparent);
+  border-bottom: 1px solid var(--font-line-color-yellow);
+  padding: 4px 0px 12px 0px;
+  font-family: inherit;
+  font-size: 20px;
+  color: var(--font-line-color-yellow);
+  overflow-wrap: break-word;
+  overflow: hidden;
+  cursor: text;
+`;
+
+const CharacterCount = styled.span`
+  font-size: 12px;
+  color: var(--font-line-color-yellow-transparent);
+`;
+
+const UploadedAudio = styled.div`
+  width: 96px;
+  height: 96px;
+  border-radius: 12px;
+  box-sizing: border-box;
+  background: var(--main-color-blue-light);
+  margin-left: 12px;
+  margin-bottom: 6px;
+`;
+
+const Submit = styled.button`
+  width: 96px;
+  height: 24px;
+  align-self: flex-end;
+  text-align: center;
+  background: var(--sound-bar-green);
+  border-radius: 8px;
+
+  &:hover {
+    background: var(--sound-bar-green-light);
+  }
+`;
