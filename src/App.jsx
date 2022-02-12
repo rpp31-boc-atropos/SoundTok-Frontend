@@ -38,7 +38,7 @@ const App = () => {
             <Route path='/studio/*' element={<Studio />} />
             <Route path='/*' element={<NotFound />} />
           </Routes>
-          <AudioPlayer />
+          {/* <AudioPlayer /> */}
         </div>
       </Auth0ProviderWithHistory>
     </HashRouter>
