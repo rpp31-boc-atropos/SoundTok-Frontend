@@ -1,8 +1,8 @@
-import * as React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import * as React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-import helpers from './helperFunctions.js';
+import helpers from "./helperFunctions.js";
 
 /* STYLED COMPONENTS */
 const PostWrapper = styled.div`
@@ -64,7 +64,7 @@ const PostAudio = styled.div`
   border-radius: 12px;
   box-sizing: border-box;
   background: var(--main-color-blue-light);
-  background-image: url('./wave.png');
+  background-image: url("./wave.png");
   margin-bottom: 4px;
 `;
 
@@ -77,19 +77,19 @@ const PostAudioInfo = styled.div`
 const Post = (props) => {
   return (
     <PostWrapper>
-      <Link to={'/profile/' + props.username}>
+      <Link to={"/profile/" + props.username}>
         <ProfilePic src={props.profilePicture}></ProfilePic>
       </Link>
       <PostContent>
         <PostHeader>
           <PostUsernameAndTime>
-            <Link to={'/profile/' + props.username}>@{props.username}</Link>
-            {' · '}
+            <Link to={"/profile/" + props.username}>@{props.username}</Link>
+            {" · "}
             <time>3h</time>
           </PostUsernameAndTime>
-          <Link to='/studio'>
+          <Link to="/studio">
             <PostRemixButton>
-              <i className='ri-sound-module-line'></i>
+              <i className="ri-sound-module-line"></i>
             </PostRemixButton>
           </Link>
         </PostHeader>

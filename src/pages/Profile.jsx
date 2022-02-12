@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
-import EditProfile from '../components/Profile/EditProfile.jsx';
-import UserProfile from '../components/Profile/UserProfile.jsx';
-import UserPosts from '../components/Profile/UserPosts.jsx';
+import React, { useState } from "react";
+import { Routes, Route, Link } from "react-router-dom";
+import EditProfile from "../components/Profile/EditProfile.jsx";
+import UserProfile from "../components/Profile/UserProfile.jsx";
+import UserPosts from "../components/Profile/UserPosts.jsx";
 // import { useAuth } from '../contexts/AuthContext.jsx';
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const ProfilePage = styled.div`
   max-width: 2000px;
@@ -36,18 +36,18 @@ const Profile = () => {
         ></UserPosts>
       </ProfilePage>
 
-      <ul className='nav'>
+      <ul className="nav">
         <li>
-          <Link to='userprofile'>User Profile</Link>
+          <Link to="userprofile">User Profile</Link>
         </li>
         <li>
-          <Link to='editprofile'>Edit Profile</Link>
+          <Link to="editprofile">Edit Profile</Link>
         </li>
       </ul>
 
       <Routes>
-        <Route path='userprofile' element={<UserProfile />} />
-        <Route path='editprofile' element={<EditProfile />} />
+        <Route path="userprofile" element={<UserProfile />} />
+        <Route path="editprofile" element={<EditProfile />} />
       </Routes>
     </>
   );

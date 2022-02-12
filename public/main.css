@@ -57,13 +57,9 @@ a:hover {
   color: whitesmoke;
 }
 
-<<<<<<< HEAD
-button {
-=======
 button,
 textarea,
 input {
->>>>>>> b25a07957e7c7787169b338cb88b9e7e4cb593a7
   background: none;
   color: inherit;
   border: none;
@@ -71,15 +67,12 @@ input {
   font: inherit;
   cursor: pointer;
   outline: inherit;
-<<<<<<< HEAD
-=======
   overflow: auto;
   outline: none;
   resize: none;
   box-shadow: none;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
->>>>>>> b25a07957e7c7787169b338cb88b9e7e4cb593a7
 }
 /*!*************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/audioPlayer/AudioPlayer.css ***!

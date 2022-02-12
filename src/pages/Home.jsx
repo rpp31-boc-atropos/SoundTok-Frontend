@@ -1,11 +1,11 @@
-import * as React from 'react';
-import styled from 'styled-components';
-import { useAuth0 } from '@auth0/auth0-react';
+import * as React from "react";
+import styled from "styled-components";
+import { useAuth0 } from "@auth0/auth0-react";
 
-import WritePost from '../components/Home/WritePost.jsx';
-import Post from '../components/Home/Post.jsx';
+import WritePost from "../components/Home/WritePost.jsx";
+import Post from "../components/Home/Post.jsx";
 
-import dummy from '../components/Home/dummy.jsx';
+import dummy from "../components/Home/dummy.jsx";
 
 const Feed = styled.div`
   max-width: 600px;
@@ -32,6 +32,7 @@ const Component = () => {
         return (
           <Post
             key={i}
+            index={i}
             username={post.username}
             profilePicture={post.profilePicture}
             projectTitle={post.projectTitle}
