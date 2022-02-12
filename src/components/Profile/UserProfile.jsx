@@ -20,6 +20,7 @@ const ProfileWrapper = styled.div`
   flex-direction: column;
   padding-bottom: 40px;
   justify-content: center;
+  align-items: center;
 `;
 
 const ProfileHeader = styled.h2`
@@ -32,7 +33,7 @@ const ProfilePic = styled.img`
   justify-content: center;
   width: 200px;
   height: 200px;
-  margin-right: 12px;
+  margin-top: 12px;
   border-radius: 100%;
   box-sizing: border-box;
   border: 2px solid var(--font-line-color-yellow);
