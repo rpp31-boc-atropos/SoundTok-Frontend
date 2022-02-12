@@ -55,7 +55,6 @@ const Draft = (props) => {
       </DraftHeader>
       <DraftText>{props.projectTitle}</DraftText>
       <DraftText>{props.postDescription}</DraftText>
-      <button>Play Draft</button>
     </SingleDraft>
   );
 };

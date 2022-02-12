@@ -65,6 +65,7 @@ const UserPosts = ({isCurrentUser}) => {
               projectLength={song.projectLength}
               tags={song.tags}
               removeSong={removeSong}
+              isCurrentUser={isCurrentUser}
             ></Song>
           );
         }) : null}

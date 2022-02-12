@@ -1,10 +1,10 @@
-var path = require("path");
-const CompressionPlugin = require("compression-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+var path = require('path');
+const CompressionPlugin = require('compression-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
-var SRC_DIR = path.join(__dirname, "/src");
-var DIST_DIR = path.join(__dirname, "/public");
+var SRC_DIR = path.join(__dirname, '/src');
+var DIST_DIR = path.join(__dirname, '/public');
 
 module.exports = {
   mode: 'development',
@@ -18,25 +18,25 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-react', '@babel/preset-env']
-          }
-        }
+            presets: ['@babel/preset-react', '@babel/preset-env'],
+          },
+        },
       },
       {
         test: /.s?css$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(jpg|png)$/,
         use: {
           loader: 'url-loader',
-        }
+        },
       },
       {
         test: /\.(ogg|mp3|wav|mpe?g)$/i,
         use: {
           loader: 'file-loader',
-        }
+        },
       },
       {
         test: /\.svg$/,
@@ -49,12 +49,10 @@ module.exports = {
           },
         ],
       },
-    ]
+    ],
   },
   optimization: {
-    minimizer: [
-      new CssMinimizerPlugin(),
-    ],
+    minimizer: [new CssMinimizerPlugin()],
   },
   output: {
     filename: 'index.js',
