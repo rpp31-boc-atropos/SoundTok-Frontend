@@ -1,18 +1,10 @@
-<<<<<<< HEAD
 import * as React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { DateTime } from "luxon";
 
+import { usePlayer } from "../../contexts/player/playerContext";
 import helpers from "./helperFunctions.js";
-=======
-import * as React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { DateTime } from 'luxon';
-
-import { usePlayer } from '../../contexts/player/playerContext';
-import helpers from './helperFunctions.js';
->>>>>>> 1fadfa7d9ed72a0e49af59abe1238cc91af1c3b9
 
 /* STYLED COMPONENTS */
 const PostWrapper = styled.div`
@@ -95,14 +87,14 @@ const Post = (props) => {
 
   const toTimeAgo = (isoString) => {
     const timeUnits = [
-      'years',
-      'months',
-      'days',
-      'hours',
-      'minutes',
-      'seconds',
+      "years",
+      "months",
+      "days",
+      "hours",
+      "minutes",
+      "seconds",
     ];
-    const displayUnits = ['y', 'm', 'd', 'h', 'min', 's'];
+    const displayUnits = ["y", "m", "d", "h", "min", "s"];
 
     const start = DateTime.fromISO(isoString);
     const end = DateTime.now();
@@ -127,15 +119,9 @@ const Post = (props) => {
       <PostContent>
         <PostHeader>
           <PostUsernameAndTime>
-<<<<<<< HEAD
             <Link to={"/profile/" + props.username}>@{props.username}</Link>
             {" · "}
-            <time>3h</time>
-=======
-            <Link to={'/profile/' + props.username}>@{props.username}</Link>
-            {' · '}
             <time>{toTimeAgo(props.timePosted)}</time>
->>>>>>> 1fadfa7d9ed72a0e49af59abe1238cc91af1c3b9
           </PostUsernameAndTime>
           <Link to="/studio">
             <PostRemixButton>
