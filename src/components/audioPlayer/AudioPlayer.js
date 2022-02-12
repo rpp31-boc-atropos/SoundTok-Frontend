@@ -1,17 +1,24 @@
 import React from 'react';
+import styled from 'styled-components';
 import './AudioPlayer.css';
 import './input.css';
 import Playlist from './playlist/Playlist';
-import Controls from './Controls';
+import PlayerControls from './Controls';
 
 //Replace the playlist with feeds
 
+const Main = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+`;
+
 const AudioPlayer = () => {
   return (
-    <div className='main'>
-      <div className='right'>{/* <Playlist /> */}</div>
-      <Controls />
-    </div>
+    <Main>
+      <PlayerControls />
+    </Main>
   );
 };
 

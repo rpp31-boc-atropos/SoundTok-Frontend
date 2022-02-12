@@ -3,11 +3,14 @@ import { Routes, Route, Link } from 'react-router-dom';
 import EditProfile from '../components/Profile/EditProfile.jsx';
 import UserProfile from '../components/Profile/UserProfile.jsx';
 import UserPosts from '../components/Profile/UserPosts.jsx';
-// import { useAuth } from '../contexts/AuthContext.jsx';
+import { withAuthenticationRequired } from '@auth0/auth0-react';
+import Loading from '../components/Loading.jsx';
+
 import styled from 'styled-components';
 
+
 const ProfilePage = styled.div`
-  max-width: 2000px;
+  width: 1000px;
   height: 100%;
   border-left: solid 1px;
   border-right: solid 1px;
@@ -36,14 +39,14 @@ const Profile = () => {
         ></UserPosts>
       </ProfilePage>
 
-      <ul className='nav'>
+      {/* <ul className='nav'>
         <li>
           <Link to='userprofile'>User Profile</Link>
         </li>
         <li>
           <Link to='editprofile'>Edit Profile</Link>
         </li>
-      </ul>
+      </ul> */}
 
       <Routes>
         <Route path='userprofile' element={<UserProfile />} />
@@ -53,4 +56,6 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default withAuthenticationRequired(Profile, {
+  onRedirecting: () => <Loading />,
+});

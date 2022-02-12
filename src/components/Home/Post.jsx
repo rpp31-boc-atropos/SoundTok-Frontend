@@ -1,7 +1,9 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { DateTime } from 'luxon';
 
+import { usePlayer } from '../../contexts/player/playerContext';
 import helpers from './helperFunctions.js';
 
 /* STYLED COMPONENTS */
@@ -12,7 +14,9 @@ const PostWrapper = styled.div`
   flex-direction: row;
   align-items: flex-start;
   box-sizing: border-box;
-  border-bottom: 1px solid var(--font-line-color-yellow-transparent);
+  background: var(--main-color-black);
+  border: 1px solid var(--font-line-color-yellow-transparent);
+  border-bottom: none;
 `;
 
 const ProfilePic = styled.img`
@@ -58,7 +62,7 @@ const PostText = styled.p`
   width: 480px;
 `;
 
-const PostAudio = styled.div`
+const PostAudio = styled.button`
   width: 480px;
   height: 96px;
   border-radius: 12px;
@@ -75,6 +79,38 @@ const PostAudioInfo = styled.div`
 `;
 
 const Post = (props) => {
+  const { SetCurrent, currentSong, songs } = usePlayer();
+
+  // const handlePlaySong = () => {
+  //   SetCurrent(props.index);
+  // };
+
+  const toTimeAgo = (isoString) => {
+    const timeUnits = [
+      'years',
+      'months',
+      'days',
+      'hours',
+      'minutes',
+      'seconds',
+    ];
+    const displayUnits = ['y', 'm', 'd', 'h', 'min', 's'];
+
+    const start = DateTime.fromISO(isoString);
+    const end = DateTime.now();
+    const diff = end.diff(start, timeUnits).toObject();
+    // console.log(diff);
+
+    for (let i = 0; i < timeUnits.length; i++) {
+      const unit = timeUnits[i];
+      const displayUnit = displayUnits[i];
+      if (diff[unit] > 0) {
+        const time = Math.floor(diff[unit]) + displayUnit;
+        return time;
+      }
+    }
+  };
+
   return (
     <PostWrapper>
       <Link to={'/profile/' + props.username}>
@@ -85,7 +121,7 @@ const Post = (props) => {
           <PostUsernameAndTime>
             <Link to={'/profile/' + props.username}>@{props.username}</Link>
             {' · '}
-            <time>3h</time>
+            <time>{toTimeAgo(props.timePosted)}</time>
           </PostUsernameAndTime>
           <Link to='/studio'>
             <PostRemixButton>
@@ -94,7 +130,11 @@ const Post = (props) => {
           </Link>
         </PostHeader>
         <PostText>{props.postText}</PostText>
-        <PostAudio></PostAudio>
+        <PostAudio
+          onClick={(event) => {
+            SetCurrent(props.index);
+          }}
+        ></PostAudio>
         <PostAudioInfo>
           {props.projectTitle} · {helpers.secondsToLength(props.projectLength)}
         </PostAudioInfo>
