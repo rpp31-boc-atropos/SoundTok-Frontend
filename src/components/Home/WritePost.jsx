@@ -12,7 +12,8 @@ const WritePostWrapper = styled.div`
   flex-direction: row;
   align-items: flex-start;
   box-sizing: border-box;
-  border-bottom: 1px solid var(--font-line-color-yellow-transparent);
+  border: 1px solid var(--font-line-color-yellow-transparent);
+  border-bottom: none;
 `;
 
 const ProfilePic = styled.img`
