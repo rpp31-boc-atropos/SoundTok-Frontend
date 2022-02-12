@@ -8,11 +8,11 @@ export default dummy = [
     postLikes: 123,
     postSaved: false,
     postText:
-      'rabbit thinks he is the only one who likes #haymama. well check this track out',
-    tags: ['haymama'],
+      "Chicago, i'm SO excited, to hold you guys over until then, here's a #teaser :)",
+    tags: ['teaser'],
     projectAudioLink:
       'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Satin/Kai_Engel_-_03_-_Contention.mp3',
-    projectTitle: 'hay mama THIS panda',
+    projectTitle: 'hay fever',
     projectLength: 239,
   },
   {
