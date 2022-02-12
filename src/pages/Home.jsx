@@ -12,6 +12,7 @@ const FeedWrapper = styled.div`
   display: flex;
   justify-content: center;
   overflow: scroll;
+  overflow-x: hidden;
 `;
 
 const Feed = styled.div`
