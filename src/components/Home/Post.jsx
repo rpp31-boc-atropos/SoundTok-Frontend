@@ -6,6 +6,73 @@ import { DateTime } from 'luxon';
 import { usePlayer } from '../../contexts/player/playerContext';
 import helpers from './helperFunctions.js';
 
+const Post = (props) => {
+  const { SetCurrent, currentSong, songs } = usePlayer();
+
+  // const handlePlaySong = () => {
+  //   SetCurrent(props.index);
+  // };
+
+  const toTimeAgo = (isoString) => {
+    const timeUnits = [
+      'years',
+      'months',
+      'days',
+      'hours',
+      'minutes',
+      'seconds',
+    ];
+    const displayUnits = ['y', 'm', 'd', 'h', 'min', 's'];
+
+    const start = DateTime.fromISO(isoString);
+    const end = DateTime.now();
+    const diff = end.diff(start, timeUnits).toObject();
+    // console.log(diff);
+
+    for (let i = 0; i < timeUnits.length; i++) {
+      const unit = timeUnits[i];
+      const displayUnit = displayUnits[i];
+      if (diff[unit] > 0) {
+        const time = Math.floor(diff[unit]) + displayUnit;
+        return time;
+      }
+    }
+  };
+
+  return (
+    <PostWrapper>
+      <Link to={'/profile/' + props.username}>
+        <ProfilePic src={props.profilePicture}></ProfilePic>
+      </Link>
+      <PostContent>
+        <PostHeader>
+          <PostUsernameAndTime>
+            <Link to={'/profile/' + props.username}>@{props.username}</Link>
+            {' · '}
+            <time>{toTimeAgo(props.timePosted)}</time>
+          </PostUsernameAndTime>
+          <Link to='/studio'>
+            <PostRemixButton>
+              <i className='ri-sound-module-line'></i>
+            </PostRemixButton>
+          </Link>
+        </PostHeader>
+        <PostText>{props.postText}</PostText>
+        <PostAudio
+          onClick={(event) => {
+            SetCurrent(props.index);
+          }}
+        ></PostAudio>
+        <PostAudioInfo>
+          {props.projectTitle} · {helpers.secondsToLength(props.projectLength)}
+        </PostAudioInfo>
+      </PostContent>
+    </PostWrapper>
+  );
+};
+
+export default Post;
+
 /* STYLED COMPONENTS */
 const PostWrapper = styled.div`
   width: 100%;
@@ -77,70 +144,3 @@ const PostAudioInfo = styled.div`
   margin-left: 12px;
   color: var(--font-line-color-yellow-transparent);
 `;
-
-const Post = (props) => {
-  const { SetCurrent, currentSong, songs } = usePlayer();
-
-  // const handlePlaySong = () => {
-  //   SetCurrent(props.index);
-  // };
-
-  const toTimeAgo = (isoString) => {
-    const timeUnits = [
-      'years',
-      'months',
-      'days',
-      'hours',
-      'minutes',
-      'seconds',
-    ];
-    const displayUnits = ['y', 'm', 'd', 'h', 'min', 's'];
-
-    const start = DateTime.fromISO(isoString);
-    const end = DateTime.now();
-    const diff = end.diff(start, timeUnits).toObject();
-    // console.log(diff);
-
-    for (let i = 0; i < timeUnits.length; i++) {
-      const unit = timeUnits[i];
-      const displayUnit = displayUnits[i];
-      if (diff[unit] > 0) {
-        const time = Math.floor(diff[unit]) + displayUnit;
-        return time;
-      }
-    }
-  };
-
-  return (
-    <PostWrapper>
-      <Link to={'/profile/' + props.username}>
-        <ProfilePic src={props.profilePicture}></ProfilePic>
-      </Link>
-      <PostContent>
-        <PostHeader>
-          <PostUsernameAndTime>
-            <Link to={'/profile/' + props.username}>@{props.username}</Link>
-            {' · '}
-            <time>{toTimeAgo(props.timePosted)}</time>
-          </PostUsernameAndTime>
-          <Link to='/studio'>
-            <PostRemixButton>
-              <i className='ri-sound-module-line'></i>
-            </PostRemixButton>
-          </Link>
-        </PostHeader>
-        <PostText>{props.postText}</PostText>
-        <PostAudio
-          onClick={(event) => {
-            SetCurrent(props.index);
-          }}
-        ></PostAudio>
-        <PostAudioInfo>
-          {props.projectTitle} · {helpers.secondsToLength(props.projectLength)}
-        </PostAudioInfo>
-      </PostContent>
-    </PostWrapper>
-  );
-};
-
-export default Post;
