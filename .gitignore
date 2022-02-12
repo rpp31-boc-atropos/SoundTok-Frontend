@@ -10,8 +10,11 @@
 
 # production
 /build
-/public/index.js
-/public/index.js.gz
+/public/index.js*
+/public/index.js.gz*
+/public/main.css*
+/public/main.css.gz*
+
 
 
 # misc
