@@ -38,7 +38,7 @@ function App() {
 
             <Route path='/*' element={<NotFound />} />
           </Routes>
-          <AudioPlayer />
+          {/* <AudioPlayer /> */}
         </div>
       </Auth0ProviderWithHistory>
     </HashRouter>
