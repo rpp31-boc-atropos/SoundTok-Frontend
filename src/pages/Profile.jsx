@@ -8,8 +8,9 @@ import Loading from '../components/Loading.jsx';
 
 import styled from 'styled-components';
 
+
 const ProfilePage = styled.div`
-  max-width: 2000px;
+  width: 1000px;
   height: 100%;
   border-left: solid 1px;
   border-right: solid 1px;
@@ -38,14 +39,14 @@ const Profile = () => {
         ></UserPosts>
       </ProfilePage>
 
-      <ul className='nav'>
+      {/* <ul className='nav'>
         <li>
           <Link to='userprofile'>User Profile</Link>
         </li>
         <li>
           <Link to='editprofile'>Edit Profile</Link>
         </li>
-      </ul>
+      </ul> */}
 
       <Routes>
         <Route path='userprofile' element={<UserProfile />} />
