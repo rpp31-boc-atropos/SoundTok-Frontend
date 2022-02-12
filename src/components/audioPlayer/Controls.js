@@ -57,83 +57,6 @@ const PlayerControls = () => {
         ref={audio}
         type='audio/mpeg'
         preload='true'
-<<<<<<< HEAD
-        src={songs[currentSong] ? songs[currentSong].projectAudioLink : ''} />
-      <div className="vlme">
-
-        <span className="volum"><i className="fas fa-volume-down"></i></span>
-        <input value={Math.round(statevolum * 100)} type="range" name="volBar" id="volBar" onChange={(e) => handleVolume(e.target.value / 100)} />
-
-      </div>
-      <div className="musicControls">
-        <span className="prev" onClick={prevSong}><i className="fas fa-step-backward"></i></span>
-
-        <span className="play" onClick={() => { togglePlaying(); toggleAudio(); }}>
-          <span className={!playing ? '' : 'hide'}><i className="fas fa-play"></i></span>
-          <span className={!playing ? 'hide' : ''}><i className="fas fa-pause"></i></span>
-        </span>
-
-        <span className="next" onClick={nextSong}><i className="fas fa-step-forward"></i></span>
-      </div>
-      <div className="progressb">
-        <span className='songtitle'>{songs[currentSong] ? songs[currentSong].projectTitle : ''}</span>
-        <span className="currentT">{fmtMSS(currentTime)}</span>
-        <input
-          onChange={handleProgress}
-          value={dur ? (currentTime * 100) / dur : 0}
-          type="range" name="progresBar" id="prgbar" />
-        <span className="totalT">{fmtMSS(dur)}</span>
-
-      </div>
-      <div className="plsoptions">
-
-        <span onClick={toggleRandom} className={"random " + (random ? 'active' : '')}>
-          <i className="fas fa-random"></i>
-        </span>
-        <span onClick={toggleRepeat} className={"repeat " + (repeat ? 'active' : '')}>
-          <i className="fas fa-redo-alt"></i>
-        </span>
-      </div>
-    </div>
-  );
-};
-
-export default Controls;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
         src={songs[currentSong] ? songs[currentSong].projectAudioLink : ''}
       />
       <FeedWidth>
@@ -141,9 +64,8 @@ export default Controls;
           <div className='ri-skip-back-fill' onClick={prevSong} />
           <Spacer />
           <div
-            className={`playPause ${
-              !playing ? 'ri-play-circle-fill' : 'ri-pause-circle-fill'
-            }`}
+            className={`playPause ${!playing ? 'ri-play-circle-fill' : 'ri-pause-circle-fill'
+              }`}
             onClick={() => {
               togglePlaying();
               toggleAudio();
@@ -297,4 +219,3 @@ const Volume = styled.div`
 const Spacer = styled.div`
   width: ${(props) => (props.size || 1) * 6}px;
 `;
->>>>>>> 1fadfa7d9ed72a0e49af59abe1238cc91af1c3b9
