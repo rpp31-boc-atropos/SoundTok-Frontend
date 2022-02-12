@@ -6,9 +6,8 @@ import {
   Routes,
   Route,
   Navigate,
-  Fragment,
 } from "react-router-dom";
-import NavBar from "./components/NavBar.jsx";
+import NavBar from "./components/Nav/NavBar.jsx";
 import Home from "./pages/Home.jsx";
 import Profile from "./pages/Profile.jsx";
 import NotFound from "./pages/NotFound.jsx";
@@ -40,10 +39,7 @@ function App() {
             <Route path="/" element={<Home />} />
             {/* <Route path='/profile/*' element={isAuthenticated ? <Profile /> : <Navigate to='/' />} /> */}
             <Route path="/profile/*" element={<Profile />} />
-            {/* </PlayerProvider>
-            </Fragment> */}
             <Route path="/studio/*" element={<Studio />} />
-
             <Route path="/*" element={<NotFound />} />
           </Routes>
           <AudioPlayer />

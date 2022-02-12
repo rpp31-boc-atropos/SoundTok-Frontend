@@ -37,12 +37,16 @@ body,
 
 .nav {
   list-style-type: none;
-  width: 600px;
+  width: 100%;
+  position: sticky;
   margin: inherit;
-  padding: inherit;
+  padding-top: 5px;
+  padding-bottom: 5px;
   display: flex;
-  background-color: grey;
+  background-color: var(--main-color-black) 0%;
   justify-content: space-evenly;
+  align-items: center;
+  border-bottom: 1.5px solid var(--font-line-color-yellow);
 }
 
 a {
@@ -71,3 +75,35 @@ input {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
 }
+
+.logo {
+  font-family: MuseoModerno;
+  color: var(--sound-bar-green-light);
+  font-weight: 600;
+  font-size: 25px;
+}
+
+.search-bar {
+  width: 30%;
+  min-width: 200px;
+  display: flex;
+  padding: 5px;
+  margin-right: 20px;
+  /* border: 1px solid var(--font-line-color-yellow); */
+  border-radius: 15px;
+  background: var( --main-color-blue-light);
+}
+
+.search-bar input {
+  width: 100%;
+  background-color: inherit;
+  outline: none;
+  font-size: small;
+}
+
+.search-btn {
+  float: right;
+  background-color: inherit;
+  border: hidden;
+}
+
