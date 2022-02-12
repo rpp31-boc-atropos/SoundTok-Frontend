@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FaVolumeDown, FaVolumeUp } from "react-icons/fa";
+import { FaVolumeDown, FaVolumeUp, FaArrowsAltH, FaRulerHorizontal } from "react-icons/fa";
 import { BsPlayCircleFill, BsFillPauseCircleFill, BsStopBtnFill } from "react-icons/bs";
 import { MdOutlineFastForward, MdOutlineFastRewind } from "react-icons/md";
 
@@ -106,6 +106,7 @@ export const ControlBarWrapper = styled.div`
 export const PlayerControls = styled.div`
   display: flex;
   justify-content: center;
+  width: 700px;
 `;
 
 export const LeftPanel = styled.div`
@@ -232,9 +233,9 @@ export const FastForward = styled(MdOutlineFastForward)`
 
 export const AllButtons = styled.div`
   height: 73px;
-  width 400px;
+  width 560px;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   // border: 2px solid red;
 `;
@@ -244,4 +245,20 @@ export const EffectButton = styled.div`
   padding: 0.25em 0.5em;
   // width: 100px;
   margin: 0 5px;
+
+  &:hover {
+    background-color: rgb(255, 250, 206);
+    color: black;
+    cursor: pointer;
+  }
+`;
+
+export const MoveAudio = styled(FaArrowsAltH)`
+  color purple;
+  font-size: 30px;
+`;
+
+export const Highligther = styled(FaRulerHorizontal)`
+  color purple;
+  font-size: 30px;
 `;
