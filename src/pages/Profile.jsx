@@ -3,7 +3,9 @@ import { Routes, Route, Link } from 'react-router-dom';
 import EditProfile from '../components/Profile/EditProfile.jsx';
 import UserProfile from '../components/Profile/UserProfile.jsx';
 import UserPosts from '../components/Profile/UserPosts.jsx';
-// import { useAuth } from '../contexts/AuthContext.jsx';
+import { withAuthenticationRequired } from '@auth0/auth0-react';
+import Loading from '../components/Loading.jsx';
+
 import styled from 'styled-components';
 
 
@@ -54,4 +56,6 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default withAuthenticationRequired(Profile, {
+  onRedirecting: () => <Loading />,
+});
