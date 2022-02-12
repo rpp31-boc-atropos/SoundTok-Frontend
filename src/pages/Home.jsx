@@ -23,9 +23,10 @@ const Spacer = styled.div`
   height: 60px;
 `;
 
-const Component = () => {
-  const { user } = useAuth0();
+const Home = () => {
+  const { user, isAuthenticated } = useAuth0();
   const [posts, setPosts] = React.useState(dummy);
+  // debugger;
 
   //start from the top on each page
   React.useEffect(() => {
@@ -35,7 +36,7 @@ const Component = () => {
   return (
     <FeedWrapper>
       <Feed>
-        <WritePost></WritePost>
+        {user && <WritePost></WritePost>}
         {posts.map((post, i) => {
           return (
             <Post
@@ -58,4 +59,4 @@ const Component = () => {
   );
 };
 
-export default Component;
+export default Home;
