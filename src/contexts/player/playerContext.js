@@ -1,26 +1,27 @@
 import React, { useReducer, createContext } from 'react';
 import playerReducer from './playerReducer';
-import { songsArr } from '../../components/audioPlayer/playlist/songs';
+// import { songsArr } from '../../components/audioPlayer/playlist/songs';
+import dummy from '../../components/Home/dummy.jsx';
 
 const PlayerContext = createContext();
 
 const PlayerProvider = ({ children }) => {
-
   const initialState = {
     currentSong: 0,
-    songs: songsArr,
+    songs: dummy,
     repeat: false,
     random: false,
     playing: false,
-    audio: null
+    audio: null,
   };
 
   const [state, dispatch] = useReducer(playerReducer, initialState);
 
   // Set playing state
-  const togglePlaying = () => dispatch({ type: 'TOGGLE_PLAYING', data: state.playing ? false : true });
+  const togglePlaying = () =>
+    dispatch({ type: 'TOGGLE_PLAYING', data: state.playing ? false : true });
   // Set current song
-  const SetCurrent = id => dispatch({ type: 'SET_CURRENT_SONG', data: id });
+  const SetCurrent = (id) => dispatch({ type: 'SET_CURRENT_SONG', data: id });
 
   // Prev song
   const prevSong = () => {
@@ -40,19 +41,23 @@ const PlayerProvider = ({ children }) => {
   };
 
   // Repeat and Random
-  const toggleRepeat = (id) => dispatch({ type: 'TOGGLE_REPEAT', data: state.repeat ? false : true });
-  const toggleRandom = (id) => dispatch({ type: 'TOGGLE_RANDOM', data: state.random ? false : true });
-
+  const toggleRepeat = (id) =>
+    dispatch({ type: 'TOGGLE_REPEAT', data: state.repeat ? false : true });
+  const toggleRandom = (id) =>
+    dispatch({ type: 'TOGGLE_RANDOM', data: state.random ? false : true });
 
   // End of Song
   const handleEnd = () => {
     // Check for random and repeat options
     if (state.random) {
-      return dispatch({ type: 'SET_CURRENT_SONG', data: ~~(Math.random() * state.songs.length) });
+      return dispatch({
+        type: 'SET_CURRENT_SONG',
+        data: ~~(Math.random() * state.songs.length),
+      });
     } else {
       if (state.repeat) {
         nextSong();
-      } else if ((state.currentSong === state.songs.length - 1)) {
+      } else if (state.currentSong === state.songs.length - 1) {
         return;
       } else {
         nextSong();
@@ -73,15 +78,15 @@ const PlayerProvider = ({ children }) => {
     toggleRandom,
     toggleRepeat,
     togglePlaying,
-    handleEnd
+    handleEnd,
   };
 
-  return <PlayerContext.Provider value={playerContextValue}>
-    {children}
-  </PlayerContext.Provider>;
-
+  return (
+    <PlayerContext.Provider value={playerContextValue}>
+      {children}
+    </PlayerContext.Provider>
+  );
 };
-
 
 const usePlayer = () => React.useContext(PlayerContext);
 

@@ -14,7 +14,9 @@ const PostWrapper = styled.div`
   flex-direction: row;
   align-items: flex-start;
   box-sizing: border-box;
-  border-bottom: 1px solid var(--font-line-color-yellow-transparent);
+  background: var(--main-color-black);
+  border: 1px solid var(--font-line-color-yellow-transparent);
+  border-bottom: none;
 `;
 
 const ProfilePic = styled.img`

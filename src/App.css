@@ -14,6 +14,7 @@
   --sound-bar-green: #128110;
   --sound-bar-green-light: #08b808;
   --sound-bar-purple: #8944e0;
+  --feed-width: 600px;
 }
 
 html,
@@ -26,6 +27,7 @@ body,
   padding: 0;
   color: var(--font-line-color-yellow);
   font-family: 'Open Sans', sans-serif;
+  box-sizing: border-box;
 }
 
 .App {
@@ -91,7 +93,7 @@ input {
   margin-right: 20px;
   /* border: 1px solid var(--font-line-color-yellow); */
   border-radius: 15px;
-  background: var( --main-color-blue-light);
+  background: var(--main-color-blue-light);
 }
 
 .search-bar input {
@@ -106,4 +108,3 @@ input {
   background-color: inherit;
   border: hidden;
 }
-

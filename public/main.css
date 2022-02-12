@@ -17,6 +17,7 @@
   --sound-bar-green: #128110;
   --sound-bar-green-light: #08b808;
   --sound-bar-purple: #8944e0;
+  --feed-width: 600px;
 }
 
 html,
@@ -29,6 +30,7 @@ body,
   padding: 0;
   color: var(--font-line-color-yellow);
   font-family: "Open Sans", sans-serif;
+  box-sizing: border-box;
 }
 
 .App {
@@ -116,22 +118,14 @@ input {
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  font-family: montserrat;
-  display: flex;
-  justify-content: center;
-  height: 100vh;
-}
-
 .hide {
   display: none;
 }
 
 .main {
-  display: flex;
-  width: 800px;
-  flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 .playlist {
@@ -223,11 +217,11 @@ body {
 }
 
 .musicControls span:hover {
-  color: #253A4E;
+  color: #253a4e;
 }
 
 .play {
-  background: #33495C;
+  background: #33495c;
   padding: 15px 18px;
   border-radius: 100%;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
@@ -244,7 +238,7 @@ body {
 }
 
 .prev {
-  background: #33495C;
+  background: #33495c;
   border-radius: 10px 0 0px 10px;
   padding-left: 15px;
   padding-right: 10px;
@@ -253,7 +247,7 @@ body {
 }
 
 .next {
-  background: #33495C;
+  background: #33495c;
   border-radius: 0px 10px 10px 0px;
   padding-right: 15px;
   padding-left: 10px;
@@ -289,14 +283,15 @@ body {
 }
 
 .plsoptions span:hover {
-  color: #253A4E;
+  color: #253a4e;
 }
 
 .plsoptions span.active {
   color: #204d68;
 }
 
-.currentT, .totalT {
+.currentT,
+.totalT {
   width: 35px;
 }
 /*!*******************************************************************************************************************************!*\
