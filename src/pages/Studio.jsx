@@ -1,21 +1,11 @@
 import React, { useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-import { useAuth0} from '@auth0/auth0-react';
-import Upload from '../components/Upload.jsx';
-import { AllButtons, Button1, ButtonWrapper, ControlBarWrapper, Draft, DraftTitle, DraftWrapper, EditorWrapper, EffectButton, FastForward, Header, LeftAudioTrack, LeftPanel, MidPanel, Pause, Play, PlayerControls, Rewind, RightPanel, Stop, StudioHeader, StudioWrapper, VolumeDown, VolumeUp } from '../components/Studio/Styles/styles.js';
+import { AllButtons, Button1, ButtonWrapper, ControlBarWrapper, Draft, DraftTitle, DraftWrapper, EditorWrapper, EffectButton, FastForward, Header, Highligther, LeftAudioTrack, LeftPanel, MidPanel, MoveAudio, Pause, Play, PlayerControls, Rewind, RightPanel, Stop, StudioHeader, StudioWrapper, VolumeDown, VolumeUp } from '../components/Studio/Styles/styles.js';
 import WaveVisualizer from '../components/Studio/WaveVisualizer.jsx';
-
+import { withAuthenticationRequired } from '@auth0/auth0-react';
+import Loading from '../components/Loading.jsx';
 
 const Studio = () => {
 
-  // const { user } = useAuth0();
-
-  // //get query from url
-  // //example, /studio?id=250, get the id number from the query
-  // const query = new URLSearchParams(useLocation().search);
-
-  //Nested routes
 
   return (
     <StudioWrapper>
@@ -65,8 +55,11 @@ const Studio = () => {
             <Stop></Stop>
             <Rewind></Rewind>
             <FastForward></FastForward>
+            <MoveAudio></MoveAudio>
+            <Highligther></Highligther>
             <EffectButton>Fade In</EffectButton>
             <EffectButton>Fade Out</EffectButton>
+            <EffectButton>Trim</EffectButton>
           </AllButtons>
         </PlayerControls>
       </ControlBarWrapper>
@@ -74,4 +67,6 @@ const Studio = () => {
   );
 };
 
-export default Studio;
+export default withAuthenticationRequired(Studio, {
+  onRedirecting: () => <Loading />,
+});

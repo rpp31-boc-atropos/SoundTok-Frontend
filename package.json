@@ -29,6 +29,7 @@
     "sass": "^1.49.7",
     "sass-loader": "^12.4.0",
     "styled-components": "^5.3.3",
+    "waveform-playlist": "^4.2.1",
     "wavesurfer.js": "^6.0.0",
     "webpack": "^5.68.0"
   },

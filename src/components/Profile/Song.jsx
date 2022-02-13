@@ -45,6 +45,11 @@ const PostRemixButton = styled.button`
   }
 `;
 
+const CornerWrapper = styled.div`
+  display:flex;
+  flex-direction: column;
+`;
+
 const SongText = styled.p``;
 
 const Song = (props) => {
@@ -63,12 +68,14 @@ const Song = (props) => {
         </LogoButton>
         <SongText>{props.username}</SongText>
         <div>{props.projectLength}</div>
-        <Link to='/studio'>
-          <PostRemixButton>
-            <i className='ri-sound-module-line'></i>
-          </PostRemixButton>
-        </Link>
-        <button onClick={() => deleteSong()}>XX</button>
+        <CornerWrapper>
+          <Link to='/studio'>
+            <PostRemixButton>
+              <i className='ri-sound-module-line'></i>
+            </PostRemixButton>
+          </Link>
+          {props.isCurrentUser && <button onClick={() => deleteSong()}>XX</button>}
+        </CornerWrapper>
       </SongHeader>
       <button>Play Song</button>
       <div>{props.postDescription}</div>
