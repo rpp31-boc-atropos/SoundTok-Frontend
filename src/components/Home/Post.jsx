@@ -58,16 +58,6 @@ const PostWrapper = styled.div`
   border-bottom: none;
 `;
 
-const ProfilePic = styled.img`
-  width: 48px;
-  height: 48px;
-  margin-right: 12px;
-  border-radius: 100%;
-  box-sizing: border-box;
-  border: 2px solid var(--font-line-color-yellow);
-  overflow: hidden;
-`;
-
 const PostContent = styled.div`
   width: 100%;
   display: flex;

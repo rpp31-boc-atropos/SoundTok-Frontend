@@ -62,7 +62,7 @@ const WritePost = (props) => {
                 <AudioIcons>
                   <PostAudioIcon>
                     <label htmlFor='post-audio'>
-                      <i className='ri-upload-2-line'></i>
+                      <div className='ri-upload-2-line'/>
                     </label>
                     <UploadFile
                       type='file'
@@ -74,20 +74,20 @@ const WritePost = (props) => {
                   <PostAudioIcon>
                     <label htmlFor='post-audio'>
                       <button>
-                        <i className='ri-folder-upload-line'></i>
+                        <div className='ri-folder-upload-line'/>
                       </button>
                     </label>
                   </PostAudioIcon>
                   <PostAudioIcon>
                     <label htmlFor='post-audio'>
                       <Link to='/studio'>
-                        <i className='ri-mic-line'></i>
+                        <div className='ri-mic-line'/>
                       </Link>
                     </label>
                   </PostAudioIcon>
                   <PostAudioIcon>
                     <label htmlFor='post-image'>
-                      <i className='ri-image-2-line'></i>
+                      <div className='ri-image-2-line'/>
                     </label>
                     <UploadFile
                       type='file'
@@ -137,16 +137,6 @@ const WritePostWrapper = styled.div`
   box-sizing: border-box;
   border: 1px solid var(--font-line-color-yellow-transparent);
   border-bottom: none;
-`;
-
-const ProfilePic = styled.img`
-  width: 48px;
-  height: 48px;
-  margin-right: 12px;
-  border-radius: 100%;
-  box-sizing: border-box;
-  border: 2px solid var(--font-line-color-yellow);
-  overflow: hidden;
 `;
 
 const Form = styled.form`
