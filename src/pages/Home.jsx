@@ -6,6 +6,7 @@ import WritePost from '../components/Home/WritePost.jsx';
 import Post from '../components/Home/Post.jsx';
 
 import dummy from '../components/Home/dummy.jsx';
+import axios from 'axios';
 
 const FeedWrapper = styled.div`
   width: 100%;
@@ -26,6 +27,18 @@ const Spacer = styled.div`
 const Home = () => {
   const { user, isAuthenticated } = useAuth0();
   const [posts, setPosts] = React.useState(dummy);
+
+  /* Example for fetching data from DB
+
+  const [data, setData] = React.useState({ data: [] })
+  console.log(data)
+  React.useEffect(async () => {
+    const result = await axios(
+      'http://localhost:1234/',
+    );
+    setData(result.data);
+  }, []);
+  */
   // debugger;
 
   //start from the top on each page
