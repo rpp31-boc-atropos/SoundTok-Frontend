@@ -56,8 +56,8 @@ const Song = (props) => {
   // const { user } = useAuth();
 
   const deleteSong = () => {
-    // add confirmation popup?
     props.removeSong(props.songId, 'Posts');
+
   };
 
   return (
