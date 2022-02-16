@@ -2,9 +2,10 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import ProfilePicture from '../ProfilePicture.jsx';
 import helpers from './helperFunctions.js';
 
-const WritePost = () => {
+const WritePost = (props) => {
   const [textCharacterCount, setTextCharacterCount] = React.useState(0);
 
   const projectTitle = React.useRef(null);
@@ -39,9 +40,7 @@ const WritePost = () => {
   return (
     <WritePostWrapper>
       {/* TODO: replace atrophos with username */}
-      <Link to={'/profile/' + 'atrophos'}>
-        <ProfilePic src='https://i.pinimg.com/474x/a3/89/f5/a389f597020f361f7f6d9b79323598fc.jpg'></ProfilePic>
-      </Link>
+      <ProfilePicture username={props.username} profilePicture={props.profilePicture}/>
       <Form onSubmit={handlePost}>
         <FlexColumn>
           <Inputs>

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { DateTime } from 'luxon';
 
 import { usePlayer } from '../../contexts/player/playerContext';
+import ProfilePicture from '../ProfilePicture.jsx';
 import helpers from './helperFunctions.js';
 
 const Post = (props) => {
@@ -13,43 +13,15 @@ const Post = (props) => {
   //   SetCurrent(props.index);
   // };
 
-  const toTimeAgo = (isoString) => {
-    const timeUnits = [
-      'years',
-      'months',
-      'days',
-      'hours',
-      'minutes',
-      'seconds',
-    ];
-    const displayUnits = ['y', 'm', 'd', 'h', 'min', 's'];
-
-    const start = DateTime.fromISO(isoString);
-    const end = DateTime.now();
-    const diff = end.diff(start, timeUnits).toObject();
-    // console.log(diff);
-
-    for (let i = 0; i < timeUnits.length; i++) {
-      const unit = timeUnits[i];
-      const displayUnit = displayUnits[i];
-      if (diff[unit] > 0) {
-        const time = Math.floor(diff[unit]) + displayUnit;
-        return time;
-      }
-    }
-  };
-
   return (
     <PostWrapper>
-      <Link to={'/profile/' + props.username}>
-        <ProfilePic src={props.profilePicture}></ProfilePic>
-      </Link>
+      <ProfilePicture username={props.username} profilePicture={props.profilePicture}/>
       <PostContent>
         <PostHeader>
           <PostUsernameAndTime>
             <Link to={'/profile/' + props.username}>@{props.username}</Link>
             {' · '}
-            <time>{toTimeAgo(props.timePosted)}</time>
+            <time>{helpers.isoToTimeAgo(props.timePosted)}</time>
           </PostUsernameAndTime>
           <Link to='/studio'>
             <PostRemixButton>
