@@ -16,7 +16,6 @@
 /public/main.css.gz*
 
 
-
 # misc
 .DS_Store
 .env.local

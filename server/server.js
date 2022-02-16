@@ -5,11 +5,11 @@ const jwksRsa = require('jwks-rsa');
 // const { resolve } = require('path');
 const axios = require('axios');
 
-
 require('dotenv').config({});
 
 const app = express();
 
+app.use(express.json())
 app.use(express.static('public'));
 
 const appOrigin = process.env.APP_ORIGIN;

@@ -105,18 +105,14 @@ const WritePost = (props) => {
                     ></UploadFile>
                   </PostAudioIcon>
                   <PostAudioIcon>
-                    <label htmlFor='post-audio'>
-                      <button>
-                        <div className='ri-folder-upload-line'/>
-                      </button>
-                    </label>
+                    <button>
+                      <div className='ri-folder-upload-line'/>
+                    </button>
                   </PostAudioIcon>
                   <PostAudioIcon>
-                    <label htmlFor='post-audio'>
-                      <Link to='/studio'>
-                        <div className='ri-mic-line'/>
-                      </Link>
-                    </label>
+                    <Link to='/studio'>
+                      <div className='ri-mic-line'/>
+                    </Link>
                   </PostAudioIcon>
                   <PostAudioIcon>
                     <label htmlFor='post-image'>
