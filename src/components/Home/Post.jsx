@@ -9,10 +9,6 @@ import helpers from './helperFunctions.js';
 const Post = (props) => {
   const { SetCurrent, currentSong, songs } = usePlayer();
 
-  // const handlePlaySong = () => {
-  //   SetCurrent(props.index);
-  // };
-
   return (
     <PostWrapper>
       <ProfilePicture username={props.username} profilePicture={props.profilePicture}/>
@@ -31,7 +27,7 @@ const Post = (props) => {
         </PostHeader>
         <PostText>{props.postText}</PostText>
         <PostAudio
-          onClick={(event) => {
+          onClick={() => {
             SetCurrent(props.index);
           }}
         ></PostAudio>

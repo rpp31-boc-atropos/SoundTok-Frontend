@@ -1,12 +1,16 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import ProfilePicture from '../ProfilePicture.jsx';
 import helpers from './helperFunctions.js';
 
 const WritePost = (props) => {
   const [textCharacterCount, setTextCharacterCount] = React.useState(0);
+  const [uploadedAudio, setUploadedAudio] = React.useState('');
+  const [audioDuration, setAudioDuration] = React.useState('');
+  const [uploadedImage, setUploadedImage] = React.useState('');
 
   const projectTitle = React.useRef(null);
   const projectText = React.useRef(null);
@@ -28,6 +32,19 @@ const WritePost = (props) => {
     if (count >= maxCharacters) {
       event.target.value = event.target.value.slice(0, maxCharacters - 1);
     }
+  };
+
+  const handleAudio = (event) => {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'dllt65qw');
+
+    axios.post('https://api.cloudinary.com/v1_1/xoxohorses/video/upload', formData)
+      .then((response) => {
+        setUploadedAudio(response.data.url);
+        setAudioDuration(response.data.duration);
+      });
   };
 
   const handlePost = (event) => {
@@ -69,6 +86,7 @@ const WritePost = (props) => {
                       id='post-audio'
                       name='projectAudioLink'
                       accept='audio/*'
+                      onChange={handleAudio}
                     ></UploadFile>
                   </PostAudioIcon>
                   <PostAudioIcon>
