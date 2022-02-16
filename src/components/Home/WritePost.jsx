@@ -35,15 +35,30 @@ const WritePost = (props) => {
   };
 
   const handleAudio = (event) => {
+
     const file = event.target.files[0];
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', 'dllt65qw');
+    // console.log(process.env.CLOUDINARY_USERNAME);
 
     axios.post('https://api.cloudinary.com/v1_1/xoxohorses/video/upload', formData)
       .then((response) => {
         setUploadedAudio(response.data.url);
         setAudioDuration(response.data.duration);
+      });
+  };
+
+  const handleImage = (event) => {
+
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'dllt65qw');
+
+    axios.post('https://api.cloudinary.com/v1_1/xoxohorses/image/upload', formData)
+      .then((response) => {
+        setUploadedImage(response.data.url);
       });
   };
 
@@ -84,7 +99,7 @@ const WritePost = (props) => {
                     <UploadFile
                       type='file'
                       id='post-audio'
-                      name='projectAudioLink'
+                      name='projectAudio'
                       accept='audio/*'
                       onChange={handleAudio}
                     ></UploadFile>
@@ -110,8 +125,9 @@ const WritePost = (props) => {
                     <UploadFile
                       type='file'
                       id='post-image'
-                      name='projectImageLink'
+                      name='projectImage'
                       accept='image/*'
+                      onChange={handleImage}
                     ></UploadFile>
                   </PostAudioIcon>
                 </AudioIcons>
