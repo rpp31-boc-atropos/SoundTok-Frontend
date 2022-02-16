@@ -49,7 +49,7 @@ const Home = () => {
   return (
     <FeedWrapper>
       <Feed>
-        {user && <WritePost></WritePost>}
+        {user && <WritePost username={user}/>}
         {posts.map((post, i) => {
           return (
             <Post
@@ -63,7 +63,7 @@ const Home = () => {
               projectLength={post.projectLength}
               tags={post.tags}
               timePosted={post.timePosted}
-            ></Post>
+            />
           );
         })}
         <Spacer></Spacer>
