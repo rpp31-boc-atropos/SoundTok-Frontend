@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon';
+
 let helpers;
 export default helpers = {
   secondsToLength: (seconds) => {
@@ -32,4 +34,28 @@ export default helpers = {
       }
     }
   },
+  isoToTimeAgo: (isoString) => {
+    const timeUnits = [
+      'years',
+      'months',
+      'days',
+      'hours',
+      'minutes',
+      'seconds',
+    ];
+    const displayUnits = ['y', 'mo', 'd', 'h', 'm', 's'];
+
+    const start = DateTime.fromISO(isoString);
+    const end = DateTime.now();
+    const diff = end.diff(start, timeUnits).toObject();
+
+    for (let i = 0; i < timeUnits.length; i++) {
+      const unit = timeUnits[i];
+      const displayUnit = displayUnits[i];
+      if (diff[unit] > 0) {
+        const time = Math.floor(diff[unit]) + displayUnit;
+        return time;
+      }
+    }
+  }
 };
