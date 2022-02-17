@@ -15,7 +15,6 @@
   --sound-bar-green-light: #08b808;
   --sound-bar-purple: #8944e0;
   --feed-width: 600px;
-<<<<<<< HEAD
 
   /* Studio CSS Below */
 
@@ -48,9 +47,7 @@
   --wp-range-slider-focus-color: black;
   --wp-range-slider-background-color: #ddd;
   --wp-range-slider-background-focus-color: #bbb;
-=======
   --bar-width: 800px;
->>>>>>> 48b9cc3a0301da0a21e0f66ed08a615fc2ab2f97
 }
 
 html,

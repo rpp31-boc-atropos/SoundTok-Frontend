@@ -18,7 +18,7 @@ const Studio = () => {
 
     axios.post('https://api.cloudinary.com/v1_1/poyraz96/video/upload', formData)
       .then(result => {
-        console.log(result);
+        // console.log(result);
         playlist.load([{
           src: result.data.url,
           name: `Track #${count}`
@@ -26,7 +26,7 @@ const Studio = () => {
         setCount(count + 1);
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
