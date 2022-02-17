@@ -119,7 +119,6 @@ const UserPosts = ({isCurrentUser, profileName}) => {
             <Song
               key={i}
               songId={song.songId}
-              username={song.username}
               songImage={song.songImage}
               projectTitle={song.projectTitle}
               songDescription={song.songDescription}

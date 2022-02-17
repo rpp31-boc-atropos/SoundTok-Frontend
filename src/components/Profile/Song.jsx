@@ -66,7 +66,6 @@ const Song = (props) => {
         <LogoButton>
           <Logo src={props.songImage}></Logo>
         </LogoButton>
-        <SongText>{props.username}</SongText>
         <div>{props.projectLength}</div>
         <CornerWrapper>
           <Link to='/studio'>
