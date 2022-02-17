@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FaVolumeDown, FaVolumeUp, FaArrowsAltH, FaRulerHorizontal } from "react-icons/fa";
+import { FaVolumeDown, FaVolumeUp, FaArrowsAltH, FaUpload, FaGripLinesVertical } from "react-icons/fa";
 import { BsPlayCircleFill, BsFillPauseCircleFill, BsStopBtnFill } from "react-icons/bs";
 import { MdOutlineFastForward, MdOutlineFastRewind } from "react-icons/md";
 
@@ -31,13 +31,13 @@ export const StudioWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 1700px;
-  height: 850px;
+  height: 830px;
   border: 2px solid rgb(255, 250, 206);
 `;
 
 export const StudioHeader = styled.div`
   display flex;
-  width 1697px;
+  width 1700px;
   height 65px;
   border-bottom: 2px solid rgb(255, 250, 206);
   align-items: center;
@@ -91,36 +91,39 @@ export const Button1 = styled.button`
 
 export const EditorWrapper = styled.div`
   display: flex;
-  height: 710px;
-  width: 1697px;
+  height: 700px;
+  width: 1700px;
   border-bottom: 2px solid rgb(255, 250, 206);
 `;
 
 export const ControlBarWrapper = styled.div`
-  width: 1697px;
-  height 76px;
+  width: 1700px;
+  height 60px;
   display: flex;
-  justify-content: center;
+  justify-content: felx-start;
 `;
 
 export const PlayerControls = styled.div`
   display: flex;
   justify-content: center;
-  width: 700px;
+  width: 960px;
 `;
 
 export const LeftPanel = styled.div`
-  height: 710px;
+  height: 700px;
   width: 350px;
   border-right: 2px solid rgb(255, 250, 206);
-`;
-
-export const LeftAudioTrack = styled.div`
-  height: 150px;
-  width: 350px;
-  border-bottom: 2px solid rgb(255, 250, 206);
   display: flex;
   flex-direction: column;
+  justify-content: center;
+`;
+
+export const AddAudioTrackWrapper = styled.div`
+  height: 61px;
+  width: 350px;
+  // border-bottom: 2px solid rgb(255, 250, 206);
+  border-right: 2px solid rgb(255, 250, 206);
+  display: flex;
   justify-content: center;
   align-items: center;
 `;
@@ -131,7 +134,7 @@ export const RightPanel = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 710px;
+  height: 700px;
   width: 369px;
   border-left: 2px solid rgb(255, 250, 206);
 `;
@@ -140,7 +143,7 @@ export const DraftTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 369px;
+  width: 373px;
   // padding-bottom: 15px;
   height: 50px;
   border-bottom: 2px solid rgb(255, 250, 206);
@@ -176,8 +179,8 @@ export const Draft = styled.div`
 
 
 export const MidPanel = styled.div`
-  height: 710px;
-  width: 975px;
+  height: 700px;
+  width: 1340px;
 `;
 
 export const Controls = styled.div`
@@ -209,30 +212,50 @@ export const VolumeUp = styled(FaVolumeUp)`
 export const Pause = styled(BsFillPauseCircleFill)`
   color purple;
   font-size: 30px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const Play = styled(BsPlayCircleFill)`
   color purple;
   font-size: 30px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const Stop = styled(BsStopBtnFill)`
   color purple;
   font-size: 35px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const Rewind = styled(MdOutlineFastRewind)`
   color purple;
   font-size: 40px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const FastForward = styled(MdOutlineFastForward)`
   color purple;
   font-size: 40px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const AllButtons = styled.div`
-  height: 73px;
+  height: 60px;
   width 560px;
   display: flex;
   justify-content: space-around;
@@ -256,9 +279,28 @@ export const EffectButton = styled.div`
 export const MoveAudio = styled(FaArrowsAltH)`
   color purple;
   font-size: 30px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
-export const Highligther = styled(FaRulerHorizontal)`
+export const Highligther = styled(FaGripLinesVertical)`
   color purple;
-  font-size: 30px;
+  font-size: 25px;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const UploadIcon = styled(FaUpload)`
+  margin-top: 5px;
+  margin-right: 10px;
+  color purple;
+  font-size: 25px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
