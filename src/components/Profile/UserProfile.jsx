@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import BioModal from './BioModal.jsx';
 // import { useAuth } from '../../contexts/AuthContext.jsx';
+import dummyProfile from './dummyProfile.jsx';
 import styled from 'styled-components';
 const axios = require('axios');
 
@@ -53,8 +54,8 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
 
   //add state for bio
   // const [username, setUsername] = useState('searchedName' || 'ownProfile');
-  const [profileURL, setProfileURL] = useState('Loading profile photo');
-  const [bio, setBio] = useState('Loading bio info');
+  const [profileURL, setProfileURL] = useState(dummyProfile.profilePicture);
+  const [bio, setBio] = useState(dummyProfile.bio);
   const [isOpen, setModal] = useState(false);
 
   const closeModal = () => {
@@ -68,29 +69,30 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
 
   };
 
+  // console.log(dummyProfile);
 
-  // useEffect(() => {
-  //   //Api call to get bio
-  //   axios.get('/profile', {
-  //     params: {
-  //       user: profileName
-  //     }
-  //   })
-  //     .then((response) => {
-  //       setProfileURL(response.photo);
-  //       setBio(response.bio);
-  //     })
-  //     .catch((err) => {  //move error handling to server
-  //       //make pop-up
-  //       console.log(err);
-  //     });
-  // });
+  useEffect(() => {
+    //Api call to get bio
+    axios.get('/profileData', {
+      params: {
+        username: profileName
+      }
+    })
+      .then((response) => {
+        console.log('response', response);
+        setProfileURL(response.data.profilePicture);
+        setBio(response.data.bio);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 
 
   return (
     <ProfileWrapper>
       <ProfilePic alt='logo'
-        src='https://yahoofantasysports-res.cloudinary.com/image/upload/fantasy-logos/25311153506_9fdda2493f.jpg'>
+        src={profileURL}>
       </ProfilePic>
       <ProfileHeader>@Faye</ProfileHeader>
       {/* <p>User from context: {user}</p> */}

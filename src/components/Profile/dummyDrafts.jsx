@@ -36,5 +36,5 @@ export default dummyDrafts = [
       'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Satin/Kai_Engel_-_08_-_Downfall.mp3',
     projectTitle: 'Can you feel the love tonight',
     projectLength: '2:12',
-  },
+  }
 ];

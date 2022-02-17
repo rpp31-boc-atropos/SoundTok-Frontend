@@ -65,9 +65,8 @@ app.get("/", async (req, res) => {
 
 //profile routes
 app.get('/userProjects', (req, res) => {
-  console.log(req.query);
-  // console.log(req.query.user);
-
+  // console.log('projects query', req.query);
+  // console.log('projects query user', req.query.username);
   axios({
     method: 'GET',
     url: `http://localhost:1234/`,
@@ -75,32 +74,40 @@ app.get('/userProjects', (req, res) => {
     // data: data,
   })
     .then((response) => {
-      console.log(response);
-      res.send(response);
+      // console.log(response);
+      res.status(200).send(response);
     })
     .catch((error) => {
-      console.log(error);
-      res.send(error);
+      // console.log(error);
+      res.status(500).send(error);
     });
 });
 
 app.get('/userDrafts', (req, res) => {
-  console.log(req.query);
-  // console.log(req.query.user);
-
   axios({
     method: 'GET',
     url: `http://localhost:1234/`,
     params: req.query
-    // data: data,
   })
     .then((response) => {
-      console.log(response);
-      res.send(response);
+      res.status(200).send(response);
     })
     .catch((error) => {
-      console.log(error);
-      res.send(error);
+      res.status(500).send(error);
+    });
+});
+
+app.get('/profileData', (req, res) => {
+  axios({
+    method: 'GET',
+    url: `http://localhost:1234/`,
+    params: req.query
+  })
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
     });
 });
 

@@ -76,7 +76,7 @@ const UserPosts = ({isCurrentUser, profileName}) => {
     // console.log('test');
     axios.get('/userProjects', {
       params: {
-        user: profileName
+        username: profileName
       }
     })
       .then((response) => {
@@ -91,7 +91,7 @@ const UserPosts = ({isCurrentUser, profileName}) => {
     if (isCurrentUser) {
       axios.get('/userDrafts', {
         params: {
-          user: profileName
+          username: profileName
         }
       })
         .then((response) => {
