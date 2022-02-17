@@ -7,7 +7,7 @@ const PlayerContext = createContext();
 
 const PlayerProvider = ({ children }) => {
   const initialState = {
-    currentSong: 0,
+    currentSong: -1,
     songs: dummy,
     repeat: false,
     random: false,

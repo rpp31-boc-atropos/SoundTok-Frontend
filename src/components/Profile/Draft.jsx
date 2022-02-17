@@ -33,6 +33,18 @@ const PostRemixButton = styled.button`
   }
 `;
 
+const LogoButton = styled.button`
+`;
+
+const Logo = styled.img`
+  width: 48px;
+  height: 48px;
+  margin-right: 12px;
+  border-radius: 100%;
+  box-sizing: border-box;
+  border: 2px solid var(--font-line-color-yellow);
+`;
+
 const DraftText = styled.p``;
 
 const Draft = (props) => {
@@ -41,10 +53,13 @@ const Draft = (props) => {
     // Stretch goal - add confirmation popup
     props.removeDraft(props.songId, 'Drafts');
   };
-
+  //possibly make song image the background
   return (
     <SingleDraft>
       <DraftHeader>
+        <LogoButton>
+          <Logo src={props.songImage}></Logo>
+        </LogoButton>
         <DraftText>{props.projectLength}</DraftText>
         <Link to='/studio'>
           <PostRemixButton>
@@ -54,7 +69,7 @@ const Draft = (props) => {
         <button onClick={() => deleteDraft()}>XX</button>
       </DraftHeader>
       <DraftText>{props.projectTitle}</DraftText>
-      <DraftText>{props.postDescription}</DraftText>
+      <DraftText>{props.songDescription}</DraftText>
     </SingleDraft>
   );
 };

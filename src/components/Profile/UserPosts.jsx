@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 // import { useAuth } from '../../contexts/AuthContext.jsx';
 import Song from './Song.jsx';
 import Draft from './Draft.jsx';
 import dummySongs from './dummySongs.jsx';
 import dummyDrafts from './dummyDrafts.jsx';
 import styled from 'styled-components';
+const axios = require('axios');
 
 const Button = styled.button`
   color: rgb(255, 250, 206);
@@ -21,26 +22,91 @@ const ButtonWrapper = styled.div`
 const PostWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content:space-around;
   height: 600px;
   width: 1000px;
   margin-top: 10px;
   flex-wrap: wrap;
 `;
 
-const UserPosts = ({isCurrentUser}) => {
+// const UserPosts = ({isCurrentUser}) => {
+const UserPosts = ({isCurrentUser, profileName}) => {
   // const { user } = useAuth();
   const [tab, setTab] = useState('Posts');
   const [songs, setSongs] = useState(dummySongs);
   const [drafts, setDrafts] = useState(dummyDrafts);
+  // const {projectsToDelete, setProjectsToDelete} = useState([]); - stretch goal - delete multiple songs
 
-  const removeSong = (songId, source) => {
+  const removeProject = (projectId, source) => {
     // needs call to remove from db. stretch goal - select and remove multiple songs
+    // to-dos: add confirmation popup, add select boxes to select multiple songs before clicking a separate delete button
+    // cut this section after post request is implemented
+    //Modifying directly in state instead of waiting for response for faster user experience
     if (source === 'Posts') {
-      setSongs(songs.filter(song => song.songId !== songId));
+      setSongs(songs.filter(song => song.projectId !== projectId));
     } else {
-      setDrafts(drafts.filter(draft => draft.songId !== songId));
+      setDrafts(drafts.filter(draft => draft.projectId !== projectId));
     }
+
+    // axios.post('/deleteProjects', projectsToDelete)
+    let formData = {
+      source: source,
+      projectId: projectId //will eventually be [songsToDelete]
+    };
+
+    axios.delete('/deleteProject', {data: formData})
+      .then(function (response) {
+        // console.log(response);
+        console.log('Project successfully deleted');
+        if (source === 'Posts') {
+          //will need to filter out all songIds in the array
+          // setSongs(songs.filter(song => song.projectId !== projectId));
+        } else {
+          // setDrafts(drafts.filter(draft => draft.projectId !== projectId));
+        }
+      })
+      .catch(function (error) {
+        //pop-up with with message - please review error and try again
+        //could make popup - warning
+        // console.log('Project failed to delete. Please refresh the page and try again');
+        console.log(error);
+      });
+
   };
+
+  useEffect(() => {
+    //api call to get songs
+    //if logged in, api call to get drafts
+    // console.log('test');
+    axios.get('/userProjects', {
+      params: {
+        username: profileName
+      }
+    })
+      .then((response) => {
+        // setSongs(response.data);
+        console.log('response: ', response.data);
+      })
+      .catch((err) => {
+        //make pop-up
+        console.log(err);
+      });
+
+    if (isCurrentUser) {
+      axios.get('/userDrafts', {
+        params: {
+          username: profileName
+        }
+      })
+        .then((response) => {
+          // setDrafts(response.drafts);
+          console.log('response: ', response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  });
 
   return (
     <>
@@ -56,15 +122,14 @@ const UserPosts = ({isCurrentUser}) => {
           return (
             <Song
               key={i}
-              songId={song.songId}
-              username={song.username}
-              profilePicture={song.profilePicture}
+              songId={song.projectId}
+              songImage={song.projectImage}
               projectTitle={song.projectTitle}
-              postDescription={song.postText}
+              songDescription={song.projectDescription}
               projectAudioLink={song.projectAudioLink}
               projectLength={song.projectLength}
               tags={song.tags}
-              removeSong={removeSong}
+              removeSong={removeProject}
               isCurrentUser={isCurrentUser}
             ></Song>
           );
@@ -73,15 +138,15 @@ const UserPosts = ({isCurrentUser}) => {
           return (
             <Draft
               key={i}
-              songId={draft.songId}
+              songId={draft.projectId}
               username={draft.username}
-              profilePicture={draft.profilePicture}
+              songImage={draft.projectImage}
               projectTitle={draft.projectTitle}
-              postDescription={draft.postText}
+              songDescription={draft.projectDescription}
               projectAudioLink={draft.projectAudioLink}
               projectLength={draft.projectLength}
               tags={draft.tags}
-              removeDraft={removeSong}
+              removeDraft={removeProject}
             ></Draft>
           );
         }) : null}

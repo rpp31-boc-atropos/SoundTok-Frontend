@@ -1,11 +1,16 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
+import ProfilePicture from '../ProfilePicture.jsx';
 import helpers from './helperFunctions.js';
 
-const WritePost = () => {
+const WritePost = (props) => {
   const [textCharacterCount, setTextCharacterCount] = React.useState(0);
+  const [uploadedAudio, setUploadedAudio] = React.useState('');
+  const [audioDuration, setAudioDuration] = React.useState('');
+  const [uploadedImage, setUploadedImage] = React.useState('');
 
   const projectTitle = React.useRef(null);
   const projectText = React.useRef(null);
@@ -29,6 +34,34 @@ const WritePost = () => {
     }
   };
 
+  const handleAudio = (event) => {
+
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'dllt65qw');
+    // console.log(process.env.CLOUDINARY_USERNAME);
+
+    axios.post('https://api.cloudinary.com/v1_1/xoxohorses/video/upload', formData)
+      .then((response) => {
+        setUploadedAudio(response.data.url);
+        setAudioDuration(response.data.duration);
+      });
+  };
+
+  const handleImage = (event) => {
+
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'dllt65qw');
+
+    axios.post('https://api.cloudinary.com/v1_1/xoxohorses/image/upload', formData)
+      .then((response) => {
+        setUploadedImage(response.data.url);
+      });
+  };
+
   const handlePost = (event) => {
     event.preventDefault();
     const title = projectTitle.current.value;
@@ -39,9 +72,7 @@ const WritePost = () => {
   return (
     <WritePostWrapper>
       {/* TODO: replace atrophos with username */}
-      <Link to={'/profile/' + 'atrophos'}>
-        <ProfilePic src='https://i.pinimg.com/474x/a3/89/f5/a389f597020f361f7f6d9b79323598fc.jpg'></ProfilePic>
-      </Link>
+      <ProfilePicture username={props.username} profilePicture={props.profilePicture}/>
       <Form onSubmit={handlePost}>
         <FlexColumn>
           <Inputs>
@@ -63,38 +94,36 @@ const WritePost = () => {
                 <AudioIcons>
                   <PostAudioIcon>
                     <label htmlFor='post-audio'>
-                      <i className='ri-upload-2-line'></i>
+                      <div className='ri-upload-2-line'/>
                     </label>
                     <UploadFile
                       type='file'
                       id='post-audio'
-                      name='projectAudioLink'
+                      name='projectAudio'
                       accept='audio/*'
+                      onChange={handleAudio}
                     ></UploadFile>
                   </PostAudioIcon>
                   <PostAudioIcon>
-                    <label htmlFor='post-audio'>
-                      <button>
-                        <i className='ri-folder-upload-line'></i>
-                      </button>
-                    </label>
+                    <button>
+                      <div className='ri-folder-upload-line'/>
+                    </button>
                   </PostAudioIcon>
                   <PostAudioIcon>
-                    <label htmlFor='post-audio'>
-                      <Link to='/studio'>
-                        <i className='ri-mic-line'></i>
-                      </Link>
-                    </label>
+                    <Link to='/studio'>
+                      <div className='ri-mic-line'/>
+                    </Link>
                   </PostAudioIcon>
                   <PostAudioIcon>
                     <label htmlFor='post-image'>
-                      <i className='ri-image-2-line'></i>
+                      <div className='ri-image-2-line'/>
                     </label>
                     <UploadFile
                       type='file'
                       id='post-image'
-                      name='projectImageLink'
+                      name='projectImage'
                       accept='image/*'
+                      onChange={handleImage}
                     ></UploadFile>
                   </PostAudioIcon>
                 </AudioIcons>
@@ -138,16 +167,6 @@ const WritePostWrapper = styled.div`
   box-sizing: border-box;
   border: 1px solid var(--font-line-color-yellow-transparent);
   border-bottom: none;
-`;
-
-const ProfilePic = styled.img`
-  width: 48px;
-  height: 48px;
-  margin-right: 12px;
-  border-radius: 100%;
-  box-sizing: border-box;
-  border: 2px solid var(--font-line-color-yellow);
-  overflow: hidden;
 `;
 
 const Form = styled.form`
