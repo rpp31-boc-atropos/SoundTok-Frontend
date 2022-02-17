@@ -35,32 +35,32 @@ const UserPosts = ({isCurrentUser, profileName}) => {
   const [tab, setTab] = useState('Posts');
   const [songs, setSongs] = useState(dummySongs);
   const [drafts, setDrafts] = useState(dummyDrafts);
-  const {songsToDelete, setSongsToDelete} = useState([]);
+  const {projectsToDelete, setProjectsToDelete} = useState([]);
 
-  const removeSong = (songId, source) => {
+  const removeProject = (projectId, source) => {
     // needs call to remove from db. stretch goal - select and remove multiple songs
     // to-dos: add confirmation popup, add select boxes to select multiple songs before clicking a separate delete button
     // cut this section after post request is implemented
     if (source === 'Posts') {
-      setSongs(songs.filter(song => song.songId !== songId));
+      setSongs(songs.filter(song => song.projectId !== projectId));
     } else {
-      setDrafts(drafts.filter(draft => draft.songId !== songId));
+      setDrafts(drafts.filter(draft => draft.projectId !== projectId));
     }
     /*
-    // axios.post('/deleteSongs', songsToDelete)
+    // axios.post('/deleteProjects', projectsToDelete)
     let formData = {
       source: source,
-      songIds: [songId] //will eventually be songsToDelete
+      projectIds: [projectId] //will eventually be songsToDelete
     };
 
-    axios.post('/deleteSongs', formData)
+    axios.post('/deleteProjects', formData)
       .then(function (response) {
         // console.log(response);
         if (source === 'Posts') {
           //will need to filter out all songIds in the array
-          setSongs(songs.filter(song => song.songId !== songId));
+          setSongs(songs.filter(song => song.projectId !== projectId));
         } else {
-          setDrafts(drafts.filter(draft => draft.songId !== songId));
+          setDrafts(drafts.filter(draft => draft.projectId !== projectId));
         }
       })
       .catch(function (error) {
@@ -74,13 +74,13 @@ const UserPosts = ({isCurrentUser, profileName}) => {
     //api call to get songs
     //if logged in, api call to get drafts
     // console.log('test');
-    axios.get('/userSongs', {
+    axios.get('/userProjects', {
       params: {
         user: profileName
       }
     })
       .then((response) => {
-        // setSongs(response.songs);
+        // setSongs(response.data);
         console.log('response: ', response.data);
       })
       .catch((err) => {
@@ -118,14 +118,14 @@ const UserPosts = ({isCurrentUser, profileName}) => {
           return (
             <Song
               key={i}
-              songId={song.songId}
-              songImage={song.songImage}
+              songId={song.projectId}
+              songImage={song.projectImage}
               projectTitle={song.projectTitle}
-              songDescription={song.songDescription}
+              songDescription={song.projectDescription}
               projectAudioLink={song.projectAudioLink}
               projectLength={song.projectLength}
               tags={song.tags}
-              removeSong={removeSong}
+              removeSong={removeProject}
               isCurrentUser={isCurrentUser}
             ></Song>
           );
@@ -134,15 +134,15 @@ const UserPosts = ({isCurrentUser, profileName}) => {
           return (
             <Draft
               key={i}
-              songId={draft.songId}
+              songId={draft.projectId}
               username={draft.username}
-              songImage={draft.songImage}
+              songImage={draft.projectImage}
               projectTitle={draft.projectTitle}
-              songDescription={draft.songDescription}
+              songDescription={draft.projectDescription}
               projectAudioLink={draft.projectAudioLink}
               projectLength={draft.projectLength}
               tags={draft.tags}
-              removeDraft={removeSong}
+              removeDraft={removeProject}
             ></Draft>
           );
         }) : null}

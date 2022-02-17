@@ -64,7 +64,7 @@ app.get("/", async (req, res) => {
 
 
 //profile routes
-app.get('/userSongs', (req, res) => {
+app.get('/userProjects', (req, res) => {
   console.log(req.query);
   // console.log(req.query.user);
 

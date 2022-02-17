@@ -1,12 +1,12 @@
 let dummySongs;
 export default dummySongs = [
   {
-    songId: 23,
-    songImage:
+    projectId: 23,
+    projectImage:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Yawning_horse%2C_Scotland.jpg/640px-Yawning_horse%2C_Scotland.jpg',
     timePosted: '2022-02-10 10:23:54+02',
-    songLikes: 123,
-    songDescription: //is there an advantage to combining songDescription and tags on the backend?
+    projectLikes: 123,
+    projectDescription: //is there an advantage to combining projectDescription and tags on the backend?
       'Easy listenings',
     tags: ['haymama'],
     projectAudioLink:
@@ -15,11 +15,11 @@ export default dummySongs = [
     projectLength: '2:39', //is it better for this to be calculated on the frontend, or will it be saved initially as a string?
   },
   {
-    songId: 24,
-    songImage: 'https://home.adelphi.edu/~ne21709/bunny2.jpg',
+    projectId: 24,
+    projectImage: 'https://home.adelphi.edu/~ne21709/bunny2.jpg',
     timePosted: '2022-01-19 10:23:54+02',
-    songLikes: 123,
-    songDescription:
+    projectLikes: 123,
+    projectDescription:
       'Sick beats',
     tags: ['haymama', 'first'],
     projectAudioLink:
@@ -28,12 +28,12 @@ export default dummySongs = [
     projectLength: '2:40',
   },
   {
-    songId: 25,
-    songImage:
+    projectId: 25,
+    projectImage:
       'https://i.pinimg.com/474x/a3/89/f5/a389f597020f361f7f6d9b79323598fc.jpg',
     timePosted: '2021-10-19 10:23:54+02',
-    songLikes: 123,
-    songDescription:
+    projectLikes: 123,
+    projectDescription:
       'So romantic #meow',
     tags: ['meow'],
     projectAudioLink:
@@ -42,12 +42,12 @@ export default dummySongs = [
     projectLength: '2:12',
   },
   {
-    songId: 12,
-    songImage:
+    projectId: 12,
+    projectImage:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Yawning_horse%2C_Scotland.jpg/640px-Yawning_horse%2C_Scotland.jpg',
     timePosted: '2022-02-10 10:23:54+02',
-    songLikes: 123,
-    songDescription:
+    projectLikes: 123,
+    projectDescription:
       'Easy listenings',
     tags: ['haymama'],
     projectAudioLink:
@@ -56,12 +56,12 @@ export default dummySongs = [
     projectLength: '2:39',
   },
   {
-    songId: 13,
-    songImage:
+    projectId: 13,
+    projectImage:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Yawning_horse%2C_Scotland.jpg/640px-Yawning_horse%2C_Scotland.jpg',
     timePosted: '2022-02-10 10:23:54+02',
-    songLikes: 123,
-    songDescription:
+    projectLikes: 123,
+    projectDescription:
       'Easy listenings',
     tags: ['haymama'],
     projectAudioLink:
