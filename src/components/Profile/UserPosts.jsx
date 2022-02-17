@@ -70,41 +70,39 @@ const UserPosts = ({isCurrentUser, profileName}) => {
       */
   };
 
-  // useEffect(() => {
-  //   //api call to get songs
-  //   //if logged in, api call to get drafts
-  //   console.log('test');
-  // axios.get('/userSongs', {
-  //   params: {
-  //     user: profileName
-  //   }
-  // })
-  //   .then((response) => {
-  //     setSongs(response.songs);
-  //   })
-  //   .catch((err) => {
-  //     //make pop-up
-  //     console.log(err);
-  //   });
+  useEffect(() => {
+    //api call to get songs
+    //if logged in, api call to get drafts
+    // console.log('test');
+    axios.get('/userSongs', {
+      params: {
+        user: profileName
+      }
+    })
+      .then((response) => {
+        // setSongs(response.songs);
+        console.log('response: ', response.data);
+      })
+      .catch((err) => {
+        //make pop-up
+        console.log(err);
+      });
 
-  // if (isCurrentUser) {
-  // axios.get('/userDrafts', {
-  //   params: {
-  //     user: profileName
-  //   }
-  // })
-  //   .then((response) => {
-  //     setDrafts(response.drafts);
-  //   })
-  //   .catch((err) => {
-  //     //make pop-up
-  //     console.log(err);
-  //   });
-  // };
-  // console.log('test'); //logging twice - is strict mode on? or something higher up in the tree is unmounting and remounting?
-  // });
-
-
+    if (isCurrentUser) {
+      axios.get('/userDrafts', {
+        params: {
+          user: profileName
+        }
+      })
+        .then((response) => {
+          // setDrafts(response.drafts);
+          console.log('response: ', response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  });
 
   return (
     <>
@@ -122,9 +120,9 @@ const UserPosts = ({isCurrentUser, profileName}) => {
               key={i}
               songId={song.songId}
               username={song.username}
-              profilePicture={song.profilePicture}
+              songImage={song.songImage}
               projectTitle={song.projectTitle}
-              postDescription={song.postText}
+              songDescription={song.songDescription}
               projectAudioLink={song.projectAudioLink}
               projectLength={song.projectLength}
               tags={song.tags}
@@ -139,9 +137,9 @@ const UserPosts = ({isCurrentUser, profileName}) => {
               key={i}
               songId={draft.songId}
               username={draft.username}
-              profilePicture={draft.profilePicture}
+              songImage={draft.songImage}
               projectTitle={draft.projectTitle}
-              postDescription={draft.postText}
+              songDescription={draft.songDescription}
               projectAudioLink={draft.projectAudioLink}
               projectLength={draft.projectLength}
               tags={draft.tags}
