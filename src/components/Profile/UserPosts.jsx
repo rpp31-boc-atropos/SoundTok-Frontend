@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 // import { useAuth } from '../../contexts/AuthContext.jsx';
 import Song from './Song.jsx';
 import Draft from './Draft.jsx';
 import dummySongs from './dummySongs.jsx';
 import dummyDrafts from './dummyDrafts.jsx';
 import styled from 'styled-components';
+const axios = require('axios');
 
 const Button = styled.button`
   color: rgb(255, 250, 206);
@@ -21,26 +22,87 @@ const ButtonWrapper = styled.div`
 const PostWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content:space-around;
   height: 600px;
   width: 1000px;
   margin-top: 10px;
   flex-wrap: wrap;
 `;
 
-const UserPosts = ({isCurrentUser}) => {
+// const UserPosts = ({isCurrentUser}) => {
+const UserPosts = ({isCurrentUser, profileName}) => {
   // const { user } = useAuth();
   const [tab, setTab] = useState('Posts');
   const [songs, setSongs] = useState(dummySongs);
   const [drafts, setDrafts] = useState(dummyDrafts);
+  const {songsToDelete, setSongsToDelete} = useState([]);
 
   const removeSong = (songId, source) => {
     // needs call to remove from db. stretch goal - select and remove multiple songs
+    // to-dos: add confirmation popup, add select boxes to select multiple songs before clicking a separate delete button
+    // cut this section after post request is implemented
     if (source === 'Posts') {
       setSongs(songs.filter(song => song.songId !== songId));
     } else {
       setDrafts(drafts.filter(draft => draft.songId !== songId));
     }
+    /*
+    // axios.post('/deleteSongs', songsToDelete)
+    let formData = {
+      source: source,
+      songIds: [songId] //will eventually be songsToDelete
+    };
+
+    axios.post('/deleteSongs', formData)
+      .then(function (response) {
+        // console.log(response);
+        if (source === 'Posts') {
+          //will need to filter out all songIds in the array
+          setSongs(songs.filter(song => song.songId !== songId));
+        } else {
+          setDrafts(drafts.filter(draft => draft.songId !== songId));
+        }
+      })
+      .catch(function (error) {
+        //pop-up with with message - please review error and try again
+        console.log(error);
+      });
+      */
   };
+
+  useEffect(() => {
+    //api call to get songs
+    //if logged in, api call to get drafts
+    // console.log('test');
+    axios.get('/userSongs', {
+      params: {
+        user: profileName
+      }
+    })
+      .then((response) => {
+        // setSongs(response.songs);
+        console.log('response: ', response.data);
+      })
+      .catch((err) => {
+        //make pop-up
+        console.log(err);
+      });
+
+    if (isCurrentUser) {
+      axios.get('/userDrafts', {
+        params: {
+          user: profileName
+        }
+      })
+        .then((response) => {
+          // setDrafts(response.drafts);
+          console.log('response: ', response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  });
 
   return (
     <>
@@ -57,10 +119,9 @@ const UserPosts = ({isCurrentUser}) => {
             <Song
               key={i}
               songId={song.songId}
-              username={song.username}
-              profilePicture={song.profilePicture}
+              songImage={song.songImage}
               projectTitle={song.projectTitle}
-              postDescription={song.postText}
+              songDescription={song.songDescription}
               projectAudioLink={song.projectAudioLink}
               projectLength={song.projectLength}
               tags={song.tags}
@@ -75,9 +136,9 @@ const UserPosts = ({isCurrentUser}) => {
               key={i}
               songId={draft.songId}
               username={draft.username}
-              profilePicture={draft.profilePicture}
+              songImage={draft.songImage}
               projectTitle={draft.projectTitle}
-              postDescription={draft.postText}
+              songDescription={draft.songDescription}
               projectAudioLink={draft.projectAudioLink}
               projectLength={draft.projectLength}
               tags={draft.tags}

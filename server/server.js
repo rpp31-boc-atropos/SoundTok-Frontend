@@ -63,6 +63,47 @@ app.get("/", async (req, res) => {
 })
 
 
+//profile routes
+app.get('/userSongs', (req, res) => {
+  console.log(req.query);
+  // console.log(req.query.user);
+
+  axios({
+    method: 'GET',
+    url: `http://localhost:1234/`,
+    params: req.query
+    // data: data,
+  })
+    .then((response) => {
+      console.log(response);
+      res.send(response);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.send(error);
+    });
+});
+
+app.get('/userDrafts', (req, res) => {
+  console.log(req.query);
+  // console.log(req.query.user);
+
+  axios({
+    method: 'GET',
+    url: `http://localhost:1234/`,
+    params: req.query
+    // data: data,
+  })
+    .then((response) => {
+      console.log(response);
+      res.send(response);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.send(error);
+    });
+});
+
 app.listen(3000, () => {
   console.log('Server started on port 3000');
 });

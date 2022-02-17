@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import BioModal from './BioModal.jsx';
 // import { useAuth } from '../../contexts/AuthContext.jsx';
 import styled from 'styled-components';
+const axios = require('axios');
 
 const ButtonWrapper = styled.div`
   padding-bottom: 20px;
@@ -45,12 +46,15 @@ const ProfileText = styled.div`
   justify-content: center;
 `;
 
-const UserProfile = ({isCurrentUser, setIsCurrentUser}) => {
+// const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
+const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
 
   // const { user } = useAuth();
 
   //add state for bio
-  const [bio, setBio] = useState('I am a mystical corgi and Celtic Rock is my jam');
+  // const [username, setUsername] = useState('searchedName' || 'ownProfile');
+  const [profileURL, setProfileURL] = useState('Loading profile photo');
+  const [bio, setBio] = useState('Loading bio info');
   const [isOpen, setModal] = useState(false);
 
   const closeModal = () => {
@@ -59,7 +63,29 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser}) => {
 
   const handleUpdateBio = (bio) => {
     setBio(bio);
+    //
+
+
   };
+
+
+  // useEffect(() => {
+  //   //Api call to get bio
+  //   axios.get('/profile', {
+  //     params: {
+  //       user: profileName
+  //     }
+  //   })
+  //     .then((response) => {
+  //       setProfileURL(response.photo);
+  //       setBio(response.bio);
+  //     })
+  //     .catch((err) => {  //move error handling to server
+  //       //make pop-up
+  //       console.log(err);
+  //     });
+  // });
+
 
   return (
     <ProfileWrapper>
