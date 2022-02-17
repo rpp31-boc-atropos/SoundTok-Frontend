@@ -35,39 +35,43 @@ const UserPosts = ({isCurrentUser, profileName}) => {
   const [tab, setTab] = useState('Posts');
   const [songs, setSongs] = useState(dummySongs);
   const [drafts, setDrafts] = useState(dummyDrafts);
-  const {projectsToDelete, setProjectsToDelete} = useState([]);
+  // const {projectsToDelete, setProjectsToDelete} = useState([]); - stretch goal - delete multiple songs
 
   const removeProject = (projectId, source) => {
     // needs call to remove from db. stretch goal - select and remove multiple songs
     // to-dos: add confirmation popup, add select boxes to select multiple songs before clicking a separate delete button
     // cut this section after post request is implemented
+    //Modifying directly in state instead of waiting for response for faster user experience
     if (source === 'Posts') {
       setSongs(songs.filter(song => song.projectId !== projectId));
     } else {
       setDrafts(drafts.filter(draft => draft.projectId !== projectId));
     }
-    /*
+
     // axios.post('/deleteProjects', projectsToDelete)
     let formData = {
       source: source,
-      projectIds: [projectId] //will eventually be songsToDelete
+      projectId: projectId //will eventually be [songsToDelete]
     };
 
-    axios.post('/deleteProjects', formData)
+    axios.delete('/deleteProject', {data: formData})
       .then(function (response) {
         // console.log(response);
+        console.log('Project successfully deleted');
         if (source === 'Posts') {
           //will need to filter out all songIds in the array
-          setSongs(songs.filter(song => song.projectId !== projectId));
+          // setSongs(songs.filter(song => song.projectId !== projectId));
         } else {
-          setDrafts(drafts.filter(draft => draft.projectId !== projectId));
+          // setDrafts(drafts.filter(draft => draft.projectId !== projectId));
         }
       })
       .catch(function (error) {
         //pop-up with with message - please review error and try again
+        //could make popup - warning
+        // console.log('Project failed to delete. Please refresh the page and try again');
         console.log(error);
       });
-      */
+
   };
 
   useEffect(() => {

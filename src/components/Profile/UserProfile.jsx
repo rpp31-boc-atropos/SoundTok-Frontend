@@ -54,7 +54,7 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
 
   //add state for bio
   // const [username, setUsername] = useState('searchedName' || 'ownProfile');
-  const [profileURL, setProfileURL] = useState(dummyProfile.profilePicture);
+  const [profilePicture, setProfilePicture] = useState(dummyProfile.profilePicture);
   const [bio, setBio] = useState(dummyProfile.bio);
   const [isOpen, setModal] = useState(false);
 
@@ -64,8 +64,24 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
 
   const handleUpdateBio = (bio) => {
     setBio(bio);
-    //
 
+    console.log('frontend test');
+    //currently working on axios.post
+    axios.put('/updateProfile',
+      {
+        username: profileName,
+        bio: bio,
+        profilePicture: profilePicture
+
+      })
+      .then((response) => {
+        console.log('response', response);
+        setProfileURL(response.data.profilePicture);
+        setBio(response.data.bio);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
   };
 
@@ -80,7 +96,7 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
     })
       .then((response) => {
         console.log('response', response);
-        setProfileURL(response.data.profilePicture);
+        setProfilePicture(response.data.profilePicture);
         setBio(response.data.bio);
       })
       .catch((err) => {
@@ -92,7 +108,7 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
   return (
     <ProfileWrapper>
       <ProfilePic alt='logo'
-        src={profileURL}>
+        src={profilePicture}>
       </ProfilePic>
       <ProfileHeader>@Faye</ProfileHeader>
       {/* <p>User from context: {user}</p> */}

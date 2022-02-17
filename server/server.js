@@ -111,6 +111,44 @@ app.get('/profileData', (req, res) => {
     });
 });
 
+app.put('/updateProfile', (req, res) => {
+  // console.log('test', req.body);
+
+  let tempData = {  //need to figure out cloudinary link, below is proxy data.
+    username: req.query.username,
+    profileURL: 'https://yahoofantasysports-res.cloudinary.com/image/upload/fantasy-logos/25311153506_9fdda2493f.jpg',
+    bio: req.query.bio
+  }
+
+  axios({
+    method: 'PUT',
+    url: `http://localhost:1234/`,
+    data: tempData
+  })
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+app.delete('/deleteProject', (req, res) => {
+  // console.log('test', req.body);
+
+  axios({
+    method: 'DELETE',
+    url: `http://localhost:1234/`,
+    data: req.body
+  })
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
 app.listen(3000, () => {
   console.log('Server started on port 3000');
 });
