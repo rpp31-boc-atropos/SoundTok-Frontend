@@ -64,10 +64,9 @@ app.get("/", async (req, res) => {
 
 
 //profile routes
-app.get('/userSongs', (req, res) => {
-  console.log(req.query);
-  // console.log(req.query.user);
-
+app.get('/userProjects', (req, res) => {
+  // console.log('projects query', req.query);
+  // console.log('projects query user', req.query.username);
   axios({
     method: 'GET',
     url: `http://localhost:1234/`,
@@ -75,32 +74,78 @@ app.get('/userSongs', (req, res) => {
     // data: data,
   })
     .then((response) => {
-      console.log(response);
-      res.send(response);
+      // console.log(response);
+      res.status(200).send(response);
     })
     .catch((error) => {
-      console.log(error);
-      res.send(error);
+      // console.log(error);
+      res.status(500).send(error);
     });
 });
 
 app.get('/userDrafts', (req, res) => {
-  console.log(req.query);
-  // console.log(req.query.user);
-
   axios({
     method: 'GET',
     url: `http://localhost:1234/`,
     params: req.query
-    // data: data,
   })
     .then((response) => {
-      console.log(response);
-      res.send(response);
+      res.status(200).send(response);
     })
     .catch((error) => {
-      console.log(error);
-      res.send(error);
+      res.status(500).send(error);
+    });
+});
+
+app.get('/profileData', (req, res) => {
+  axios({
+    method: 'GET',
+    url: `http://localhost:1234/`,
+    params: req.query
+  })
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+app.put('/updateProfile', (req, res) => {
+  // console.log('test', req.body);
+
+  let tempData = {  //need to figure out cloudinary link, below is proxy data.
+    username: req.query.username,
+    profileURL: 'https://yahoofantasysports-res.cloudinary.com/image/upload/fantasy-logos/25311153506_9fdda2493f.jpg',
+    bio: req.query.bio
+  }
+
+  axios({
+    method: 'PUT',
+    url: `http://localhost:1234/`,
+    data: tempData
+  })
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+app.delete('/deleteProject', (req, res) => {
+  // console.log('test', req.body);
+
+  axios({
+    method: 'DELETE',
+    url: `http://localhost:1234/`,
+    data: req.body
+  })
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
     });
 });
 
