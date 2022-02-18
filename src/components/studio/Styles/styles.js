@@ -256,7 +256,7 @@ export const FastForward = styled(MdOutlineFastForward)`
 
 export const AllButtons = styled.div`
   height: 60px;
-  width 560px;
+  width 600px;
   display: flex;
   justify-content: space-around;
   align-items: center;

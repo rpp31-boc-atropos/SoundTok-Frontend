@@ -10,6 +10,10 @@ const Studio = () => {
   const [playlist, setPlayList] = useState(null);
   const [count, setCount] = useState(1);
 
+  const handleSaveDraft = () => {
+    console.log(playlist.getInfo());
+  };
+
   const handleUpload = (e) => {
     const file = e.target.files[0];
     let formData = new FormData();
@@ -65,7 +69,7 @@ const Studio = () => {
         </div>
         <ButtonWrapper>
           <Button1>Download</Button1>
-          <Button1>Save</Button1>
+          <Button1 onClick={handleSaveDraft}>Save</Button1>
           <Button1>Post</Button1>
         </ButtonWrapper>
       </StudioHeader>
@@ -108,11 +112,12 @@ const Studio = () => {
             <Stop onClick={() => { playlist.getEventEmitter().emit('stop'); }}></Stop>
             <Rewind onClick={() => { playlist.getEventEmitter().emit('rewind'); }}></Rewind>
             <FastForward onClick={() => { playlist.getEventEmitter().emit('fastforward'); }}></FastForward>
-            <MoveAudio></MoveAudio>
-            <Highligther></Highligther>
-            <EffectButton>Fade In</EffectButton>
-            <EffectButton>Fade Out</EffectButton>
-            <EffectButton>Trim</EffectButton>
+            <MoveAudio onClick={() => { playlist.getEventEmitter().emit('statechange', 'shift'); }}></MoveAudio>
+            <Highligther onClick={() => { playlist.getEventEmitter().emit('statechange', 'select'); }}></Highligther>
+            <EffectButton onClick={() => { playlist.getEventEmitter().emit('statechange', 'fadein'); }}>Fade In</EffectButton>
+            <EffectButton onClick={() => { playlist.getEventEmitter().emit('statechange', 'fadeout'); }}>Fade Out</EffectButton>
+            <EffectButton onClick={() => { playlist.getEventEmitter().emit('trim'); }}>Trim</EffectButton>
+            <EffectButton onClick={() => { playlist.getEventEmitter().emit('statechange', 'cursor'); }}>Cursor</EffectButton>
           </AllButtons>
         </PlayerControls>
       </ControlBarWrapper>

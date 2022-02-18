@@ -195,16 +195,6 @@ margin: 0.3em 0; } */
   border-color: var(--wp-btn-danger-border-color);
 }
 
-/* .playlist .btn-danger:hover {
-  color: var(--wp-btn-danger-color);
-  background-color: var(--wp-btn-danger-background-hover-color);
-  border-color: var(--wp-btn-danger-border-hover-color);
-} */
-
-/* .playlist .btn-danger:active:focus, .playlist .btn-danger:focus {
-  box-shadow: 0 0 0 0.2rem var(--wp-btn-danger-focus-color);
-} */
-
 .playlist .btn-info {
   color: var(--wp-btn-info-color);
   background-color: var(--wp-btn-info-background-color);
@@ -367,14 +357,6 @@ margin: 0.3em 0; } */
   margin-top: 9px;
   content: "\f028";
 }
-
-/* .playlist .controls label.stereopan:before {
-  content: "L";
-}
-
-.playlist .controls label.stereopan:after {
-  content: "R";
-} */
 
 .playlist .controls input[type="range"] {
   -webkit-appearance: none;
