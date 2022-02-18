@@ -1,7 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import BioModal from './BioModal.jsx';
 // import { useAuth } from '../../contexts/AuthContext.jsx';
+import dummyProfile from './dummyProfile.jsx';
 import styled from 'styled-components';
+const axios = require('axios');
 
 const ButtonWrapper = styled.div`
   padding-bottom: 20px;
@@ -45,12 +47,15 @@ const ProfileText = styled.div`
   justify-content: center;
 `;
 
-const UserProfile = ({isCurrentUser, setIsCurrentUser}) => {
+// const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
+const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
 
   // const { user } = useAuth();
 
   //add state for bio
-  const [bio, setBio] = useState('I am a mystical corgi and Celtic Rock is my jam');
+  // const [username, setUsername] = useState('searchedName' || 'ownProfile');
+  const [profilePicture, setProfilePicture] = useState(dummyProfile.profilePicture);
+  const [bio, setBio] = useState(dummyProfile.bio);
   const [isOpen, setModal] = useState(false);
 
   const closeModal = () => {
@@ -59,12 +64,51 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser}) => {
 
   const handleUpdateBio = (bio) => {
     setBio(bio);
+
+    console.log('frontend test');
+    //currently working on axios.post
+    axios.put('/updateProfile',
+      {
+        username: profileName,
+        bio: bio,
+        profilePicture: profilePicture
+
+      })
+      .then((response) => {
+        console.log('response', response);
+        setProfileURL(response.data.profilePicture);
+        setBio(response.data.bio);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
   };
+
+  // console.log(dummyProfile);
+
+  useEffect(() => {
+    //Api call to get bio
+    axios.get('/profileData', {
+      params: {
+        username: profileName
+      }
+    })
+      .then((response) => {
+        console.log('response', response);
+        setProfilePicture(response.data.profilePicture);
+        setBio(response.data.bio);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+
 
   return (
     <ProfileWrapper>
       <ProfilePic alt='logo'
-        src='https://yahoofantasysports-res.cloudinary.com/image/upload/fantasy-logos/25311153506_9fdda2493f.jpg'>
+        src={profilePicture}>
       </ProfilePic>
       <ProfileHeader>@Faye</ProfileHeader>
       {/* <p>User from context: {user}</p> */}

@@ -56,17 +56,16 @@ const Song = (props) => {
   // const { user } = useAuth();
 
   const deleteSong = () => {
-    // add confirmation popup?
     props.removeSong(props.songId, 'Posts');
-  };
 
+  };
+  //possibly make song image the background
   return (
     <SingleSong>
       <SongHeader>
         <LogoButton>
-          <Logo src={props.profilePicture}></Logo>
+          <Logo src={props.songImage}></Logo>
         </LogoButton>
-        <SongText>{props.username}</SongText>
         <div>{props.projectLength}</div>
         <CornerWrapper>
           <Link to='/studio'>
@@ -78,7 +77,7 @@ const Song = (props) => {
         </CornerWrapper>
       </SongHeader>
       <button>Play Song</button>
-      <div>{props.postDescription}</div>
+      <div>{props.songDescription}</div>
       <SongText>{props.projectTitle}</SongText>
     </SingleSong>
   );
