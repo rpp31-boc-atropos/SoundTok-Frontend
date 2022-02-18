@@ -16,6 +16,7 @@ import Studio from "./pages/Studio.jsx";
 import AudioPlayer from "./components/audioPlayer/AudioPlayer";
 import Auth0ProviderWithHistory from "./components/Authentication/Auth0.jsx";
 import { useAuth0 } from "@auth0/auth0-react";
+import Hashtag from "./pages/Hashtag.jsx";
 
 //add new route above NotFound Route
 
@@ -38,6 +39,7 @@ const App = () => {
             {/* <Route path='/profile/*' element={isAuthenticated ? <Profile /> : <Navigate to='/' />} /> */}
             <Route path="/profile/*" element={<Profile />} />
             <Route path="/studio/*" element={<Studio />} />
+            <Route path="/hashtag" element={<Hashtag />} />
             <Route path="/*" element={<NotFound />} />
           </Routes>
           <AudioPlayer />
