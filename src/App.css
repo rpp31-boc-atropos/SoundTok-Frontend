@@ -195,25 +195,15 @@ margin: 0.3em 0; } */
   border-color: var(--wp-btn-danger-border-color);
 }
 
-/* .playlist .playlist-tracks .channel-wrapper .controls .track-header .btn-danger {
-  width: 20px;
-  height: 20px;
-  padding-top: 0.3em;
-  color: blue;
-  background-color: black;
-  content: 'X';
-  border-radius: 5px;
-} */
-
-.playlist .btn-danger:hover {
+/* .playlist .btn-danger:hover {
   color: var(--wp-btn-danger-color);
   background-color: var(--wp-btn-danger-background-hover-color);
   border-color: var(--wp-btn-danger-border-hover-color);
-}
+} */
 
-.playlist .btn-danger:active:focus, .playlist .btn-danger:focus {
+/* .playlist .btn-danger:active:focus, .playlist .btn-danger:focus {
   box-shadow: 0 0 0 0.2rem var(--wp-btn-danger-focus-color);
-}
+} */
 
 .playlist .btn-info {
   color: var(--wp-btn-info-color);
@@ -318,23 +308,24 @@ margin: 0.3em 0; } */
 
 .playlist .controls .track-header {
   overflow: hidden;
-  height: 26px;
+  height: 24px;
   width: 179px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 0.2rem;
   font-size: 0.75rem;
+  margin-top: 2px;
 }
 
-.playlist .controls .track-header button {
+/* .playlist .controls .track-header button {
   width: 20px;
   height: 20px;
   display: flex;
   z-index: 10;
   align-items: center;
   justify-content: center;
-}
+} */
 
 .playlist .controls .track-header span {
   color: black;
