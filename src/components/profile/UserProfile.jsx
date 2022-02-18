@@ -4,6 +4,7 @@ import BioModal from './BioModal.jsx';
 import dummyProfile from './dummyProfile.jsx';
 import styled from 'styled-components';
 const axios = require('axios');
+import CLOUDINARY_PROFILE_PRESET from '../../config/config.js';
 
 const ButtonWrapper = styled.div`
   padding-bottom: 20px;
@@ -47,12 +48,8 @@ const ProfileText = styled.div`
   justify-content: center;
 `;
 
-// const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
 const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
-
   // const { user } = useAuth();
-
-  //add state for bio
   // const [username, setUsername] = useState('searchedName' || 'ownProfile');
   const [profilePicture, setProfilePicture] = useState(dummyProfile.profilePicture);
   const [bio, setBio] = useState(dummyProfile.bio);
@@ -62,33 +59,43 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
     setModal(false);
   };
 
-  const handleUpdateBio = (bio) => {
-    setBio(bio);
+  const handleUpdateProfile = (newPhoto, bio) => {
+    if (newPhoto !== false) {
+      const formData = new FormData();
+      formData.append('file', newPhoto);
+      formData.append('upload_preset', CLOUDINARY_PROFILE_PRESET);
 
-    console.log('frontend test');
-    //currently working on axios.post
-    axios.put('/updateProfile',
-      {
-        username: profileName,
-        bio: bio,
-        profilePicture: profilePicture
-
-      })
-      .then((response) => {
-        console.log('response', response);
-        setProfileURL(response.data.profilePicture);
-        setBio(response.data.bio);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
+      axios.post('https://api.cloudinary.com/v1_1/rickkcloudinary/image/upload', formData)
+        .then((response) => {
+          setProfilePicture(response.data.secure_url);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .then((response) => {
+          setBio(bio);
+          axios.put('/updateProfile',
+            {
+              username: profileName,
+              bio: bio,
+              profilePicture: profilePicture
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setBio(bio);
+      axios.put('/updateProfile',
+        {
+          username: profileName,
+          bio: bio,
+          profilePicture: profilePicture
+        });
+    }
   };
 
-  // console.log(dummyProfile);
-
   useEffect(() => {
-    //Api call to get bio
     axios.get('/profileData', {
       params: {
         username: profileName
@@ -104,14 +111,12 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
       });
   });
 
-
   return (
     <ProfileWrapper>
       <ProfilePic alt='logo'
         src={profilePicture}>
       </ProfilePic>
       <ProfileHeader>@Faye</ProfileHeader>
-      {/* <p>User from context: {user}</p> */}
       <ButtonWrapper>
         {isCurrentUser ?
           <Button onClick={() => setModal(true)}>Edit profile</Button>
@@ -123,7 +128,7 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
           isOpen={isOpen}
           currentBio={bio}
           closeModal={closeModal.bind(this)}
-          handleUpdateBio={handleUpdateBio}>
+          handleUpdateProfile={handleUpdateProfile}>
         </BioModal> : null}
       <ProfileText>{bio}</ProfileText>
     </ProfileWrapper>

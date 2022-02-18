@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 // import ReactDom from 'react-dom';
 import styled from 'styled-components';
+const axios = require('axios');
 
 const Overlay = styled.div`
   display: fixed;
@@ -33,9 +34,10 @@ const FormWrapper = styled.div`
   flex-direction: column;
 `;
 
-const BioModal = ({ isOpen, currentBio, handleUpdateBio, closeModal }) => {
+const BioModal = ({ isOpen, currentBio, handleUpdateProfile, closeModal }) => {
 
-  const [tempBio, setTempBio] = useState('');
+  const [tempBio, setTempBio] = useState(currentBio);
+  const [imageSelected, setImageSelected] = useState(false);
 
   const handleChange = (e) => {
     setTempBio(e.target.value);
@@ -43,7 +45,7 @@ const BioModal = ({ isOpen, currentBio, handleUpdateBio, closeModal }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleUpdateBio(tempBio);
+    handleUpdateProfile(imageSelected, tempBio);
     closeModal();
   };
 
@@ -56,6 +58,10 @@ const BioModal = ({ isOpen, currentBio, handleUpdateBio, closeModal }) => {
               <ButtonWrapper>
                 <Button onClick={() => closeModal()}>X</Button>
               </ButtonWrapper>
+              <div>
+                <input type="file" onChange={(event) => { setImageSelected(event.target.files[0]); }} />
+                {/* <button onClick={uploadImage}> Upload Image</button> */}
+              </div>
               <div>
                 <label>Please update your biography below</label>
               </div>
