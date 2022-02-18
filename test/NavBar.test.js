@@ -10,5 +10,4 @@ import NavBar from '../src/components/Nav/NavBar.jsx';
 test('Heading should exist', () => {
   render(<NavBar />);
   expect(screen.getByText('SoundTok')).toBeInTheDocument;
-  // expect(screen.getByRole('heading')).toHaveTextContent('SoundTok');
 });

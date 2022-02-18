@@ -1,12 +1,12 @@
-import * as React from 'react';
-import styled from 'styled-components';
-import { useAuth0 } from '@auth0/auth0-react';
+import * as React from "react";
+import styled from "styled-components";
+import { useAuth0 } from "@auth0/auth0-react";
 
-import WritePost from '../components/Home/WritePost.jsx';
-import Post from '../components/Home/Post.jsx';
+import WritePost from "../components/Home/WritePost.jsx";
+import Post from "../components/Home/Post.jsx";
 
-import dummy from '../components/Home/dummy.jsx';
-import axios from 'axios';
+import dummy from "../components/Home/dummy.jsx";
+import axios from "axios";
 
 const FeedWrapper = styled.div`
   width: 100%;
@@ -49,7 +49,7 @@ const Home = () => {
   return (
     <FeedWrapper>
       <Feed>
-        {user && <WritePost username={user}/>}
+        {user && <WritePost username={user} />}
         {posts.map((post, i) => {
           return (
             <Post
