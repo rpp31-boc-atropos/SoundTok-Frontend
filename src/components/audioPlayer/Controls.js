@@ -61,7 +61,7 @@ const PlayerControls = () => {
       />
       <FeedWidth>
         <ControlButtons>
-          <div className='ri-skip-back-fill' onClick={prevSong} />
+          <div className='ri-skip-back-fill' onClick={prevSong} role='prev' />
           <Spacer />
           <div
             className={`playPause ${!playing ? 'ri-play-circle-fill' : 'ri-pause-circle-fill'
@@ -72,7 +72,7 @@ const PlayerControls = () => {
             }}
           />
           <Spacer />
-          <div className='ri-skip-forward-fill' onClick={nextSong} />
+          <div className='ri-skip-forward-fill' onClick={nextSong} role='next' />
           <Spacer />
           <div
             className={`random ri-shuffle-line ${random ? 'active' : ''}`}
@@ -102,10 +102,12 @@ const PlayerControls = () => {
               type='range'
               name='progresBar'
               id='progressBar'
+              role='currentTime'
             />
             <div
               className='songtitle'
               style={{ position: 'absolute', bottom: 6, fontSize: 12 }}
+              role='songTitle'
             >
               {songs[currentSong] ? songs[currentSong].projectTitle : ''}
             </div>
@@ -123,6 +125,7 @@ const PlayerControls = () => {
             name='volBar'
             id='volBar'
             onChange={(e) => handleVolume(e.target.value / 100)}
+            role='volume'
           />
         </Volume>
       </FeedWidth>
