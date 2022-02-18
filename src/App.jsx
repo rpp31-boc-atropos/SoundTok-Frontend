@@ -10,6 +10,7 @@ import Studio from './pages/Studio.jsx';
 import AudioPlayer from './components/audioPlayer/AudioPlayer';
 import Auth0ProviderWithHistory from './components/Authentication/Auth0.jsx';
 import { useAuth0 } from '@auth0/auth0-react';
+import axios from 'axios';
 
 //add new route above NotFound Route
 
@@ -19,6 +20,12 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const App = () => {
   const { isAuthenticated } = useAuth0();
+
+  const callApi = () => {
+    axios.get('/public')
+      .then(response => console.log(response.date))
+      .catch(error => console.log(error))
+  };
 
   return (
     <HashRouter>
