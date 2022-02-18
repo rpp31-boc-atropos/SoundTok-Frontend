@@ -5,12 +5,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import WritePost from "../components/Home/WritePost.jsx";
 import Post from "../components/Home/Post.jsx";
 
-<<<<<<< HEAD
 import dummy from "../components/Home/dummy.jsx";
-=======
-import dummy from '../components/Home/dummy.jsx';
-import axios from 'axios';
->>>>>>> 96500208eed2957d8f8536824d90bc9c3986f041
+import axios from "axios";
 
 const FeedWrapper = styled.div`
   width: 100%;
@@ -53,7 +49,7 @@ const Home = () => {
   return (
     <FeedWrapper>
       <Feed>
-        {user && <WritePost username={user}/>}
+        {user && <WritePost username={user} />}
         {posts.map((post, i) => {
           return (
             <Post
