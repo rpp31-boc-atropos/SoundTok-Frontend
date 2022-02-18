@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import * as React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -5,6 +6,50 @@ import { DateTime } from "luxon";
 
 import { usePlayer } from "../../contexts/player/playerContext";
 import helpers from "./helperFunctions.js";
+=======
+import * as React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
+import { usePlayer } from '../../contexts/player/playerContext';
+import ProfilePicture from '../ProfilePicture.jsx';
+import helpers from './helperFunctions.js';
+>>>>>>> 96500208eed2957d8f8536824d90bc9c3986f041
+
+const Post = (props) => {
+  const { SetCurrent, currentSong, songs } = usePlayer();
+
+  return (
+    <PostWrapper>
+      <ProfilePicture username={props.username} profilePicture={props.profilePicture}/>
+      <PostContent>
+        <PostHeader>
+          <PostUsernameAndTime>
+            <Link to={'/profile/' + props.username}>@{props.username}</Link>
+            {' · '}
+            <time>{helpers.isoToTimeAgo(props.timePosted)}</time>
+          </PostUsernameAndTime>
+          <Link to='/studio'>
+            <PostRemixButton>
+              <i className='ri-sound-module-line'></i>
+            </PostRemixButton>
+          </Link>
+        </PostHeader>
+        <PostText>{props.postText}</PostText>
+        <PostAudio
+          onClick={() => {
+            SetCurrent(props.index);
+          }}
+        ></PostAudio>
+        <PostAudioInfo>
+          {props.projectTitle} · {helpers.secondsToLength(props.projectLength)}
+        </PostAudioInfo>
+      </PostContent>
+    </PostWrapper>
+  );
+};
+
+export default Post;
 
 /* STYLED COMPONENTS */
 const PostWrapper = styled.div`
@@ -17,16 +62,6 @@ const PostWrapper = styled.div`
   background: var(--main-color-black);
   border: 1px solid var(--font-line-color-yellow-transparent);
   border-bottom: none;
-`;
-
-const ProfilePic = styled.img`
-  width: 48px;
-  height: 48px;
-  margin-right: 12px;
-  border-radius: 100%;
-  box-sizing: border-box;
-  border: 2px solid var(--font-line-color-yellow);
-  overflow: hidden;
 `;
 
 const PostContent = styled.div`
@@ -77,6 +112,7 @@ const PostAudioInfo = styled.div`
   margin-left: 12px;
   color: var(--font-line-color-yellow-transparent);
 `;
+<<<<<<< HEAD
 
 const Post = (props) => {
   const { SetCurrent, currentSong, songs } = usePlayer();
@@ -144,3 +180,5 @@ const Post = (props) => {
 };
 
 export default Post;
+=======
+>>>>>>> 96500208eed2957d8f8536824d90bc9c3986f041

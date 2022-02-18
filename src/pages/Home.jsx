@@ -5,7 +5,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 import WritePost from "../components/Home/WritePost.jsx";
 import Post from "../components/Home/Post.jsx";
 
+<<<<<<< HEAD
 import dummy from "../components/Home/dummy.jsx";
+=======
+import dummy from '../components/Home/dummy.jsx';
+import axios from 'axios';
+>>>>>>> 96500208eed2957d8f8536824d90bc9c3986f041
 
 const FeedWrapper = styled.div`
   width: 100%;
@@ -26,6 +31,18 @@ const Spacer = styled.div`
 const Home = () => {
   const { user, isAuthenticated } = useAuth0();
   const [posts, setPosts] = React.useState(dummy);
+
+  /* Example for fetching data from DB
+
+  const [data, setData] = React.useState({ data: [] })
+  console.log(data)
+  React.useEffect(async () => {
+    const result = await axios(
+      'http://localhost:1234/',
+    );
+    setData(result.data);
+  }, []);
+  */
   // debugger;
 
   //start from the top on each page
@@ -36,7 +53,7 @@ const Home = () => {
   return (
     <FeedWrapper>
       <Feed>
-        {user && <WritePost></WritePost>}
+        {user && <WritePost username={user}/>}
         {posts.map((post, i) => {
           return (
             <Post
@@ -50,7 +67,7 @@ const Home = () => {
               projectLength={post.projectLength}
               tags={post.tags}
               timePosted={post.timePosted}
-            ></Post>
+            />
           );
         })}
         <Spacer></Spacer>

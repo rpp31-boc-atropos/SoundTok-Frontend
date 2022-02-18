@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import "./App.css";
 import React from "react";
 import {
@@ -12,6 +13,16 @@ import Home from "./pages/Home.jsx";
 import Profile from "./pages/Profile.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Studio from "./pages/Studio.jsx";
+=======
+import './App.css';
+import React from 'react';
+import { HashRouter, BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import NavBar from './components/Nav/NavBar.jsx';
+import Home from './pages/Home.jsx';
+import Profile from './pages/Profile.jsx';
+import NotFound from './pages/NotFound.jsx';
+import Studio from './pages/Studio.jsx';
+>>>>>>> 96500208eed2957d8f8536824d90bc9c3986f041
 // import { useAuth } from './contexts/AuthContext.jsx';
 import AudioPlayer from "./components/audioPlayer/AudioPlayer";
 import Auth0ProviderWithHistory from "./components/Authentication/Auth0.jsx";

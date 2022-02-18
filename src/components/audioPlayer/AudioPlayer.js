@@ -4,7 +4,8 @@ import './AudioPlayer.css';
 import './input.css';
 // import Playlist from './playlist/Playlist';
 import PlayerControls from './Controls';
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
+
 
 
 const Main = styled.div`
@@ -19,11 +20,11 @@ const AudioPlayer = () => {
   const location = useLocation();
   const path = location.pathname;
   const [display, setDisplay] = useState(
-    path !== "/studio" ? true : false
+    path !== '/studio' ? true : false
   );
 
   useEffect(() => {
-    setDisplay(path !== "/studio" ? true : false);
+    setDisplay(path !== '/studio' ? true : false);
   }, [path]);
 
 
@@ -37,10 +38,3 @@ const AudioPlayer = () => {
 };
 
 export default AudioPlayer;
-
-
-
-
-
-
-

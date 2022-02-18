@@ -1,21 +1,61 @@
-import React, { useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-import { useAuth0} from '@auth0/auth0-react';
-import Upload from '../components/Upload.jsx';
-import { AllButtons, Button1, ButtonWrapper, ControlBarWrapper, Draft, DraftTitle, DraftWrapper, EditorWrapper, EffectButton, FastForward, Header, LeftAudioTrack, LeftPanel, MidPanel, Pause, Play, PlayerControls, Rewind, RightPanel, Stop, StudioHeader, StudioWrapper, VolumeDown, VolumeUp } from '../components/Studio/Styles/styles.js';
-import WaveVisualizer from '../components/Studio/WaveVisualizer.jsx';
-
+import React, { useState, useEffect } from 'react';
+import { AddAudioTrackWrapper, AllButtons, Button1, ButtonWrapper, ControlBarWrapper, Draft, DraftTitle, DraftWrapper, EditorWrapper, EffectButton, FastForward, Header, Highligther, LeftPanel, MidPanel, MoveAudio, Pause, Play, PlayerControls, Rewind, RightPanel, Stop, StudioHeader, StudioWrapper, UploadAudioWrapper, UploadIcon, VolumeDown, VolumeUp } from '../components/studio/Styles/styles.js';
+import { withAuthenticationRequired } from '@auth0/auth0-react';
+import Loading from '../components/Loading.jsx';
+import WaveformPlaylist from 'waveform-playlist';
+import axios from 'axios';
 
 const Studio = () => {
 
-  // const { user } = useAuth0();
+  const [playlist, setPlayList] = useState(null);
+  const [count, setCount] = useState(1);
 
-  // //get query from url
-  // //example, /studio?id=250, get the id number from the query
-  // const query = new URLSearchParams(useLocation().search);
+  const handleUpload = (e) => {
+    const file = e.target.files[0];
+    let formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'erjfh8e7');
 
-  //Nested routes
+    axios.post('https://api.cloudinary.com/v1_1/poyraz96/video/upload', formData)
+      .then(result => {
+        console.log(result);
+        playlist.load([{
+          src: result.data.url,
+          name: `Track #${count}`
+        }]);
+        setCount(count + 1);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    setPlayList(WaveformPlaylist({
+      samplesPerPixel: 1000,
+      waveHeight: 164,
+      barWidth: 3,
+      barGap: 1,
+      timescale: true,
+      container: document.getElementById('editor'),
+      state: 'cursor',
+      colors: {
+        waveOutlineColor: 'rgb(255, 250, 206)',
+        timeColor: 'purple',
+        fadeColor: 'purple',
+      },
+      controls: {
+        show: true,
+        width: 180,
+        widgets: {
+          stereoPan: false,
+          collapse: false
+        }
+      },
+      zoomLevels: [1000],
+    }));
+  }, []);
+
 
   return (
     <StudioWrapper>
@@ -30,20 +70,9 @@ const Studio = () => {
         </ButtonWrapper>
       </StudioHeader>
       <EditorWrapper>
-        <LeftPanel>
-          <LeftAudioTrack>
-            <div>Mute</div>
-            <div>
-              <VolumeDown></VolumeDown>
-              <VolumeUp></VolumeUp>
-            </div>
-          </LeftAudioTrack>
-          <LeftAudioTrack>
-            <div>Add a new track +</div>
-          </LeftAudioTrack>
-        </LeftPanel>
-        <MidPanel>
-          <WaveVisualizer />
+        <MidPanel id='editor'>
+
+
         </MidPanel>
         <RightPanel>
           <DraftTitle>Drafts</DraftTitle>
@@ -58,15 +87,32 @@ const Studio = () => {
         </RightPanel>
       </EditorWrapper>
       <ControlBarWrapper>
+        <AddAudioTrackWrapper>
+          <div className='audio-upload'>
+            <input
+              type='file'
+              id='upload-audio'
+              accept='audio/*'
+              onChange={handleUpload}
+            ></input>
+            <label htmlFor='upload-audio'>
+              <UploadIcon></UploadIcon>
+            </label>
+          </div>
+          <div >Add a new track</div>
+        </AddAudioTrackWrapper>
         <PlayerControls>
           <AllButtons>
-            <Pause></Pause>
-            <Play></Play>
-            <Stop></Stop>
-            <Rewind></Rewind>
-            <FastForward></FastForward>
+            <Pause onClick={() => { playlist.getEventEmitter().emit('pause'); }}></Pause>
+            <Play onClick={() => { playlist.getEventEmitter().emit('play'); playlist.getEventEmitter().emit('automaticscroll', 'true'); }}></Play>
+            <Stop onClick={() => { playlist.getEventEmitter().emit('stop'); }}></Stop>
+            <Rewind onClick={() => { playlist.getEventEmitter().emit('rewind'); }}></Rewind>
+            <FastForward onClick={() => { playlist.getEventEmitter().emit('fastforward'); }}></FastForward>
+            <MoveAudio></MoveAudio>
+            <Highligther></Highligther>
             <EffectButton>Fade In</EffectButton>
             <EffectButton>Fade Out</EffectButton>
+            <EffectButton>Trim</EffectButton>
           </AllButtons>
         </PlayerControls>
       </ControlBarWrapper>
@@ -74,4 +120,6 @@ const Studio = () => {
   );
 };
 
-export default Studio;
+export default withAuthenticationRequired(Studio, {
+  onRedirecting: () => <Loading />,
+});

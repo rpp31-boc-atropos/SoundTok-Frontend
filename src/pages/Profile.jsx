@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import EditProfile from "../components/Profile/EditProfile.jsx";
@@ -5,6 +6,17 @@ import UserProfile from "../components/Profile/UserProfile.jsx";
 import UserPosts from "../components/Profile/UserPosts.jsx";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import Loading from "../components/Loading.jsx";
+=======
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
+import EditProfile from '../components/profile/EditProfile.jsx';
+import UserProfile from '../components/profile/UserProfile.jsx';
+import UserPosts from '../components/profile/UserPosts.jsx';
+import { withAuthenticationRequired } from '@auth0/auth0-react';
+import Loading from '../components/Loading.jsx';
+
+import styled from 'styled-components';
+>>>>>>> 96500208eed2957d8f8536824d90bc9c3986f041
 
 import styled from "styled-components";
 
@@ -20,6 +32,11 @@ const ProfilePage = styled.div`
 const Profile = () => {
   // const { user } = useAuth();
   const [isCurrentUser, setIsCurrentUser] = useState(true);
+  const [profileName, setProfileName] = useState('testName');
+
+  // useEffect(() => {
+  //   console.log('test main page'); //printing twice here too?
+  // });
 
   //Nested routes
   return (
@@ -31,10 +48,12 @@ const Profile = () => {
         <UserProfile
           isCurrentUser={isCurrentUser}
           setIsCurrentUser={setIsCurrentUser}
+          profileName={profileName}
         ></UserProfile>
         <UserPosts
           isCurrentUser={isCurrentUser}
           setIsCurrentUser={setIsCurrentUser}
+          profileName={profileName}
         ></UserPosts>
       </ProfilePage>
 

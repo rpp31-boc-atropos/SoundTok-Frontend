@@ -88,14 +88,7 @@ const PlayerControls = () => {
         <BarWrapper>
           <div className='currentT'>{fmtMSS(currentTime)}</div>
           <Spacer size='2' />
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              width: '100%',
-            }}
-          >
+          <Bar>
             <input
               onChange={handleProgress}
               value={dur ? (currentTime * 100) / dur : 0}
@@ -111,7 +104,7 @@ const PlayerControls = () => {
             >
               {songs[currentSong] ? songs[currentSong].projectTitle : ''}
             </div>
-          </div>
+          </Bar>
           <Spacer size='2' />
           <div className='totalT'>{fmtMSS(dur)}</div>
         </BarWrapper>
@@ -145,7 +138,7 @@ const Wrapper = styled.div`
 `;
 
 const FeedWidth = styled.div`
-  width: var(--feed-width);
+  width: var(--bar-width);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -186,6 +179,13 @@ const BarWrapper = styled.div`
     width: 30px;
     line-height: 25px;
   }
+`;
+
+const Bar = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 `;
 
 const Volume = styled.div`
