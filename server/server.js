@@ -5,20 +5,9 @@ const jwksRsa = require('jwks-rsa');
 // const { resolve } = require('path');
 const axios = require('axios');
 
-const https = require('https');
-const fs = require('fs');
-
-var key = fs.readFileSync(__dirname + '/../privkey.pem');
-var cert = fs.readFileSync(__dirname + '/../fullchain.pem');
-var httpsOptions = {
-  key: key,
-  cert: cert
-};
-
 require('dotenv').config({});
 
 const app = express();
-
 
 app.use(express.json())
 app.use(express.static('public'));
@@ -164,12 +153,4 @@ app.delete('/deleteProject', (req, res) => {
     });
 });
 
-var server = https.createServer(httpsOptions, app);
-
-server.listen(3001, () => {
-  console.log('server starting on port: 3001')
-});
-
-app.listen(3000, () => {
-  console.log('Server started on port 3000');
-});
+module.exports = app;
