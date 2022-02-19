@@ -1,17 +1,29 @@
-import './App.css';
 import * as React from 'react';
 import axios from 'axios';
-import { HashRouter, BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import NavBar from './components/nav/NavBar.jsx';
+import {
+  HashRouter,
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
+
+import './App.css';
+
+import Auth0ProviderWithHistory from './components/Authentication/Auth0.jsx';
+import { useAuth0 } from '@auth0/auth0-react';
+import { UserInfoContext } from './contexts/UserContext.jsx';
+
+import NavBar from './components/Nav/NavBar.jsx';
 import Home from './pages/Home.jsx';
 import Profile from './pages/Profile.jsx';
-import NotFound from './pages/NotFound.jsx';
 import Studio from './pages/Studio.jsx';
 import Hashtag from './pages/Hashtag.jsx';
 import AudioPlayer from './components/audioPlayer/AudioPlayer';
 import Auth0ProviderWithHistory from './components/authentication/Auth0.jsx';
 import { useAuth0 } from '@auth0/auth0-react';
 import { UserInfoContext } from './contexts/UserContext.jsx';
+import NotFound from './pages/NotFound.jsx';
 
 //add new route above NotFound Route
 
@@ -21,7 +33,7 @@ import { UserInfoContext } from './contexts/UserContext.jsx';
 
 const App = () => {
   const { user, isAuthenticated } = useAuth0();
-  const [ userInfo, setUserInfo ] = React.useState({});
+  const [userInfo, setUserInfo] = React.useState({});
 
   // QUERY FOR USER PROPIC AND USERNAME HERE USING EMAIL
   React.useEffect(() => {
@@ -38,9 +50,14 @@ const App = () => {
     updated_at: "2022-02-19T02:14:17.669Z"
     */
 
+    // console.log({isAuthenticated, user});
+
     if (isAuthenticated) {
       const email = user.email;
-      // backend get request using email as a key. we want profile picture, bio, username
+      const updatedUserInfo = (userInfo['email'] = email);
+      setUserInfo(updatedUserInfo);
+
+      // backend get (upsert) request using email as a key. we want profile picture, bio, username
     }
   }, [isAuthenticated]);
 
@@ -53,16 +70,16 @@ const App = () => {
   return (
     <HashRouter>
       <Auth0ProviderWithHistory>
-        <UserInfoContext.Provider value={{userInfo, setUserInfo}}>
-          <div className='App'>
+        <UserInfoContext.Provider value={{ userInfo, setUserInfo }}>
+          <div className="App">
             <NavBar />
             <Routes>
-              <Route path='/' element={<Home />} />
+              <Route path="/" element={<Home />} />
               {/* <Route path='/profile/*' element={isAuthenticated ? <Profile /> : <Navigate to='/' />} /> */}
               <Route path="/profile/*" element={<Profile />} />
-              <Route path='/studio/*' element={<Studio />} />
+              <Route path="/studio/*" element={<Studio />} />
               <Route path="/hashtag" element={<Hashtag />} />
-              <Route path='/*' element={<NotFound />} />
+              <Route path="/*" element={<NotFound />} />
             </Routes>
             <AudioPlayer />
           </div>
