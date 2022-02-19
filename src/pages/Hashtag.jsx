@@ -1,8 +1,8 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
-import PhotoCard from "../components/Hashtag/PhotoCard";
+import PhotoCard from "../components/hashtag/PhotoCard";
 import Wave from "react-wavify";
-import dummy from "../components/Home/dummy.jsx";
+import dummy from "../components/home/dummy.jsx";
 import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import { Container } from "@material-ui/core";

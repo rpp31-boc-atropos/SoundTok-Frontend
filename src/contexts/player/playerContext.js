@@ -1,7 +1,7 @@
 import React, { useReducer, createContext } from 'react';
 import playerReducer from './playerReducer';
 // import { songsArr } from '../../components/audioPlayer/playlist/songs';
-import dummy from '../../components/Home/dummy.jsx';
+import dummy from '../../components/home/dummy.jsx';
 
 const PlayerContext = createContext();
 
