@@ -12,10 +12,12 @@ const app = express();
 app.use(express.json())
 app.use(express.static('public'));
 
-const audience = process.env.AUDIENCE;
-const issuer = process.env.ISSUER;
+const appOrigin = process.env.APP_ORIGIN;
+const audience = process.env.AUTH0_AUDIENCE;
+const issuer = process.env.AUTH0_ISSUER;
 
-app.use(cors());
+
+app.use(cors({ origin: appOrigin }));
 
 const checkJwt = jwt({
   secret: jwksRsa.expressJwtSecret({
@@ -28,48 +30,22 @@ const checkJwt = jwt({
   audience: audience,
   issuer: issuer,
   algorithms: ['RS256'],
-}).unless({path: ['/public']});
+});
 
-app.use(checkJwt)
-
-app.get("/public", (req, res) => {
+app.get("/api/public-message", (req, res) => {
   res.send({
     msg: "The API doesn't require an access token to share this message.",
   });
 });
 
-app.get("/protected", async (req, res) => {
-  try {
-    const accessToken = req.headers.authorization.split(' ')[1]
-
-    const response = await axios.get(`${issuer}userinfo`, {
-      headers: {
-        authorization: `Bearer ${accessToken}`,
-      },
-    })
-    const userinfo = response.data
-    res.send({
-      msg: "The API endpoint is protected",
-      data: userinfo //req.user
-    });
-  } catch (error) {
-    res.send(error)
-  }
-
+app.get("/api/private-message", checkJwt, (req, res) => {
+  res.send({
+    msg: "The API successfully validated your access token.",
+  });
 });
 
-app.use((req, res, next) => {
-  const error = new Error('Sorry, not found');
-  error.status = 404;
-  next(error);
-})
-
-app.use((error, req, res, next) => {
-  const status = error.status || 500;
-  const message = error.message || "Something went wrong";
-  res.status(status).send(message);
-})
 //backend routes - replace localhost with deployed URL when ready
+
 
 app.get("/", async (req, res) => {
   const optionGetPosts = {
@@ -91,18 +67,22 @@ app.get("/", async (req, res) => {
 app.get('/userProjects', (req, res) => {
   // console.log('projects query', req.query);
   // console.log('projects query user', req.query.username);
+  console.log('stage 1 success');
   axios({
     method: 'GET',
-    url: `http://localhost:1234/`,
+    url: `http://54.91.250.255:1234`,
     params: req.query
     // data: data,
   })
     .then((response) => {
-      // console.log(response);
-      res.status(200).send(response);
+      console.log('stage 2 success');
+      console.log(response);
+
+      res.status(200).send(response.data);
     })
     .catch((error) => {
-      // console.log(error);
+      console.log('stage 2 fail');
+      console.log(error);
       res.status(500).send(error);
     });
 });
@@ -110,7 +90,7 @@ app.get('/userProjects', (req, res) => {
 app.get('/userDrafts', (req, res) => {
   axios({
     method: 'GET',
-    url: `http://localhost:1234/`,
+    url: `http://54.91.250.255:1234`,
     params: req.query
   })
     .then((response) => {
@@ -124,7 +104,7 @@ app.get('/userDrafts', (req, res) => {
 app.get('/profileData', (req, res) => {
   axios({
     method: 'GET',
-    url: `http://localhost:1234/`,
+    url: `http://54.91.250.255:1234`,
     params: req.query
   })
     .then((response) => {
@@ -146,7 +126,7 @@ app.put('/updateProfile', (req, res) => {
 
   axios({
     method: 'PUT',
-    url: `http://localhost:1234/`,
+    url: `http://54.91.250.255:1234`,
     data: tempData
   })
     .then((response) => {
@@ -162,7 +142,7 @@ app.delete('/deleteProject', (req, res) => {
 
   axios({
     method: 'DELETE',
-    url: `http://localhost:1234/`,
+    url: `http://54.91.250.255:1234`,
     data: req.body
   })
     .then((response) => {
