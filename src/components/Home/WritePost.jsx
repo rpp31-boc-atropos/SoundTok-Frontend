@@ -10,7 +10,7 @@ import helpers from './helperFunctions.js';
 
 const WritePost = (props) => {
   const { user } = useAuth0();
-  const {posts, setPosts} = React.useContext(PostsContext);
+  const { posts, setPosts } = React.useContext(PostsContext);
 
   const [textCharacterCount, setTextCharacterCount] = React.useState(0);
   const [uploadedAudio, setUploadedAudio] = React.useState(null);
