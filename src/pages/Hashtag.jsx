@@ -1,22 +1,22 @@
-import React from "react";
-import { useSearchParams } from "react-router-dom";
-import PhotoCard from "../components/Hashtag/PhotoCard";
-import Wave from "react-wavify";
-import dummy from "../components/Home/dummy.jsx";
-import { Link } from "react-router-dom";
-import Grid from "@material-ui/core/Grid";
-import { Container } from "@material-ui/core";
+import React from 'react';
+import { useSearchParams } from 'react-router-dom';
+import PhotoCard from '../components/hashtag/PhotoCard.js';
+import Wave from 'react-wavify';
+import dummy from '../components/Home/dummy.jsx';
+import { Link } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
+import { Container } from '@material-ui/core';
 
 const Hashtag = () => {
   // queryString = "?q=classic"
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const q = searchParams.get("q");
+  const q = searchParams.get('q');
   let posts = dummy;
 
   return (
     <>
-      <h1 style={{ margin: "30px" }}>#Hashtag: {q}</h1>
+      <h1 style={{ margin: '30px' }}>#Hashtag: {q}</h1>
       <Container>
         <Grid container spacing={3}>
           {posts.map((post, index) => (

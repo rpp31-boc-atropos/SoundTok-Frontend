@@ -76,7 +76,6 @@ const Studio = () => {
       <EditorWrapper>
         <MidPanel id='editor'>
 
-
         </MidPanel>
         <RightPanel>
           <DraftTitle>Drafts</DraftTitle>

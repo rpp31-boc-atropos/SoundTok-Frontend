@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { FaVolumeDown, FaVolumeUp, FaArrowsAltH, FaUpload, FaGripLinesVertical } from "react-icons/fa";
 import { BsPlayCircleFill, BsFillPauseCircleFill, BsStopBtnFill } from "react-icons/bs";
-import { MdOutlineFastForward, MdOutlineFastRewind } from "react-icons/md";
+import { MdOutlineFastForward, MdOutlineFastRewind } from 'react-icons/md';
 
 
 
