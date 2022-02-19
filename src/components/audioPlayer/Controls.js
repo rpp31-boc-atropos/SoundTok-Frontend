@@ -65,7 +65,7 @@ const PlayerControls = () => {
           <Spacer />
           <div
             className={`playPause ${!playing ? 'ri-play-circle-fill' : 'ri-pause-circle-fill'
-              }`}
+            }`}
             onClick={() => {
               togglePlaying();
               toggleAudio();
@@ -170,6 +170,7 @@ const BarWrapper = styled.div`
   width: 100%;
 
   #progressBar {
+    display: table;
     background: transparent;
     width: 100%;
   }
