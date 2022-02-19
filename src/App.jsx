@@ -45,9 +45,9 @@ const App = () => {
   }, [isAuthenticated]);
 
   const callApi = () => {
-    axios.get('/public')
-      .then(response => console.log(response.date))
-      .catch(error => console.log(error));
+    axios.get('/public');
+    // .then(response => console.log(response.date))
+    // .catch(error => console.log(error));
   };
 
   return (

@@ -1,6 +1,8 @@
 let dummy;
 export default dummy = [
   {
+    postId: 6,
+    userId: 'stella@gmail.com',
     profilePicture:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Yawning_horse%2C_Scotland.jpg/640px-Yawning_horse%2C_Scotland.jpg',
     timePosted: '2022-02-11T18:34:49.915-08:00',
@@ -19,6 +21,8 @@ export default dummy = [
     tracks: []
   },
   {
+    postId: 5,
+    userId: 'panda@gmail.com',
     profilePicture: 'https://home.adelphi.edu/~ne21709/bunny2.jpg',
     timePosted: '2022-02-04T18:34:49.915-08:00',
     username: 'panda',
@@ -36,6 +40,8 @@ export default dummy = [
     tracks: []
   },
   {
+    postId: 4,
+    userId: 'leggo@gmail.com',
     profilePicture:
       'https://i.pinimg.com/474x/a3/89/f5/a389f597020f361f7f6d9b79323598fc.jpg',
     timePosted: '2022-01-11T18:34:49.915-08:00',
@@ -52,6 +58,8 @@ export default dummy = [
     tracks: []
   },
   {
+    postId: 3,
+    userId: 'happi@gmail.com',
     profilePicture:
       'https://img.buzzfeed.com/buzzfeed-static/static/2017-05/18/12/asset/buzzfeed-prod-fastlane-01/sub-buzz-13918-1495124569-6.png?downsize=900:*&output-format=auto&output-quality=auto',
     timePosted: '2022-01-11T18:34:49.915-08:00',
@@ -69,6 +77,8 @@ export default dummy = [
     tracks: []
   },
   {
+    postId: 2,
+    userId: 'quokkaofficial@gmail.com',
     profilePicture: 'https://pbs.twimg.com/profile_images/1280504375375548423/FRlR-nDQ_400x400.jpg',
     timePosted: '2021-12-04T18:34:49.915-08:00',
     username: 'quokkaofficial',
@@ -84,10 +94,12 @@ export default dummy = [
     tracks: []
   },
   {
+    postId: 1,
+    userId: 'leggo@gmail.com',
     profilePicture:
       'https://i.pinimg.com/474x/a3/89/f5/a389f597020f361f7f6d9b79323598fc.jpg',
     timePosted: '2021-11-11T18:34:49.915-08:00',
-    username: 'atrophos',
+    username: 'leggo',
     postLikes: 3,
     isDraft: false,
     postText: 'this post has no tags or image attached',
