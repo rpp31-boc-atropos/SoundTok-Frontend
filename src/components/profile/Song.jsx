@@ -2,6 +2,7 @@ import React from 'react';
 // import { useAuth } from '../../contexts/AuthContext.jsx';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { usePlayer } from "../../contexts/player/playerContext";
 
 const SingleSong = styled.div`
   width: 30%;
@@ -54,11 +55,21 @@ const SongText = styled.p``;
 
 const Song = (props) => {
   // const { user } = useAuth();
+  const { SetCurrent, currentSong, songs } = usePlayer();
 
   const deleteSong = () => {
     props.removeSong(props.songId, 'Posts');
-
   };
+
+  const playSong = () => {
+    songs.push({
+      projectTitle: props.projectTitle,
+      projectAudioLink: props.projectAudioLink
+    });
+
+    SetCurrent(songs.length - 1);
+  };
+
   //possibly make song image the background
   return (
     <SingleSong>
@@ -76,7 +87,7 @@ const Song = (props) => {
           {props.isCurrentUser && <button onClick={() => deleteSong()}>XX</button>}
         </CornerWrapper>
       </SongHeader>
-      <button>Play Song</button>
+      <button onClick={() => playSong()}>Play Song</button>
       <div>{props.songDescription}</div>
       <SongText>{props.projectTitle}</SongText>
     </SingleSong>
