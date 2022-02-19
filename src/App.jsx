@@ -27,6 +27,12 @@ import Hashtag from "./pages/Hashtag.jsx";
 const App = () => {
   const { isAuthenticated } = useAuth0();
 
+  const callApi = () => {
+    axios.get('/public')
+      .then(response => console.log(response.date))
+      .catch(error => console.log(error))
+  };
+
   return (
     <HashRouter>
       <Auth0ProviderWithHistory>
