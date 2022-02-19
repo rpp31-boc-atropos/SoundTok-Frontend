@@ -26,3 +26,4 @@
 npm-debug.log*
 .env
 /src/config/.auth0.js
+*.mp3
