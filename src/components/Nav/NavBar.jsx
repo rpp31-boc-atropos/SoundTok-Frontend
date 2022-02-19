@@ -3,6 +3,7 @@ import Search from './SearchBar.jsx';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
+import { getId } from 'wavesurfer.js/src/util';
 
 // const NavStyle = styled.div`
 //   max-width: 850px;
@@ -14,7 +15,7 @@ import axios from 'axios';
 
 const NavBar = () => {
 
-  const {loginWithRedirect, logout, isLoading, user, getAccessTokenSilently, isAuthenticated} = useAuth0();
+  const {loginWithRedirect, loginWithPopup, logout, isLoading, user, getAccessTokenSilently, isAuthenticated} = useAuth0();
 
   console.log('isLoading', isLoading);
   // console.log('isAuthenticated,' isAuthenticated);
