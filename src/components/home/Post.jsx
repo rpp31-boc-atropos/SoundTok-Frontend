@@ -1,10 +1,10 @@
-import * as React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import * as React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-import { usePlayer } from "../../contexts/player/playerContext";
-import ProfilePicture from "../ProfilePicture.jsx";
-import helpers from "./helperFunctions.js";
+import { usePlayer } from '../../contexts/player/playerContext';
+import ProfilePicture from '../ProfilePicture.jsx';
+import helpers from './helperFunctions.js';
 
 const Post = (props) => {
   const { SetCurrent, currentSong, songs } = usePlayer();
@@ -18,8 +18,8 @@ const Post = (props) => {
       <PostContent>
         <PostHeader>
           <PostUsernameAndTime>
-            <Link to={"/profile/" + props.username}>@{props.username}</Link>
-            {" · "}
+            <Link to={'/profile/' + props.username}>@{props.username}</Link>
+            {' · '}
             <time>{helpers.isoToTimeAgo(props.timePosted)}</time>
           </PostUsernameAndTime>
           <Link to="/studio">

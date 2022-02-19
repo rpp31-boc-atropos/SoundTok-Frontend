@@ -50,7 +50,6 @@ const Home = () => {
               />
             );
           })}
-          <Spacer></Spacer>
         </Feed>
       </FeedWrapper>
     </PostsContext.Provider>
@@ -67,10 +66,6 @@ const FeedWrapper = styled.div`
 
 const Feed = styled.div`
   max-width: var(--feed-width);
-`;
-
-const Spacer = styled.div`
-  height: 60px;
 `;
 
 export default Home;
