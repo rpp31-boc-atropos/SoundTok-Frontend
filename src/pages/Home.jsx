@@ -23,7 +23,7 @@ const Home = () => {
   //   console.log(result.data)
 
   //   setPosts(result.data);
-  // }, []);
+  // }, [posts]);
 
   return (
     <PostsContext.Provider value={{posts, setPosts}}>
@@ -35,9 +35,8 @@ const Home = () => {
               <Post
                 key={i}
                 index={i}
-                userId={post.user_id}
-                postId={post.post_id}
-                projectId={post.project_id}
+                postId={post.postId}
+                userEmail={post.userEmail}
                 username={post.username}
                 profilePicture={post.profilePicture}
                 projectTitle={post.projectTitle}

@@ -108,7 +108,7 @@ export default dummy = [
       'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Satin/Kai_Engel_-_08_-_Downfall.mp3',
     projectTitle: 'real quick',
     projectLength: 23,
-    projectImageLink: '',
+    projectImageLink: null,
     tracks: []
   },
 ];
