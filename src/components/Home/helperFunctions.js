@@ -28,7 +28,7 @@ export default helpers = {
       const match = regex.exec(text);
       if (match) {
         const [tag] = match;
-        tags.push([tag, match.index]);
+        tags.push({[tag]: match.index});
       } else {
         return tags;
       }
