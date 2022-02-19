@@ -8,8 +8,8 @@ const axios = require('axios');
 const https = require('https');
 const fs = require('fs');
 
-var key = fs.readFileSync('/etc/letsencrypt/live/soundtok.live/privkey.pem');
-var cert = fs.readFileSync('/etc/letsencrypt/live/soundtok.live/fullchain.pem');
+var key = fs.readFileSync(__dirname + '../privkey.pem');
+var cert = fs.readFileSync(__dirname + '../fullchain.pem');
 var httpsOptions = {
   key: key,
   cert: cert
