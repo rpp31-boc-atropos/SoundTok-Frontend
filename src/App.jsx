@@ -2,14 +2,14 @@ import './App.css';
 import * as React from 'react';
 import axios from 'axios';
 import { HashRouter, BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import NavBar from './components/Nav/NavBar.jsx';
+import NavBar from './components/nav/NavBar.jsx';
 import Home from './pages/Home.jsx';
 import Profile from './pages/Profile.jsx';
 import NotFound from './pages/NotFound.jsx';
 import Studio from './pages/Studio.jsx';
 import Hashtag from './pages/Hashtag.jsx';
 import AudioPlayer from './components/audioPlayer/AudioPlayer';
-import Auth0ProviderWithHistory from './components/Authentication/Auth0.jsx';
+import Auth0ProviderWithHistory from './components/authentication/Auth0.jsx';
 import { useAuth0 } from '@auth0/auth0-react';
 import { UserInfoContext } from './contexts/UserContext.jsx';
 

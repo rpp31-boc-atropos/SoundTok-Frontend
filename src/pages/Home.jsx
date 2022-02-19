@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { PostsContext } from '../contexts/PostsContext.jsx';
 import { useAuth0 } from '@auth0/auth0-react';
 
-import WritePost from '../components/Home/WritePost.jsx';
-import Post from '../components/Home/Post.jsx';
+import WritePost from '../components/home/WritePost.jsx';
+import Post from '../components/home/Post.jsx';
 
-import dummy from '../components/Home/dummy.jsx';
+import dummy from '../components/home/dummy.jsx';
 import axios from 'axios';
 
 const Home = () => {
