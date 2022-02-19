@@ -7,10 +7,9 @@ import PlayerControls from './Controls';
 import { useLocation } from 'react-router-dom';
 
 
-//Replace the playlist with feeds
 
 const Main = styled.div`
-  position: absolute;
+  position: relative;
   bottom: 0;
   width: 100%;
   box-sizing: border-box;

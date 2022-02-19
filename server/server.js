@@ -12,12 +12,10 @@ const app = express();
 app.use(express.json())
 app.use(express.static('public'));
 
-const appOrigin = process.env.APP_ORIGIN;
-const audience = process.env.AUTH0_AUDIENCE;
-const issuer = process.env.AUTH0_ISSUER;
+const audience = process.env.AUDIENCE;
+const issuer = process.env.ISSUER;
 
-
-app.use(cors({ origin: appOrigin }));
+app.use(cors());
 
 const checkJwt = jwt({
   secret: jwksRsa.expressJwtSecret({
@@ -30,22 +28,48 @@ const checkJwt = jwt({
   audience: audience,
   issuer: issuer,
   algorithms: ['RS256'],
-});
+}).unless({path: ['/public']});
 
-app.get("/api/public-message", (req, res) => {
+app.use(checkJwt)
+
+app.get("/public", (req, res) => {
   res.send({
     msg: "The API doesn't require an access token to share this message.",
   });
 });
 
-app.get("/api/private-message", checkJwt, (req, res) => {
-  res.send({
-    msg: "The API successfully validated your access token.",
-  });
+app.get("/protected", async (req, res) => {
+  try {
+    const accessToken = req.headers.authorization.split(' ')[1]
+
+    const response = await axios.get(`${issuer}userinfo`, {
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+    })
+    const userinfo = response.data
+    res.send({
+      msg: "The API endpoint is protected",
+      data: userinfo //req.user
+    });
+  } catch (error) {
+    res.send(error)
+  }
+
 });
 
-//backend routes - replace localhost with deployed URL when ready
+app.use((req, res, next) => {
+  const error = new Error('Sorry, not found');
+  error.status = 404;
+  next(error);
+})
 
+app.use((error, req, res, next) => {
+  const status = error.status || 500;
+  const message = error.message || "Something went wrong";
+  res.status(status).send(message);
+})
+//backend routes - replace localhost with deployed URL when ready
 
 app.get("/", async (req, res) => {
   const optionGetPosts = {

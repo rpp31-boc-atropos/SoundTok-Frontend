@@ -1,16 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
-import WaveSurfer from 'wavesurfer.js';
-import song from '../../../song.mp3';
-import { Controls, PlayWaveSurferButton } from '../../components/Studio/Styles/styles.js';
-
+import React, { useEffect, useRef, useState } from "react";
+import WaveSurfer from "wavesurfer.js";
+import song from "../../../song.mp3";
+import {
+  Controls,
+  PlayWaveSurferButton,
+} from "../../components/Studio/Styles/styles.js";
 
 const WaveVisualizer = () => {
-
-  const formWaveSurferOptions = ref => ({
+  const formWaveSurferOptions = (ref) => ({
     container: ref,
-    waveColor: '#eee',
-    progressColor: 'purple',
-    cursorColor: 'purple',
+    waveColor: "#eee",
+    progressColor: "purple",
+    cursorColor: "purple",
     barWidth: 3,
     barRadius: 3,
     responsive: true,
@@ -18,7 +19,7 @@ const WaveVisualizer = () => {
     // If true, normalize by the maximum peak instead of 1.0.
     normalize: true,
     // Use the PeakCache to improve rendering speed of large waveforms.
-    partialRender: true
+    partialRender: true,
   });
 
   const waveformRef = useRef();
@@ -36,7 +37,7 @@ const WaveVisualizer = () => {
 
     wavesurfer.current.load(song);
 
-    wavesurfer.current.on('ready', function() {
+    wavesurfer.current.on("ready", function () {
       // https://wavesurfer-js.org/docs/methods.html
       // wavesurfer.current.play();
       // setPlay(true);
@@ -58,7 +59,7 @@ const WaveVisualizer = () => {
     wavesurfer.current.playPause();
   };
 
-  const onVolumeChange = e => {
+  const onVolumeChange = (e) => {
     const { target } = e;
     const newVolume = +target.value;
 
@@ -67,7 +68,6 @@ const WaveVisualizer = () => {
       wavesurfer.current.setVolume(newVolume || 1);
     }
   };
-
 
   return (
     <div>

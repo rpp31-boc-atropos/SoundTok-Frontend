@@ -9,12 +9,13 @@ export default dummy = [
     postSaved: false,
     postText:
       'Chicago, i\'m SO excited, to hold you guys over until then, here\'s a #teaser :)',
-    tags: ['teaser'],
+    tags: [{'teaser': 70}],
     projectAudioLink:
       'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Satin/Kai_Engel_-_03_-_Contention.mp3',
     projectTitle: 'hay fever',
     projectLength: 239,
-    projectImageLink: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Yawning_horse%2C_Scotland.jpg/640px-Yawning_horse%2C_Scotland.jpg'
+    projectImageLink:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Yawning_horse%2C_Scotland.jpg/640px-Yawning_horse%2C_Scotland.jpg',
   },
   {
     profilePicture: 'https://home.adelphi.edu/~ne21709/bunny2.jpg',
@@ -29,7 +30,8 @@ export default dummy = [
       'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Satin/Kai_Engel_-_01_-_Augmentations.mp3',
     projectTitle: 'first song man',
     projectLength: 283,
-    projectImageLink: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Yawning_horse%2C_Scotland.jpg/640px-Yawning_horse%2C_Scotland.jpg'
+    projectImageLink:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Yawning_horse%2C_Scotland.jpg/640px-Yawning_horse%2C_Scotland.jpg',
   },
   {
     profilePicture:
@@ -45,7 +47,8 @@ export default dummy = [
       'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Satin/Kai_Engel_-_08_-_Downfall.mp3',
     projectTitle: 'group meow 1',
     projectLength: 98,
-    projectImageLink: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Yawning_horse%2C_Scotland.jpg/640px-Yawning_horse%2C_Scotland.jpg'
+    projectImageLink:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Yawning_horse%2C_Scotland.jpg/640px-Yawning_horse%2C_Scotland.jpg',
   },
   {
     profilePicture:
@@ -56,12 +59,13 @@ export default dummy = [
     postSaved: false,
     postText:
       'Chicago, i\'m SO excited, to hold you guys over until then, here\'s a #teaser :)',
-    tags: ['teaser'],
+    tags: [{'teaser': 70}],
     projectAudioLink:
       'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Satin/Kai_Engel_-_03_-_Contention.mp3',
     projectTitle: 'hay mama THIS panda',
     projectLength: 239,
-    projectImageLink: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Yawning_horse%2C_Scotland.jpg/640px-Yawning_horse%2C_Scotland.jpg'
+    projectImageLink:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Yawning_horse%2C_Scotland.jpg/640px-Yawning_horse%2C_Scotland.jpg',
   },
   {
     profilePicture: 'https://home.adelphi.edu/~ne21709/bunny2.jpg',
@@ -76,7 +80,8 @@ export default dummy = [
       'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Satin/Kai_Engel_-_01_-_Augmentations.mp3',
     projectTitle: 'first song man',
     projectLength: 283,
-    projectImageLink: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Yawning_horse%2C_Scotland.jpg/640px-Yawning_horse%2C_Scotland.jpg'
+    projectImageLink:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Yawning_horse%2C_Scotland.jpg/640px-Yawning_horse%2C_Scotland.jpg',
   },
   {
     profilePicture:
@@ -92,6 +97,7 @@ export default dummy = [
       'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Satin/Kai_Engel_-_08_-_Downfall.mp3',
     projectTitle: 'group meow 1',
     projectLength: 98,
-    projectImageLink: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Yawning_horse%2C_Scotland.jpg/640px-Yawning_horse%2C_Scotland.jpg'
+    projectImageLink:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Yawning_horse%2C_Scotland.jpg/640px-Yawning_horse%2C_Scotland.jpg',
   },
 ];
