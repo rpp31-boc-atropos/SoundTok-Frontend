@@ -1,16 +1,21 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 
+import { PostsContext } from '../../contexts/PostsContext.jsx';
 import ProfilePicture from '../ProfilePicture.jsx';
 import helpers from './helperFunctions.js';
 
 const WritePost = (props) => {
+  const { user } = useAuth0();
+  const { posts, setPosts } = React.useContext(PostsContext);
+
   const [textCharacterCount, setTextCharacterCount] = React.useState(0);
-  const [uploadedAudio, setUploadedAudio] = React.useState('');
+  const [uploadedAudio, setUploadedAudio] = React.useState(null);
   const [audioDuration, setAudioDuration] = React.useState('');
-  const [uploadedImage, setUploadedImage] = React.useState('');
+  const [uploadedImage, setUploadedImage] = React.useState(null);
 
   const projectTitle = React.useRef(null);
   const projectText = React.useRef(null);
@@ -64,15 +69,32 @@ const WritePost = (props) => {
 
   const handlePost = (event) => {
     event.preventDefault();
-    const title = projectTitle.current.value;
-    const text = projectText.current.value;
-    const tags = helpers.parseTags(text);
+    let title = projectTitle.current.value;
+    let text = projectText.current.value;
+    let tags = helpers.parseTags(text);
+
+    const post = {
+      profilePicture: user.picture,
+      timePosted: new Date(Date.now()).toISOString(),
+      username: user.nickname,
+      postLikes: 0,
+      postSaved: false,
+      postText: text,
+      tags: tags,
+      projectAudioLink: uploadedAudio,
+      projectTitle: title,
+      projectLength: audioDuration,
+      projectImageLink: uploadedImage
+    };
+
+    setPosts([post].concat(posts));
+
+    console.log(posts);
   };
 
   return (
     <WritePostWrapper>
-      {/* TODO: replace atrophos with username */}
-      <ProfilePicture username={props.username} profilePicture={props.profilePicture}/>
+      <ProfilePicture username={user.nickname} profilePicture={user.picture}/>
       <Form onSubmit={handlePost}>
         <FlexColumn>
           <Inputs>
@@ -134,7 +156,7 @@ const WritePost = (props) => {
                   id='post-text'
                   name='postText'
                   maxlength='140'
-                  rows='2'
+                  rows='4'
                   cols='70'
                   placeholder='Share your sound'
                   onChange={handleTextCharacterCount}
@@ -145,7 +167,7 @@ const WritePost = (props) => {
               </CharacterCount>
             </FlexColumn>
             <FlexColumn>
-              <UploadedAudio></UploadedAudio>
+              <UploadedAudio>{uploadedImage ? <img src={uploadedImage}></img> : ''}</UploadedAudio>
               <Submit type='submit'>Post</Submit>
             </FlexColumn>
           </Inputs>
@@ -204,9 +226,20 @@ const AudioIcons = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  /* div {
+    display: inherit;
+    align-items: inherit;
+    color: var(--font-line-color-yellow-transparent);
+    &:hover {
+      color: var(--font-line-color-yellow);
+    }
+  } */
 `;
 
 const PostAudioIcon = styled.div`
+  display: inherit;
+  align-items: inherit;
   color: var(--font-line-color-yellow-transparent);
   &:hover {
     color: var(--font-line-color-yellow);
@@ -247,6 +280,12 @@ const UploadedAudio = styled.div`
   background: var(--main-color-blue-light);
   margin-left: 12px;
   margin-bottom: 6px;
+
+  img {
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+  }
 `;
 
 const Submit = styled.button`
@@ -260,4 +299,9 @@ const Submit = styled.button`
   &:hover {
     background: var(--sound-bar-green-light);
   }
+`;
+
+const Spacer = styled.div`
+  width: ${(props) => (props.width || 1) * 6}px;
+  height: ${(props) => (props.height || 1) * 6}px;
 `;
