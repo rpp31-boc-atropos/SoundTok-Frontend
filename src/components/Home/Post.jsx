@@ -1,27 +1,30 @@
-import * as React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import * as React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-import { usePlayer } from '../../contexts/player/playerContext';
-import ProfilePicture from '../ProfilePicture.jsx';
-import helpers from './helperFunctions.js';
+import { usePlayer } from "../../contexts/player/playerContext";
+import ProfilePicture from "../ProfilePicture.jsx";
+import helpers from "./helperFunctions.js";
 
 const Post = (props) => {
   const { SetCurrent, currentSong, songs } = usePlayer();
 
   return (
     <PostWrapper>
-      <ProfilePicture username={props.username} profilePicture={props.profilePicture}/>
+      <ProfilePicture
+        username={props.username}
+        profilePicture={props.profilePicture}
+      />
       <PostContent>
         <PostHeader>
           <PostUsernameAndTime>
-            <Link to={'/profile/' + props.username}>@{props.username}</Link>
-            {' · '}
+            <Link to={"/profile/" + props.username}>@{props.username}</Link>
+            {" · "}
             <time>{helpers.isoToTimeAgo(props.timePosted)}</time>
           </PostUsernameAndTime>
-          <Link to='/studio'>
+          <Link to="/studio">
             <PostRemixButton>
-              <i className='ri-sound-module-line'></i>
+              <i className="ri-sound-module-line"></i>
             </PostRemixButton>
           </Link>
         </PostHeader>
@@ -93,7 +96,7 @@ const PostAudio = styled.button`
   border-radius: 12px;
   box-sizing: border-box;
   background: var(--main-color-blue-light);
-  background-image: url('./wave.png');
+  background-image: url("./wave.png");
   margin-bottom: 4px;
 `;
 

@@ -1,62 +1,62 @@
-input[type=range] {
+input[type="range"] {
   -webkit-appearance: none;
   margin: 10px 0;
   width: 100%;
 }
 
-input[type=range]:focus {
+input[type="range"]:focus {
   outline: none;
 }
 
-input[type=range]::-webkit-slider-runnable-track {
+input[type="range"]::-webkit-slider-runnable-track {
   width: 100%;
   height: 5px;
   cursor: pointer;
   animate: 0.2s;
   box-shadow: 0px 0px 0px #000000;
-  background: #253A4E;
+  background: #253a4e;
   border-radius: 5px;
   border: 0px solid #000000;
 }
 
-input[type=range]::-webkit-slider-thumb {
+input[type="range"]::-webkit-slider-thumb {
   box-shadow: 0px 0px 1px #000000;
   border: 0px solid #000000;
   height: 13px;
   width: 4px;
   border-radius: 50px;
-  background: #33495C;
+  background: #33495c;
   cursor: pointer;
   -webkit-appearance: none;
   margin-top: -4px;
 }
 
-input[type=range]:focus::-webkit-slider-runnable-track {
-  background: #33495C;
+input[type="range"]:focus::-webkit-slider-runnable-track {
+  background: #33495c;
 }
 
-input[type=range]::-moz-range-track {
+input[type="range"]::-moz-range-track {
   width: 100%;
   height: 5px;
   cursor: pointer;
   animate: 0.2s;
   box-shadow: 0px 0px 0px #000000;
-  background: #33495C;
+  background: #33495c;
   border-radius: 5px;
   border: 0px solid #000000;
 }
 
-input[type=range]::-moz-range-thumb {
+input[type="range"]::-moz-range-thumb {
   box-shadow: 0px 0px 1px #000000;
   border: 0px solid #000000;
   height: 13px;
   width: 4px;
   border-radius: 50px;
-  background: #33495C;
+  background: #33495c;
   cursor: pointer;
 }
 
-input[type=range]::-ms-track {
+input[type="range"]::-ms-track {
   width: 100%;
   height: 5px;
   cursor: pointer;
@@ -66,21 +66,21 @@ input[type=range]::-ms-track {
   color: transparent;
 }
 
-input[type=range]::-ms-fill-lower {
-  background: #33495C;
+input[type="range"]::-ms-fill-lower {
+  background: #33495c;
   border: 0px solid #000000;
   border-radius: 10px;
   box-shadow: 0px 0px 0px #000000;
 }
 
-input[type=range]::-ms-fill-upper {
-  background: #33495C;
+input[type="range"]::-ms-fill-upper {
+  background: #33495c;
   border: 0px solid #000000;
   border-radius: 10px;
   box-shadow: 0px 0px 0px #000000;
 }
 
-input[type=range]::-ms-thumb {
+input[type="range"]::-ms-thumb {
   box-shadow: 0px 0px 1px #000000;
   border: 0px solid #000000;
   height: 13px;
@@ -90,12 +90,12 @@ input[type=range]::-ms-thumb {
   cursor: pointer;
 }
 
-input[type=range]:focus::-ms-fill-lower {
-  background: #33495C;
+input[type="range"]:focus::-ms-fill-lower {
+  background: #33495c;
 }
 
-input[type=range]:focus::-ms-fill-upper {
-  background: #33495C;
+input[type="range"]:focus::-ms-fill-upper {
+  background: #33495c;
 }
 
 .plsoptions {
