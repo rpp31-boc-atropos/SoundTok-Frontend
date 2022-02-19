@@ -5,9 +5,20 @@ const jwksRsa = require('jwks-rsa');
 // const { resolve } = require('path');
 const axios = require('axios');
 
+const https = require('https');
+const fs = require('fs');
+
+var key = fs.readFileSync('/etc/letsencrypt/live/soundtok.live/privkey.pem');
+var cert = fs.readFileSync('/etc/letsencrypt/live/soundtok.live/fullchain.pem');
+var httpsOptions = {
+  key: key,
+  cert: cert
+};
+
 require('dotenv').config({});
 
 const app = express();
+
 
 app.use(express.json())
 app.use(express.static('public'));
@@ -171,6 +182,12 @@ app.delete('/deleteProject', (req, res) => {
     .catch((error) => {
       res.status(500).send(error);
     });
+});
+
+var server = https.createServer(httpsOptions, app);
+
+server.listen(3001, () => {
+  console.log('server starting on port: 3001')
 });
 
 app.listen(3000, () => {
