@@ -6,19 +6,33 @@ import axios from 'axios';
 
 import { PostsContext } from '../../contexts/PostsContext.jsx';
 import ProfilePicture from '../ProfilePicture.jsx';
-import helpers from './helperFunctions.js';
+import helper from './helperFunctions.js';
 
 const WritePost = (props) => {
   const { user } = useAuth0();
   const { posts, setPosts } = React.useContext(PostsContext);
+  const [isPosted, setIsPosted] = React.useState(false);
 
   const [textCharacterCount, setTextCharacterCount] = React.useState(0);
   const [uploadedAudio, setUploadedAudio] = React.useState(null);
-  const [audioDuration, setAudioDuration] = React.useState('');
+  const [audioDuration, setAudioDuration] = React.useState(0);
   const [uploadedImage, setUploadedImage] = React.useState(null);
 
   const projectTitle = React.useRef(null);
   const projectText = React.useRef(null);
+
+  // clear content when
+  React.useEffect(() => {
+    if (isPosted) {
+      setTextCharacterCount(0);
+      setUploadedAudio(null);
+      setAudioDuration(0);
+      setUploadedImage(null);
+      projectTitle.current.value = null;
+      projectText.current.value = null;
+      setIsPosted(false);
+    }
+  }, [isPosted]);
 
   const handleTitleCharacterCount = (event) => {
     event.preventDefault();
@@ -71,7 +85,7 @@ const WritePost = (props) => {
     event.preventDefault();
     let title = projectTitle.current.value;
     let text = projectText.current.value;
-    let tags = helpers.parseTags(text);
+    let tags = helper.parseTags(text);
 
     const post = {
       profilePicture: user.picture,
@@ -88,8 +102,7 @@ const WritePost = (props) => {
     };
 
     setPosts([post].concat(posts));
-
-    console.log(posts);
+    setIsPosted(true);
   };
 
   return (
@@ -127,9 +140,7 @@ const WritePost = (props) => {
                     ></UploadFile>
                   </PostAudioIcon>
                   <PostAudioIcon>
-                    <button>
-                      <div className='ri-folder-upload-line'/>
-                    </button>
+                    <div className='ri-folder-upload-line'/>
                   </PostAudioIcon>
                   <PostAudioIcon>
                     <Link to='/studio'>
@@ -167,7 +178,10 @@ const WritePost = (props) => {
               </CharacterCount>
             </FlexColumn>
             <FlexColumn>
-              <UploadedAudio>{uploadedImage ? <img src={uploadedImage}></img> : ''}</UploadedAudio>
+              <UploadedAudio style={uploadedAudio ? {border: '1px solid var(--font-line-color-yellow)'} : null}>
+                {audioDuration > 300 ? 'Audio length must be less than 5 min' : null}
+                {uploadedImage ? <img src={uploadedImage}></img> : null}
+              </UploadedAudio>
               <Submit type='submit'>Post</Submit>
             </FlexColumn>
           </Inputs>
@@ -226,18 +240,9 @@ const AudioIcons = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
-  /* div {
-    display: inherit;
-    align-items: inherit;
-    color: var(--font-line-color-yellow-transparent);
-    &:hover {
-      color: var(--font-line-color-yellow);
-    }
-  } */
 `;
 
-const PostAudioIcon = styled.div`
+const PostAudioIcon = styled.button`
   display: inherit;
   align-items: inherit;
   color: var(--font-line-color-yellow-transparent);
@@ -275,8 +280,10 @@ const CharacterCount = styled.span`
 const UploadedAudio = styled.div`
   width: 96px;
   height: 96px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 12px;
-  box-sizing: border-box;
   background: var(--main-color-blue-light);
   margin-left: 12px;
   margin-bottom: 6px;
