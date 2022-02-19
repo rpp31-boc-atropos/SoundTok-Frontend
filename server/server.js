@@ -138,7 +138,7 @@ app.put('/updateProfile', (req, res) => {
 });
 
 app.delete('/deleteProject', (req, res) => {
-  // console.log('test', req.body);
+  console.log('test', req.body);
 
   axios({
     method: 'DELETE',

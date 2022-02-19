@@ -86,6 +86,7 @@ const UserPosts = ({isCurrentUser, profileName}) => {
       .then((response) => {
         // setSongs(response.data);
         console.log('response: ', response.data);
+        setSongs(response.data);
       })
       .catch((err) => {
         //make pop-up
@@ -99,14 +100,14 @@ const UserPosts = ({isCurrentUser, profileName}) => {
         }
       })
         .then((response) => {
-          // setDrafts(response.drafts);
+          // setDrafts(response.data);
           console.log('response: ', response.data);
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  });
+  }, []);
 
   return (
     <>
@@ -123,7 +124,7 @@ const UserPosts = ({isCurrentUser, profileName}) => {
             <Song
               key={i}
               songId={song.projectId}
-              songImage={song.projectImage}
+              songImage={song.profilePicture}
               projectTitle={song.projectTitle}
               songDescription={song.projectDescription}
               projectAudioLink={song.projectAudioLink}
