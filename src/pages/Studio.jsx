@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { AddAudioTrackWrapper, AllButtons, Button1, ButtonWrapper, ControlBarWrapper, Draft, DraftTitle, DraftWrapper, EditorWrapper, EffectButton, FastForward, Header, Highligther, LeftPanel, MidPanel, MoveAudio, Pause, Play, PlayerControls, Rewind, RightPanel, Stop, StudioHeader, StudioWrapper, UploadAudioWrapper, UploadIcon, VolumeDown, VolumeUp } from '../components/studio/Styles/styles.js';
+import { AllButtons, ButtonTop, ButtonWrapper, ControlBarWrapper, Draft, DraftTitle, DraftWrapper, EditorWrapper, EffectButton, FastForward, Header, Highligther, MainPanel, MoveAudio, Pause, Play, PlayerControls, Rewind, RightPanel, Stop, StudioHeader, StudioWrapper } from '../components/studio/Styles/styles.js';
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 import Loading from '../components/Loading.jsx';
 import WaveformPlaylist from 'waveform-playlist';
+import AudioUpload from '../components/studio/AudioUpload.jsx';
 import axios from 'axios';
 
 const Studio = () => {
@@ -11,7 +12,11 @@ const Studio = () => {
   const [count, setCount] = useState(1);
 
   const handleSaveDraft = () => {
-    console.log(playlist.getInfo());
+    if (playlist.getInfo().length > 0) {
+      console.log(playlist.getInfo());
+    }
+
+    console.log(playlist);
   };
 
   const handleUpload = (e) => {
@@ -26,8 +31,11 @@ const Studio = () => {
         playlist.load([{
           src: result.data.url,
           name: `Track #${count}`
-        }]);
-        setCount(count + 1);
+        }]).then(() => {
+          playlist.initExporter();
+          setCount(count + 1);
+        });
+
       })
       .catch(err => {
         console.log(err);
@@ -37,7 +45,7 @@ const Studio = () => {
   useEffect(() => {
     setPlayList(WaveformPlaylist({
       samplesPerPixel: 1000,
-      waveHeight: 164,
+      waveHeight: 131,
       barWidth: 3,
       barGap: 1,
       timescale: true,
@@ -68,15 +76,13 @@ const Studio = () => {
           <Header>Audio Creation Tool</Header>
         </div>
         <ButtonWrapper>
-          <Button1>Download</Button1>
-          <Button1 onClick={handleSaveDraft}>Save</Button1>
-          <Button1>Post</Button1>
+          <ButtonTop onClick={() => { playlist.getEventEmitter().emit('startaudiorendering', 'wav'); }}>Download</ButtonTop>
+          <ButtonTop onClick={handleSaveDraft}>Save</ButtonTop>
         </ButtonWrapper>
       </StudioHeader>
       <EditorWrapper>
-        <MidPanel id='editor'>
-
-        </MidPanel>
+        <MainPanel id='editor'>
+        </MainPanel>
         <RightPanel>
           <DraftTitle>Drafts</DraftTitle>
           <DraftWrapper>
@@ -90,20 +96,7 @@ const Studio = () => {
         </RightPanel>
       </EditorWrapper>
       <ControlBarWrapper>
-        <AddAudioTrackWrapper>
-          <div className='audio-upload'>
-            <input
-              type='file'
-              id='upload-audio'
-              accept='audio/*'
-              onChange={handleUpload}
-            ></input>
-            <label htmlFor='upload-audio'>
-              <UploadIcon></UploadIcon>
-            </label>
-          </div>
-          <div >Add a new track</div>
-        </AddAudioTrackWrapper>
+        <AudioUpload HandleUpload={handleUpload}/>
         <PlayerControls>
           <AllButtons>
             <Pause onClick={() => { playlist.getEventEmitter().emit('pause'); }}></Pause>

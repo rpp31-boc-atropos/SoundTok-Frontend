@@ -25,8 +25,8 @@
   --wp-mute-solo-focus-color: rgba(52, 58, 64, 0.5);
   --wp-btn-danger-background-hover-color: black;
   --wp-btn-danger-border-hover-color: black;
-  --wp-btn-danger-background-color: black;
-  --wp-btn-danger-border-color: black;
+  --wp-btn-danger-background-color: rgb(255, 250, 206);
+  --wp-btn-danger-border-color: rgb(255, 250, 206);
   --wp-btn-danger-focus-color: rgba(225, 83, 97, 0.5);
   --wp-btn-danger-color: rgb(136, 11, 194);
   --wp-btn-info-background-hover-color: #138496;
@@ -148,7 +148,8 @@ input {
 }
 
 /* .playlist {
-margin: 0.3em 0; } */
+  overflow-y: auto;
+} */
 
 .playlist *, .playlist ::after, .playlist ::before {
   box-sizing: border-box;
