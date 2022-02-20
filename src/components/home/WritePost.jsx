@@ -4,14 +4,16 @@ import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 
+import { usePlayer } from '../../contexts/player/playerContext';
 import { PostsContext } from '../../contexts/PostsContext.jsx';
 import ProfilePicture from '../ProfilePicture.jsx';
 import helper from './helperFunctions.js';
 
 const WritePost = (props) => {
   const { user } = useAuth0();
+  const { songs } = usePlayer();
   const { posts, setPosts } = React.useContext(PostsContext);
-  const [isPosted, setIsPosted] = React.useState(false);
+
 
   const [textCharacterCount, setTextCharacterCount] = React.useState(0);
   const [uploadedAudio, setUploadedAudio] = React.useState(null);
@@ -21,18 +23,18 @@ const WritePost = (props) => {
   const projectTitle = React.useRef(null);
   const projectText = React.useRef(null);
 
-  // clear content when
+  // clear content when a post is made
   React.useEffect(() => {
-    if (isPosted) {
+    if (props.isPosted) {
       setTextCharacterCount(0);
       setUploadedAudio(null);
       setAudioDuration(0);
       setUploadedImage(null);
       projectTitle.current.value = null;
       projectText.current.value = null;
-      setIsPosted(false);
+      props.setIsPosted(false);
     }
-  }, [isPosted]);
+  }, [props.isPosted]);
 
   const handleTitleCharacterCount = (event) => {
     event.preventDefault();
@@ -59,7 +61,6 @@ const WritePost = (props) => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', 'dllt65qw');
-    // console.log(process.env.CLOUDINARY_USERNAME);
 
     axios.post('https://api.cloudinary.com/v1_1/xoxohorses/video/upload', formData)
       .then((response) => {
@@ -87,22 +88,42 @@ const WritePost = (props) => {
     let text = projectText.current.value;
     let tags = helper.parseTags(text);
 
+    // isDraft: false
+    // postId: 1
+    // postLikes: 3
+    // postText: "this post has no tags or image attached"
+    // profilePicture: "https://i.pinimg.com/474x/a3/89/f5/a389f597020f361f7f6d9b79323598fc.jpg"
+    // projectAudioLink: "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Satin/Kai_Engel_-_08_-_Downfall.mp3"
+    // projectImageLink: null
+    // projectLength: 23
+    // projectTitle: "real quick"
+    // tags: []
+    // timePosted: "2021-11-11T18:34:49.915-08:00"
+    // tracks: []
+    // userEmail: "leggo@gmail.com"
+    // username: "leggo"
+
     const post = {
       profilePicture: user.picture,
       timePosted: new Date(Date.now()).toISOString(),
       username: user.nickname,
+      userEmail: user.email,
       postLikes: 0,
-      postSaved: false,
+      isDraft: false,
       postText: text,
       tags: tags,
       projectAudioLink: uploadedAudio,
       projectTitle: title,
       projectLength: audioDuration,
-      projectImageLink: uploadedImage
+      projectImageLink: uploadedImage,
+      tracks: []
     };
 
+    // TODO get post id before posting
+
     setPosts([post].concat(posts));
-    setIsPosted(true);
+    props.setIsPosted(true);
+    songs.unshift(post);
   };
 
   return (
@@ -127,7 +148,7 @@ const WritePost = (props) => {
                   ></ProjectTitle>
                 </label>
                 <AudioIcons>
-                  <PostAudioIcon>
+                  <PostAudioIcon type='button'>
                     <label htmlFor='post-audio'>
                       <div className='ri-upload-2-line'/>
                     </label>
@@ -139,15 +160,15 @@ const WritePost = (props) => {
                       onChange={handleAudio}
                     ></UploadFile>
                   </PostAudioIcon>
-                  <PostAudioIcon>
+                  <PostAudioIcon type='button'>
                     <div className='ri-folder-upload-line'/>
                   </PostAudioIcon>
-                  <PostAudioIcon>
+                  <PostAudioIcon type='button'>
                     <Link to='/studio'>
                       <div className='ri-mic-line'/>
                     </Link>
                   </PostAudioIcon>
-                  <PostAudioIcon>
+                  <PostAudioIcon type='button'>
                     <label htmlFor='post-image'>
                       <div className='ri-image-2-line'/>
                     </label>
