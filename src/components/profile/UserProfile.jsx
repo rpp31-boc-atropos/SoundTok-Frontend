@@ -4,7 +4,7 @@ import BioModal from './BioModal.jsx';
 import dummyProfile from './dummyProfile.jsx';
 import styled from 'styled-components';
 const axios = require('axios');
-import CLOUDINARY_PROFILE_PRESET from '../../config/config.js';
+// import CLOUDINARY_PROFILE_PRESET from '../../config/config.js';
 
 const ButtonWrapper = styled.div`
   padding-bottom: 20px;
@@ -63,7 +63,8 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
     if (newPhoto !== false) {
       const formData = new FormData();
       formData.append('file', newPhoto);
-      formData.append('upload_preset', CLOUDINARY_PROFILE_PRESET);
+      // formData.append('upload_preset', CLOUDINARY_PROFILE_PRESET);
+      formData.append('upload_preset', 'zua1tfa6');
 
       axios.post('https://api.cloudinary.com/v1_1/rickkcloudinary/image/upload', formData)
         .then((response) => {
