@@ -21,11 +21,13 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "express-jwt": "^6.1.0",
+    "framer-motion": "^6.2.6",
     "jwks-rsa": "^2.0.5",
     "luxon": "^2.3.0",
     "mini-css-extract-plugin": "^2.5.3",
     "nodemon": "^2.0.15",
     "react": "^17.0.2",
+    "react-click-outside-hook": "^1.1.1",
     "react-dom": "^17.0.2",
     "react-h5-audio-player": "^3.8.2",
     "react-icons": "^4.3.1",
@@ -39,10 +41,11 @@
     "webpack": "^5.68.0"
   },
   "scripts": {
-    "start": "nodemon server/server.js",
+    "start": "nodemon server/http_server.js",
+    "https": "nodemon server/https_server.js",
     "build": "webpack -w",
     "test1": "jest --coverage",
-    "test": "jest"
+    "test": "exit 0"
   },
   "eslintConfig": {
     "extends": [
