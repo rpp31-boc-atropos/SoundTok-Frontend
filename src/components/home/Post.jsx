@@ -29,11 +29,16 @@ const Post = (props) => {
           </Link>
         </PostHeader>
         <PostText>{props.postText}</PostText>
-        <PostAudio
-          onClick={() => {
-            SetCurrent(props.index);
-          }}
-        ></PostAudio>
+        <PostMedia>
+          <PostImage><img src={props.projectImageLink}></img></PostImage>
+          <Spacer width='2' height='0'/>
+          <PostAudio
+            onClick={() => {
+              SetCurrent(props.index);
+            }}
+          />
+          <Spacer width='2.5' height='0'/>
+        </PostMedia>
         <PostAudioInfo>
           {props.projectTitle} · {helpers.secondsToLength(props.projectLength)}
         </PostAudioInfo>
@@ -90,8 +95,25 @@ const PostText = styled.p`
   width: 480px;
 `;
 
+const PostMedia = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const PostImage = styled.div`
+  width: 96px;
+  height: 96px;
+  border-radius: 12px;
+
+  img {
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+  }
+`;
+
 const PostAudio = styled.button`
-  width: 480px;
+  flex-grow: 1;
   height: 96px;
   border-radius: 12px;
   box-sizing: border-box;
@@ -104,4 +126,9 @@ const PostAudioInfo = styled.div`
   font-size: 12px;
   margin-left: 12px;
   color: var(--font-line-color-yellow-transparent);
+`;
+
+const Spacer = styled.div`
+  width: ${(props) => (props.width || 1) * 6}px;
+  height: ${(props) => (props.height || 1) * 6}px;
 `;
