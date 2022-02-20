@@ -12,37 +12,9 @@ const app = express();
 app.use(express.json())
 app.use(express.static('public'));
 
-const appOrigin = process.env.APP_ORIGIN;
-const audience = process.env.AUTH0_AUDIENCE;
-const issuer = process.env.AUTH0_ISSUER;
-
 
 app.use(cors({ origin: appOrigin }));
 
-const checkJwt = jwt({
-  secret: jwksRsa.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: `${issuer}.well-known/jwks.json`,
-  }),
-
-  audience: audience,
-  issuer: issuer,
-  algorithms: ['RS256'],
-});
-
-app.get("/api/public-message", (req, res) => {
-  res.send({
-    msg: "The API doesn't require an access token to share this message.",
-  });
-});
-
-app.get("/api/private-message", checkJwt, (req, res) => {
-  res.send({
-    msg: "The API successfully validated your access token.",
-  });
-});
 
 //backend routes - replace localhost with deployed URL when ready
 
