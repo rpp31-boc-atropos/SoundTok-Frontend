@@ -8,35 +8,8 @@ import axios from 'axios';
 
 const NavBar = () => {
 
-  const {loginWithRedirect, loginWithPopup, logout, isLoading, user, getAccessTokenSilently, isAuthenticated} = useAuth0();
+  const {loginWithRedirect, logout, isLoading, user, getAccessTokenSilently, isAuthenticated} = useAuth0();
 
-  console.log('isLoading', isLoading);
-  // console.log('isAuthenticated,' isAuthenticated);
-  console.log('user', user);
-  console.log('isAuthenticated', isAuthenticated);
-
-  const callPublicApi = () => {
-    axios.get('/public')
-      .then(response => console.log(response.data))
-      .catch(error => console.log(error.message));
-  };
-
-  const callProtectedApi = async () => {
-    try {
-      const token = await getAccessTokenSilently();
-      console.log('token', token)
-      const response = await axios.get('/protected', {
-        headers: {
-          authorization: `Bearer ${token}`
-        }
-      })
-      console.log(response.data);
-    } catch (error) {
-      console.log('front:', error);
-    }
-
-
-  };
 
   return (
     <ul className="nav">
@@ -46,20 +19,17 @@ const NavBar = () => {
       <li>
         <Link to="/studio">Studio</Link>
       </li>
+
+      <Search />
+
       <li>
         <Link to="/profile">Profile</Link>
       </li>
-      <li>
-        <button onClick={() => callPublicApi()}> Public API</button>
-      </li>
-      <li>
-        <button onClick={() => callProtectedApi()}> Protected API</button>
-      </li>
 
-      <Search />
       {!isLoading && !user && (
         <button onClick={() => loginWithRedirect()}>Log In</button>
       )}
+
 
       {!isLoading && user && (
         <div
