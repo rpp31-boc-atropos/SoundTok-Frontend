@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import ReactDom from 'react-dom';
 import styled from 'styled-components';
-const axios = require('axios');
+const axios = require('axios'); //comment out once app is working
 
 const Overlay = styled.div`
   display: fixed;
@@ -28,7 +28,7 @@ const Button = styled.button`
   font-size: 24px
   cursor: pointer;
 `;
-
+//comment out once app is working
 const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
