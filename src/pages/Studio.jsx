@@ -5,8 +5,18 @@ import Loading from '../components/Loading.jsx';
 import WaveformPlaylist from 'waveform-playlist';
 import AudioUpload from '../components/studio/AudioUpload.jsx';
 import axios from 'axios';
+import EventEmitter from 'events';
+import { saveAs } from 'file-saver';
 
 const Studio = () => {
+
+  const [ee] = useState(new EventEmitter());
+
+  ee.on('audiorenderingfinished', function (type, data) {
+    if (type === 'wav') {
+      saveAs(data, 'track.wav');
+    }
+  });
 
   const [playlist, setPlayList] = useState(null);
   const [count, setCount] = useState(1);
@@ -15,8 +25,7 @@ const Studio = () => {
     if (playlist.getInfo().length > 0) {
       console.log(playlist.getInfo());
     }
-
-    console.log(playlist);
+    // console.log(playlist);
   };
 
   const handleUpload = (e) => {
@@ -31,11 +40,10 @@ const Studio = () => {
         playlist.load([{
           src: result.data.url,
           name: `Track #${count}`
-        }]).then(() => {
-          playlist.initExporter();
-          setCount(count + 1);
-        });
-
+        }]);
+        playlist.initExporter();
+        // console.log(playlist.initExporter());
+        setCount(count + 1);
       })
       .catch(err => {
         console.log(err);
@@ -65,7 +73,7 @@ const Studio = () => {
         }
       },
       zoomLevels: [1000],
-    }));
+    }, ee));
   }, []);
 
 
@@ -76,7 +84,7 @@ const Studio = () => {
           <Header>Audio Creation Tool</Header>
         </div>
         <ButtonWrapper>
-          <ButtonTop onClick={() => { playlist.getEventEmitter().emit('startaudiorendering', 'wav'); }}>Download</ButtonTop>
+          <ButtonTop onClick={() => { ee.emit('startaudiorendering', 'wav'); }}>Download</ButtonTop>
           <ButtonTop onClick={handleSaveDraft}>Save</ButtonTop>
         </ButtonWrapper>
       </StudioHeader>
@@ -99,17 +107,17 @@ const Studio = () => {
         <AudioUpload HandleUpload={handleUpload}/>
         <PlayerControls>
           <AllButtons>
-            <Pause onClick={() => { playlist.getEventEmitter().emit('pause'); }}></Pause>
-            <Play onClick={() => { playlist.getEventEmitter().emit('play'); playlist.getEventEmitter().emit('automaticscroll', 'true'); }}></Play>
-            <Stop onClick={() => { playlist.getEventEmitter().emit('stop'); }}></Stop>
-            <Rewind onClick={() => { playlist.getEventEmitter().emit('rewind'); }}></Rewind>
-            <FastForward onClick={() => { playlist.getEventEmitter().emit('fastforward'); }}></FastForward>
-            <MoveAudio onClick={() => { playlist.getEventEmitter().emit('statechange', 'shift'); }}></MoveAudio>
-            <Highligther onClick={() => { playlist.getEventEmitter().emit('statechange', 'select'); }}></Highligther>
-            <EffectButton onClick={() => { playlist.getEventEmitter().emit('statechange', 'fadein'); }}>Fade In</EffectButton>
-            <EffectButton onClick={() => { playlist.getEventEmitter().emit('statechange', 'fadeout'); }}>Fade Out</EffectButton>
-            <EffectButton onClick={() => { playlist.getEventEmitter().emit('trim'); }}>Trim</EffectButton>
-            <EffectButton onClick={() => { playlist.getEventEmitter().emit('statechange', 'cursor'); }}>Cursor</EffectButton>
+            <Pause onClick={() => { ee.emit('pause'); }}></Pause>
+            <Play onClick={() => { ee.emit('play'); ee.emit('automaticscroll', 'true'); }}></Play>
+            <Stop onClick={() => { ee.emit('stop'); }}></Stop>
+            <Rewind onClick={() => { ee.emit('rewind'); }}></Rewind>
+            <FastForward onClick={() => { ee.emit('fastforward'); }}></FastForward>
+            <MoveAudio onClick={() => { ee.emit('statechange', 'shift'); }}></MoveAudio>
+            <Highligther onClick={() => { ee.emit('statechange', 'select'); }}></Highligther>
+            <EffectButton onClick={() => { ee.emit('statechange', 'fadein'); }}>Fade In</EffectButton>
+            <EffectButton onClick={() => { ee.emit('statechange', 'fadeout'); }}>Fade Out</EffectButton>
+            <EffectButton onClick={() => { ee.emit('trim'); }}>Trim</EffectButton>
+            <EffectButton onClick={() => { ee.emit('statechange', 'cursor'); }}>Cursor</EffectButton>
           </AllButtons>
         </PlayerControls>
       </ControlBarWrapper>
