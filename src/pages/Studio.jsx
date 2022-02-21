@@ -1,14 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { AddAudioTrackWrapper, AllButtons, Button1, ButtonWrapper, ControlBarWrapper, Draft, DraftTitle, DraftWrapper, EditorWrapper, EffectButton, FastForward, Header, Highligther, LeftPanel, MidPanel, MoveAudio, Pause, Play, PlayerControls, Rewind, RightPanel, Stop, StudioHeader, StudioWrapper, UploadAudioWrapper, UploadIcon, VolumeDown, VolumeUp } from '../components/studio/Styles/styles.js';
+import { AllButtons, ButtonTop, ButtonWrapper, ControlBarWrapper, Draft, DraftTitle, DraftWrapper, EditorWrapper, EffectButton, FastForward, Header, Highligther, MainPanel, MoveAudio, Pause, Play, PlayerControls, Rewind, RightPanel, Stop, StudioHeader, StudioWrapper } from '../components/studio/Styles/styles.js';
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 import Loading from '../components/Loading.jsx';
 import WaveformPlaylist from 'waveform-playlist';
+import AudioUpload from '../components/studio/AudioUpload.jsx';
 import axios from 'axios';
+import EventEmitter from 'events';
+import { saveAs } from 'file-saver';
 
 const Studio = () => {
 
+  const [ee] = useState(new EventEmitter());
   const [playlist, setPlayList] = useState(null);
   const [count, setCount] = useState(1);
+
+  ee.on('audiorenderingfinished', function (type, data) {
+    if (type === 'wav') {
+      saveAs(data, 'track.wav');
+    }
+  });
+
+  const handleSaveDraft = () => {
+    if (playlist.getInfo().length > 0) {
+      console.log(playlist.getInfo());
+    }
+    // console.log(playlist);
+  };
 
   const handleUpload = (e) => {
     const file = e.target.files[0];
@@ -23,6 +40,8 @@ const Studio = () => {
           src: result.data.url,
           name: `Track #${count}`
         }]);
+        playlist.initExporter();
+        // console.log(playlist.initExporter());
         setCount(count + 1);
       })
       .catch(err => {
@@ -33,7 +52,7 @@ const Studio = () => {
   useEffect(() => {
     setPlayList(WaveformPlaylist({
       samplesPerPixel: 1000,
-      waveHeight: 164,
+      waveHeight: 131,
       barWidth: 3,
       barGap: 1,
       timescale: true,
@@ -53,7 +72,7 @@ const Studio = () => {
         }
       },
       zoomLevels: [1000],
-    }));
+    }, ee));
   }, []);
 
 
@@ -64,16 +83,13 @@ const Studio = () => {
           <Header>Audio Creation Tool</Header>
         </div>
         <ButtonWrapper>
-          <Button1>Download</Button1>
-          <Button1>Save</Button1>
-          <Button1>Post</Button1>
+          <ButtonTop onClick={() => { ee.emit('startaudiorendering', 'wav'); }}>Download</ButtonTop>
+          <ButtonTop onClick={handleSaveDraft}>Save</ButtonTop>
         </ButtonWrapper>
       </StudioHeader>
       <EditorWrapper>
-        <MidPanel id='editor'>
-
-
-        </MidPanel>
+        <MainPanel id='editor'>
+        </MainPanel>
         <RightPanel>
           <DraftTitle>Drafts</DraftTitle>
           <DraftWrapper>
@@ -87,32 +103,20 @@ const Studio = () => {
         </RightPanel>
       </EditorWrapper>
       <ControlBarWrapper>
-        <AddAudioTrackWrapper>
-          <div className='audio-upload'>
-            <input
-              type='file'
-              id='upload-audio'
-              accept='audio/*'
-              onChange={handleUpload}
-            ></input>
-            <label htmlFor='upload-audio'>
-              <UploadIcon></UploadIcon>
-            </label>
-          </div>
-          <div >Add a new track</div>
-        </AddAudioTrackWrapper>
+        <AudioUpload HandleUpload={handleUpload}/>
         <PlayerControls>
           <AllButtons>
-            <Pause onClick={() => { playlist.getEventEmitter().emit('pause'); }}></Pause>
-            <Play onClick={() => { playlist.getEventEmitter().emit('play'); playlist.getEventEmitter().emit('automaticscroll', 'true'); }}></Play>
-            <Stop onClick={() => { playlist.getEventEmitter().emit('stop'); }}></Stop>
-            <Rewind onClick={() => { playlist.getEventEmitter().emit('rewind'); }}></Rewind>
-            <FastForward onClick={() => { playlist.getEventEmitter().emit('fastforward'); }}></FastForward>
-            <MoveAudio></MoveAudio>
-            <Highligther></Highligther>
-            <EffectButton>Fade In</EffectButton>
-            <EffectButton>Fade Out</EffectButton>
-            <EffectButton>Trim</EffectButton>
+            <Pause onClick={() => { ee.emit('pause'); }}></Pause>
+            <Play onClick={() => { ee.emit('play'); ee.emit('automaticscroll', 'true'); }}></Play>
+            <Stop onClick={() => { ee.emit('stop'); }}></Stop>
+            <Rewind onClick={() => { ee.emit('rewind'); }}></Rewind>
+            <FastForward onClick={() => { ee.emit('fastforward'); }}></FastForward>
+            <MoveAudio onClick={() => { ee.emit('statechange', 'shift'); }}></MoveAudio>
+            <Highligther onClick={() => { ee.emit('statechange', 'select'); }}></Highligther>
+            <EffectButton onClick={() => { ee.emit('statechange', 'fadein'); }}>Fade In</EffectButton>
+            <EffectButton onClick={() => { ee.emit('statechange', 'fadeout'); }}>Fade Out</EffectButton>
+            <EffectButton onClick={() => { ee.emit('trim'); }}>Trim</EffectButton>
+            <EffectButton onClick={() => { ee.emit('statechange', 'cursor'); }}>Cursor</EffectButton>
           </AllButtons>
         </PlayerControls>
       </ControlBarWrapper>
