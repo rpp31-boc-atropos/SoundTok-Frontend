@@ -13,22 +13,39 @@ app.use(express.json())
 app.use(express.static('public'));
 
 
-//backend routes - replace localhost with deployed URL when ready
-
-
-app.get("/", async (req, res) => {
+//front page
+app.get('/', async (req, res) => {
   const optionGetPosts = {
     method: 'GET',
     url: `http://localhost:1234/`,
   }
-
   axios(optionGetPosts)
     .then((result) => {
       console.log(result.data)
+    })
     .catch((error) => {
       console.log(error)
-      res.send(error)})
-  });
+      res.send(error)
+    })
+
+})
+
+app.get('/hashtag', async (req, res) => {
+  const { q } = req.query
+  console.log(q)
+  const optionGetHashtagPosts = {
+    method: 'GET',
+    url: `http://localhost:1234/getHashtags/${q}`,
+  }
+  axios(optionGetHashtagPosts)
+    .then((result) => {
+      console.log(result.data)
+    })
+    .catch((error) => {
+      console.log(error)
+      res.send(error)
+    })
+
 })
 
 

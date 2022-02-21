@@ -78,7 +78,7 @@ const UserPosts = ({isCurrentUser, profileName}) => {
     //api call to get songs
     //if logged in, api call to get drafts
     // console.log('test');
-    axios.get('/userProjects', {
+    axios.get('/', {
       params: {
         username: profileName
       }
