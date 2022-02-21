@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { usePlayer } from '../../contexts/player/playerContext';
 import styled from 'styled-components';
 
+import ProfilePicture from '../ProfilePicture.jsx';
+
 const PlayerControls = () => {
   const {
     currentSong,
@@ -55,16 +57,17 @@ const PlayerControls = () => {
         onCanPlay={(e) => setDur(e.target.duration)}
         onEnded={handleEnd}
         ref={audio}
-        type='audio/mpeg'
-        preload='true'
+        type="audio/mpeg"
+        preload="true"
         src={songs[currentSong] ? songs[currentSong].projectAudioLink : ''}
       />
       <FeedWidth>
         <ControlButtons>
-          <div className='ri-skip-back-fill' onClick={prevSong} role='prev' />
+          <div className="ri-skip-back-fill" onClick={prevSong} role="prev" />
           <Spacer />
           <div
-            className={`playPause ${!playing ? 'ri-play-circle-fill' : 'ri-pause-circle-fill'
+            className={`playPause ${
+              !playing ? 'ri-play-circle-fill' : 'ri-pause-circle-fill'
             }`}
             onClick={() => {
               togglePlaying();
@@ -72,7 +75,11 @@ const PlayerControls = () => {
             }}
           />
           <Spacer />
-          <div className='ri-skip-forward-fill' onClick={nextSong} role='next' />
+          <div
+            className="ri-skip-forward-fill"
+            onClick={nextSong}
+            role="next"
+          />
           <Spacer />
           <div
             className={`random ri-shuffle-line ${random ? 'active' : ''}`}
@@ -84,41 +91,43 @@ const PlayerControls = () => {
             onClick={toggleRepeat}
           />
         </ControlButtons>
-        <Spacer size='5' />
+        <Spacer size="5" />
         <BarWrapper>
-          <div className='currentT'>{fmtMSS(currentTime)}</div>
-          <Spacer size='2' />
+          <div className="currentT">{fmtMSS(currentTime)}</div>
+          <Spacer size="2" />
           <Bar>
             <input
               onChange={handleProgress}
               value={dur ? (currentTime * 100) / dur : 0}
-              type='range'
-              name='progresBar'
-              id='progressBar'
-              role='currentTime'
+              type="range"
+              name="progresBar"
+              id="progressBar"
+              role="currentTime"
             />
             <div
-              className='songtitle'
+              className="songtitle"
               style={{ position: 'absolute', bottom: 6, fontSize: 12 }}
-              role='songTitle'
+              role="songTitle"
             >
               {songs[currentSong] ? songs[currentSong].projectTitle : ''}
             </div>
           </Bar>
-          <Spacer size='2' />
-          <div className='totalT'>{fmtMSS(dur)}</div>
+          <Spacer size="2" />
+          <div className="totalT">{fmtMSS(dur)}</div>
         </BarWrapper>
-        <Spacer size='5' />
+        <Spacer size="3" />
+        {/* TODO username and profile picture */}
+        <ProfilePicture size="36" />
         <Volume>
-          <div className='ri-volume-up-fill' />
+          <div className="ri-volume-up-fill" />
           <Spacer />
           <input
             value={Math.round(statevolum * 100)}
-            type='range'
-            name='volBar'
-            id='volBar'
+            type="range"
+            name="volBar"
+            id="volBar"
             onChange={(e) => handleVolume(e.target.value / 100)}
-            role='volume'
+            role="volume"
           />
         </Volume>
       </FeedWidth>
