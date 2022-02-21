@@ -12,7 +12,7 @@ import './App.css';
 
 import Auth0ProviderWithHistory from './components/Authentication/Auth0.jsx';
 import { useAuth0 } from '@auth0/auth0-react';
-import { UserInfoContext } from './contexts/UserContext.jsx';
+import { UserInfoProvider } from './contexts/UserContext.jsx';
 
 import NavBar from './components/Nav/NavBar.jsx';
 import Home from './pages/Home.jsx';
@@ -50,13 +50,19 @@ const App = () => {
     updated_at: "2022-02-19T02:14:17.669Z"
     */
 
-    // console.log({isAuthenticated, user});
+    // console.log({ isAuthenticated, user });
 
     if (isAuthenticated) {
+<<<<<<< HEAD
       const email = user.email;
       const updatedUserInfo = (userInfo['email'] = email);
       setUserInfo(updatedUserInfo);
 
+=======
+      // const email = user.email;
+      // const updatedUserInfo = (userInfo['email'] = email);
+      // setUserInfo(updatedUserInfo);
+>>>>>>> 6babe48 (AuthContext back, UserContext refactor)
       // backend get (upsert) request using email as a key. we want profile picture, bio, username
     }
   }, [isAuthenticated]);
@@ -69,8 +75,13 @@ const App = () => {
 
   return (
     <HashRouter>
+<<<<<<< HEAD
       <Auth0ProviderWithHistory>
         <UserInfoContext.Provider value={{ userInfo, setUserInfo }}>
+=======
+      <UserInfoProvider>
+        <Auth0ProviderWithHistory>
+>>>>>>> 6babe48 (AuthContext back, UserContext refactor)
           <div className="App">
             <NavBar />
             <Routes>
@@ -83,8 +94,8 @@ const App = () => {
             </Routes>
             <AudioPlayer />
           </div>
-        </UserInfoContext.Provider>
-      </Auth0ProviderWithHistory>
+        </Auth0ProviderWithHistory>
+      </UserInfoProvider>
     </HashRouter>
   );
 };

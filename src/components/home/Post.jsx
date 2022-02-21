@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { useAuth0 } from '@auth0/auth0-react';
-import { UserInfoContext } from '../../contexts/UserContext.jsx';
+import { useUserInfo } from '../../contexts/UserContext.jsx';
 import { PostsContext } from '../../contexts/PostsContext.jsx';
 import { usePlayer } from '../../contexts/player/playerContext';
 
@@ -12,11 +12,11 @@ import helpers from './helperFunctions.js';
 
 const Post = (props) => {
   const { user } = useAuth0();
-  const { userInfo, setUserInfo } = React.useContext(UserInfoContext);
+  const { username, email, profilePic } = useUserInfo();
   const { SetCurrent, currentSong, songs } = usePlayer();
   const { posts, setPosts } = React.useContext(PostsContext);
 
-  // console.log(user.email, userInfo.email);
+  // console.log({ username, email, profilePic });
 
   const handleDeletePost = (event) => {
     const postId = props.postId;
@@ -48,20 +48,24 @@ const Post = (props) => {
               <PostIcon onClick={handleDeletePost}><div className="ri-close-line"/></PostIcon> : null
             } */}
             <PostIcon>
-              <div className="ri-sound-module-line"/>
+              <div className="ri-sound-module-line" />
             </PostIcon>
           </Link>
         </PostHeader>
         <PostText>{props.postText}</PostText>
         <PostMedia>
-          <PostImage>{props.projectImageLink ? <img src={props.projectImageLink}></img> : null}</PostImage>
-          <Spacer width='2' height='0'/>
+          <PostImage>
+            {props.projectImageLink ? (
+              <img src={props.projectImageLink}></img>
+            ) : null}
+          </PostImage>
+          <Spacer width="2" height="0" />
           <PostAudio
             onClick={() => {
               SetCurrent(props.index);
             }}
           />
-          <Spacer width='2.5' height='0'/>
+          <Spacer width="2.5" height="0" />
         </PostMedia>
         <PostAudioInfo>
           {props.projectTitle} · {helpers.secondsToLength(props.projectLength)}
@@ -143,7 +147,7 @@ const PostAudio = styled.button`
   border-radius: 12px;
   box-sizing: border-box;
   background: var(--main-color-blue-light);
-  background-image: url("./wave.png");
+  background-image: url('./wave.png');
   margin-bottom: 4px;
 `;
 

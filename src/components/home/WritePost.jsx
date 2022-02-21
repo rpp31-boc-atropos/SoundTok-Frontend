@@ -14,7 +14,6 @@ const WritePost = (props) => {
   const { songs } = usePlayer();
   const { posts, setPosts } = React.useContext(PostsContext);
 
-
   const [textCharacterCount, setTextCharacterCount] = React.useState(0);
   const [uploadedAudio, setUploadedAudio] = React.useState(null);
   const [audioDuration, setAudioDuration] = React.useState(0);
@@ -56,13 +55,13 @@ const WritePost = (props) => {
   };
 
   const handleAudio = (event) => {
-
     const file = event.target.files[0];
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', 'dllt65qw');
 
-    axios.post('https://api.cloudinary.com/v1_1/xoxohorses/video/upload', formData)
+    axios
+      .post('https://api.cloudinary.com/v1_1/xoxohorses/video/upload', formData)
       .then((response) => {
         setUploadedAudio(response.data.url);
         setAudioDuration(response.data.duration);
@@ -70,13 +69,13 @@ const WritePost = (props) => {
   };
 
   const handleImage = (event) => {
-
     const file = event.target.files[0];
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', 'dllt65qw');
 
-    axios.post('https://api.cloudinary.com/v1_1/xoxohorses/image/upload', formData)
+    axios
+      .post('https://api.cloudinary.com/v1_1/xoxohorses/image/upload', formData)
       .then((response) => {
         setUploadedImage(response.data.url);
       });
@@ -116,7 +115,7 @@ const WritePost = (props) => {
       projectTitle: title,
       projectLength: audioDuration,
       projectImageLink: uploadedImage,
-      tracks: []
+      tracks: [],
     };
 
     // TODO get post id before posting
@@ -128,69 +127,69 @@ const WritePost = (props) => {
 
   return (
     <WritePostWrapper>
-      <ProfilePicture username={user.nickname} profilePicture={user.picture}/>
+      <ProfilePicture username={user.nickname} profilePicture={user.picture} />
       <Form onSubmit={handlePost}>
         <FlexColumn>
           <Inputs>
             <FlexColumn>
               <PostHeader>
-                <label htmlFor='project-title'>
+                <label htmlFor="project-title">
                   <ProjectTitle
                     ref={projectTitle}
-                    type='text'
-                    id='project-title'
-                    name='projectTitle'
-                    maxlength='45'
-                    rows='1'
-                    cols='45'
-                    placeholder='Project Title'
+                    type="text"
+                    id="project-title"
+                    name="projectTitle"
+                    maxlength="45"
+                    rows="1"
+                    cols="45"
+                    placeholder="Project Title"
                     onChange={handleTitleCharacterCount}
                   ></ProjectTitle>
                 </label>
                 <AudioIcons>
-                  <PostAudioIcon type='button'>
-                    <label htmlFor='post-audio'>
-                      <div className='ri-upload-2-line'/>
+                  <PostAudioIcon type="button">
+                    <label htmlFor="post-audio">
+                      <div className="ri-upload-2-line" />
                     </label>
                     <UploadFile
-                      type='file'
-                      id='post-audio'
-                      name='projectAudio'
-                      accept='audio/*'
+                      type="file"
+                      id="post-audio"
+                      name="projectAudio"
+                      accept="audio/*"
                       onChange={handleAudio}
                     ></UploadFile>
                   </PostAudioIcon>
-                  <PostAudioIcon type='button'>
-                    <div className='ri-folder-upload-line'/>
+                  <PostAudioIcon type="button">
+                    <div className="ri-folder-upload-line" />
                   </PostAudioIcon>
-                  <PostAudioIcon type='button'>
-                    <Link to='/studio'>
-                      <div className='ri-mic-line'/>
+                  <PostAudioIcon type="button">
+                    <Link to="/studio">
+                      <div className="ri-mic-line" />
                     </Link>
                   </PostAudioIcon>
-                  <PostAudioIcon type='button'>
-                    <label htmlFor='post-image'>
-                      <div className='ri-image-2-line'/>
+                  <PostAudioIcon type="button">
+                    <label htmlFor="post-image">
+                      <div className="ri-image-2-line" />
                     </label>
                     <UploadFile
-                      type='file'
-                      id='post-image'
-                      name='projectImage'
-                      accept='image/*'
+                      type="file"
+                      id="post-image"
+                      name="projectImage"
+                      accept="image/*"
                       onChange={handleImage}
                     ></UploadFile>
                   </PostAudioIcon>
                 </AudioIcons>
               </PostHeader>
-              <label htmlFor='post-text'>
+              <label htmlFor="post-text">
                 <TextInput
                   ref={projectText}
-                  id='post-text'
-                  name='postText'
-                  maxlength='140'
-                  rows='4'
-                  cols='70'
-                  placeholder='Share your sound'
+                  id="post-text"
+                  name="postText"
+                  maxlength="140"
+                  rows="4"
+                  cols="70"
+                  placeholder="Share your sound"
                   onChange={handleTextCharacterCount}
                 ></TextInput>
               </label>
@@ -199,11 +198,19 @@ const WritePost = (props) => {
               </CharacterCount>
             </FlexColumn>
             <FlexColumn>
-              <UploadedAudio style={uploadedAudio ? {border: '1px solid var(--font-line-color-yellow)'} : null}>
-                {audioDuration > 300 ? 'Audio length must be less than 5 min' : null}
+              <UploadedAudio
+                style={
+                  uploadedAudio
+                    ? { border: '1px solid var(--font-line-color-yellow)' }
+                    : null
+                }
+              >
+                {audioDuration > 300
+                  ? 'Audio length must be less than 5 min'
+                  : null}
                 {uploadedImage ? <img src={uploadedImage}></img> : null}
               </UploadedAudio>
-              <Submit type='submit'>Post</Submit>
+              <Submit type="submit">Post</Submit>
             </FlexColumn>
           </Inputs>
         </FlexColumn>
