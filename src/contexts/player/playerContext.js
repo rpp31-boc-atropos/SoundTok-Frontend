@@ -6,7 +6,6 @@ import dummy from '../../components/home/dummy.jsx';
 const PlayerContext = createContext();
 
 const PlayerProvider = ({ children }) => {
-
   // TODO get list of posts from data using useEffect
   const initialState = {
     currentSong: -1,
