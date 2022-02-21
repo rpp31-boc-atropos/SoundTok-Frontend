@@ -11,15 +11,13 @@ import dummy from '../components/home/dummy.jsx';
 import axios from 'axios';
 
 const Home = () => {
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   const [isPosted, setIsPosted] = React.useState(false);
   const [posts, setPosts] = React.useState(dummy);
 
   React.useEffect(async () => {
     window.scroll(0, 0);
     const result = await axios('http://54.91.250.255:1234/');
-
-    console.log(result.data);
 
     setPosts(result.data);
   }, [isPosted]);

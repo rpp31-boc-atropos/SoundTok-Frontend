@@ -25,7 +25,7 @@ const Post = (props) => {
 
   const handleDeletePost = (event) => {
     const postId = props.postId;
-    // axios.post('http://localhost:1234/', {userEmail: props.userEmail})
+    // axios.post('http://localhost:1234/', {postId})
     // .then((response) => {
     // setPosts(posts.filter((post) => {post.postId !== postId}))
     // })
