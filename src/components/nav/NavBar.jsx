@@ -15,33 +15,6 @@ const NavBar = () => {
     isAuthenticated,
   } = useAuth0();
 
-  // console.log('isLoading', isLoading);
-  // console.log('isAuthenticated,' isAuthenticated);
-  // console.log('user', user);
-  // console.log('isAuthenticated', isAuthenticated);
-
-  const callPublicApi = () => {
-    axios
-      .get('/public')
-      .then((response) => console.log(response.data))
-      .catch((error) => console.log(error.message));
-  };
-
-  const callProtectedApi = async () => {
-    try {
-      const token = await getAccessTokenSilently();
-      console.log('token', token);
-      const response = await axios.get('/protected', {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.log('front:', error);
-    }
-  };
-
   return (
     <ul className="nav">
       <li className="logo">
@@ -50,7 +23,9 @@ const NavBar = () => {
       <li>
         <Link to="/studio">Studio</Link>
       </li>
+
       <Search />
+
       <li>
         <Link to="/profile">Profile</Link>
       </li>
