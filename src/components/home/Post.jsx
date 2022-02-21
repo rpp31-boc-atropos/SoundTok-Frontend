@@ -52,7 +52,7 @@ const Post = (props) => {
             </PostIcon>
           </Link>
         </PostHeader>
-        <PostText>{props.postText}</PostText>
+        <Hashtag text={props.postText}></Hashtag>
         <PostMedia>
           <PostImage>
             {props.projectImageLink ? (
@@ -88,6 +88,14 @@ const PostWrapper = styled.div`
   background: var(--main-color-black);
   border: 1px solid var(--font-line-color-yellow-transparent);
   border-bottom: none;
+
+  p {
+    width: 480px;
+
+    a {
+      color: #8ab4f8;
+    }
+  }
 `;
 
 const PostContent = styled.div`
@@ -117,10 +125,6 @@ const PostIcon = styled.button`
   &:hover {
     color: var(--font-line-color-yellow);
   }
-`;
-
-const PostText = styled.p`
-  width: 480px;
 `;
 
 const PostMedia = styled.div`

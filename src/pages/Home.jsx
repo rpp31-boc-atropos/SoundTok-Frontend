@@ -77,4 +77,3 @@ const Feed = styled.div`
 `;
 
 export default Home;
-
