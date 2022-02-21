@@ -1,18 +1,23 @@
+// modules
 import * as React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+// global contexts
 import { useAuth0 } from '@auth0/auth0-react';
 import { useUserInfo } from '../../contexts/UserContext.jsx';
 import { PostsContext } from '../../contexts/PostsContext.jsx';
 import { usePlayer } from '../../contexts/player/playerContext';
 
+// components
 import ProfilePicture from '../ProfilePicture.jsx';
+import { Hashtag } from './Hashtag.jsx';
 import helpers from './helperFunctions.js';
 
 const Post = (props) => {
   const { user } = useAuth0();
-  const { username, email, profilePic } = useUserInfo();
+  const { username, setUsername, email, setEmail, profilePic, setProfilePic } =
+    useUserInfo();
   const { SetCurrent, currentSong, songs } = usePlayer();
   const { posts, setPosts } = React.useContext(PostsContext);
 

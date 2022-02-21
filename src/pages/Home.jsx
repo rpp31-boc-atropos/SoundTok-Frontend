@@ -12,32 +12,29 @@ import axios from 'axios';
 
 const Home = () => {
   const { user } = useAuth0();
-  const [ isPosted, setIsPosted ] = React.useState(false);
-  const [ posts, setPosts ] = React.useState(dummy);
+  const [isPosted, setIsPosted] = React.useState(false);
+  const [posts, setPosts] = React.useState(dummy);
 
   React.useEffect(async () => {
     window.scroll(0, 0);
-    // const result = await axios(
-    //   'http://54.91.250.255:1234/',
-    // );
+    const result = await axios('http://54.91.250.255:1234/');
 
-    // console.log(result.data)
+    console.log(result.data);
 
-    // setPosts(result.data);
+    setPosts(result.data);
   }, [isPosted]);
 
   return (
-    <PostsContext.Provider value={{posts, setPosts}}>
+    <PostsContext.Provider value={{ posts, setPosts }}>
       <FeedWrapper>
         <Feed>
-          {
-            user &&
-          <WritePost
-            username={user}
-            isPosted={isPosted}
-            setIsPosted={setIsPosted}
-          />
-          }
+          {user && (
+            <WritePost
+              username={user}
+              isPosted={isPosted}
+              setIsPosted={setIsPosted}
+            />
+          )}
           {posts.map((post, i) => {
             return (
               <Post
