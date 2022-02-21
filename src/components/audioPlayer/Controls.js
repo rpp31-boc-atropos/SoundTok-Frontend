@@ -21,7 +21,7 @@ const PlayerControls = () => {
 
   const audio = useRef('audio_tag');
 
-  const [statevolum, setStateVolum] = useState(0.3);
+  const [statevolume, setStateVolume] = useState(0.3);
   const [dur, setDur] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
 
@@ -33,7 +33,7 @@ const PlayerControls = () => {
     audio.current.paused ? audio.current.play() : audio.current.pause();
 
   const handleVolume = (q) => {
-    setStateVolum(q);
+    setStateVolume(q);
     audio.current.volume = q;
   };
 
@@ -44,7 +44,7 @@ const PlayerControls = () => {
   };
 
   useEffect(() => {
-    audio.current.volume = statevolum;
+    audio.current.volume = statevolume;
     if (playing) {
       toggleAudio();
     }
@@ -116,13 +116,18 @@ const PlayerControls = () => {
           <div className="totalT">{fmtMSS(dur)}</div>
         </BarWrapper>
         <Spacer size="3" />
-        {/* TODO username and profile picture */}
-        <ProfilePicture size="36" />
+        <ProfilePicture
+          username={songs[currentSong] ? songs[currentSong].username : null}
+          profilePicture={
+            songs[currentSong] ? songs[currentSong].profilePicture : null
+          }
+          size="36"
+        />
         <Volume>
           <div className="ri-volume-up-fill" />
           <Spacer />
           <input
-            value={Math.round(statevolum * 100)}
+            value={Math.round(statevolume * 100)}
             type="range"
             name="volBar"
             id="volBar"
