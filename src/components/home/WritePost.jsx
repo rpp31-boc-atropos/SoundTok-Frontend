@@ -87,21 +87,6 @@ const WritePost = (props) => {
     let text = projectText.current.value;
     let tags = helper.parseTags(text);
 
-    // isDraft: false
-    // postId: 1
-    // postLikes: 3
-    // postText: "this post has no tags or image attached"
-    // profilePicture: "https://i.pinimg.com/474x/a3/89/f5/a389f597020f361f7f6d9b79323598fc.jpg"
-    // projectAudioLink: "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Satin/Kai_Engel_-_08_-_Downfall.mp3"
-    // projectImageLink: null
-    // projectLength: 23
-    // projectTitle: "real quick"
-    // tags: []
-    // timePosted: "2021-11-11T18:34:49.915-08:00"
-    // tracks: []
-    // userEmail: "leggo@gmail.com"
-    // username: "leggo"
-
     const post = {
       profilePicture: user.picture,
       timePosted: new Date(Date.now()).toISOString(),
@@ -118,7 +103,14 @@ const WritePost = (props) => {
       tracks: [],
     };
 
-    // TODO get post id before posting
+    // axios
+    //   .post(('http://54.91.250.255:1234/', post))
+    //   .then((response) => {
+    //     console.log(response);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
 
     setPosts([post].concat(posts));
     props.setIsPosted(true);
