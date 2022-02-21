@@ -11,15 +11,14 @@ import { saveAs } from 'file-saver';
 const Studio = () => {
 
   const [ee] = useState(new EventEmitter());
+  const [playlist, setPlayList] = useState(null);
+  const [count, setCount] = useState(1);
 
   ee.on('audiorenderingfinished', function (type, data) {
     if (type === 'wav') {
       saveAs(data, 'track.wav');
     }
   });
-
-  const [playlist, setPlayList] = useState(null);
-  const [count, setCount] = useState(1);
 
   const handleSaveDraft = () => {
     if (playlist.getInfo().length > 0) {
