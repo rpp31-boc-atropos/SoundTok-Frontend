@@ -13,7 +13,7 @@ app.use(express.json())
 app.use(express.static('public'));
 
 
-//front page
+//FEED ENDPOINTS
 app.get('/', async (req, res) => {
   const optionGetPosts = {
     method: 'GET',
@@ -49,16 +49,17 @@ app.get('/hashtag', async (req, res) => {
 })
 
 
-//profile routes
-app.get('/userProjects', (req, res) => {
+//PROFILE ENDPOINTS
+//get projects and user profile data
+app.get('/profile/:username', (req, res) => {
   // console.log('projects query', req.query);
   // console.log('projects query user', req.query.username);
+  const { username } = req.query
   console.log('stage 1 success');
   axios({
     method: 'GET',
-    url: `http://54.91.250.255:1234`,
-    params: req.query
-    // data: data,
+    url: `http://54.91.250.255:1234/getProfileData/projects/${username}`,
+    //url: `http://localhost:1234/getProfileData/projects/${username}`
   })
     .then((response) => {
       console.log('stage 2 success');
@@ -73,10 +74,11 @@ app.get('/userProjects', (req, res) => {
     });
 });
 
-app.get('/userDrafts', (req, res) => {
+//drafts - WIP
+app.get('/profile', (req, res) => {
   axios({
     method: 'GET',
-    url: `http://54.91.250.255:1234`,
+    url: `http://54.91.250.255:1234/userDrafts`,
     params: req.query
   })
     .then((response) => {
@@ -85,34 +87,20 @@ app.get('/userDrafts', (req, res) => {
     .catch((error) => {
       res.status(500).send(error);
     });
-});
+  });
 
-app.get('/profileData', (req, res) => {
-  axios({
-    method: 'GET',
-    url: `http://54.91.250.255:1234`,
-    params: req.query
-  })
-    .then((response) => {
-      res.status(200).send(response);
-    })
-    .catch((error) => {
-      res.status(500).send(error);
-    });
-});
-
-app.put('/updateProfile', (req, res) => {
+//update username and bio in profile
+app.put('/profile/', (req, res) => {
   // console.log('test', req.body);
-
   let tempData = {  //need to figure out cloudinary link, below is proxy data.
     username: req.query.username,
     profileURL: 'https://yahoofantasysports-res.cloudinary.com/image/upload/fantasy-logos/25311153506_9fdda2493f.jpg',
     bio: req.query.bio
   }
-
+  const { username, bio } = req.params
   axios({
     method: 'PUT',
-    url: `http://54.91.250.255:1234`,
+    url: `http://54.91.250.255:1234/updateProfile`,
     data: tempData
   })
     .then((response) => {
@@ -123,6 +111,7 @@ app.put('/updateProfile', (req, res) => {
     });
 });
 
+//delete Project - need to send unique identifier for project
 app.delete('/deleteProject', (req, res) => {
   console.log('test', req.body);
 

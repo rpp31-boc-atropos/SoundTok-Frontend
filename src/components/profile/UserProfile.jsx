@@ -75,7 +75,7 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
         })
         .then((response) => {
           setBio(bio);
-          axios.put('/updateProfile',
+          axios.put(`/updateProfile`,
             {
               username: profileName,
               bio: bio,
@@ -87,7 +87,7 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
         });
     } else {
       setBio(bio);
-      axios.put('/updateProfile',
+      axios.put(`/updateProfile`,
         {
           username: profileName,
           bio: bio,
@@ -97,7 +97,7 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
   };
 
   useEffect(() => {
-    axios.get('/profileData', {
+    axios.get(`/profile/${profileName}`, {
       params: {
         username: profileName
       }
