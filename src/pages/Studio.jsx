@@ -41,7 +41,6 @@ const Studio = () => {
           name: `Track #${count}`
         }]);
         playlist.initExporter();
-        // console.log(playlist.initExporter());
         setCount(count + 1);
       })
       .catch(err => {

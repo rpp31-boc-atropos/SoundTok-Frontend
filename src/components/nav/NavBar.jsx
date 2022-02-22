@@ -34,17 +34,17 @@ const NavBar = () => {
       {!isLoading && user && (
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-evenly",
-            alignItems: "center",
+            display: 'flex',
+            justifyContent: 'space-evenly',
+            alignItems: 'center',
           }}
         >
           <img
             src={user.picture}
             style={{
-              height: "30pt",
-              borderRadius: "50%",
-              paddingRight: "10px",
+              height: '30pt',
+              borderRadius: '50%',
+              paddingRight: '10px',
             }}
           />
           <button onClick={() => logout()}>Log Out</button>
