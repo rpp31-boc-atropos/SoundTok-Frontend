@@ -22,7 +22,7 @@ import { UserInfoContext } from './contexts/UserContext.jsx';
 const App = () => {
   const { user, isAuthenticated } = useAuth0();
   const [ userInfo, setUserInfo ] = React.useState({});
-
+  console.log('app user', user);
   // QUERY FOR USER PROPIC AND USERNAME HERE USING EMAIL
   React.useEffect(() => {
     /* USER OBJECT PROPERTIES (i.e. user.email)

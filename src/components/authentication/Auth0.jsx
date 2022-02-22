@@ -23,8 +23,10 @@ const Auth0ProviderWithHistory = ({ children }) => {
       clientId={clientId}
       redirectUri={window.location.origin}
       // onRedirectCallback={onRedirectCallback}
-      audience={audience}
-      scope = "openid profile email"
+      // audience={audience}
+      // scope = "openid profile email"
+      useRefreshTokens
+      cacheLocation="localstorage"
     >
       {children}
     </Auth0Provider>

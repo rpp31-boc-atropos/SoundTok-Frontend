@@ -13,7 +13,7 @@ app.use(express.json())
 app.use(express.static('public'));
 
 
-app.use(cors({ origin: appOrigin }));
+app.use(cors());
 
 
 //backend routes - replace localhost with deployed URL when ready

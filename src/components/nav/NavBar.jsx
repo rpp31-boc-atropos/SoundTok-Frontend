@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Search from './SearchBar.jsx';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -8,12 +8,12 @@ import axios from 'axios';
 
 const NavBar = () => {
 
-  const {loginWithRedirect, logout, isLoading, user, getAccessTokenSilently, isAuthenticated} = useAuth0();
+  const {loginWithRedirect, logout, isLoading, user, isAuthenticated} = useAuth0();
 
 
   return (
     <ul className="nav">
-      <li className="logo">
+      <li className="logo" >
         <Link to="/">SoundTok</Link>
       </li>
       <li>
