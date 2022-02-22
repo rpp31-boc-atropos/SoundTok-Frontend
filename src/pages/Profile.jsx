@@ -6,7 +6,7 @@ import UserPosts from '../components/profile/UserPosts.jsx';
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 import Loading from '../components/Loading.jsx';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const ProfilePage = styled.div`
   width: 1000px;
