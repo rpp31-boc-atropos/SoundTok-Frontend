@@ -17,7 +17,6 @@ const Post = (props) => {
   const { email } = useUserInfo();
   const { isPostUpdated, setIsPostUpdated } = usePosts();
   const { SetCurrent, currentSong, songs } = usePlayer();
-  // const { posts, setPosts } = React.useContext(PostsContext);
 
   const handleDeletePost = (event) => {
     const postId = props.postId;
@@ -47,12 +46,12 @@ const Post = (props) => {
             <time>{helpers.isoToTimeAgo(props.timePosted)}</time>
           </PostUsernameAndTime>
           <Link to="/studio">
-            {/* TODO: implement trash functionality if post is by user */}
             {props.userEmail === email ? (
               <PostIcon onClick={handleDeletePost}>
                 <div className="ri-close-line" />
               </PostIcon>
             ) : null}
+            <Spacer width="12" height="0" />
             <PostIcon>
               <div className="ri-sound-module-line" />
             </PostIcon>
@@ -65,13 +64,13 @@ const Post = (props) => {
               <img src={props.projectImageLink}></img>
             ) : null}
           </PostImage>
-          <Spacer width="2" height="0" />
+          <Spacer width="12" height="0" />
           <PostAudio
             onClick={() => {
               SetCurrent(props.index);
             }}
           />
-          <Spacer width="2.5" height="0" />
+          <Spacer width="16" height="0" />
         </PostMedia>
         <PostAudioInfo>
           {props.projectTitle} · {helpers.secondsToLength(props.projectLength)}
@@ -168,6 +167,6 @@ const PostAudioInfo = styled.div`
 `;
 
 const Spacer = styled.div`
-  width: ${(props) => (props.width || 1) * 6}px;
-  height: ${(props) => (props.height || 1) * 6}px;
+  width: ${(props) => props.width || 1}px;
+  height: ${(props) => props.height || 1}px;
 `;

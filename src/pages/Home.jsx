@@ -1,10 +1,13 @@
+// modules
 import * as React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
+// contexts
 import { useAuth0 } from '@auth0/auth0-react';
 import { usePosts } from '../contexts/PostsContext.jsx';
 
+// components
 import WritePost from '../components/home/WritePost.jsx';
 import Post from '../components/home/Post.jsx';
 import dummy from '../components/home/dummy.jsx';
@@ -20,13 +23,7 @@ const Home = () => {
   return (
     <FeedWrapper>
       <Feed>
-        {user && (
-          <WritePost
-            username={user}
-            // isPostUpdated={isPostUpdated}
-            // setIsPostUpdated={setIsPostUpdated}
-          />
-        )}
+        {user && <WritePost username={user} />}
         {posts.map((post, i) => {
           return (
             <Post
@@ -43,8 +40,6 @@ const Home = () => {
               projectImageLink={post.projectImageLink}
               tags={post.tags}
               timePosted={post.timePosted}
-              // isPostUpdated={isPostUpdated}
-              // setIsPostUpdated={setIsPostUpdated}
             />
           );
         })}

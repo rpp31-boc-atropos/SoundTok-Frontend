@@ -1,3 +1,4 @@
+// modules
 import * as React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -13,15 +14,19 @@ import ProfilePicture from '../ProfilePicture.jsx';
 import helper from './helperFunctions.js';
 
 const WritePost = (props) => {
+  // contexts
   const { username, email, profilePic } = useUserInfo();
   const { posts, setPosts, isPostUpdated, setIsPostUpdated } = usePosts();
   const { songs } = usePlayer();
 
+  // state
   const [textCharacterCount, setTextCharacterCount] = React.useState(0);
   const [uploadedAudio, setUploadedAudio] = React.useState(null);
   const [audioDuration, setAudioDuration] = React.useState(0);
   const [uploadedImage, setUploadedImage] = React.useState(null);
+  const [errorMessage, setErrorMessage] = React.useState(null);
 
+  // refs
   const projectTitle = React.useRef(null);
   const projectText = React.useRef(null);
 
@@ -57,18 +62,27 @@ const WritePost = (props) => {
     }
   };
 
-  const handleAudio = (event) => {
+  const handleAudio = async (event) => {
     const file = event.target.files[0];
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', 'dllt65qw');
 
-    axios
-      .post('https://api.cloudinary.com/v1_1/xoxohorses/video/upload', formData)
-      .then((response) => {
+    try {
+      const response = await axios.post(
+        'https://api.cloudinary.com/v1_1/xoxohorses/video/upload',
+        formData
+      );
+      if (response.data.duration > 300) {
+        setErrorMessage('WARNING: Audio file longer than 5 minutes');
+      } else {
+        setErrorMessage(null);
         setUploadedAudio(response.data.url);
         setAudioDuration(response.data.duration);
-      });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleImage = (event) => {
@@ -86,40 +100,45 @@ const WritePost = (props) => {
 
   const handlePost = (event) => {
     event.preventDefault();
-    let title = projectTitle.current.value;
-    let text = projectText.current.value;
-    let tags = helper.parseTags(text);
+    if (!uploadedAudio) {
+      setErrorMessage('WARNING: Please attach an audio file');
+    } else {
+      setErrorMessage(null);
+      let title = projectTitle.current.value;
+      let text = projectText.current.value;
+      let tags = helper.parseTags(text);
 
-    const post = {
-      profilePicture: profilePic,
-      timePosted: new Date(Date.now()).toISOString(),
-      username: username,
-      userEmail: email,
-      postLikes: 0,
-      isDraft: false,
-      postText: text,
-      tags: tags,
-      projectAudioLink: uploadedAudio,
-      projectTitle: title,
-      projectLength: audioDuration,
-      projectImageLink: uploadedImage,
-      tracks: [],
-    };
+      const post = {
+        profilePicture: profilePic,
+        timePosted: new Date(Date.now()).toISOString(),
+        username: username,
+        userEmail: email,
+        postLikes: 0,
+        isDraft: false,
+        postText: text,
+        tags: tags,
+        projectAudioLink: uploadedAudio,
+        projectTitle: title,
+        projectLength: audioDuration,
+        projectImageLink: uploadedImage,
+        tracks: [],
+      };
 
-    setPosts([post].concat(posts));
+      setPosts([post].concat(posts));
 
-    // axios
-    //   .post(('http://54.91.250.255:1234/', post))
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+      // axios
+      //   .post(('http://54.91.250.255:1234/', post))
+      //   .then((response) => {
+      //     console.log(response);
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
 
-    // eslint-disable-next-line no-extra-boolean-cast
-    setIsPostUpdated(!!!isPostUpdated);
-    songs.unshift(post);
+      // eslint-disable-next-line no-extra-boolean-cast
+      setIsPostUpdated(!!!isPostUpdated);
+      songs.unshift(post);
+    }
   };
 
   return (
@@ -141,6 +160,7 @@ const WritePost = (props) => {
                     cols="45"
                     placeholder="Project Title"
                     onChange={handleTitleCharacterCount}
+                    required
                   ></ProjectTitle>
                 </label>
                 <AudioIcons>
@@ -191,7 +211,8 @@ const WritePost = (props) => {
                 ></TextInput>
               </label>
               <CharacterCount>
-                <span>{textCharacterCount}</span>/140
+                <span>{textCharacterCount}/140</span>
+                {errorMessage ? <span>{errorMessage}</span> : null}
               </CharacterCount>
             </FlexColumn>
             <FlexColumn>
@@ -202,12 +223,11 @@ const WritePost = (props) => {
                     : null
                 }
               >
-                {audioDuration > 300
-                  ? 'Audio length must be less than 5 min'
-                  : null}
                 {uploadedImage ? <img src={uploadedImage}></img> : null}
               </UploadedAudio>
-              <Submit type="submit">Post</Submit>
+              <Submit type="submit" disabled={errorMessage ? true : false}>
+                Post
+              </Submit>
             </FlexColumn>
           </Inputs>
         </FlexColumn>
@@ -298,6 +318,9 @@ const TextInput = styled.textarea`
 `;
 
 const CharacterCount = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: 12px;
   color: var(--font-line-color-yellow-transparent);
 `;
