@@ -1,13 +1,38 @@
-import * as React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+// modules
+import * as React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-import { usePlayer } from "../../contexts/player/playerContext";
-import ProfilePicture from "../ProfilePicture.jsx";
-import helpers from "./helperFunctions.js";
+// global contexts
+import { useAuth0 } from '@auth0/auth0-react';
+import { useUserInfo } from '../../contexts/UserContext.jsx';
+import { PostsContext } from '../../contexts/PostsContext.jsx';
+import { usePlayer } from '../../contexts/player/playerContext';
+
+// components
+import ProfilePicture from '../ProfilePicture.jsx';
+import { Hashtag } from './Hashtag.jsx';
+import helpers from './helperFunctions.js';
 
 const Post = (props) => {
+  const { user } = useAuth0();
+  const { username, setUsername, email, setEmail, profilePic, setProfilePic } =
+    useUserInfo();
   const { SetCurrent, currentSong, songs } = usePlayer();
+  const { posts, setPosts } = React.useContext(PostsContext);
+
+  // console.log({ username, email, profilePic });
+
+  const handleDeletePost = (event) => {
+    const postId = props.postId;
+    // axios.post('http://localhost:1234/', {postId})
+    // .then((response) => {
+    // setPosts(posts.filter((post) => {post.postId !== postId}))
+    // })
+    // .catch((error) => {
+
+    // })
+  };
 
   return (
     <PostWrapper>
@@ -18,26 +43,34 @@ const Post = (props) => {
       <PostContent>
         <PostHeader>
           <PostUsernameAndTime>
-            <Link to={"/profile/" + props.username}>@{props.username}</Link>
-            {" · "}
+            <Link to={'/profile/' + props.username}>@{props.username}</Link>
+            {' · '}
             <time>{helpers.isoToTimeAgo(props.timePosted)}</time>
           </PostUsernameAndTime>
           <Link to="/studio">
-            <PostRemixButton>
-              <i className="ri-sound-module-line"></i>
-            </PostRemixButton>
+            {/* TODO: implement trash functionality if post is by user */}
+            {/* {(user.isAuthenticated && (props.userEmail === user.email)) ?
+              <PostIcon onClick={handleDeletePost}><div className="ri-close-line"/></PostIcon> : null
+            } */}
+            <PostIcon>
+              <div className="ri-sound-module-line" />
+            </PostIcon>
           </Link>
         </PostHeader>
-        <PostText>{props.postText}</PostText>
+        <Hashtag text={props.postText}></Hashtag>
         <PostMedia>
-          <PostImage><img src={props.projectImageLink}></img></PostImage>
-          <Spacer width='2' height='0'/>
+          <PostImage>
+            {props.projectImageLink ? (
+              <img src={props.projectImageLink}></img>
+            ) : null}
+          </PostImage>
+          <Spacer width="2" height="0" />
           <PostAudio
             onClick={() => {
               SetCurrent(props.index);
             }}
           />
-          <Spacer width='2.5' height='0'/>
+          <Spacer width="2.5" height="0" />
         </PostMedia>
         <PostAudioInfo>
           {props.projectTitle} · {helpers.secondsToLength(props.projectLength)}
@@ -60,6 +93,14 @@ const PostWrapper = styled.div`
   background: var(--main-color-black);
   border: 1px solid var(--font-line-color-yellow-transparent);
   border-bottom: none;
+
+  p {
+    width: 480px;
+
+    a {
+      color: #8ab4f8;
+    }
+  }
 `;
 
 const PostContent = styled.div`
@@ -82,17 +123,13 @@ const PostUsernameAndTime = styled.button`
   color: var(--font-line-color-yellow-transparent);
 `;
 
-const PostRemixButton = styled.button`
+const PostIcon = styled.button`
   color: var(--font-line-color-yellow-transparent);
   font-size: 16px;
 
   &:hover {
     color: var(--font-line-color-yellow);
   }
-`;
-
-const PostText = styled.p`
-  width: 480px;
 `;
 
 const PostMedia = styled.div`
@@ -104,6 +141,7 @@ const PostImage = styled.div`
   width: 96px;
   height: 96px;
   border-radius: 12px;
+  background: var(--main-color-blue-gradient-light);
 
   img {
     width: inherit;
@@ -118,7 +156,7 @@ const PostAudio = styled.button`
   border-radius: 12px;
   box-sizing: border-box;
   background: var(--main-color-blue-light);
-  background-image: url("./wave.png");
+  background-image: url('./wave.png');
   margin-bottom: 4px;
 `;
 

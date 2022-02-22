@@ -5,11 +5,15 @@ import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 // import { getId } from 'wavesurfer.js/src/util';
 
-
 const NavBar = () => {
-
-  const {loginWithRedirect, logout, isLoading, user, getAccessTokenSilently, isAuthenticated} = useAuth0();
-
+  const {
+    loginWithRedirect,
+    logout,
+    isLoading,
+    user,
+    getAccessTokenSilently,
+    isAuthenticated,
+  } = useAuth0();
 
   return (
     <ul className="nav">
@@ -30,27 +34,25 @@ const NavBar = () => {
         <button onClick={() => loginWithRedirect()}>Log In</button>
       )}
 
-
       {!isLoading && user && (
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-evenly",
-            alignItems: "center",
+            display: 'flex',
+            justifyContent: 'space-evenly',
+            alignItems: 'center',
           }}
         >
           <img
             src={user.picture}
             style={{
-              height: "30pt",
-              borderRadius: "50%",
-              paddingRight: "10px",
+              height: '30pt',
+              borderRadius: '50%',
+              paddingRight: '10px',
             }}
           />
           <button onClick={() => logout()}>Log Out</button>
         </div>
       )}
-
     </ul>
   );
 };

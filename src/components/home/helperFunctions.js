@@ -20,7 +20,7 @@ export default helpers = {
     return length;
   },
   parseTags: (text) => {
-    const regex = /#[^\s]*/g;
+    const regex = /#[^\s.!?:;()_='"-]*/g;
     const tags = [];
 
     // eslint-disable-next-line no-constant-condition
