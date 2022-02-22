@@ -26,6 +26,7 @@
     "jwks-rsa": "^2.0.5",
     "linkify-plugin-hashtag": "^3.0.4",
     "linkify-react": "^3.0.4",
+    "linkifyjs": "^3.0.5",
     "luxon": "^2.3.0",
     "mini-css-extract-plugin": "^2.5.3",
     "nodemon": "^2.0.15",
