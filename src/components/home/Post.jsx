@@ -4,9 +4,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 // global contexts
-import { useAuth0 } from '@auth0/auth0-react';
 import { useUserInfo } from '../../contexts/UserContext.jsx';
-import { PostsContext } from '../../contexts/PostsContext.jsx';
+import { usePosts } from '../../contexts/PostsContext.jsx';
 import { usePlayer } from '../../contexts/player/playerContext';
 
 // components
@@ -15,13 +14,9 @@ import { Hashtag } from './Hashtag.jsx';
 import helpers from './helperFunctions.js';
 
 const Post = (props) => {
-  const { user } = useAuth0();
-  const { username, setUsername, email, setEmail, profilePic, setProfilePic } =
-    useUserInfo();
+  const { email } = useUserInfo();
+  const { isPostUpdated, setIsPostUpdated } = usePosts();
   const { SetCurrent, currentSong, songs } = usePlayer();
-  const { posts, setPosts } = React.useContext(PostsContext);
-
-  // console.log({ username, email, profilePic });
 
   const handleDeletePost = (event) => {
     const postId = props.postId;
@@ -32,6 +27,9 @@ const Post = (props) => {
     // .catch((error) => {
 
     // })
+
+    // eslint-disable-next-line no-extra-boolean-cast
+    setIsPostUpdated(!!!isPostUpdated);
   };
 
   return (
@@ -48,10 +46,12 @@ const Post = (props) => {
             <time>{helpers.isoToTimeAgo(props.timePosted)}</time>
           </PostUsernameAndTime>
           <Link to="/studio">
-            {/* TODO: implement trash functionality if post is by user */}
-            {/* {(user.isAuthenticated && (props.userEmail === user.email)) ?
-              <PostIcon onClick={handleDeletePost}><div className="ri-close-line"/></PostIcon> : null
-            } */}
+            {props.userEmail === email ? (
+              <PostIcon onClick={handleDeletePost}>
+                <div className="ri-close-line" />
+              </PostIcon>
+            ) : null}
+            <Spacer width="12" height="0" />
             <PostIcon>
               <div className="ri-sound-module-line" />
             </PostIcon>
@@ -64,13 +64,13 @@ const Post = (props) => {
               <img src={props.projectImageLink}></img>
             ) : null}
           </PostImage>
-          <Spacer width="2" height="0" />
+          <Spacer width="12" height="0" />
           <PostAudio
             onClick={() => {
               SetCurrent(props.index);
             }}
           />
-          <Spacer width="2.5" height="0" />
+          <Spacer width="16" height="0" />
         </PostMedia>
         <PostAudioInfo>
           {props.projectTitle} · {helpers.secondsToLength(props.projectLength)}
@@ -167,6 +167,6 @@ const PostAudioInfo = styled.div`
 `;
 
 const Spacer = styled.div`
-  width: ${(props) => (props.width || 1) * 6}px;
-  height: ${(props) => (props.height || 1) * 6}px;
+  width: ${(props) => props.width || 1}px;
+  height: ${(props) => props.height || 1}px;
 `;
