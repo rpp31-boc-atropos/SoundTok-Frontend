@@ -1,18 +1,21 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 
+// contexts
+import { useUserInfo } from '../../contexts/UserContext.jsx';
+import { usePosts } from '../../contexts/PostsContext.jsx';
 import { usePlayer } from '../../contexts/player/playerContext';
-import { PostsContext } from '../../contexts/PostsContext.jsx';
+
+// components
 import ProfilePicture from '../ProfilePicture.jsx';
 import helper from './helperFunctions.js';
 
 const WritePost = (props) => {
-  const { user } = useAuth0();
+  const { username, email, profilePic } = useUserInfo();
+  const { posts, setPosts, isPostUpdated, setIsPostUpdated } = usePosts();
   const { songs } = usePlayer();
-  const { posts, setPosts } = React.useContext(PostsContext);
 
   const [textCharacterCount, setTextCharacterCount] = React.useState(0);
   const [uploadedAudio, setUploadedAudio] = React.useState(null);
@@ -88,10 +91,10 @@ const WritePost = (props) => {
     let tags = helper.parseTags(text);
 
     const post = {
-      profilePicture: user.picture,
+      profilePicture: profilePic,
       timePosted: new Date(Date.now()).toISOString(),
-      username: user.nickname,
-      userEmail: user.email,
+      username: username,
+      userEmail: email,
       postLikes: 0,
       isDraft: false,
       postText: text,
@@ -103,6 +106,8 @@ const WritePost = (props) => {
       tracks: [],
     };
 
+    setPosts([post].concat(posts));
+
     // axios
     //   .post(('http://54.91.250.255:1234/', post))
     //   .then((response) => {
@@ -112,14 +117,14 @@ const WritePost = (props) => {
     //     console.log(error);
     //   });
 
-    setPosts([post].concat(posts));
-    props.setIsPosted(true);
+    // eslint-disable-next-line no-extra-boolean-cast
+    setIsPostUpdated(!!!isPostUpdated);
     songs.unshift(post);
   };
 
   return (
     <WritePostWrapper>
-      <ProfilePicture username={user.nickname} profilePicture={user.picture} />
+      <ProfilePicture username={username} profilePicture={profilePic} />
       <Form onSubmit={handlePost}>
         <FlexColumn>
           <Inputs>

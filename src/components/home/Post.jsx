@@ -4,9 +4,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 // global contexts
-import { useAuth0 } from '@auth0/auth0-react';
 import { useUserInfo } from '../../contexts/UserContext.jsx';
-import { PostsContext } from '../../contexts/PostsContext.jsx';
+import { usePosts } from '../../contexts/PostsContext.jsx';
 import { usePlayer } from '../../contexts/player/playerContext';
 
 // components
@@ -15,13 +14,10 @@ import { Hashtag } from './Hashtag.jsx';
 import helpers from './helperFunctions.js';
 
 const Post = (props) => {
-  const { user } = useAuth0();
-  const { username, setUsername, email, setEmail, profilePic, setProfilePic } =
-    useUserInfo();
+  const { email } = useUserInfo();
+  const { isPostUpdated, setIsPostUpdated } = usePosts();
   const { SetCurrent, currentSong, songs } = usePlayer();
-  const { posts, setPosts } = React.useContext(PostsContext);
-
-  // console.log({ username, email, profilePic });
+  // const { posts, setPosts } = React.useContext(PostsContext);
 
   const handleDeletePost = (event) => {
     const postId = props.postId;
@@ -32,6 +28,9 @@ const Post = (props) => {
     // .catch((error) => {
 
     // })
+
+    // eslint-disable-next-line no-extra-boolean-cast
+    setIsPostUpdated(!!!isPostUpdated);
   };
 
   return (
@@ -49,9 +48,11 @@ const Post = (props) => {
           </PostUsernameAndTime>
           <Link to="/studio">
             {/* TODO: implement trash functionality if post is by user */}
-            {/* {(user.isAuthenticated && (props.userEmail === user.email)) ?
-              <PostIcon onClick={handleDeletePost}><div className="ri-close-line"/></PostIcon> : null
-            } */}
+            {props.userEmail === email ? (
+              <PostIcon onClick={handleDeletePost}>
+                <div className="ri-close-line" />
+              </PostIcon>
+            ) : null}
             <PostIcon>
               <div className="ri-sound-module-line" />
             </PostIcon>

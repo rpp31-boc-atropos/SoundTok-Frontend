@@ -1,60 +1,55 @@
 import * as React from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 
-import { PostsContext } from '../contexts/PostsContext.jsx';
 import { useAuth0 } from '@auth0/auth0-react';
+import { usePosts } from '../contexts/PostsContext.jsx';
 
 import WritePost from '../components/home/WritePost.jsx';
 import Post from '../components/home/Post.jsx';
-
 import dummy from '../components/home/dummy.jsx';
-import axios from 'axios';
 
 const Home = () => {
   const { user, isAuthenticated } = useAuth0();
-  const [isPosted, setIsPosted] = React.useState(false);
-  const [posts, setPosts] = React.useState(dummy);
+  const { posts } = usePosts();
 
   React.useEffect(async () => {
     window.scroll(0, 0);
-    const result = await axios('http://54.91.250.255:1234/');
-
-    setPosts(result.data);
-  }, [isPosted]);
+  }, []);
 
   return (
-    <PostsContext.Provider value={{ posts, setPosts }}>
-      <FeedWrapper>
-        <Feed>
-          {user && (
-            <WritePost
-              username={user}
-              isPosted={isPosted}
-              setIsPosted={setIsPosted}
+    <FeedWrapper>
+      <Feed>
+        {user && (
+          <WritePost
+            username={user}
+            // isPostUpdated={isPostUpdated}
+            // setIsPostUpdated={setIsPostUpdated}
+          />
+        )}
+        {posts.map((post, i) => {
+          return (
+            <Post
+              key={i}
+              index={i}
+              postId={post.postId}
+              userEmail={post.userEmail}
+              username={post.username}
+              profilePicture={post.profilePicture}
+              projectTitle={post.projectTitle}
+              postText={post.postText}
+              projectAudioLink={post.projectAudioLink}
+              projectLength={post.projectLength}
+              projectImageLink={post.projectImageLink}
+              tags={post.tags}
+              timePosted={post.timePosted}
+              // isPostUpdated={isPostUpdated}
+              // setIsPostUpdated={setIsPostUpdated}
             />
-          )}
-          {posts.map((post, i) => {
-            return (
-              <Post
-                key={i}
-                index={i}
-                postId={post.postId}
-                userEmail={post.userEmail}
-                username={post.username}
-                profilePicture={post.profilePicture}
-                projectTitle={post.projectTitle}
-                postText={post.postText}
-                projectAudioLink={post.projectAudioLink}
-                projectLength={post.projectLength}
-                projectImageLink={post.projectImageLink}
-                tags={post.tags}
-                timePosted={post.timePosted}
-              />
-            );
-          })}
-        </Feed>
-      </FeedWrapper>
-    </PostsContext.Provider>
+          );
+        })}
+      </Feed>
+    </FeedWrapper>
   );
 };
 

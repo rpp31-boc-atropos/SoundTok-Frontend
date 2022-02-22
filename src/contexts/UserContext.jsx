@@ -15,6 +15,7 @@ const UserInfoProvider = ({ children }) => {
   React.useEffect(() => {
     if (isAuthenticated) {
       const email = user.email;
+      setEmail(email);
       // axios
       //   .post('http://54.91.250.255:1234/', { email })
       //   .then((response) => {
