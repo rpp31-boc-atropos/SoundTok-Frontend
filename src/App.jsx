@@ -4,7 +4,7 @@ import axios from 'axios';
 import './App.css';
 
 import { Routes, Route } from 'react-router-dom';
-import NavBar from './components/Nav/NavBar.jsx';
+import NavBar from './components/nav/NavBar.jsx';
 import Home from './pages/Home.jsx';
 import Profile from './pages/Profile.jsx';
 import Studio from './pages/Studio.jsx';
