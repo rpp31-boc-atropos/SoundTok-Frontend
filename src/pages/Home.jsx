@@ -9,12 +9,14 @@ import { usePosts } from '../contexts/PostsContext.jsx';
 
 // components
 import WritePost from '../components/home/WritePost.jsx';
+import FeedDrafts from '../components/home/FeedDrafts.jsx';
 import Post from '../components/home/Post.jsx';
 import dummy from '../components/home/dummy.jsx';
 
 const Home = () => {
   const { user, isAuthenticated } = useAuth0();
   const { posts } = usePosts();
+  const [isDraftToggled, setIsDraftToggled] = React.useState(false);
 
   React.useEffect(async () => {
     window.scroll(0, 0);
@@ -23,7 +25,14 @@ const Home = () => {
   return (
     <FeedWrapper>
       <Feed>
-        {user && <WritePost username={user} />}
+        {user && (
+          <WritePost
+            username={user}
+            isDraftToggled={isDraftToggled}
+            setIsDraftToggled={setIsDraftToggled}
+          />
+        )}
+        {isDraftToggled && <FeedDrafts />}
         {posts.map((post, i) => {
           return (
             <Post
