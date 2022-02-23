@@ -7,8 +7,12 @@ import AudioUpload from '../components/studio/AudioUpload.jsx';
 import axios from 'axios';
 import EventEmitter from 'events';
 import { saveAs } from 'file-saver';
+import * as Tone from 'tone';
 
 const Studio = () => {
+
+  let audioCtx = Tone.getContext().rawContext;
+  let analyser = audioCtx.createAnalyser();
 
   const [ee] = useState(new EventEmitter());
   const [playlist, setPlayList] = useState(null);
@@ -38,10 +42,21 @@ const Studio = () => {
         console.log(result);
         playlist.load([{
           src: result.data.url,
-          name: `Track #${count}`
+          name: 'Track',
+          effects: function(graphEnd, masterGainNode) {
+            var autoWah = new Tone.Reverb();
+
+            Tone.connect(graphEnd, autoWah);
+            Tone.connect(autoWah, masterGainNode);
+
+            return function cleanup() {
+              autoWah.disconnect();
+              autoWah.dispose();
+            };
+          }
         }]);
         playlist.initExporter();
-        setCount(count + 1);
+        console.log(playlist);
       })
       .catch(err => {
         console.log(err);
@@ -50,6 +65,7 @@ const Studio = () => {
 
   useEffect(() => {
     setPlayList(WaveformPlaylist({
+      ac: audioCtx,
       samplesPerPixel: 1000,
       waveHeight: 131,
       barWidth: 3,
@@ -71,6 +87,10 @@ const Studio = () => {
         }
       },
       zoomLevels: [1000],
+      effects: function(masterGainNode, destination) {
+        masterGainNode.connect(analyser);
+        masterGainNode.connect(destination);
+      }
     }, ee));
   }, []);
 
@@ -82,7 +102,7 @@ const Studio = () => {
           <Header>Audio Creation Tool</Header>
         </div>
         <ButtonWrapper>
-          <ButtonTop onClick={() => { ee.emit('startaudiorendering', 'wav'); }}>Download</ButtonTop>
+          <ButtonTop role='download' onClick={() => { ee.emit('startaudiorendering', 'wav'); }}>Download</ButtonTop>
           <ButtonTop onClick={handleSaveDraft}>Save</ButtonTop>
         </ButtonWrapper>
       </StudioHeader>
