@@ -11,7 +11,6 @@ const PostsProvider = ({ children }) => {
   // QUERY FOR ALL POSTS
   React.useEffect(async () => {
     const result = await axios('https://api.soundtok.live/');
-    console.log(result.data);
 
     setPosts(result.data);
   }, [isPostUpdated]);
