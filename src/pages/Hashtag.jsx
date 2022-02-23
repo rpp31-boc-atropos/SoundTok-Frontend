@@ -1,22 +1,32 @@
-import React from 'react';
-import { useSearchParams } from 'react-router-dom';
-import PhotoCard from '../components/hashtag/PhotoCard';
-import Wave from 'react-wavify';
-import dummy from '../components/home/dummy.jsx';
-import { Link } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
-import { Container } from '@material-ui/core';
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import axios from "axios";
+import PhotoCard from "../components/hashtag/PhotoCard";
+import Wave from "react-wavify";
+// import dummy from "../components/home/dummy.jsx";
+import { Link } from "react-router-dom";
+import Grid from "@material-ui/core/Grid";
+import { Container } from "@material-ui/core";
 
 const Hashtag = () => {
   // queryString = "?q=classic"
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const q = searchParams.get('q');
-  let posts = dummy;
+  const q = searchParams.get("q");
+  // console.log(q);
+
+  // const posts = dummy;
+  const [posts, setPosts] = useState([]);
+
+  useEffect(async () => {
+    const result = await axios(`https://api.soundtok.live/getHashtags/${q}`);
+    // console.log(result.data);
+    setPosts(result.data);
+  }, []);
 
   return (
     <>
-      <h1 style={{ margin: '30px' }}>#Hashtag: {q}</h1>
+      <h1 style={{ margin: "30px" }}>#Hashtag: {q}</h1>
       <Container>
         <Grid container spacing={3}>
           {posts.map((post, index) => (
