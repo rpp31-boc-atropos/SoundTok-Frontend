@@ -48,9 +48,9 @@ const ProfileText = styled.div`
   justify-content: center;
 `;
 
-const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
+const UserProfile = ({isCurrentUser, setIsCurrentUser, location, profileName}) => {
   // const { user } = useAuth();
-  // const [username, setUsername] = useState('searchedName' || 'ownProfile');
+  const [username, setUsername] = useState('leggo'); //update with Context when available
   const [profilePicture, setProfilePicture] = useState(dummyProfile.profilePicture);
   const [bio, setBio] = useState(dummyProfile.bio);
   const [isOpen, setModal] = useState(false);
@@ -67,87 +67,100 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
 
     axios.post('https://api.cloudinary.com/v1_1/rickkcloudinary/image/upload', formData)
       .then((response) => {
+        console.log('cloud photo link', response.data.secure_url);
         setProfilePicture(response.data.secure_url);
+        console.log('new profile pic in state', profilePicture);
       })
       .catch((error) => {
         console.log(error);
       })
       .then((response) => {
         setBio(bio);
-        // axios.put(`/updateProfile`,
-        //   {
-        //     username: profileName,
-        //     bio: bio,
-        //     profilePicture: profilePicture
-        //   });
 
+        console.log('new profile url', profilePicture);
         let tempData = {
-          username: 'stella',
-          profileURL: profilePicture,
+          username: 'leggo',
+          profilePicture: profilePicture,
           bio: bio
         };
 
-        const optionGetPosts = {
-          // method: 'PUT',
-          url: 'api.soundtok.live/updateProfile',
-          data: tempData
-        };
+        console.log(tempData);
 
-        axios.put(optionGetPosts)
-          .then((response) => {
-            console.log('response', response);
-            setProfilePicture(response.data.profilePicture);
-            setBio(response.data.bio);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        // const optionGetPosts = {
+        //   // method: 'PUT',
+        //   url: 'api.soundtok.live/updateProfile',
+        //   data: tempData
+        // };
+
+        // axios.put('/updateProfile/', tempData)
+        //   .then((response) => {
+        //     console.log('response', response);
+        //     setProfilePicture(response.data.profilePicture);
+        //     setBio(response.data.bio);
+        //   })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  // useEffect(() => {
-  //   axios.get(`/profile/${profileName}`, {
-  //     params: {
-  //       username: profileName
-  //     }
-  //   })
+  useEffect(() => {
+    // console.log('test1', this.props.location.pathname);
+    // console.log('test2', props.location.pathname);
+    console.log('test3', window.location.href);  //could work, has whole url
+    // console.log('test4', window.location.pathname);
+    // // console.log('test5', props.location.pathname);
+    // console.log('test6', location);
+    let location = window.location.href;
+    // console.log(window.location.href.indexOf('profile'));
+    // console.log(location.slice((window.location.href.indexOf('profile') + 8)));
+    let userProfile = location.slice((window.location.href.indexOf('profile') + 8));
+    console.log('endpoint', userProfile);
+    setUsername(userProfile);
+
+    axios.get('/profile/', {
+      params: {
+        // username: 'leggo'
+        username: userProfile
+      }
+    })
+      .then((response) => {
+        console.log('profileresponse', response.data);
+        setProfilePicture(response.data.profilePicture);
+        setBio(response.data.userBio); //Maggie is working on adding this
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  //move to higher level
+  // React.useEffect(() => {
+  //   const optionGetPosts = {
+  //     method: 'GET',
+  //     url: 'api.soundtok.live/getProfileData/projects/stella',
+  //   };
+
+  //   axios.get(optionGetPosts)
   //     .then((response) => {
   //       console.log('response', response);
-  //       setProfilePicture(response.data.profilePicture);
-  //       setBio(response.data.bio);
+  //       // setProfilePicture(response.data.profilePicture);
+  //       // setBio(response.data.bio);
   //     })
   //     .catch((err) => {
   //       console.log(err);
   //     });
   // });
 
-  //move to higher level
-  React.useEffect(() => {
-    const optionGetPosts = {
-      method: 'GET',
-      url: 'api.soundtok.live/getProfileData/projects/stella',
-    };
-
-    axios.get(optionGetPosts)
-      .then((response) => {
-        console.log('response', response);
-        setProfilePicture(response.data.profilePicture);
-        setBio(response.data.bio);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
-
   return (
     <ProfileWrapper>
       <ProfilePic alt='logo'
         src={profilePicture}>
       </ProfilePic>
-      <ProfileHeader>@Faye</ProfileHeader>
+      <ProfileHeader>{`@${username}`}</ProfileHeader>
       <ButtonWrapper>
         {isCurrentUser ?
           <Button onClick={() => setModal(true)}>Edit profile</Button>

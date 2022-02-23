@@ -88,21 +88,38 @@ const UserPosts = ({isCurrentUser, profileName}) => {
   };
 
   useEffect(() => {
-    const optionGetPosts = {
-      method: 'GET',
-      url: 'api.soundtok.live/getProfileData/projects/stella',
-    };
+    // const optionGetPosts = {
+    //   method: 'GET',
+    //   url: 'api.soundtok.live/getProfileData/projects/stella',
+    // };
 
-    axios.get(optionGetPosts)
+    // axios.get(optionGetPosts)
+    //   .then((response) => {
+    //     // setSongs(response.data);
+    //     console.log('response: ', response.data);
+    //     // setSongs(response.data);
+    //   })
+    //   .catch((err) => {
+    //     //make pop-up
+    //     console.log(err);
+    //   });
+
+
+    // axios.get(`/profile/${profileName}`, {
+    axios.get(`/profile`, {
+      params: {
+        username: 'leggo'
+      }
+    })
       .then((response) => {
-        // setSongs(response.data);
-        console.log('response: ', response.data);
-        setSongs(response.data);
+        console.log('post response', response.data.projectdata);
+        setSongs(response.data.projectdata);
+
       })
       .catch((err) => {
-        //make pop-up
         console.log(err);
       });
+
 
     // if (isCurrentUser) {  //update after team sets up sample draft data
     //   axios.get('/userDrafts', {

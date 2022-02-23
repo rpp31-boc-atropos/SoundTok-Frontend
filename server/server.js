@@ -49,12 +49,12 @@ app.get('/hashtag', async (req, res) => {
 
 //PROFILE ENDPOINTS
 //get projects and user profile data
-app.get('/profile/:username', (req, res) => {
+app.get('/profile/', (req, res) => {
   // console.log('projects query', req.query);
   // console.log('projects query user', req.query.username);
 
-  // const { username } = req.query
-  const username = 'stella';
+  const { username } = req.query
+
 
   console.log(username);
   console.log('stage 1 success');
@@ -65,10 +65,8 @@ app.get('/profile/:username', (req, res) => {
     //url: `http://localhost:1234/getProfileData/projects/${username}`
   })
     .then((response) => {
-      console.log('stage 2 success');
       console.log(response);
-
-      res.status(200).send(response.data);
+      res.status(200).send(response.data[0]);
     })
     .catch((error) => {
       console.log('stage 2 fail');
@@ -94,25 +92,25 @@ app.get('/profile', (req, res) => {
 });
 
 //update username and bio in profile
-app.put('/profile/', (req, res) => {
-  // console.log('test', req.body);
-  let tempData = {
-    //need to figure out cloudinary link, below is proxy data.
-    username: req.query.username,
-    profileURL:
-      'https://yahoofantasysports-res.cloudinary.com/image/upload/fantasy-logos/25311153506_9fdda2493f.jpg',
-    bio: req.query.bio,
-  };
-  const { username, bio } = req.params;
+app.put('/updateProfile/', (req, res) => {
+  console.log('new profile data', req.body);
+  // let tempData = {
+  //   username: req.query.username,
+  //   profileURL: req.query.profileURL,
+  //   bio: req.query.bio,
+  // };
+  // const { username, profileURL, bio } = req.body;
   axios({
     method: 'PUT',
-    url: `http://54.91.250.255:1234/updateProfile`,
-    data: tempData,
+    url: `https://api.soundtok.live/updateProfile`,
+    data: req.body,
   })
     .then((response) => {
+      console.log('updateProf successful, ', response);
       res.status(200).send(response);
     })
     .catch((error) => {
+      console.log('updateProf fail', error);
       res.status(500).send(error);
     });
 });

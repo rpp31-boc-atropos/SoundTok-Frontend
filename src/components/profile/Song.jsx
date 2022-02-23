@@ -74,9 +74,9 @@ const Song = (props) => {
   return (
     <SingleSong>
       <SongHeader>
-        <LogoButton>
+        {/* <LogoButton>
           <Logo src={props.songImage}></Logo>
-        </LogoButton>
+        </LogoButton> */}
         <div>{props.projectLength}</div>
         <CornerWrapper>
           <Link to='/studio'>
