@@ -1,14 +1,16 @@
-import React, { useReducer, createContext } from 'react';
+import React, { useReducer, createContext, useEffect } from 'react';
 import playerReducer from './playerReducer';
 import dummy from '../../components/home/dummy.jsx';
+import { usePosts } from '../PostsContext.jsx';
 
 const PlayerContext = createContext();
 
 const PlayerProvider = ({ children }) => {
-  // TODO get list of posts from data using useEffect
+  const { posts } = usePosts();
+
   const initialState = {
     currentSong: -1,
-    songs: dummy,
+    songs: posts,
     repeat: false,
     random: false,
     playing: false,
@@ -16,6 +18,10 @@ const PlayerProvider = ({ children }) => {
   };
 
   const [state, dispatch] = useReducer(playerReducer, initialState);
+
+  useEffect(() => {
+    dispatch({ type: 'UPDATE_POSTS', data: posts });
+  }, [posts]);
 
   // Set playing state
   const togglePlaying = () =>

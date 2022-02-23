@@ -24,7 +24,7 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "2a:0e:22:3f:95:74:34:be:54:67:98:6f:8d:f8:d4:85"
-      - run: ssh ubuntu@$SSH_HOST "cd ~/SoundTok-Frontend; git reset --hard; git pull origin main; npm ci"
+      - run: ssh ubuntu@$SSH_HOST "cd ~/SoundTok-Frontend; git reset --hard; git pull origin main; npm ci; sudo npm run buildOnce"
 
 
 # Invoke jobs via workflows

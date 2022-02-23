@@ -4,25 +4,29 @@ export default (state, action) => {
       return {
         ...state,
         currentSong: action.data,
-        playing: true
-      }
+        playing: true,
+      };
     case 'TOGGLE_RANDOM':
       return {
         ...state,
-        random: action.data
-      }
+        random: action.data,
+      };
     case 'TOGGLE_REPEAT':
       return {
         ...state,
-        repeat: action.data
-      }
+        repeat: action.data,
+      };
     case 'TOGGLE_PLAYING':
       return {
         ...state,
-        playing: action.data
-      }
+        playing: action.data,
+      };
+    case 'UPDATE_POSTS':
+      return {
+        ...state,
+        songs: action.data,
+      };
     default:
-      return state
+      return state;
   }
-
-}
+};

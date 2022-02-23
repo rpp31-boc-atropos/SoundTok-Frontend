@@ -66,13 +66,14 @@ const PlayerControls = () => {
           <div className="ri-skip-back-fill" onClick={prevSong} role="prev" />
           <Spacer />
           <div
-            className={`playPause ${
-              !playing ? 'ri-play-circle-fill' : 'ri-pause-circle-fill'
-            }`}
+            className={`playPause ${!playing ? 'ri-play-circle-fill' : 'ri-pause-circle-fill'
+              }`}
             onClick={() => {
+              console.log({ songs });
               togglePlaying();
               toggleAudio();
             }}
+            role='play'
           />
           <Spacer />
           <div
@@ -84,16 +85,22 @@ const PlayerControls = () => {
           <div
             className={`random ri-shuffle-line ${random ? 'active' : ''}`}
             onClick={toggleRandom}
+            role='random'
           />
           <Spacer />
           <div
             className={`repeat ri-repeat-line ${repeat ? 'active' : ''}`}
             onClick={toggleRepeat}
+            role='repeat'
           />
         </ControlButtons>
         <Spacer size="5" />
         <BarWrapper>
-          <div className="currentT">{fmtMSS(currentTime)}</div>
+          <div
+            className="currentT"
+            role="currentTime"
+          >
+            {fmtMSS(currentTime)}</div>
           <Spacer size="2" />
           <Bar>
             <input
@@ -102,7 +109,7 @@ const PlayerControls = () => {
               type="range"
               name="progresBar"
               id="progressBar"
-              role="currentTime"
+              role='progressBar'
             />
             <div
               className="songtitle"
@@ -113,7 +120,11 @@ const PlayerControls = () => {
             </div>
           </Bar>
           <Spacer size="2" />
-          <div className="totalT">{fmtMSS(dur)}</div>
+          <div
+            className="totalT"
+            role='totalTime'
+          >
+            {fmtMSS(dur)}</div>
         </BarWrapper>
         <Spacer size="3" />
         <ProfilePicture
@@ -123,7 +134,7 @@ const PlayerControls = () => {
           }
           size="36"
         />
-        <Volume>
+        <Volume role='volume'>
           <div className="ri-volume-up-fill" />
           <Spacer />
           <input
@@ -132,7 +143,6 @@ const PlayerControls = () => {
             name="volBar"
             id="volBar"
             onChange={(e) => handleVolume(e.target.value / 100)}
-            role="volume"
           />
         </Volume>
       </FeedWidth>
