@@ -87,7 +87,7 @@ app.get('/profile', (req, res) => {
     .catch((error) => {
       res.status(500).send(error);
     });
-  });
+});
 
 //update username and bio in profile
 app.put('/profile/', (req, res) => {

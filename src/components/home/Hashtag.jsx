@@ -1,15 +1,16 @@
-import * as React from 'react';
-import Linkify from 'linkify-react';
-import 'linkify-plugin-hashtag';
+import * as React from "react";
+import Linkify from "linkify-react";
+import "linkify-plugin-hashtag";
 
 export const Hashtag = (props) => {
   const linkifyOptions = {
     formatHref: {
-      hashtag: (href) => 'https://soundtok.live/#/hashtag?q=' + href.substr(1),
+      hashtag: (href) => "https://soundtok.live/#/hashtag?q=" + href.substr(1),
     },
   };
 
   const content = props.text;
+  console.log(content);
 
   return (
     <Linkify tagName="p" options={linkifyOptions}>
