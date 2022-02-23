@@ -68,19 +68,21 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, location, profileName}) =
     axios.post('https://api.cloudinary.com/v1_1/rickkcloudinary/image/upload', formData)
       .then((response) => {
         console.log('cloud photo link', response.data.secure_url);
-        setProfilePicture(response.data.secure_url);
         console.log('new profile pic in state', profilePicture);
+        return response.data.secure_url;
       })
       .catch((error) => {
         console.log(error);
       })
-      .then((response) => {
+      .then((newPicture) => {
         setBio(bio);
+        setProfilePicture(newPicture);
+        console.log('hopefully url', newPicture);
 
         console.log('new profile url', profilePicture);
         let tempData = {
-          username: 'leggo',
-          profilePicture: profilePicture,
+          username: username,
+          profilePicture: newPicture,
           bio: bio
         };
 
@@ -92,15 +94,15 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, location, profileName}) =
         //   data: tempData
         // };
 
-        // axios.put('/updateProfile/', tempData)
-        //   .then((response) => {
-        //     console.log('response', response);
-        //     setProfilePicture(response.data.profilePicture);
-        //     setBio(response.data.bio);
-        //   })
-        //   .catch((err) => {
-        //     console.log(err);
-        //   });
+        axios.put('/updateProfile/', tempData)
+          .then((response) => {
+            console.log('response', response);
+            // setProfilePicture(response.data.profilePicture);
+            // setBio(response.data.bio);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -108,18 +110,15 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, location, profileName}) =
   };
 
   useEffect(() => {
-    // console.log('test1', this.props.location.pathname);
-    // console.log('test2', props.location.pathname);
-    console.log('test3', window.location.href);  //could work, has whole url
-    // console.log('test4', window.location.pathname);
-    // // console.log('test5', props.location.pathname);
-    // console.log('test6', location);
     let location = window.location.href;
-    // console.log(window.location.href.indexOf('profile'));
-    // console.log(location.slice((window.location.href.indexOf('profile') + 8)));
     let userProfile = location.slice((window.location.href.indexOf('profile') + 8));
-    console.log('endpoint', userProfile);
-    setUsername(userProfile);
+
+    // console.log('userprofile ', userProfile);
+    if (userProfile !== '') {
+      setUsername(userProfile);
+    } else {
+      userProfile = username;
+    }
 
     axios.get('/profile/', {
       params: {

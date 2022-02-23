@@ -36,6 +36,8 @@ const UserPosts = ({isCurrentUser, profileName}) => {
   const [songs, setSongs] = useState(dummySongs);
   const [drafts, setDrafts] = useState(dummyDrafts);
   // const {projectsToDelete, setProjectsToDelete} = useState([]); - stretch goal - delete multiple songs
+  const [username, setUsername] = useState('leggo'); //update with Context when available
+
 
   const removeProject = (projectId, source) => {
     // needs call to remove from db. stretch goal - select and remove multiple songs
@@ -103,12 +105,22 @@ const UserPosts = ({isCurrentUser, profileName}) => {
     //     //make pop-up
     //     console.log(err);
     //   });
+    let location = window.location.href;
+    let userProfile = location.slice((window.location.href.indexOf('profile') + 8));
+    // console.log('endpoint', userProfile);
 
+    if (userProfile !== '') {
+      setUsername(userProfile);
+    } else {
+      userProfile = username;
+    }
+    // setUsername(userProfile);
 
     // axios.get(`/profile/${profileName}`, {
     axios.get(`/profile`, {
       params: {
-        username: 'leggo'
+        // username: 'leggo'
+        username: userProfile
       }
     })
       .then((response) => {

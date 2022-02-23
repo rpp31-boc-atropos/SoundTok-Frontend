@@ -55,7 +55,6 @@ app.get('/profile/', (req, res) => {
 
   const { username } = req.query
 
-
   console.log(username);
   console.log('stage 1 success');
   axios({
