@@ -14,6 +14,7 @@ const Studio = () => {
   const [ee] = useState(new EventEmitter());
   const [playlist, setPlayList] = useState(null);
   const [count, setCount] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   ee.on('audiorenderingfinished', function (type, data) {
     if (type === 'wav') {
@@ -31,7 +32,9 @@ const Studio = () => {
 
   const handleSetDraft = (draft) => {
     removeAllTracks();
-    playlist.load(draft.tracks);
+    setIsLoading(true);
+    playlist.load(draft.tracks)
+      .then(()=>{ setIsLoading(false); });
   };
 
   const handleNewDraft = () => {
@@ -46,6 +49,7 @@ const Studio = () => {
   };
 
   const handleUpload = (e) => {
+    setIsLoading(true);
     const file = e.target.files[0];
     let formData = new FormData();
     formData.append('file', file);
@@ -57,7 +61,8 @@ const Studio = () => {
         playlist.load([{
           src: result.data.url,
           name: `Track #${count}`
-        }]);
+        }])
+          .then(()=>{ setIsLoading(false); });
         playlist.initExporter();
         // console.log(playlist.initExporter());
         setCount(count + 1);
@@ -107,6 +112,7 @@ const Studio = () => {
       </StudioHeader>
       <EditorWrapper>
         <MainPanel id='editor'>
+          {isLoading ? <Loading /> : null}
         </MainPanel>
         <RightPanel style={{maxHeight: '100%', overflow: 'auto'}}>
           <DraftTitle>Drafts</DraftTitle>
