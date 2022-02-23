@@ -33,7 +33,7 @@ const DraftList = ({ setDraft, newDraft }) => {
   return (
     <div>
       <List dense={false}>
-        <Draft>
+        {/* <Draft>
           <ListItem button onClick={newDraft}>
             <ListItemAvatar>
               <Avatar>
@@ -44,7 +44,7 @@ const DraftList = ({ setDraft, newDraft }) => {
               primary='New Draft'
             />
           </ListItem>
-        </Draft>
+        </Draft> */}
         {draftList.map((item, index) => (<DraftItem key={index} draft={item} setDraft={setDraft} />))}
       </List>
     </div>

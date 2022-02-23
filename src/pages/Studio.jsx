@@ -17,9 +17,10 @@ const Studio = () => {
 
   const [ee] = useState(new EventEmitter());
   const [playlist, setPlayList] = useState(null);
-  const [count, setCount] = useState(1);
 
   ee.on('audiorenderingfinished', function (type, data) {
+    console.log('type: ', type);
+    console.log('data:', data);
     if (type === 'wav') {
       saveAs(data, 'track.wav');
     }
@@ -35,7 +36,8 @@ const Studio = () => {
 
   const handleSetDraft = (draft) => {
     removeAllTracks();
-    playlist.load(draft.tracks);
+    playlist.load(draft.tracks)
+      .then(() => { playlist.initExporter(); });
   };
 
   const handleNewDraft = () => {
@@ -43,7 +45,7 @@ const Studio = () => {
   };
 
   const handleSaveDraft = () => {
-    if (playlist.getInfo().length > 0) {
+    if (playlist.getInfo().tracks.length > 0) {
       console.log(playlist.getInfo());
     }
     // console.log(playlist);
@@ -62,7 +64,7 @@ const Studio = () => {
           src: result.data.url,
           name: 'Track',
           effects: function(graphEnd, masterGainNode) {
-            var autoWah = new Tone.Reverb();
+            var autoWah = new Tone.AutoWah();
 
             Tone.connect(graphEnd, autoWah);
             Tone.connect(autoWah, masterGainNode);
@@ -120,6 +122,7 @@ const Studio = () => {
           <Header>Audio Creation Tool</Header>
         </div>
         <ButtonWrapper>
+          <ButtonTop onClick={() => { ee.emit('clear'); }}>Clear</ButtonTop>
           <ButtonTop role='download' onClick={() => { ee.emit('startaudiorendering', 'wav'); }}>Download</ButtonTop>
           <ButtonTop onClick={handleSaveDraft}>Save</ButtonTop>
         </ButtonWrapper>
@@ -127,7 +130,7 @@ const Studio = () => {
       <EditorWrapper>
         <MainPanel id='editor'>
         </MainPanel>
-        <RightPanel style={{maxHeight: '100%', overflow: 'auto'}}>
+        <RightPanel style={{maxHeight: '100%'}}>
           <DraftTitle>Drafts</DraftTitle>
           <DraftWrapper>
             <DraftList drafts={[]} setDraft={handleSetDraft} newDraft={handleNewDraft} />
