@@ -7,6 +7,7 @@ import AudioUpload from '../components/studio/AudioUpload.jsx';
 import axios from 'axios';
 import EventEmitter from 'events';
 import { saveAs } from 'file-saver';
+import DraftList from '../components/studio/DraftList.jsx';
 
 const Studio = () => {
 
@@ -19,6 +20,23 @@ const Studio = () => {
       saveAs(data, 'track.wav');
     }
   });
+
+  // ADDED METHODS
+  const removeAllTracks = () => {
+    let tracksToRemove = [...playlist.tracks];
+    for (let i = 0; i < tracksToRemove.length; i++) {
+      playlist.removeTrack(tracksToRemove[i]);
+    }
+  };
+
+  const handleSetDraft = (draft) => {
+    removeAllTracks();
+    playlist.load(draft.tracks);
+  };
+
+  const handleNewDraft = () => {
+    removeAllTracks();
+  };
 
   const handleSaveDraft = () => {
     if (playlist.getInfo().length > 0) {
@@ -90,15 +108,10 @@ const Studio = () => {
       <EditorWrapper>
         <MainPanel id='editor'>
         </MainPanel>
-        <RightPanel>
+        <RightPanel style={{maxHeight: '100%', overflow: 'auto'}}>
           <DraftTitle>Drafts</DraftTitle>
           <DraftWrapper>
-            <Draft>Project #1</Draft>
-            <Draft>Project #2</Draft>
-            <Draft>Project #3</Draft>
-            <Draft>Project #4</Draft>
-            <Draft>Project #5</Draft>
-            <Draft>Project #6</Draft>
+            <DraftList drafts={[]} setDraft={handleSetDraft} newDraft={handleNewDraft} />
           </DraftWrapper>
         </RightPanel>
       </EditorWrapper>

@@ -124,16 +124,16 @@ const WritePost = (props) => {
         tracks: [],
       };
 
-      setPosts([post].concat(posts));
+      // setPosts([post].concat(posts));
 
-      // axios
-      //   .post(('http://54.91.250.255:1234/', post))
-      //   .then((response) => {
-      //     console.log(response);
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
+      axios
+        .post(('https://api.soundtok.live/', post))
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
 
       // eslint-disable-next-line no-extra-boolean-cast
       setIsPostUpdated(!!!isPostUpdated);

@@ -13,6 +13,7 @@
     "@material-ui/styles": "^4.11.4",
     "axios": "^0.25.0",
     "babel-loader": "^8.2.3",
+    "compression": "^1.7.4",
     "compression-webpack-plugin": "^9.2.0",
     "cors": "^2.8.5",
     "css-loader": "^6.6.0",

@@ -4,61 +4,64 @@ const jwt = require('express-jwt');
 const jwksRsa = require('jwks-rsa');
 // const { resolve } = require('path');
 const axios = require('axios');
+const compression = require('compression');
 
 require('dotenv').config({});
 
 const app = express();
 
-app.use(express.json())
+app.use(compression());
+app.use(express.json());
 app.use(express.static('public'));
-
 
 //FEED ENDPOINTS
 app.get('/', async (req, res) => {
   const optionGetPosts = {
     method: 'GET',
     url: `http://localhost:1234/`,
-  }
+  };
   axios(optionGetPosts)
     .then((result) => {
-      console.log(result.data)
+      console.log(result.data);
     })
     .catch((error) => {
-      console.log(error)
-      res.send(error)
-    })
-
-})
+      console.log(error);
+      res.send(error);
+    });
+});
 
 app.get('/hashtag', async (req, res) => {
-  const { q } = req.query
-  console.log(q)
+  const { q } = req.query;
+  console.log(q);
   const optionGetHashtagPosts = {
     method: 'GET',
     url: `http://localhost:1234/getHashtags/${q}`,
-  }
+  };
   axios(optionGetHashtagPosts)
     .then((result) => {
-      console.log(result.data)
+      console.log(result.data);
     })
     .catch((error) => {
-      console.log(error)
-      res.send(error)
-    })
-
-})
-
+      console.log(error);
+      res.send(error);
+    });
+});
 
 //PROFILE ENDPOINTS
 //get projects and user profile data
 app.get('/profile/:username', (req, res) => {
   // console.log('projects query', req.query);
   // console.log('projects query user', req.query.username);
-  const { username } = req.query
+
+  // const { username } = req.query
+  const username = 'stella';
+
+  console.log(username);
   console.log('stage 1 success');
   axios({
     method: 'GET',
-    url: `http://54.91.250.255:1234/getProfileData/projects/${username}`,
+    url: `https://api.soundtok.live/getProfileData/projects/${username}`,
+    // url: `http://54.91.250.255:1234/getProfileData/projects/${username}`,
     //url: `http://localhost:1234/getProfileData/projects/${username}`
   })
     .then((response) => {
@@ -78,8 +81,9 @@ app.get('/profile/:username', (req, res) => {
 app.get('/profile', (req, res) => {
   axios({
     method: 'GET',
-    url: `http://54.91.250.255:1234/userDrafts`,
-    params: req.query
+    url: `https://api.soundtok.live/userDrafts`,
+    // url: `http://54.91.250.255:1234/userDrafts`,
+    params: req.query,
   })
     .then((response) => {
       res.status(200).send(response);
@@ -92,16 +96,18 @@ app.get('/profile', (req, res) => {
 //update username and bio in profile
 app.put('/profile/', (req, res) => {
   // console.log('test', req.body);
-  let tempData = {  //need to figure out cloudinary link, below is proxy data.
+  let tempData = {
+    //need to figure out cloudinary link, below is proxy data.
     username: req.query.username,
-    profileURL: 'https://yahoofantasysports-res.cloudinary.com/image/upload/fantasy-logos/25311153506_9fdda2493f.jpg',
-    bio: req.query.bio
-  }
-  const { username, bio } = req.params
+    profileURL:
+      'https://yahoofantasysports-res.cloudinary.com/image/upload/fantasy-logos/25311153506_9fdda2493f.jpg',
+    bio: req.query.bio,
+  };
+  const { username, bio } = req.params;
   axios({
     method: 'PUT',
     url: `http://54.91.250.255:1234/updateProfile`,
-    data: tempData
+    data: tempData,
   })
     .then((response) => {
       res.status(200).send(response);
@@ -118,7 +124,7 @@ app.delete('/deleteProject', (req, res) => {
   axios({
     method: 'DELETE',
     url: `http://54.91.250.255:1234`,
-    data: req.body
+    data: req.body,
   })
     .then((response) => {
       res.status(200).send(response);

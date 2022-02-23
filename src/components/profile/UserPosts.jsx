@@ -54,36 +54,46 @@ const UserPosts = ({isCurrentUser, profileName}) => {
       projectId: projectId //will eventually be [songsToDelete]
     };
 
-    axios.delete('/deleteProject', {data: formData})
-      .then(function (response) {
-        // console.log(response);
-        console.log('Project successfully deleted');
-        if (source === 'Posts') {
-          //will need to filter out all songIds in the array
-          // setSongs(songs.filter(song => song.projectId !== projectId));
-        } else {
-          // setDrafts(drafts.filter(draft => draft.projectId !== projectId));
-        }
-      })
-      .catch(function (error) {
-        //pop-up with with message - please review error and try again
-        //could make popup - warning
-        // console.log('Project failed to delete. Please refresh the page and try again');
-        console.log(error);
-      });
+    // axios.delete('/deleteProject', {data: formData})
+    //   .then(function (response) {
+    //     // console.log(response);
+    //     console.log('Project successfully deleted');
+    //     if (source === 'Posts') {
+    //       //will need to filter out all songIds in the array
+    //       // setSongs(songs.filter(song => song.projectId !== projectId));
+    //     } else {
+    //       // setDrafts(drafts.filter(draft => draft.projectId !== projectId));
+    //     }
+    //   })
+    //   .catch(function (error) {
+    //     //pop-up with with message - please review error and try again
+    //     //could make popup - warning
+    //     // console.log('Project failed to delete. Please refresh the page and try again');
+    //     console.log(error);
+    //   });
 
+    const optionGetPosts = {
+      // method: 'PUT',
+      url: 'api.soundtok.live/removePost',
+      data: formData
+    };
+
+    axios.delete(optionGetPosts)
+      .then((response) => {
+        console.log('response', response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
-    //api call to get songs
-    //if logged in, api call to get drafts
-    // console.log('test');
-    //console.log('profile name ', profileName)
-    axios.get(`/profile/${profileName}`, {
-      params: {
-        username: profileName
-      }
-    })
+    const optionGetPosts = {
+      method: 'GET',
+      url: 'api.soundtok.live/getProfileData/projects/stella',
+    };
+
+    axios.get(optionGetPosts)
       .then((response) => {
         // setSongs(response.data);
         console.log('response: ', response.data);
@@ -94,20 +104,20 @@ const UserPosts = ({isCurrentUser, profileName}) => {
         console.log(err);
       });
 
-    if (isCurrentUser) {
-      axios.get('/userDrafts', {
-        params: {
-          username: profileName
-        }
-      })
-        .then((response) => {
-          // setDrafts(response.data);
-          console.log('response: ', response.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    // if (isCurrentUser) {  //update after team sets up sample draft data
+    //   axios.get('/userDrafts', {
+    //     params: {
+    //       username: profileName
+    //     }
+    //   })
+    //     .then((response) => {
+    //       // setDrafts(response.data);
+    //       console.log('response: ', response.data);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // }
   }, []);
 
   return (
@@ -125,7 +135,7 @@ const UserPosts = ({isCurrentUser, profileName}) => {
             <Song
               key={i}
               songId={song.projectId}
-              songImage={song.profilePicture}
+              songImage={song.projectImage}
               projectTitle={song.projectTitle}
               songDescription={song.projectDescription}
               projectAudioLink={song.projectAudioLink}
