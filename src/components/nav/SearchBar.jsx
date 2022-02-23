@@ -6,6 +6,8 @@ import { useClickOutside } from 'react-click-outside-hook';
 import MoonLoader from 'react-spinners/MoonLoader';
 import useDebounce from './debounceHook.jsx';
 import axios from 'axios';
+import { Hashtag } from '../home/Hashtag.jsx';
+
 // import {} from './hashtag.json';
 // import {} from './users.json';
 
@@ -168,7 +170,7 @@ const Search = () => {
     //   console.log("Error: ", err)
     // })
     const response = {}
-    response.data = ['test', 'test case','another test']
+    response.data = ['grind', 'inspiration', 'testing']
 
     if (response) {
       console.log("Response", response.data)
@@ -219,9 +221,10 @@ const Search = () => {
               {results.map(
                 (result, index) => {
                 return (
-                  <div key={ index }>
-                    {result}
-                  </div>
+                  // <div key={ index }>
+                  //   {result}
+                  // </div>
+                   <Hashtag key={index} text={`#${result}`}></Hashtag>
                 )}
               )}
             </>
