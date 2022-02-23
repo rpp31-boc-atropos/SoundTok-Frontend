@@ -10,7 +10,7 @@ const PostsProvider = ({ children }) => {
 
   // QUERY FOR ALL POSTS
   React.useEffect(async () => {
-    const result = await axios('http://54.91.250.255:1234/');
+    const result = await axios('https://api.soundtok.live/');
 
     setPosts(result.data);
   }, [isPostUpdated]);
