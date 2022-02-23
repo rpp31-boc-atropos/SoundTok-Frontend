@@ -12,8 +12,10 @@ import Folder from '@material-ui/icons/Folder';
 import Add from '@material-ui/icons/Add';
 
 import {Draft} from './Styles/styles.js';
-import fakeData from './fakeDraftData.js';
+import fakeData from './fakeDraftdata.js';
 
+//todo: selected draft
+// save/load drafts
 
 const DraftList = ({ setDraft, newDraft }) => {
 

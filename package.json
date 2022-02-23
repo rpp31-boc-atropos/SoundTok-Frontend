@@ -49,6 +49,7 @@
     "start": "nodemon server/http_server.js",
     "https": "nodemon server/https_server.js",
     "build": "webpack -w",
+    "buildOnce": "webpack",
     "test1": "jest --coverage",
     "test": "exit 0"
   },

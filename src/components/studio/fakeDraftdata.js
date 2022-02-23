@@ -4,12 +4,12 @@ const fakeData = [
     date: 'February 14th, 2022',
     tracks: [
       {
-        src: `http://res.cloudinary.com/poyraz96/video/upload/v1645551794/brq365fh1ibquglsnkzh.mp3`,
+        src: 'https://res.cloudinary.com/poyraz96/video/upload/v1645551794/brq365fh1ibquglsnkzh.mp3',
         name: 'Vocals',
         gain: 0.5,
       },
       {
-        src: `http://res.cloudinary.com/poyraz96/video/upload/v1645551794/brq365fh1ibquglsnkzh.mp3`,
+        src: 'https://res.cloudinary.com/poyraz96/video/upload/v1645551794/brq365fh1ibquglsnkzh.mp3',
         name: 'Drums',
         start: 8.5,
         fadeIn: {
@@ -21,7 +21,7 @@ const fakeData = [
         },
       },
       {
-        src: `http://res.cloudinary.com/poyraz96/video/upload/v1645551794/brq365fh1ibquglsnkzh.mp3`,
+        src: 'https://res.cloudinary.com/poyraz96/video/upload/v1645551794/brq365fh1ibquglsnkzh.mp3',
         name: 'Guitar',
         start: 23.5,
         fadeOut: {
@@ -37,7 +37,7 @@ const fakeData = [
     date: 'February 13th, 2022',
     tracks: [
       {
-        src: 'http://res.cloudinary.com/poyraz96/video/upload/v1645551794/brq365fh1ibquglsnkzh.mp3',
+        src: 'https://res.cloudinary.com/poyraz96/video/upload/v1645551794/brq365fh1ibquglsnkzh.mp3',
         name: 'Drums',
         start: 8.5,
         fadeIn: {
@@ -49,12 +49,12 @@ const fakeData = [
         },
       },
       {
-        src: 'http://res.cloudinary.com/poyraz96/video/upload/v1645551794/brq365fh1ibquglsnkzh.mp3',
+        src: 'https://res.cloudinary.com/poyraz96/video/upload/v1645551794/brq365fh1ibquglsnkzh.mp3',
         name: 'Vocals',
         gain: 0.5,
       },
       {
-        src: 'http://res.cloudinary.com/poyraz96/video/upload/v1645551794/brq365fh1ibquglsnkzh.mp3',
+        src: 'https://res.cloudinary.com/poyraz96/video/upload/v1645551794/brq365fh1ibquglsnkzh.mp3',
         name: 'Guitar',
         start: 23.5,
         fadeOut: {
@@ -70,7 +70,7 @@ const fakeData = [
     date: 'February 12th, 2022',
     tracks: [
       {
-        src: 'http://res.cloudinary.com/poyraz96/video/upload/v1645551794/brq365fh1ibquglsnkzh.mp3',
+        src: 'https://res.cloudinary.com/poyraz96/video/upload/v1645551794/brq365fh1ibquglsnkzh.mp3',
         name: 'Drums',
         start: 8.5,
         fadeIn: {
