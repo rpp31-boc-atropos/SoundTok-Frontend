@@ -15,12 +15,21 @@ const UserInfoProvider = ({ children }) => {
   React.useEffect(() => {
     if (isAuthenticated) {
       const email = user.email;
-      // axios
-      //   .post('http://54.91.250.255:1234/', { email })
-      //   .then((response) => {
-      //     console.log(response);
-      //   })
-      //   .catch((error) => {});
+      setEmail(email);
+      axios
+        .get('http://54.91.250.255:1234/getUserData', {
+          params: { email },
+        })
+        .then((response) => {
+          const data = response.data[0];
+          setUsername(data.username);
+          setProfilePic(data.profilePicture);
+          setUserBio(data.userBio);
+          return;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } else {
       setUsername(null);
       setEmail(null);

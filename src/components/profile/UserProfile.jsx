@@ -60,48 +60,78 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName}) => {
   };
 
   const handleUpdateProfile = (newPhoto, bio) => {
-    if (newPhoto !== false) {
-      const formData = new FormData();
-      formData.append('file', newPhoto);
-      // formData.append('upload_preset', CLOUDINARY_PROFILE_PRESET);
-      formData.append('upload_preset', 'zua1tfa6');
+    const formData = new FormData();
+    formData.append('file', newPhoto);
+    // formData.append('upload_preset', CLOUDINARY_PROFILE_PRESET);
+    formData.append('upload_preset', 'zua1tfa6');
 
-      axios.post('https://api.cloudinary.com/v1_1/rickkcloudinary/image/upload', formData)
-        .then((response) => {
-          setProfilePicture(response.data.secure_url);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .then((response) => {
-          setBio(bio);
-          axios.put(`/updateProfile`,
-            {
-              username: profileName,
-              bio: bio,
-              profilePicture: profilePicture
-            });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      setBio(bio);
-      axios.put(`/updateProfile`,
-        {
-          username: profileName,
-          bio: bio,
-          profilePicture: profilePicture
-        });
-    }
+    axios.post('https://api.cloudinary.com/v1_1/rickkcloudinary/image/upload', formData)
+      .then((response) => {
+        setProfilePicture(response.data.secure_url);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .then((response) => {
+        setBio(bio);
+        // axios.put(`/updateProfile`,
+        //   {
+        //     username: profileName,
+        //     bio: bio,
+        //     profilePicture: profilePicture
+        //   });
+
+        let tempData = {
+          username: 'stella',
+          profileURL: profilePicture,
+          bio: bio
+        };
+
+        const optionGetPosts = {
+          // method: 'PUT',
+          url: 'api.soundtok.live/updateProfile',
+          data: tempData
+        };
+
+        axios.put(optionGetPosts)
+          .then((response) => {
+            console.log('response', response);
+            setProfilePicture(response.data.profilePicture);
+            setBio(response.data.bio);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  useEffect(() => {
-    axios.get(`/profile/${profileName}`, {
-      params: {
-        username: profileName
-      }
-    })
+  // useEffect(() => {
+  //   axios.get(`/profile/${profileName}`, {
+  //     params: {
+  //       username: profileName
+  //     }
+  //   })
+  //     .then((response) => {
+  //       console.log('response', response);
+  //       setProfilePicture(response.data.profilePicture);
+  //       setBio(response.data.bio);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // });
+
+  //move to higher level
+  React.useEffect(() => {
+    const optionGetPosts = {
+      method: 'GET',
+      url: 'api.soundtok.live/getProfileData/projects/stella',
+    };
+
+    axios.get(optionGetPosts)
       .then((response) => {
         console.log('response', response);
         setProfilePicture(response.data.profilePicture);
