@@ -7,7 +7,6 @@ const PlayerContext = createContext();
 
 const PlayerProvider = ({ children }) => {
   const { posts } = usePosts();
-  console.log('INITIAL POSTS IN PLAYER', posts);
 
   const initialState = {
     currentSong: -1,
@@ -21,7 +20,6 @@ const PlayerProvider = ({ children }) => {
   const [state, dispatch] = useReducer(playerReducer, initialState);
 
   useEffect(() => {
-    console.log({ posts });
     dispatch({ type: 'UPDATE_POSTS', data: posts });
   }, [posts]);
 
