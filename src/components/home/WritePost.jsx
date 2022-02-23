@@ -25,6 +25,7 @@ const WritePost = (props) => {
   const [audioDuration, setAudioDuration] = React.useState(0);
   const [uploadedImage, setUploadedImage] = React.useState(null);
   const [errorMessage, setErrorMessage] = React.useState(null);
+  const [infoMessage, setInfoMessage] = React.useState(null);
 
   // refs
   const projectTitle = React.useRef(null);
@@ -60,6 +61,10 @@ const WritePost = (props) => {
     if (count >= maxCharacters) {
       event.target.value = event.target.value.slice(0, maxCharacters - 1);
     }
+  };
+
+  const handleMouseLeave = (event) => {
+    setInfoMessage(null);
   };
 
   const handleAudio = async (event) => {
@@ -124,8 +129,6 @@ const WritePost = (props) => {
         tracks: [],
       };
 
-      // setPosts([post].concat(posts));
-
       axios
         .post(('https://api.soundtok.live/', post))
         .then((response) => {
@@ -164,7 +167,13 @@ const WritePost = (props) => {
                   ></ProjectTitle>
                 </label>
                 <AudioIcons>
-                  <PostAudioIcon type="button">
+                  <PostAudioIcon
+                    type="button"
+                    onMouseEnter={() => {
+                      setInfoMessage('Upload Audio');
+                    }}
+                    onMouseLeave={handleMouseLeave}
+                  >
                     <label htmlFor="post-audio">
                       <div className="ri-upload-2-line" />
                     </label>
@@ -176,15 +185,36 @@ const WritePost = (props) => {
                       onChange={handleAudio}
                     ></UploadFile>
                   </PostAudioIcon>
-                  <PostAudioIcon type="button">
+                  <PostAudioIcon
+                    type="button"
+                    onClick={() => {
+                      props.setIsDraftToggled(!!!props.isDraftToggled);
+                    }}
+                    onMouseEnter={() => {
+                      setInfoMessage('Load from Drafts');
+                    }}
+                    onMouseLeave={handleMouseLeave}
+                  >
                     <div className="ri-folder-upload-line" />
                   </PostAudioIcon>
-                  <PostAudioIcon type="button">
+                  <PostAudioIcon
+                    type="button"
+                    onMouseEnter={() => {
+                      setInfoMessage('Go to Studio');
+                    }}
+                    onMouseLeave={handleMouseLeave}
+                  >
                     <Link to="/studio">
                       <div className="ri-mic-line" />
                     </Link>
                   </PostAudioIcon>
-                  <PostAudioIcon type="button">
+                  <PostAudioIcon
+                    type="button"
+                    onMouseEnter={() => {
+                      setInfoMessage('Upload Image');
+                    }}
+                    onMouseLeave={handleMouseLeave}
+                  >
                     <label htmlFor="post-image">
                       <div className="ri-image-2-line" />
                     </label>
@@ -195,6 +225,14 @@ const WritePost = (props) => {
                       accept="image/*"
                       onChange={handleImage}
                     ></UploadFile>
+                  </PostAudioIcon>
+                  <PostAudioIcon
+                    onMouseEnter={() => {
+                      setInfoMessage('Save to Drafts');
+                    }}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    <div className="ri-save-3-line"></div>
                   </PostAudioIcon>
                 </AudioIcons>
               </PostHeader>
@@ -232,6 +270,7 @@ const WritePost = (props) => {
           </Inputs>
         </FlexColumn>
       </Form>
+      <InfoMessage>{infoMessage}</InfoMessage>
     </WritePostWrapper>
   );
 };
@@ -248,6 +287,17 @@ const WritePostWrapper = styled.div`
   box-sizing: border-box;
   border: 1px solid var(--font-line-color-yellow-transparent);
   border-bottom: none;
+`;
+
+const InfoMessage = styled.div`
+  width: 100px;
+  overflow-wrap: normal;
+  color: var(--font-line-color-yellow);
+  position: absolute;
+  top: 58px;
+  left: 960px;
+  font-size: 10px;
+  text-align: center;
 `;
 
 const Form = styled.form`
@@ -280,7 +330,6 @@ const ProjectTitle = styled.input`
 `;
 
 const AudioIcons = styled.div`
-  width: 84px;
   display: inherit;
   flex-direction: row;
   justify-content: space-between;
@@ -291,6 +340,7 @@ const PostAudioIcon = styled.button`
   display: inherit;
   align-items: inherit;
   color: var(--font-line-color-yellow-transparent);
+  margin-left: 4px;
   &:hover {
     color: var(--font-line-color-yellow);
   }
