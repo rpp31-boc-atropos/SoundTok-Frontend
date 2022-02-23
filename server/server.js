@@ -54,11 +54,16 @@ app.get('/hashtag', async (req, res) => {
 app.get('/profile/:username', (req, res) => {
   // console.log('projects query', req.query);
   // console.log('projects query user', req.query.username);
-  const { username } = req.query
+
+  // const { username } = req.query
+  const username = 'stella';
+
+  console.log(username);
   console.log('stage 1 success');
   axios({
     method: 'GET',
-    url: `http://54.91.250.255:1234/getProfileData/projects/${username}`,
+    url: `https://api.soundtok.live/getProfileData/projects/${username}`,
+    // url: `http://54.91.250.255:1234/getProfileData/projects/${username}`,
     //url: `http://localhost:1234/getProfileData/projects/${username}`
   })
     .then((response) => {
@@ -78,7 +83,8 @@ app.get('/profile/:username', (req, res) => {
 app.get('/profile', (req, res) => {
   axios({
     method: 'GET',
-    url: `http://54.91.250.255:1234/userDrafts`,
+    url: `https://api.soundtok.live/userDrafts`,
+    // url: `http://54.91.250.255:1234/userDrafts`,
     params: req.query
   })
     .then((response) => {
