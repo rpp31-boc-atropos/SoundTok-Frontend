@@ -17,7 +17,7 @@ const UserInfoProvider = ({ children }) => {
       const email = user.email;
       setEmail(email);
       axios
-        .get('http://54.91.250.255:1234/getUserData', {
+        .get('https://api.soundtok.live/getUserData', {
           params: { email },
         })
         .then((response) => {
