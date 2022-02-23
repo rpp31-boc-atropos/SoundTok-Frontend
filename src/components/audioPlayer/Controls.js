@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { usePlayer } from '../../contexts/player/playerContext';
 import styled from 'styled-components';
 
+import ProfilePicture from '../ProfilePicture.jsx';
+
 const PlayerControls = () => {
   const {
     currentSong,
@@ -19,7 +21,7 @@ const PlayerControls = () => {
 
   const audio = useRef('audio_tag');
 
-  const [statevolum, setStateVolum] = useState(0.3);
+  const [statevolume, setStateVolume] = useState(0.3);
   const [dur, setDur] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
 
@@ -31,7 +33,7 @@ const PlayerControls = () => {
     audio.current.paused ? audio.current.play() : audio.current.pause();
 
   const handleVolume = (q) => {
-    setStateVolum(q);
+    setStateVolume(q);
     audio.current.volume = q;
   };
 
@@ -42,7 +44,7 @@ const PlayerControls = () => {
   };
 
   useEffect(() => {
-    audio.current.volume = statevolum;
+    audio.current.volume = statevolume;
     if (playing) {
       toggleAudio();
     }
@@ -55,13 +57,13 @@ const PlayerControls = () => {
         onCanPlay={(e) => setDur(e.target.duration)}
         onEnded={handleEnd}
         ref={audio}
-        type='audio/mpeg'
-        preload='true'
+        type="audio/mpeg"
+        preload="true"
         src={songs[currentSong] ? songs[currentSong].projectAudioLink : ''}
       />
       <FeedWidth>
         <ControlButtons>
-          <div className='ri-skip-back-fill' onClick={prevSong} role='prev' />
+          <div className="ri-skip-back-fill" onClick={prevSong} role="prev" />
           <Spacer />
           <div
             className={`playPause ${!playing ? 'ri-play-circle-fill' : 'ri-pause-circle-fill'
@@ -70,55 +72,76 @@ const PlayerControls = () => {
               togglePlaying();
               toggleAudio();
             }}
+            role='play'
           />
           <Spacer />
-          <div className='ri-skip-forward-fill' onClick={nextSong} role='next' />
+          <div
+            className="ri-skip-forward-fill"
+            onClick={nextSong}
+            role="next"
+          />
           <Spacer />
           <div
             className={`random ri-shuffle-line ${random ? 'active' : ''}`}
             onClick={toggleRandom}
+            role='random'
           />
           <Spacer />
           <div
             className={`repeat ri-repeat-line ${repeat ? 'active' : ''}`}
             onClick={toggleRepeat}
+            role='repeat'
           />
         </ControlButtons>
-        <Spacer size='5' />
+        <Spacer size="5" />
         <BarWrapper>
-          <div className='currentT'>{fmtMSS(currentTime)}</div>
-          <Spacer size='2' />
+          <div
+            className="currentT"
+            role="currentTime"
+          >
+            {fmtMSS(currentTime)}</div>
+          <Spacer size="2" />
           <Bar>
             <input
               onChange={handleProgress}
               value={dur ? (currentTime * 100) / dur : 0}
-              type='range'
-              name='progresBar'
-              id='progressBar'
-              role='currentTime'
+              type="range"
+              name="progresBar"
+              id="progressBar"
+              role='progressBar'
             />
             <div
-              className='songtitle'
+              className="songtitle"
               style={{ position: 'absolute', bottom: 6, fontSize: 12 }}
-              role='songTitle'
+              role="songTitle"
             >
               {songs[currentSong] ? songs[currentSong].projectTitle : ''}
             </div>
           </Bar>
-          <Spacer size='2' />
-          <div className='totalT'>{fmtMSS(dur)}</div>
+          <Spacer size="2" />
+          <div
+            className="totalT"
+            role='totalTime'
+          >
+            {fmtMSS(dur)}</div>
         </BarWrapper>
-        <Spacer size='5' />
-        <Volume>
-          <div className='ri-volume-up-fill' />
+        <Spacer size="3" />
+        <ProfilePicture
+          username={songs[currentSong] ? songs[currentSong].username : null}
+          profilePicture={
+            songs[currentSong] ? songs[currentSong].profilePicture : null
+          }
+          size="36"
+        />
+        <Volume role='volume'>
+          <div className="ri-volume-up-fill" />
           <Spacer />
           <input
-            value={Math.round(statevolum * 100)}
-            type='range'
-            name='volBar'
-            id='volBar'
+            value={Math.round(statevolume * 100)}
+            type="range"
+            name="volBar"
+            id="volBar"
             onChange={(e) => handleVolume(e.target.value / 100)}
-            role='volume'
           />
         </Volume>
       </FeedWidth>
@@ -170,6 +193,7 @@ const BarWrapper = styled.div`
   width: 100%;
 
   #progressBar {
+    display: table;
     background: transparent;
     width: 100%;
   }

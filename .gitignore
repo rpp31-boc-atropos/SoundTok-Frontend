@@ -15,6 +15,9 @@
 /public/main.css*
 /public/main.css.gz*
 
+#https certificates
+fullchain.pem
+privkey.pem
 
 # misc
 .DS_Store

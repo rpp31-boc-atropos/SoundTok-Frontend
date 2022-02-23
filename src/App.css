@@ -25,8 +25,8 @@
   --wp-mute-solo-focus-color: rgba(52, 58, 64, 0.5);
   --wp-btn-danger-background-hover-color: black;
   --wp-btn-danger-border-hover-color: black;
-  --wp-btn-danger-background-color: black;
-  --wp-btn-danger-border-color: black;
+  --wp-btn-danger-background-color: rgb(255, 250, 206);
+  --wp-btn-danger-border-color: rgb(255, 250, 206);
   --wp-btn-danger-focus-color: rgba(225, 83, 97, 0.5);
   --wp-btn-danger-color: rgb(136, 11, 194);
   --wp-btn-info-background-hover-color: #138496;
@@ -125,7 +125,8 @@ input {
 }
 
 /* .playlist {
-margin: 0.3em 0; } */
+  overflow-y: auto;
+} */
 
 .playlist *, .playlist ::after, .playlist ::before {
   box-sizing: border-box;
@@ -170,26 +171,6 @@ margin: 0.3em 0; } */
   color: var(--wp-btn-danger-color);
   background-color: var(--wp-btn-danger-background-color);
   border-color: var(--wp-btn-danger-border-color);
-}
-
-/* .playlist .playlist-tracks .channel-wrapper .controls .track-header .btn-danger {
-  width: 20px;
-  height: 20px;
-  padding-top: 0.3em;
-  color: blue;
-  background-color: black;
-  content: 'X';
-  border-radius: 5px;
-} */
-
-.playlist .btn-danger:hover {
-  color: var(--wp-btn-danger-color);
-  background-color: var(--wp-btn-danger-background-hover-color);
-  border-color: var(--wp-btn-danger-border-hover-color);
-}
-
-.playlist .btn-danger:active:focus, .playlist .btn-danger:focus {
-  box-shadow: 0 0 0 0.2rem var(--wp-btn-danger-focus-color);
 }
 
 .playlist .btn-info {
@@ -295,23 +276,24 @@ margin: 0.3em 0; } */
 
 .playlist .controls .track-header {
   overflow: hidden;
-  height: 26px;
+  height: 24px;
   width: 179px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 0.2rem;
   font-size: 0.75rem;
+  margin-top: 2px;
 }
 
-.playlist .controls .track-header button {
+/* .playlist .controls .track-header button {
   width: 20px;
   height: 20px;
   display: flex;
   z-index: 10;
   align-items: center;
   justify-content: center;
-}
+} */
 
 .playlist .controls .track-header span {
   color: black;
@@ -353,14 +335,6 @@ margin: 0.3em 0; } */
   margin-top: 9px;
   content: "\f028";
 }
-
-/* .playlist .controls label.stereopan:before {
-  content: "L";
-}
-
-.playlist .controls label.stereopan:after {
-  content: "R";
-} */
 
 .playlist .controls input[type="range"] {
   -webkit-appearance: none;

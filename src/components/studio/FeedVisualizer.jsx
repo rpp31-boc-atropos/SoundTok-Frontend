@@ -14,7 +14,6 @@ const FeedVisualizer = () => {
   // let audio;
 
   const [audio, setAudio] = useState('');
-
   const [flag, setFlag] = useState(false);
 
 
@@ -25,20 +24,15 @@ const FeedVisualizer = () => {
   });
 
   const PlayerStarted = () => {
-    console.log(flag);
+    // console.log(flag);
     audio.play();
   };
 
   const Visuals = () => {
 
-    console.log('audioSource', audioSource);
-    console.log('audioCTX', audioCtx);
+    // console.log('audioSource', audioSource);
+    // console.log('audioCTX', audioCtx);
     setFlag(true);
-    console.log('audio.src', audio.src);
-
-    console.log('flag', flag);
-
-
 
     audioCtx = audioCtx || new AudioContext();
 
