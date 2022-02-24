@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useUserInfo } from '../../contexts/UserContext.jsx';
 import ProfilePicture from '../ProfilePicture.jsx';
-import axios from 'axios';
+// import styled from 'styled-components';
 // import { getId } from 'wavesurfer.js/src/util';
+
 
 const NavBar = () => {
   const {
@@ -25,8 +26,6 @@ const NavBar = () => {
         <Link to="/studio">Studio</Link>
       </li>
 
-      <Search />
-
       <li>
         <Link to="/profile">Profile</Link>
       </li>
@@ -34,7 +33,7 @@ const NavBar = () => {
       {!isLoading && !isAuthenticated && (
         <button onClick={() => loginWithRedirect()}>Log In</button>
       )}
-
+      <Search />
       {!isLoading && isAuthenticated && (
         <div style={{
           display: 'flex',
@@ -45,24 +44,9 @@ const NavBar = () => {
           <button onClick={() => logout()}>Log Out</button>
         </div>
       )}
+
     </ul>
   );
 };
 
 export default NavBar;
-
-// <div
-        //   style={{
-        //     display: 'flex',
-        //     justifyContent: 'space-evenly',
-        //     alignItems: 'center',
-        //   }}
-        // >
-        //   <img
-        //     src={profilePic}
-        //     style={{
-        //       height: '30pt',
-        //       borderRadius: '50%',
-        //       paddingRight: '10px',
-        //     }}
-        //   />

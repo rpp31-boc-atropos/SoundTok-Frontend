@@ -10,7 +10,7 @@ export const Hashtag = (props) => {
   };
 
   const content = props.text;
-  console.log(content);
+  // console.log(content);
 
   return (
     <Linkify tagName="p" options={linkifyOptions}>
