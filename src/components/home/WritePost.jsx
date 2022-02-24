@@ -287,6 +287,7 @@ const WritePostWrapper = styled.div`
   box-sizing: border-box;
   border: 1px solid var(--font-line-color-yellow-transparent);
   border-bottom: none;
+  position: relative;
 `;
 
 const InfoMessage = styled.div`
@@ -294,8 +295,8 @@ const InfoMessage = styled.div`
   overflow-wrap: normal;
   color: var(--font-line-color-yellow);
   position: absolute;
-  top: 58px;
-  left: 960px;
+  top: 4px;
+  left: 380px;
   font-size: 10px;
   text-align: center;
 `;
