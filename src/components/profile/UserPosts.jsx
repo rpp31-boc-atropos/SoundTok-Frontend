@@ -36,6 +36,8 @@ const UserPosts = ({isCurrentUser, profileName}) => {
   const [songs, setSongs] = useState(dummySongs);
   const [drafts, setDrafts] = useState(dummyDrafts);
   // const {projectsToDelete, setProjectsToDelete} = useState([]); - stretch goal - delete multiple songs
+  const [username, setUsername] = useState('leggo'); //update with Context when available
+
 
   const removeProject = (projectId, source) => {
     // needs call to remove from db. stretch goal - select and remove multiple songs
@@ -88,21 +90,48 @@ const UserPosts = ({isCurrentUser, profileName}) => {
   };
 
   useEffect(() => {
-    const optionGetPosts = {
-      method: 'GET',
-      url: 'api.soundtok.live/getProfileData/projects/stella',
-    };
+    // const optionGetPosts = {
+    //   method: 'GET',
+    //   url: 'api.soundtok.live/getProfileData/projects/stella',
+    // };
 
-    axios.get(optionGetPosts)
+    // axios.get(optionGetPosts)
+    //   .then((response) => {
+    //     // setSongs(response.data);
+    //     console.log('response: ', response.data);
+    //     // setSongs(response.data);
+    //   })
+    //   .catch((err) => {
+    //     //make pop-up
+    //     console.log(err);
+    //   });
+    let location = window.location.href;
+    let userProfile = location.slice((window.location.href.indexOf('profile') + 8));
+    // console.log('endpoint', userProfile);
+
+    if (userProfile !== '') {
+      setUsername(userProfile);
+    } else {
+      userProfile = username;
+    }
+    // setUsername(userProfile);
+
+    // axios.get(`/profile/${profileName}`, {
+    axios.get(`/profile`, {
+      params: {
+        // username: 'leggo'
+        username: userProfile
+      }
+    })
       .then((response) => {
-        // setSongs(response.data);
-        console.log('response: ', response.data);
-        setSongs(response.data);
+        console.log('post response', response.data.projectdata);
+        setSongs(response.data.projectdata);
+
       })
       .catch((err) => {
-        //make pop-up
         console.log(err);
       });
+
 
     // if (isCurrentUser) {  //update after team sets up sample draft data
     //   axios.get('/userDrafts', {

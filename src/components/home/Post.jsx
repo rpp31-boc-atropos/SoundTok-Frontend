@@ -19,6 +19,7 @@ const Post = (props) => {
   const { SetCurrent, currentSong, songs } = usePlayer();
 
   const handleDeletePost = (event) => {
+    event.preventDefault();
     const postId = props.postId;
     // axios.post('http://localhost:1234/', {postId})
     // .then((response) => {
@@ -30,6 +31,12 @@ const Post = (props) => {
 
     // eslint-disable-next-line no-extra-boolean-cast
     setIsPostUpdated(!!!isPostUpdated);
+  };
+
+  const handleRemix = (event) => {
+    event.preventDefault();
+    const audioLink = props.projectAudioLink;
+    // console.log({ audioLink });
   };
 
   return (
@@ -52,7 +59,7 @@ const Post = (props) => {
               </PostIcon>
             ) : null}
             <Spacer width="12" height="0" />
-            <PostIcon>
+            <PostIcon onClick={handleRemix}>
               <div className="ri-sound-module-line" />
             </PostIcon>
           </Link>
