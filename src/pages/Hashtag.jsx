@@ -9,7 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import { Container } from "@material-ui/core";
 
 const Hashtag = () => {
-  // queryString = "?q=classic"
+  // queryString = "?q=classic";
   const [searchParams, setSearchParams] = useSearchParams();
 
   const q = searchParams.get("q");
