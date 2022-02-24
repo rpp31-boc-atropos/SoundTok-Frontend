@@ -12,7 +12,7 @@ export default dummySongs = [
     projectAudioLink:
       'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Satin/Kai_Engel_-_03_-_Contention.mp3',
     projectTitle: 'Hakuna Matata',
-    projectLength: '2:39', //is it better for this to be calculated on the frontend, or will it be saved initially as a string?
+    projectLength: 204, //is it better for this to be calculated on the frontend, or will it be saved initially as a string?
   },
   {
     projectId: 24,
@@ -25,7 +25,7 @@ export default dummySongs = [
     projectAudioLink:
       'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Satin/Kai_Engel_-_01_-_Augmentations.mp3',
     projectTitle: 'Let it go',
-    projectLength: '2:40',
+    projectLength: 45,
   },
   {
     projectId: 25,
@@ -39,7 +39,7 @@ export default dummySongs = [
     projectAudioLink:
       'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Satin/Kai_Engel_-_08_-_Downfall.mp3',
     projectTitle: 'Satisfied',
-    projectLength: '2:12',
+    projectLength: 120,
   },
   {
     projectId: 12,
@@ -53,7 +53,7 @@ export default dummySongs = [
     projectAudioLink:
       'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Satin/Kai_Engel_-_03_-_Contention.mp3',
     projectTitle: 'Hakuna Matata',
-    projectLength: '2:39',
+    projectLength: 43,
   },
   {
     projectId: 13,
@@ -67,6 +67,6 @@ export default dummySongs = [
     projectAudioLink:
       'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Satin/Kai_Engel_-_03_-_Contention.mp3',
     projectTitle: 'Hakuna Matata',
-    projectLength: '2:39',
+    projectLength: 183,
   }
 ];

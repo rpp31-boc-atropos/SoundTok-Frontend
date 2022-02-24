@@ -64,7 +64,7 @@ app.get('/profile/', (req, res) => {
     //url: `http://localhost:1234/getProfileData/projects/${username}`
   })
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       res.status(200).send(response.data[0]);
     })
     .catch((error) => {
@@ -92,7 +92,7 @@ app.get('/profile', (req, res) => {
 
 //update username and bio in profile
 app.put('/updateProfile/', (req, res) => {
-  console.log('new profile data', req.body);
+  console.log('sending new profile data', req.body);
   // let tempData = {
   //   username: req.query.username,
   //   profileURL: req.query.profileURL,

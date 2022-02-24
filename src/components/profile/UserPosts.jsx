@@ -30,7 +30,7 @@ const PostWrapper = styled.div`
 `;
 
 // const UserPosts = ({isCurrentUser}) => {
-const UserPosts = ({isCurrentUser, profileName}) => {
+const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
   // const { user } = useAuth();
   const [tab, setTab] = useState('Posts');
   const [songs, setSongs] = useState(dummySongs);
@@ -113,6 +113,7 @@ const UserPosts = ({isCurrentUser, profileName}) => {
       setUsername(userProfile);
     } else {
       userProfile = username;
+      setIsCurrentUser(true);
     }
     // setUsername(userProfile);
 
@@ -124,7 +125,7 @@ const UserPosts = ({isCurrentUser, profileName}) => {
       }
     })
       .then((response) => {
-        console.log('post response', response.data.projectdata);
+        // console.log('post response', response.data.projectdata);
         setSongs(response.data.projectdata);
 
       })
