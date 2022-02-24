@@ -19,14 +19,6 @@ const WritePost = (props) => {
   const { posts, setPosts, isPostUpdated, setIsPostUpdated } = usePosts();
   const { songs } = usePlayer();
 
-  // state
-  const [textCharacterCount, setTextCharacterCount] = React.useState(0);
-  const [uploadedAudio, setUploadedAudio] = React.useState(null);
-  const [audioDuration, setAudioDuration] = React.useState(0);
-  const [uploadedImage, setUploadedImage] = React.useState(null);
-  const [errorMessage, setErrorMessage] = React.useState(null);
-  const [infoMessage, setInfoMessage] = React.useState(null);
-
   // refs
   const projectTitle = React.useRef(null);
   const projectText = React.useRef(null);
@@ -34,10 +26,10 @@ const WritePost = (props) => {
   // clear content when a post is made
   React.useEffect(() => {
     if (props.isPosted) {
-      setTextCharacterCount(0);
-      setUploadedAudio(null);
-      setAudioDuration(0);
-      setUploadedImage(null);
+      props.setTextCharacterCount(0);
+      props.setUploadedAudio(null);
+      props.setAudioDuration(0);
+      props.setUploadedImage(null);
       projectTitle.current.value = null;
       projectText.current.value = null;
       props.setIsPosted(false);
@@ -56,7 +48,7 @@ const WritePost = (props) => {
     const maxCharacters = 140;
     event.preventDefault();
     const count = event.target.value.length;
-    setTextCharacterCount(count);
+    props.setTextCharacterCount(count);
 
     if (count >= maxCharacters) {
       event.target.value = event.target.value.slice(0, maxCharacters - 1);
@@ -64,7 +56,7 @@ const WritePost = (props) => {
   };
 
   const handleMouseLeave = (event) => {
-    setInfoMessage(null);
+    props.setInfoMessage(null);
   };
 
   const handleAudio = async (event) => {
@@ -79,11 +71,11 @@ const WritePost = (props) => {
         formData
       );
       if (response.data.duration > 300) {
-        setErrorMessage('WARNING: Audio file longer than 5 minutes');
+        props.setErrorMessage('WARNING: Audio file longer than 5 minutes');
       } else {
-        setErrorMessage(null);
-        setUploadedAudio(response.data.url);
-        setAudioDuration(response.data.duration);
+        props.setErrorMessage(null);
+        props.setUploadedAudio(response.data.url);
+        props.setAudioDuration(response.data.duration);
       }
     } catch (error) {
       console.log(error);
@@ -99,16 +91,16 @@ const WritePost = (props) => {
     axios
       .post('https://api.cloudinary.com/v1_1/xoxohorses/image/upload', formData)
       .then((response) => {
-        setUploadedImage(response.data.url);
+        props.setUploadedImage(response.data.url);
       });
   };
 
   const handlePost = (event) => {
     event.preventDefault();
-    if (!uploadedAudio) {
-      setErrorMessage('WARNING: Please attach an audio file');
+    if (!props.uploadedAudio) {
+      props.setErrorMessage('WARNING: Please attach an audio file');
     } else {
-      setErrorMessage(null);
+      props.setErrorMessage(null);
       let title = projectTitle.current.value;
       let text = projectText.current.value;
       let tags = helper.parseTags(text);
@@ -122,14 +114,15 @@ const WritePost = (props) => {
         isDraft: false,
         postText: text,
         tags: tags,
-        projectAudioLink: uploadedAudio,
+        projectAudioLink: props.uploadedAudio,
         projectTitle: title,
-        projectLength: audioDuration,
-        projectImageLink: uploadedImage,
+        projectLength: props.audioDuration,
+        projectImageLink: props.uploadedImage,
         tracks: [],
       };
 
       axios
+        // .post(('http://localhost:1234/', post))
         .post(('https://api.soundtok.live/', post))
         .then((response) => {
           console.log(response);
@@ -170,7 +163,7 @@ const WritePost = (props) => {
                   <PostAudioIcon
                     type="button"
                     onMouseEnter={() => {
-                      setInfoMessage('Upload Audio');
+                      props.setInfoMessage('Upload Audio');
                     }}
                     onMouseLeave={handleMouseLeave}
                   >
@@ -191,7 +184,7 @@ const WritePost = (props) => {
                       props.setIsDraftToggled(!!!props.isDraftToggled);
                     }}
                     onMouseEnter={() => {
-                      setInfoMessage('Load from Drafts');
+                      props.setInfoMessage('Load from Drafts');
                     }}
                     onMouseLeave={handleMouseLeave}
                   >
@@ -200,7 +193,7 @@ const WritePost = (props) => {
                   <PostAudioIcon
                     type="button"
                     onMouseEnter={() => {
-                      setInfoMessage('Go to Studio');
+                      props.setInfoMessage('Go to Studio');
                     }}
                     onMouseLeave={handleMouseLeave}
                   >
@@ -211,7 +204,7 @@ const WritePost = (props) => {
                   <PostAudioIcon
                     type="button"
                     onMouseEnter={() => {
-                      setInfoMessage('Upload Image');
+                      props.setInfoMessage('Upload Image');
                     }}
                     onMouseLeave={handleMouseLeave}
                   >
@@ -228,7 +221,7 @@ const WritePost = (props) => {
                   </PostAudioIcon>
                   <PostAudioIcon
                     onMouseEnter={() => {
-                      setInfoMessage('Save to Drafts');
+                      props.setInfoMessage('Save to Drafts');
                     }}
                     onMouseLeave={handleMouseLeave}
                   >
@@ -245,32 +238,37 @@ const WritePost = (props) => {
                   rows="4"
                   cols="70"
                   placeholder="Share your sound"
-                  onChange={handleTextCharacterCount}
+                  onChange={props.handleTextCharacterCount}
                 ></TextInput>
               </label>
               <CharacterCount>
-                <span>{textCharacterCount}/140</span>
-                {errorMessage ? <span>{errorMessage}</span> : null}
+                <span>{props.textCharacterCount}/140</span>
+                {props.errorMessage ? <span>{props.errorMessage}</span> : null}
               </CharacterCount>
             </FlexColumn>
             <FlexColumn>
               <UploadedAudio
                 style={
-                  uploadedAudio
+                  props.uploadedAudio
                     ? { border: '1px solid var(--font-line-color-yellow)' }
                     : null
                 }
               >
-                {uploadedImage ? <img src={uploadedImage}></img> : null}
+                {props.uploadedImage ? (
+                  <img src={props.uploadedImage}></img>
+                ) : null}
               </UploadedAudio>
-              <Submit type="submit" disabled={errorMessage ? true : false}>
+              <Submit
+                type="submit"
+                disabled={props.errorMessage ? true : false}
+              >
                 Post
               </Submit>
             </FlexColumn>
           </Inputs>
         </FlexColumn>
       </Form>
-      <InfoMessage>{infoMessage}</InfoMessage>
+      <InfoMessage>{props.infoMessage}</InfoMessage>
     </WritePostWrapper>
   );
 };
