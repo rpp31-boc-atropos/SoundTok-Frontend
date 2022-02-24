@@ -69,6 +69,7 @@ const PlayerControls = () => {
             className={`playPause ${!playing ? 'ri-play-circle-fill' : 'ri-pause-circle-fill'
               }`}
             onClick={() => {
+              console.log({ songs });
               togglePlaying();
               toggleAudio();
             }}
