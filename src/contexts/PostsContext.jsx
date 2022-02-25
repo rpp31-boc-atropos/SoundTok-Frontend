@@ -26,9 +26,8 @@ const PostsProvider = ({ children }) => {
 
   // QUERY FOR ALL DRAFTS
   React.useEffect(async () => {
-    if (email != null) {
+    if (email != null) {  // need to wait for Auth0 context to have the email available
       const result = await axios(`https://api.soundtok.live/drafts/${email}`);
-      console.log('result from draft query: ', result.data);
       setDrafts(result.data);
     }
   }, [isDraftUpdated, email]);

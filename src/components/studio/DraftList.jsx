@@ -5,23 +5,17 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 //import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 //import IconButton from '@material-ui/core/IconButton';
-import Avatar from '@material-ui/core/Avatar';
-
 //import DeleteIcon from '@material-ui/icons/Delete';
+import Avatar from '@material-ui/core/Avatar';
 import Folder from '@material-ui/icons/Folder';
-//import Add from '@material-ui/icons/Add';
 
-import {Draft} from './Styles/styles.js';
+import { Draft } from './Styles/styles.js';
 
 import { usePosts } from '../../contexts/PostsContext.jsx';
-
-//todo: selected draft
-// save/load drafts
 
 const DraftList = ({ setDraft }) => {
 
   const { drafts } = usePosts();
-  console.log('drafts from context: ', drafts);
 
   if (drafts === null || drafts === undefined) {
     return null;
@@ -30,18 +24,6 @@ const DraftList = ({ setDraft }) => {
   return (
     <div>
       <List dense={false}>
-        {/* <Draft>
-          <ListItem button onClick={newDraft}>
-            <ListItemAvatar>
-              <Avatar>
-                <Add />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary='New Draft'
-            />
-          </ListItem>
-        </Draft> */}
         {drafts.map((item, index) => (<DraftItem key={index} draft={item} setDraft={setDraft} />))}
       </List>
     </div>
@@ -50,9 +32,7 @@ const DraftList = ({ setDraft }) => {
 
 const DraftItem = ({draft, setDraft}) => {
 
-  // console.log(draft.name);
   const clickDraft = () => {
-    // console.log('loading: ', draft.name);
     setDraft(draft);
   };
 
