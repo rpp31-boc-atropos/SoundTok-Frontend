@@ -55,8 +55,8 @@ app.get('/profile/', (req, res) => {
 
   const { username } = req.query
 
-  console.log(username);
-  console.log('stage 1 success');
+  // console.log(username);
+  // console.log('stage 1 success');
   axios({
     method: 'GET',
     url: `https://api.soundtok.live/getProfileData/projects/${username}`,
@@ -64,18 +64,20 @@ app.get('/profile/', (req, res) => {
     //url: `http://localhost:1234/getProfileData/projects/${username}`
   })
     .then((response) => {
-      // console.log(response);
+      // console.log('response from server: ', response);
+      // console.log('getting back', response.data[0]);
       res.status(200).send(response.data[0]);
     })
     .catch((error) => {
-      console.log('stage 2 fail');
-      console.log(error);
+      // console.log('stage 2 fail');
+      // console.log(error);
       res.status(500).send(error);
     });
 });
 
 //drafts - WIP
 app.get('/profile', (req, res) => {
+
   axios({
     method: 'GET',
     url: `https://api.soundtok.live/userDrafts`,

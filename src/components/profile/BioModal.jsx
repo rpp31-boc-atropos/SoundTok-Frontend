@@ -34,10 +34,10 @@ const FormWrapper = styled.div`
   flex-direction: column;
 `;
 
-const BioModal = ({ isOpen, currentBio, handleUpdateProfile, closeModal }) => {
+const BioModal = ({ isOpen, currentBio, handleUpdateProfile, closeModal, profilePicture }) => {
 
   const [tempBio, setTempBio] = useState(currentBio);
-  const [imageSelected, setImageSelected] = useState(false);
+  const [imageSelected, setImageSelected] = useState(profilePicture);
 
   const handleChange = (e) => {
     setTempBio(e.target.value);

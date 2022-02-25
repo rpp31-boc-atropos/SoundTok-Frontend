@@ -37,6 +37,7 @@ const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
   const [drafts, setDrafts] = useState(dummyDrafts);
   // const {projectsToDelete, setProjectsToDelete} = useState([]); - stretch goal - delete multiple songs
   const [username, setUsername] = useState('leggo'); //update with Context when available
+  // const [currentEndpoint, setCurrentEndpoint] = useState('test');
 
 
   const removePost = (postId, source) => {
@@ -111,6 +112,7 @@ const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
     let location = window.location.href;
     let userProfile = location.slice((window.location.href.indexOf('profile') + 8));
     // console.log('endpoint', userProfile);
+    // setCurrentEndpoint('userProfile');
 
     if (userProfile !== '') {
       setUsername(userProfile);
@@ -119,6 +121,7 @@ const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
       setIsCurrentUser(true);
     }
     // setUsername(userProfile);
+    // console.log('searching for: ', userProfile);
 
     // axios.get(`/profile/${profileName}`, {
     axios.get(`/profile`, {
@@ -151,7 +154,8 @@ const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
     //       console.log(err);
     //     });
     // }
-  }, []);
+  }, [profileName]);
+  // }, [currentEndpoint]);
 
   return (
     <>
