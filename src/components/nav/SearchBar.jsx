@@ -124,6 +124,7 @@ const containerTransition = { type: 'spring', damping: 22, stiffness: 150};
 const Search = () => {
   const [isExpanded, setExpanded] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [results, setResults] = useState([]);
   const [noResult, setNoResult] = useState(false);
@@ -131,7 +132,6 @@ const Search = () => {
   const [isUserSearch, setIsUserSearch] = useState(false);
   const inputRef = useRef();
 
-  const isEmpty = !results || results.length === 0;
 
   const changeHandler = (e) => {
     e.preventDefault();
@@ -148,6 +148,7 @@ const Search = () => {
     setNoResult(true);
     setLoading(false);
     setIsUserSearch(false);
+    setIsEmpty(true);
     if (inputRef.current) {
       inputRef.current.value = "";
     }
@@ -164,13 +165,13 @@ const Search = () => {
     if (isUserSearch) {
       url = `https://api.soundtok.live/user?q=${query}`
     } else {
-      url = `https://api.soundtok.live/hashtag?q=${query}`
+      url = `https://api.soundtok.live/getHashtags?search=${query}`
     }
     return encodeURI(url);
   }
 
   const searchAction = async () => {
-    console.log('triggered search', searchQuery);
+    // console.log('triggered search', searchQuery);
     if (!searchQuery || searchQuery.trim() === "") {
       return;
     }
@@ -181,17 +182,28 @@ const Search = () => {
     setLoading(true);
 
     const URL = prepareSearchQuery(searchQuery);
+    let response = {};
     // request data here
-    // const response = await axios.get(URL).catch((err) => {
-    //   console.log("Error: ", err)
-    // })
-    const response = {};
-    // response.data = ['grind', 'inspiration', 'testing','more', 'rightnow it is everything', 'but later we will filter out the matching hashtags','will this overflow','let us see']
-    response.data = ['stella', 'faye']
+    if (isUserSearch) {
+      response.data = ['stella', 'happi']
+    } else {
+      response = await axios.get(URL).catch((err) => {
+      console.log("Error: ", err)
+    })
+      response.data = response.data.map(each => each['txt'])
+    }
+
+
     if (response) {
       if (response.data && response.data.length == 0) {
         setNoResult(true);
+        setIsEmpty(true);
+      } else {
+        setNoResult(false);
+        setIsEmpty(false);
       }
+
+      // setResults(response.data.map(each => each['txt']));
       setResults(response.data);
     }
 
@@ -231,23 +243,23 @@ const Search = () => {
             </LoadingWrapper>
           )}
 
-          {/* {!isLoading && isEmpty && !noResult && (
+          {!isLoading && isEmpty && !noResult && (
             <LoadingWrapper>
               <WarningMessage>Start typing to Search</WarningMessage>
             </LoadingWrapper>
           )}
 
-          {!isLoading && !isEmpty & noResult && (
+          {!isLoading && isEmpty && noResult && (
              <LoadingWrapper>
                 <WarningMessage>No match results</WarningMessage>
              </LoadingWrapper>
-          )} */}
+          )}
 
-          {!isLoading &&  (
+          {!isLoading && !isEmpty && !noResult && (
             <>
               {results.map((result, index) => {return (
                   isUserSearch?
-                   <Link to={`/profile/${result}`} onClick={collapseContainer}> @{result} </Link>
+                   <Link key={index} to={`/profile/${result}`} onClick={collapseContainer}> @{result} </Link>
                   :
                   <Hashtag key={index} text={`#${result}`}></Hashtag>
               )})}

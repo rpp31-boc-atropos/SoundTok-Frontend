@@ -17,6 +17,7 @@ const NavBar = () => {
   } = useAuth0();
 
   const { username, profilePic } = useUserInfo();
+  // console.log (username, profilePic);
   return (
     <ul className="nav">
       <li className="logo" >

@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 
 export default function useDebounce(value, timeout, callback) {
-  console.log('debouncer', value)
+
   const [timer, setTimer] = useState(null);
 
   const clearTimer = () => {
