@@ -1,5 +1,6 @@
 // modules
 import * as React from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -18,19 +19,18 @@ const Post = (props) => {
   const { isPostUpdated, setIsPostUpdated } = usePosts();
   const { SetCurrent, currentSong, songs } = usePlayer();
 
-  const handleDeletePost = (event) => {
+  console.log(email, props.userEmail);
+
+  const handleDeletePost = async (event) => {
     event.preventDefault();
     const postId = props.postId;
-    // axios.post('http://localhost:1234/', {postId})
-    // .then((response) => {
-    // setPosts(posts.filter((post) => {post.postId !== postId}))
-    // })
-    // .catch((error) => {
-
-    // })
+    await axios
+      .post('https://soundtok.live/deletePost', { postId })
+      .then((response) => {})
+      .catch((error) => {});
 
     // eslint-disable-next-line no-extra-boolean-cast
-    setIsPostUpdated(!!!isPostUpdated);
+    setIsPostUpdated(!isPostUpdated);
   };
 
   const handleRemix = (event) => {

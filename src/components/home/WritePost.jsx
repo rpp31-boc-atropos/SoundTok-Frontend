@@ -93,7 +93,7 @@ const WritePost = (props) => {
       });
   };
 
-  const handlePost = (event) => {
+  const handlePost = async (event) => {
     event.preventDefault();
     if (!props.uploadedAudio) {
       props.setErrorMessage('WARNING: Please attach an audio file');
@@ -119,8 +119,8 @@ const WritePost = (props) => {
         tracks: [],
       };
 
-      axios
-        .post(('https://api.soundtok.live/', post))
+      await axios
+        .post('https://api.soundtok.live/', post)
         .then((response) => {
           console.log(response);
         })
@@ -129,7 +129,7 @@ const WritePost = (props) => {
         });
 
       // eslint-disable-next-line no-extra-boolean-cast
-      setIsPostUpdated(!!!isPostUpdated);
+      setIsPostUpdated(!isPostUpdated);
       songs.unshift(post);
     }
   };
@@ -178,7 +178,7 @@ const WritePost = (props) => {
                   <PostAudioIcon
                     type="button"
                     onClick={() => {
-                      props.setIsDraftToggled(!!!props.isDraftToggled);
+                      props.setIsDraftToggled(!props.isDraftToggled);
                     }}
                     onMouseEnter={() => {
                       props.setInfoMessage('Load from Drafts');

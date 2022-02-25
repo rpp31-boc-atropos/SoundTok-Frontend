@@ -53,7 +53,7 @@ app.get('/profile/', (req, res) => {
   // console.log('projects query', req.query);
   // console.log('projects query user', req.query.username);
 
-  const { username } = req.query
+  const { username } = req.query;
 
   // console.log('getting info for: ', username);
   // console.log('stage 1 success');
