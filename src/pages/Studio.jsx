@@ -27,7 +27,7 @@ const Studio = () => {
     const offlineContext = new Tone.OfflineContext(offlineCtx);
     Tone.setContext(offlineContext);
   });
-  const [count, setCount] = useState(1);
+  // const [count, setCount] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
   ee.on('audiorenderingfinished', function (type, data) {
@@ -147,10 +147,10 @@ const Studio = () => {
           name: 'Track'
         }])
           .then(()=>{
+            playlist.initExporter();
+            console.log(playlist);
             setIsLoading(false);
           });
-        playlist.initExporter();
-        console.log(playlist);
       })
       .catch(err => {
         console.log(err);
