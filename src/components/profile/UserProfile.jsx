@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import BioModal from './BioModal.jsx';
 // import { useAuth } from '../../contexts/AuthContext.jsx';
 import dummyProfile from './dummyProfile.jsx';
+
 import styled from 'styled-components';
 const axios = require('axios');
 // import CLOUDINARY_PROFILE_PRESET from '../../config/config.js';
@@ -54,6 +55,7 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, location, profileName}) =
   const [profilePicture, setProfilePicture] = useState(dummyProfile.profilePicture);
   const [bio, setBio] = useState(dummyProfile.bio);
   const [isOpen, setModal] = useState(false);
+
 
   const closeModal = () => {
     setModal(false);
@@ -127,7 +129,7 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, location, profileName}) =
       }
     })
       .then((response) => {
-        console.log('profileresponse', response.data);
+        // console.log('profileresponse', response.data);
         setProfilePicture(response.data.profilePicture);
         setBio(response.data.userBio); //Maggie is working on adding this
       })

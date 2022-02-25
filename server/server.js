@@ -64,7 +64,7 @@ app.get('/profile/', (req, res) => {
     //url: `http://localhost:1234/getProfileData/projects/${username}`
   })
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       res.status(200).send(response.data[0]);
     })
     .catch((error) => {
@@ -92,7 +92,7 @@ app.get('/profile', (req, res) => {
 
 //update username and bio in profile
 app.put('/updateProfile/', (req, res) => {
-  console.log('new profile data', req.body);
+  console.log('sending new profile data', req.body);
   // let tempData = {
   //   username: req.query.username,
   //   profileURL: req.query.profileURL,
@@ -115,18 +115,22 @@ app.put('/updateProfile/', (req, res) => {
 });
 
 //delete Project - need to send unique identifier for project
-app.delete('/deleteProject', (req, res) => {
+app.delete('/deletePost', (req, res) => {
   console.log('test', req.body);
 
   axios({
     method: 'DELETE',
-    url: `http://54.91.250.255:1234`,
+    url: `https://api.soundtok.live/deletePost`,
     data: req.body,
   })
-    .then((response) => {
-      res.status(200).send(response);
+    .then(() => {
+      console.log('successfully deleted post');
+      // console.log(response);
+      // res.status(200).send(response);
+      res.status(200).send('Successfully deleted post');
     })
     .catch((error) => {
+      console.log('error', error);
       res.status(500).send(error);
     });
 });
