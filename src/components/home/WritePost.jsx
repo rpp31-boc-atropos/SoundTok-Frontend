@@ -120,7 +120,6 @@ const WritePost = (props) => {
       };
 
       axios
-        // .post(('http://localhost:1234/', post))
         .post(('https://api.soundtok.live/', post))
         .then((response) => {
           console.log(response);

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import dummy from './dummy.jsx';
+import helper from './helperFunctions.js';
 
 const FeedDrafts = (props) => {
   const [drafts, setDrafts] = React.useState([]);
@@ -17,7 +18,7 @@ const FeedDrafts = (props) => {
               onClick={(event) => {
                 props.projectTitle.current.value = draft.projectTitle;
                 props.projectText.current.value = draft.postText;
-                props.setTextCharacterCount(draft.projectText.length);
+                props.setTextCharacterCount(draft.postText.length);
                 props.setUploadedImage(draft.projectImageLink);
                 props.setUploadedAudio(draft.projectAudioLink);
               }}
