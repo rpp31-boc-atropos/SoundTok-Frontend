@@ -1,7 +1,7 @@
 let dummySongs;
 export default dummySongs = [
   {
-    projectId: 23,
+    postId: 23,
     projectImage:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Yawning_horse%2C_Scotland.jpg/640px-Yawning_horse%2C_Scotland.jpg',
     timePosted: '2022-02-10 10:23:54+02',
@@ -15,7 +15,7 @@ export default dummySongs = [
     projectLength: 204, //is it better for this to be calculated on the frontend, or will it be saved initially as a string?
   },
   {
-    projectId: 24,
+    postId: 24,
     projectImage: 'https://home.adelphi.edu/~ne21709/bunny2.jpg',
     timePosted: '2022-01-19 10:23:54+02',
     projectLikes: 123,
@@ -28,7 +28,7 @@ export default dummySongs = [
     projectLength: 45,
   },
   {
-    projectId: 25,
+    postId: 25,
     projectImage:
       'https://i.pinimg.com/474x/a3/89/f5/a389f597020f361f7f6d9b79323598fc.jpg',
     timePosted: '2021-10-19 10:23:54+02',
@@ -42,7 +42,7 @@ export default dummySongs = [
     projectLength: 120,
   },
   {
-    projectId: 12,
+    postId: 12,
     projectImage:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Yawning_horse%2C_Scotland.jpg/640px-Yawning_horse%2C_Scotland.jpg',
     timePosted: '2022-02-10 10:23:54+02',
@@ -56,7 +56,7 @@ export default dummySongs = [
     projectLength: 43,
   },
   {
-    projectId: 13,
+    postId: 13,
     projectImage:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Yawning_horse%2C_Scotland.jpg/640px-Yawning_horse%2C_Scotland.jpg',
     timePosted: '2022-02-10 10:23:54+02',

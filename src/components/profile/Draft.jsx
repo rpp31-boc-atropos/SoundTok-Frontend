@@ -51,7 +51,7 @@ const Draft = (props) => {
   // const { user } = useAuth();
   const deleteDraft = () => {
     // Stretch goal - add confirmation popup
-    props.removeDraft(props.songId, 'Drafts');
+    props.removeDraft(props.postId, 'Drafts');
   };
   //possibly make song image the background
   return (

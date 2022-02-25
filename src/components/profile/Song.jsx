@@ -58,7 +58,7 @@ const Song = (props) => {
   const { SetCurrent, currentSong, songs } = usePlayer();
 
   const deleteSong = () => {
-    props.removeSong(props.songId, 'Posts');
+    props.removeSong(props.postId, 'Posts');
   };
 
   const playSong = () => {

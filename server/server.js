@@ -115,18 +115,22 @@ app.put('/updateProfile/', (req, res) => {
 });
 
 //delete Project - need to send unique identifier for project
-app.delete('/deleteProject', (req, res) => {
+app.delete('/deletePost', (req, res) => {
   console.log('test', req.body);
 
   axios({
     method: 'DELETE',
-    url: `http://54.91.250.255:1234`,
+    url: `https://api.soundtok.live/deletePost`,
     data: req.body,
   })
-    .then((response) => {
-      res.status(200).send(response);
+    .then(() => {
+      console.log('successfully deleted post');
+      // console.log(response);
+      // res.status(200).send(response);
+      res.status(200).send('Successfully deleted post');
     })
     .catch((error) => {
+      console.log('error', error);
       res.status(500).send(error);
     });
 });

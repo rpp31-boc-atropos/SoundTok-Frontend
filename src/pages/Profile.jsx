@@ -22,11 +22,15 @@ const Profile = () => {
   // const { user } = useAuth();
   const [isCurrentUser, setIsCurrentUser] = useState(false);
   const [profileName, setProfileName] = useState('testName');
-  // const { username } = useUserInfo();
+  const { email, username } = useUserInfo();
+  // const { email, username, isNewProfile, setIsNewProfile } = useUserInfo();
 
-  // useEffect(() => {
-  //   console.log('user email', username);  //this is the logged in username
-  // });
+
+  useEffect(() => {
+    console.log('user email', email);  //this is the logged in username
+    console.log('user name', username);  //this is the logged in username
+
+  });
 
   //Nested routes
   return (
