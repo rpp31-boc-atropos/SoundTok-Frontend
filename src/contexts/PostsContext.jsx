@@ -1,7 +1,12 @@
+// modules
 import * as React from 'react';
 import axios from 'axios';
-import dummy from '../components/home/dummy.jsx';
+
+// contexts
 import { useUserInfo } from './UserContext.jsx';
+
+// components
+import dummy from '../components/home/dummy.jsx';
 
 const PostsContext = React.createContext();
 
@@ -19,6 +24,7 @@ const PostsProvider = ({ children }) => {
     setPosts(result.data);
   }, [isPostUpdated]);
 
+  // QUERY FOR ALL DRAFTS
   React.useEffect(async () => {
     const result = await axios(`https://api.soundtok.live/drafts/${email}`);
     setDrafts(result.data);
