@@ -126,10 +126,12 @@ const Search = () => {
   const [isLoading, setLoading] = useState(false);
   const [isEmpty, setIsEmpty] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  // const [url, setURL] = useState('');
   const [results, setResults] = useState([]);
   const [noResult, setNoResult] = useState(false);
   const [parentRef, isClickedOutside] = useClickOutside();
-  const [isUserSearch, setIsUserSearch] = useState(false);
+  // const [isUserSearch, setIsUserSearch] = useState(false);
+
   const inputRef = useRef();
 
 
@@ -147,7 +149,7 @@ const Search = () => {
     setResults([]);
     setNoResult(true);
     setLoading(false);
-    setIsUserSearch(false);
+    // setIsUserSearch(false);
     setIsEmpty(true);
     if (inputRef.current) {
       inputRef.current.value = "";
@@ -160,39 +162,47 @@ const Search = () => {
     }
   }, [isClickedOutside]);
 
-  const prepareSearchQuery = (query) => {
-    let url = '';
-    if (isUserSearch) {
-      url = `https://api.soundtok.live/user?q=${query}`
-    } else {
-      url = `https://api.soundtok.live/getHashtags?search=${query}`
-    }
-    return encodeURI(url);
-  }
+
+
+  // const prepareSearchQuery = (query) => {
+  //   let url = '';
+  //   let isUserSearch = false;
+  //   if (query[0] == '#' || query[0] == '@') {
+  //     query = query.substring(1)
+  //   }
+
+
+  //   if (isUserSearch) {
+  //     console.log(isUserSearch, 't')
+  //     url = `https://api.soundtok.live/getUserSearch?search=${query}`
+  //   } else {
+  //     url = `https://api.soundtok.live/getHashtags?search=${query}`
+  //   }
+  //   return encodeURI(url);
+  // }
 
   const searchAction = async () => {
     // console.log('triggered search', searchQuery);
     if (!searchQuery || searchQuery.trim() === "") {
       return;
     }
-    if (searchQuery[0] == '@') {
-      setIsUserSearch(true);
-    }
 
     setLoading(true);
 
-    const URL = prepareSearchQuery(searchQuery);
-    let response = {};
-    // request data here
-    if (isUserSearch) {
-      response.data = ['stella', 'happi']
+    let URL = '';
+    let query = searchQuery.replace(/#|@/, '');
+    console.log(query)
+    if (searchQuery[0] == '@') {
+      URL = `https://api.soundtok.live/getUserSearch?search=${query}`
     } else {
-      response = await axios.get(URL).catch((err) => {
-      console.log("Error: ", err)
-    })
-      response.data = response.data.map(each => each['txt'])
+      URL = `https://api.soundtok.live/getHashtags?search=${query}`
     }
 
+    // get response from API
+    let response = await axios.get(URL).catch((err) => {
+      console.log("Error: ", err)
+    })
+    console.log(response.data)
 
     if (response) {
       if (response.data && response.data.length == 0) {
@@ -203,8 +213,12 @@ const Search = () => {
         setIsEmpty(false);
       }
 
-      // setResults(response.data.map(each => each['txt']));
-      setResults(response.data);
+      if (searchQuery[0]=='@') {
+        setResults(response.data.map(each => each['username']));
+      } else {
+        setResults(response.data.map(each => each['txt']))
+      }
+
     }
 
     setLoading(false);
@@ -233,10 +247,10 @@ const Search = () => {
           <IoClose/>
         </CloseIcon>
 
-      </SearchInputContainer>
+      </SearchInputContainer >
       {isExpanded && <LineSeperator />}
       {isExpanded && (
-        <SearchContent>
+        <SearchContent onClick={()=> console.log('c')}>
           {isLoading && (
             <LoadingWrapper>
               <MoonLoader loading color="#000" size={20} />
@@ -258,10 +272,10 @@ const Search = () => {
           {!isLoading && !isEmpty && !noResult && (
             <>
               {results.map((result, index) => {return (
-                  isUserSearch?
-                   <Link key={index} to={`/profile/${result}`} onClick={collapseContainer}> @{result} </Link>
+                  (searchQuery[0]=='@') ?
+                   <Link key={index} to={`/profile/${result}`} > @{result} </Link>
                   :
-                  <Hashtag key={index} text={`#${result}`}></Hashtag>
+                  <Hashtag key={index} text={`#${result}`} ></Hashtag>
               )})}
             </>
           )}
