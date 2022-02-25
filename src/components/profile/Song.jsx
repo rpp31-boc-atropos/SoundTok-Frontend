@@ -95,7 +95,7 @@ const Song = (props) => {
         </LogoButton> */}
         <div>{convertSongLength(props.projectLength)}</div>
         <CornerWrapper>
-          <Link to='/studio'>
+          <Link to={`/studio/${props.postId}`}>
             <PostRemixButton>
               <i className='ri-sound-module-line'></i>
             </PostRemixButton>
