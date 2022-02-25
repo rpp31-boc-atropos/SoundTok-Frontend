@@ -47,7 +47,7 @@ const DraftItem = ({draft, setDraft}) => {
         <ListItemText
           secondaryTypographyProps={{style: {color: 'yellow'}}}
           primary={draft.projectTitle}
-          secondary={draft.timePosted}
+          secondary={new Date(draft.timePosted).toLocaleString('en-US')}
         />
         {/* <ListItemSecondaryAction >
           <IconButton aria-label="Delete" m={0} onClick={() => {}}>

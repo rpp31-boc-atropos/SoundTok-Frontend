@@ -12,6 +12,7 @@ import DraftList from '../components/studio/DraftList.jsx';
 import ReverbModal from '../components/studio/ReverbModal.jsx';
 import Modal from 'react-modal';
 import { useUserInfo } from '../contexts/UserContext.jsx';
+import { usePosts } from '../contexts/PostsContext.jsx';
 
 const Studio = () => {
 
@@ -25,6 +26,7 @@ const Studio = () => {
 
   // User email from global context
   let {email} = useUserInfo();
+  let {drafts} = usePosts();
 
   ee.on('audiorenderingstarting', function(offlineCtx) {
     // Set Tone offline to render effects properly.
@@ -56,7 +58,7 @@ const Studio = () => {
 
       let reqBody = {
         email: email,
-        projectTitle: '',
+        projectTitle: 'Draft #' + (drafts.length + 1),
         projectLength: 300,
         projectAudioLink: '',
         tracks: JSON.stringify(tracks),
