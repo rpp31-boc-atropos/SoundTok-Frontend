@@ -10,7 +10,6 @@ import Profile from './pages/Profile.jsx';
 import Studio from './pages/Studio.jsx';
 import Hashtag from './pages/Hashtag.jsx';
 import AudioPlayer from './components/audioPlayer/AudioPlayer';
-import { UserInfoProvider } from './contexts/UserContext.jsx';
 import NotFound from './pages/NotFound.jsx';
 
 //add new route above NotFound Route
@@ -27,20 +26,18 @@ const App = () => {
   };
 
   return (
-    <UserInfoProvider>
-      <div className="App">
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          {/* <Route path='/profile/*' element={isAuthenticated ? <Profile /> : <Navigate to='/' />} /> */}
-          <Route path="/profile/*" element={<Profile />} />
-          <Route path="/studio/*" element={<Studio />} />
-          <Route path="/hashtag" element={<Hashtag />} />
-          <Route path="/*" element={<NotFound />} />
-        </Routes>
-        <AudioPlayer />
-      </div>
-    </UserInfoProvider>
+    <div className="App">
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        {/* <Route path='/profile/*' element={isAuthenticated ? <Profile /> : <Navigate to='/' />} /> */}
+        <Route path="/profile/*" element={<Profile />} />
+        <Route path="/studio/*" element={<Studio />} />
+        <Route path="/hashtag" element={<Hashtag />} />
+        <Route path="/*" element={<NotFound />} />
+      </Routes>
+      <AudioPlayer />
+    </div>
   );
 };
 

@@ -109,7 +109,7 @@ const WritePost = (props) => {
         username: username,
         userEmail: email,
         postLikes: 0,
-        published: false,
+        published: true,
         postText: text,
         tags: tags,
         projectAudioLink: props.uploadedAudio,
