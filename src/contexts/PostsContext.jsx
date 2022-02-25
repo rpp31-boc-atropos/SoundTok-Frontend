@@ -26,9 +26,11 @@ const PostsProvider = ({ children }) => {
 
   // QUERY FOR ALL DRAFTS
   React.useEffect(async () => {
-    const result = await axios(`https://api.soundtok.live/drafts/${email}`);
-    setDrafts(result.data);
-  }, [isDraftUpdated]);
+    if (email != null) {  // need to wait for Auth0 context to have the email available
+      const result = await axios(`https://api.soundtok.live/drafts/${email}`);
+      setDrafts(result.data);
+    }
+  }, [isDraftUpdated, email]);
 
   const postsContextValue = {
     isPostUpdated,
@@ -37,8 +39,10 @@ const PostsProvider = ({ children }) => {
     setIsDraftUpdated,
     posts,
     setPosts,
+    drafts,
+    setDrafts,
     selectedProjectId,
-    setSelectedProjectId,
+    setSelectedProjectId
   };
 
   return (
