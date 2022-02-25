@@ -37,9 +37,9 @@ const PhotoCard = ({ post, index }) => {
 
   const { SetCurrent, currentSong, songs } = usePlayer();
 
-  const { username, postLikes, projectTitle, postText, profilePicture, projectLength } = post;
+  const { username, postLikes, projectTitle, postText, profilePicture, projectLength, projectAudioLink } = post;
 
-
+  // console.log(songs)
   return (
     <div>
       <Card
@@ -48,14 +48,16 @@ const PhotoCard = ({ post, index }) => {
       // onClick={() => SetCurrent(index)}
       >
         <CardHeader
-          // style={{ height: '2vw' }}
           titleTypographyProps={{ variant: 'body1' }}
           subheaderTypographyProps={{ variant: 'body2' }}
           title={post.projectTitle}
           subheader={fmtMSS(projectLength)}
           action={
             <IconButton
-              onClick={() => SetCurrent(index)}
+              onClick={() => {
+                songs.push(post);
+                SetCurrent(songs.length - 1);
+              }}
               role='photoCardPlay'
             >
               <PlayCircleFilledRounded />

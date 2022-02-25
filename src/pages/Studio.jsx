@@ -27,6 +27,8 @@ const Studio = () => {
     const offlineContext = new Tone.OfflineContext(offlineCtx);
     Tone.setContext(offlineContext);
   });
+  const [count, setCount] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   ee.on('audiorenderingfinished', function (type, data) {
     //restore original ctx for further use.
@@ -46,9 +48,15 @@ const Studio = () => {
 
   const handleSetDraft = (draft) => {
     removeAllTracks();
-    playlist.load(draft.tracks);
-    playlist.initExporter();
+    // playlist.load(draft.tracks);
+
     // setFlag(true);
+    setIsLoading(true);
+    playlist.load(draft.tracks)
+      .then(()=>{
+        playlist.initExporter();
+        setIsLoading(false);
+      });
   };
 
   const handleNewDraft = () => {
@@ -125,6 +133,7 @@ const Studio = () => {
   };
 
   const handleUpload = (e) => {
+    setIsLoading(true);
     const file = e.target.files[0];
     let formData = new FormData();
     formData.append('file', file);
@@ -136,7 +145,10 @@ const Studio = () => {
         playlist.load([{
           src: result.data.url,
           name: 'Track'
-        }]);
+        }])
+          .then(()=>{
+            setIsLoading(false);
+          });
         playlist.initExporter();
         console.log(playlist);
       })
@@ -194,6 +206,7 @@ const Studio = () => {
       </StudioHeader>
       <EditorWrapper>
         <MainPanel id='editor'>
+          {isLoading ? <Loading /> : null}
         </MainPanel>
         <RightPanel style={{maxHeight: '100%'}}>
           <DraftTitle>Drafts</DraftTitle>
