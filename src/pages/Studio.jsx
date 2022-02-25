@@ -11,6 +11,7 @@ import * as Tone from 'tone';
 import DraftList from '../components/studio/DraftList.jsx';
 import ReverbModal from '../components/studio/ReverbModal.jsx';
 import Modal from 'react-modal';
+import { useUserInfo } from '../contexts/UserContext.jsx';
 
 const Studio = () => {
 
@@ -21,6 +22,9 @@ const Studio = () => {
   const [ee] = useState(new EventEmitter());
   const [playlist, setPlayList] = useState(null);
   // const [flag, setFlag] = useState(false);
+
+  // User email from global context
+  let {email} = useUserInfo();
 
   ee.on('audiorenderingstarting', function(offlineCtx) {
     // Set Tone offline to render effects properly.
@@ -44,6 +48,32 @@ const Studio = () => {
     for (let i = 0; i < tracksToRemove.length; i++) {
       playlist.removeTrack(tracksToRemove[i]);
     }
+  };
+
+  // API METHODS
+  const saveDraftToAPI = (tracks) => {
+    if (tracks.length > 0) {
+
+      let reqBody = {
+        email: email,
+        projectTitle: '',
+        projectLength: 300,
+        projectAudioLink: '',
+        tracks: JSON.stringify(tracks),
+        timePosted: new Date().toISOString()
+      };
+
+      //console.log(playlist.getInfo());
+      console.log('saving: ', reqBody);
+      axios.post('https://api.soundtok.live/drafts', reqBody)
+        .then((response) => {
+          console.log('save successful, ', response);
+        })
+        .catch((error) => {
+          console.log('save fail ', error);
+        });
+    }
+    // console.log(playlist);
   };
 
   const handleSetDraft = (draft) => {
@@ -94,9 +124,11 @@ const Studio = () => {
           }
         });
 
-        console.log(draftPlaylist);
+        //console.log(draftPlaylist);
+        saveDraftToAPI(draftPlaylist);
       } else {
-        console.log(playlist.getInfo().tracks);
+        //console.log(playlist.getInfo().tracks);
+        saveDraftToAPI(playlist.getInfo().tracks);
       }
     }
 
@@ -106,10 +138,10 @@ const Studio = () => {
     // removeAllTracks();
     ee.emit('clear');
 
-    console.log('playlist updated Playlist: ', updatedPlaylist);
+    //console.log('playlist updated Playlist: ', updatedPlaylist);
 
     for (let i = 0; i < updatedPlaylist.length; i++) {
-      console.log(typeof updatedPlaylist[i].effects === 'string');
+      //console.log(typeof updatedPlaylist[i].effects === 'string');
       if (typeof updatedPlaylist[i].effects === 'string' && updatedPlaylist[i].effects !== '') {
 
         updatedPlaylist[i].effects = function(graphEnd, masterGainNode) {
