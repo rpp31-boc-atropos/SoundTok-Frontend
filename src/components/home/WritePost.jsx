@@ -19,33 +19,22 @@ const WritePost = (props) => {
   const { posts, setPosts, isPostUpdated, setIsPostUpdated } = usePosts();
   const { songs } = usePlayer();
 
-  // state
-  const [textCharacterCount, setTextCharacterCount] = React.useState(0);
-  const [uploadedAudio, setUploadedAudio] = React.useState(null);
-  const [audioDuration, setAudioDuration] = React.useState(0);
-  const [uploadedImage, setUploadedImage] = React.useState(null);
-  const [errorMessage, setErrorMessage] = React.useState(null);
-  const [infoMessage, setInfoMessage] = React.useState(null);
-
-  // refs
-  const projectTitle = React.useRef(null);
-  const projectText = React.useRef(null);
-
-  // clear content when a post is made
+  // clear content when a post is published
   React.useEffect(() => {
     if (props.isPosted) {
-      setTextCharacterCount(0);
-      setUploadedAudio(null);
-      setAudioDuration(0);
-      setUploadedImage(null);
-      projectTitle.current.value = null;
-      projectText.current.value = null;
+      props.setTextCharacterCount(0);
+      props.setUploadedAudio(null);
+      props.setAudioDuration(0);
+      props.setUploadedImage(null);
+      props.projectTitle.current.value = null;
+      props.projectText.current.value = null;
       props.setIsPosted(false);
     }
   }, [props.isPosted]);
 
   const handleTitleCharacterCount = (event) => {
     event.preventDefault();
+    const title = event.target.value;
     const count = event.target.value.length;
     if (count > 45) {
       event.target.value = event.target.value.slice(0, 45);
@@ -56,7 +45,7 @@ const WritePost = (props) => {
     const maxCharacters = 140;
     event.preventDefault();
     const count = event.target.value.length;
-    setTextCharacterCount(count);
+    props.setTextCharacterCount(count);
 
     if (count >= maxCharacters) {
       event.target.value = event.target.value.slice(0, maxCharacters - 1);
@@ -64,7 +53,7 @@ const WritePost = (props) => {
   };
 
   const handleMouseLeave = (event) => {
-    setInfoMessage(null);
+    props.setInfoMessage(null);
   };
 
   const handleAudio = async (event) => {
@@ -78,13 +67,14 @@ const WritePost = (props) => {
         'https://api.cloudinary.com/v1_1/xoxohorses/video/upload',
         formData
       );
-      if (response.data.duration > 300) {
-        setErrorMessage('WARNING: Audio file longer than 5 minutes');
-      } else {
-        setErrorMessage(null);
-        setUploadedAudio(response.data.url);
-        setAudioDuration(response.data.duration);
-      }
+      // ERROR HANDLING FOR > 5 min audio
+      // if (response.data.duration > 300) {
+      //   props.setErrorMessage('WARNING: Audio file longer than 5 minutes');
+      // } else {
+      props.setErrorMessage(null);
+      props.setUploadedAudio(response.data.url);
+      props.setAudioDuration(response.data.duration);
+      // }
     } catch (error) {
       console.log(error);
     }
@@ -99,18 +89,18 @@ const WritePost = (props) => {
     axios
       .post('https://api.cloudinary.com/v1_1/xoxohorses/image/upload', formData)
       .then((response) => {
-        setUploadedImage(response.data.url);
+        props.setUploadedImage(response.data.url);
       });
   };
 
   const handlePost = (event) => {
     event.preventDefault();
-    if (!uploadedAudio) {
-      setErrorMessage('WARNING: Please attach an audio file');
+    if (!props.uploadedAudio) {
+      props.setErrorMessage('WARNING: Please attach an audio file');
     } else {
-      setErrorMessage(null);
-      let title = projectTitle.current.value;
-      let text = projectText.current.value;
+      props.setErrorMessage(null);
+      let title = props.projectTitle.current.value;
+      let text = props.projectText.current.value;
       let tags = helper.parseTags(text);
 
       const post = {
@@ -119,13 +109,13 @@ const WritePost = (props) => {
         username: username,
         userEmail: email,
         postLikes: 0,
-        isDraft: false,
+        published: true,
         postText: text,
         tags: tags,
-        projectAudioLink: uploadedAudio,
+        projectAudioLink: props.uploadedAudio,
         projectTitle: title,
-        projectLength: audioDuration,
-        projectImageLink: uploadedImage,
+        projectLength: props.audioDuration,
+        projectImageLink: props.uploadedImage,
         tracks: [],
       };
 
@@ -154,7 +144,7 @@ const WritePost = (props) => {
               <PostHeader>
                 <label htmlFor="project-title">
                   <ProjectTitle
-                    ref={projectTitle}
+                    ref={props.projectTitle}
                     type="text"
                     id="project-title"
                     name="projectTitle"
@@ -170,7 +160,7 @@ const WritePost = (props) => {
                   <PostAudioIcon
                     type="button"
                     onMouseEnter={() => {
-                      setInfoMessage('Upload Audio');
+                      props.setInfoMessage('Upload Audio');
                     }}
                     onMouseLeave={handleMouseLeave}
                   >
@@ -191,7 +181,7 @@ const WritePost = (props) => {
                       props.setIsDraftToggled(!!!props.isDraftToggled);
                     }}
                     onMouseEnter={() => {
-                      setInfoMessage('Load from Drafts');
+                      props.setInfoMessage('Load from Drafts');
                     }}
                     onMouseLeave={handleMouseLeave}
                   >
@@ -200,7 +190,7 @@ const WritePost = (props) => {
                   <PostAudioIcon
                     type="button"
                     onMouseEnter={() => {
-                      setInfoMessage('Go to Studio');
+                      props.setInfoMessage('Go to Studio');
                     }}
                     onMouseLeave={handleMouseLeave}
                   >
@@ -211,7 +201,7 @@ const WritePost = (props) => {
                   <PostAudioIcon
                     type="button"
                     onMouseEnter={() => {
-                      setInfoMessage('Upload Image');
+                      props.setInfoMessage('Upload Image');
                     }}
                     onMouseLeave={handleMouseLeave}
                   >
@@ -228,7 +218,7 @@ const WritePost = (props) => {
                   </PostAudioIcon>
                   <PostAudioIcon
                     onMouseEnter={() => {
-                      setInfoMessage('Save to Drafts');
+                      props.setInfoMessage('Save to Drafts');
                     }}
                     onMouseLeave={handleMouseLeave}
                   >
@@ -238,7 +228,7 @@ const WritePost = (props) => {
               </PostHeader>
               <label htmlFor="post-text">
                 <TextInput
-                  ref={projectText}
+                  ref={props.projectText}
                   id="post-text"
                   name="postText"
                   maxlength="140"
@@ -249,28 +239,33 @@ const WritePost = (props) => {
                 ></TextInput>
               </label>
               <CharacterCount>
-                <span>{textCharacterCount}/140</span>
-                {errorMessage ? <span>{errorMessage}</span> : null}
+                <span>{props.textCharacterCount}/140</span>
+                {props.errorMessage ? <span>{props.errorMessage}</span> : null}
               </CharacterCount>
             </FlexColumn>
             <FlexColumn>
               <UploadedAudio
                 style={
-                  uploadedAudio
+                  props.uploadedAudio
                     ? { border: '1px solid var(--font-line-color-yellow)' }
                     : null
                 }
               >
-                {uploadedImage ? <img src={uploadedImage}></img> : null}
+                {props.uploadedImage ? (
+                  <img src={props.uploadedImage}></img>
+                ) : null}
               </UploadedAudio>
-              <Submit type="submit" disabled={errorMessage ? true : false}>
+              <Submit
+                type="submit"
+                disabled={props.errorMessage ? true : false}
+              >
                 Post
               </Submit>
             </FlexColumn>
           </Inputs>
         </FlexColumn>
       </Form>
-      <InfoMessage>{infoMessage}</InfoMessage>
+      <InfoMessage>{props.infoMessage}</InfoMessage>
     </WritePostWrapper>
   );
 };
@@ -286,7 +281,9 @@ const WritePostWrapper = styled.div`
   align-items: flex-start;
   box-sizing: border-box;
   border: 1px solid var(--font-line-color-yellow-transparent);
+  background: var(--main-color-black);
   border-bottom: none;
+  position: relative;
 `;
 
 const InfoMessage = styled.div`
@@ -294,8 +291,8 @@ const InfoMessage = styled.div`
   overflow-wrap: normal;
   color: var(--font-line-color-yellow);
   position: absolute;
-  top: 58px;
-  left: 960px;
+  top: 4px;
+  left: 380px;
   font-size: 10px;
   text-align: center;
 `;

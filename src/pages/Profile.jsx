@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import EditProfile from '../components/profile/EditProfile.jsx';
 import UserProfile from '../components/profile/UserProfile.jsx';
 import UserPosts from '../components/profile/UserPosts.jsx';
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 import Loading from '../components/Loading.jsx';
+import { useUserInfo } from '../contexts/UserContext.jsx';
+
 
 import styled from 'styled-components';
 
@@ -19,12 +21,34 @@ const ProfilePage = styled.div`
 
 const Profile = () => {
   // const { user } = useAuth();
-  const [isCurrentUser, setIsCurrentUser] = useState(true);
+  const [isCurrentUser, setIsCurrentUser] = useState(false);
   const [profileName, setProfileName] = useState('testName');
+  const { email, username } = useUserInfo();
+  // const { email, username, isNewProfile, setIsNewProfile } = useUserInfo();
+  let location = useLocation();
 
-  // useEffect(() => {
-  //   console.log('test main page'); //printing twice here too?
-  // });
+  useEffect(() => {
+    console.log('user email', email); //this is the logged in username
+    console.log('user name', username); //this is the logged in username
+
+
+    let newLocation = window.location.href;
+    let userProfile = newLocation.slice((window.location.href.indexOf('profile') + 8));
+    // console.log('location:', location);
+    // console.log('pathname', location.pathname);
+    // console.log('pathname', location.pathname.split('/').pop());
+    setProfileName(location.pathname.split('/').pop());
+    if (location.pathname.split('/').pop() === username) {
+      // console.log('viewing own page');
+      setIsCurrentUser(true);
+    } else {
+      // console.log('not your page!', location.pathname.split('/').pop());
+      console.log(username);
+
+      setIsCurrentUser(false);
+    }
+
+  }, [location]);
 
   //Nested routes
   return (
@@ -37,6 +61,7 @@ const Profile = () => {
           isCurrentUser={isCurrentUser}
           setIsCurrentUser={setIsCurrentUser}
           profileName={profileName}
+          setProfileName={setProfileName}
         ></UserProfile>
         <UserPosts
           isCurrentUser={isCurrentUser}

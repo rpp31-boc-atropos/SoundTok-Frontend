@@ -30,63 +30,67 @@ const PostWrapper = styled.div`
 `;
 
 // const UserPosts = ({isCurrentUser}) => {
-const UserPosts = ({isCurrentUser, profileName}) => {
+const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
   // const { user } = useAuth();
   const [tab, setTab] = useState('Posts');
   const [songs, setSongs] = useState(dummySongs);
   const [drafts, setDrafts] = useState(dummyDrafts);
   // const {projectsToDelete, setProjectsToDelete} = useState([]); - stretch goal - delete multiple songs
   const [username, setUsername] = useState('leggo'); //update with Context when available
+  // const [currentEndpoint, setCurrentEndpoint] = useState('test');
 
 
-  const removeProject = (projectId, source) => {
+  const removePost = (postId, source) => {
     // needs call to remove from db. stretch goal - select and remove multiple songs
     // to-dos: add confirmation popup, add select boxes to select multiple songs before clicking a separate delete button
     // cut this section after post request is implemented
     //Modifying directly in state instead of waiting for response for faster user experience
+
+    console.log(postId);
+    console.log('source,', source);
     if (source === 'Posts') {
-      setSongs(songs.filter(song => song.projectId !== projectId));
+      setSongs(songs.filter(song => song.postId !== postId));
     } else {
-      setDrafts(drafts.filter(draft => draft.projectId !== projectId));
+      setDrafts(drafts.filter(draft => draft.postId !== postId));
     }
 
     // axios.post('/deleteProjects', projectsToDelete)
-    let formData = {
-      source: source,
-      projectId: projectId //will eventually be [songsToDelete]
+    let postToRemove = {
+      postId: postId
     };
 
-    // axios.delete('/deleteProject', {data: formData})
-    //   .then(function (response) {
-    //     // console.log(response);
-    //     console.log('Project successfully deleted');
-    //     if (source === 'Posts') {
-    //       //will need to filter out all songIds in the array
-    //       // setSongs(songs.filter(song => song.projectId !== projectId));
-    //     } else {
-    //       // setDrafts(drafts.filter(draft => draft.projectId !== projectId));
-    //     }
-    //   })
-    //   .catch(function (error) {
-    //     //pop-up with with message - please review error and try again
-    //     //could make popup - warning
-    //     // console.log('Project failed to delete. Please refresh the page and try again');
-    //     console.log(error);
-    //   });
-
-    const optionGetPosts = {
-      // method: 'PUT',
-      url: 'api.soundtok.live/removePost',
-      data: formData
-    };
-
-    axios.delete(optionGetPosts)
-      .then((response) => {
-        console.log('response', response);
+    // axios.delete('/deletePost', {data: formData})
+    axios.delete('/deletePost', {data: postToRemove})
+      .then(function (response) {
+        // console.log(response);
+        console.log('Project successfully deleted');
+        // if (source === 'Posts') {
+        //   //will need to filter out all songIds in the array
+        //   // setSongs(songs.filter(song => song.projectId !== projectId));
+        // } else {
+        //   // setDrafts(drafts.filter(draft => draft.projectId !== projectId));
+        // }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(function (error) {
+        //pop-up with with message - please review error and try again
+        //could make popup - warning
+        // console.log('Project failed to delete. Please refresh the page and try again');
+        console.log(error);
       });
+
+    // const optionGetPosts = {
+    //   // method: 'PUT',
+    //   url: 'api.soundtok.live/removePost',
+    //   data: formData
+    // };
+
+    // axios.delete(optionGetPosts)
+    //   .then((response) => {
+    //     console.log('response', response);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   useEffect(() => {
@@ -108,13 +112,16 @@ const UserPosts = ({isCurrentUser, profileName}) => {
     let location = window.location.href;
     let userProfile = location.slice((window.location.href.indexOf('profile') + 8));
     // console.log('endpoint', userProfile);
+    // setCurrentEndpoint('userProfile');
 
     if (userProfile !== '') {
       setUsername(userProfile);
     } else {
       userProfile = username;
+      setIsCurrentUser(true);
     }
     // setUsername(userProfile);
+    // console.log('searching for: ', userProfile);
 
     // axios.get(`/profile/${profileName}`, {
     axios.get(`/profile`, {
@@ -124,7 +131,7 @@ const UserPosts = ({isCurrentUser, profileName}) => {
       }
     })
       .then((response) => {
-        console.log('post response', response.data.projectdata);
+        // console.log('post response', response.data.projectdata);
         setSongs(response.data.projectdata);
 
       })
@@ -147,7 +154,8 @@ const UserPosts = ({isCurrentUser, profileName}) => {
     //       console.log(err);
     //     });
     // }
-  }, []);
+  }, [profileName]);
+  // }, [currentEndpoint]);
 
   return (
     <>
@@ -159,27 +167,27 @@ const UserPosts = ({isCurrentUser, profileName}) => {
       </ButtonWrapper>
       {/* <p>User from context: {user}</p> */}
       <PostWrapper>
-        {(tab === 'Posts' || !isCurrentUser) ? songs.map((song, i) => {
+        {((tab === 'Posts' || !isCurrentUser) && songs !== undefined) ? songs.map((song, i) => {
           return (
             <Song
               key={i}
-              songId={song.projectId}
+              postId={song.postId}
               songImage={song.projectImage}
               projectTitle={song.projectTitle}
               songDescription={song.projectDescription}
               projectAudioLink={song.projectAudioLink}
               projectLength={song.projectLength}
               tags={song.tags}
-              removeSong={removeProject}
+              removeSong={removePost}
               isCurrentUser={isCurrentUser}
             ></Song>
           );
         }) : null}
-        {(tab === 'Drafts' && isCurrentUser) ? drafts.map((draft, i) => {
+        {(tab === 'Drafts' && isCurrentUser && drafts !== undefined) ? drafts.map((draft, i) => {
           return (
             <Draft
               key={i}
-              songId={draft.projectId}
+              postId={draft.postId}
               username={draft.username}
               songImage={draft.projectImage}
               projectTitle={draft.projectTitle}
@@ -187,7 +195,7 @@ const UserPosts = ({isCurrentUser, profileName}) => {
               projectAudioLink={draft.projectAudioLink}
               projectLength={draft.projectLength}
               tags={draft.tags}
-              removeDraft={removeProject}
+              removeDraft={removePost}
             ></Draft>
           );
         }) : null}

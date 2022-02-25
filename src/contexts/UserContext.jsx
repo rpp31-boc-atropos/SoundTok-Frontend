@@ -10,6 +10,7 @@ const UserInfoProvider = ({ children }) => {
   const [email, setEmail] = React.useState(null);
   const [profilePic, setProfilePic] = React.useState(null);
   const [userBio, setUserBio] = React.useState(null);
+  const [isNewProfile, setIsNewProfile] = React.useState(false); //rk added
 
   // QUERY FOR USER PROPIC AND USERNAME HERE USING EMAIL
   React.useEffect(() => {
@@ -47,6 +48,8 @@ const UserInfoProvider = ({ children }) => {
     setProfilePic,
     userBio,
     setUserBio,
+    isNewProfile,
+    setIsNewProfile
   };
 
   return (
