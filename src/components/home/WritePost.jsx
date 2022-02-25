@@ -19,25 +19,22 @@ const WritePost = (props) => {
   const { posts, setPosts, isPostUpdated, setIsPostUpdated } = usePosts();
   const { songs } = usePlayer();
 
-  // refs
-  const projectTitle = React.useRef(null);
-  const projectText = React.useRef(null);
-
-  // clear content when a post is made
+  // clear content when a post is published
   React.useEffect(() => {
     if (props.isPosted) {
       props.setTextCharacterCount(0);
       props.setUploadedAudio(null);
       props.setAudioDuration(0);
       props.setUploadedImage(null);
-      projectTitle.current.value = null;
-      projectText.current.value = null;
+      props.projectTitle.current.value = null;
+      props.projectText.current.value = null;
       props.setIsPosted(false);
     }
   }, [props.isPosted]);
 
   const handleTitleCharacterCount = (event) => {
     event.preventDefault();
+    const title = event.target.value;
     const count = event.target.value.length;
     if (count > 45) {
       event.target.value = event.target.value.slice(0, 45);
@@ -70,13 +67,14 @@ const WritePost = (props) => {
         'https://api.cloudinary.com/v1_1/xoxohorses/video/upload',
         formData
       );
-      if (response.data.duration > 300) {
-        props.setErrorMessage('WARNING: Audio file longer than 5 minutes');
-      } else {
-        props.setErrorMessage(null);
-        props.setUploadedAudio(response.data.url);
-        props.setAudioDuration(response.data.duration);
-      }
+      // ERROR HANDLING FOR > 5 min audio
+      // if (response.data.duration > 300) {
+      //   props.setErrorMessage('WARNING: Audio file longer than 5 minutes');
+      // } else {
+      props.setErrorMessage(null);
+      props.setUploadedAudio(response.data.url);
+      props.setAudioDuration(response.data.duration);
+      // }
     } catch (error) {
       console.log(error);
     }
@@ -101,8 +99,8 @@ const WritePost = (props) => {
       props.setErrorMessage('WARNING: Please attach an audio file');
     } else {
       props.setErrorMessage(null);
-      let title = projectTitle.current.value;
-      let text = projectText.current.value;
+      let title = props.projectTitle.current.value;
+      let text = props.projectText.current.value;
       let tags = helper.parseTags(text);
 
       const post = {
@@ -111,7 +109,7 @@ const WritePost = (props) => {
         username: username,
         userEmail: email,
         postLikes: 0,
-        isDraft: false,
+        published: false,
         postText: text,
         tags: tags,
         projectAudioLink: props.uploadedAudio,
@@ -147,7 +145,7 @@ const WritePost = (props) => {
               <PostHeader>
                 <label htmlFor="project-title">
                   <ProjectTitle
-                    ref={projectTitle}
+                    ref={props.projectTitle}
                     type="text"
                     id="project-title"
                     name="projectTitle"
@@ -231,14 +229,14 @@ const WritePost = (props) => {
               </PostHeader>
               <label htmlFor="post-text">
                 <TextInput
-                  ref={projectText}
+                  ref={props.projectText}
                   id="post-text"
                   name="postText"
                   maxlength="140"
                   rows="4"
                   cols="70"
                   placeholder="Share your sound"
-                  onChange={props.handleTextCharacterCount}
+                  onChange={handleTextCharacterCount}
                 ></TextInput>
               </label>
               <CharacterCount>
@@ -284,6 +282,7 @@ const WritePostWrapper = styled.div`
   align-items: flex-start;
   box-sizing: border-box;
   border: 1px solid var(--font-line-color-yellow-transparent);
+  background: var(--main-color-black);
   border-bottom: none;
   position: relative;
 `;
