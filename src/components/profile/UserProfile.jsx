@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import BioModal from './BioModal.jsx';
 // import { useAuth } from '../../contexts/AuthContext.jsx';
 import dummyProfile from './dummyProfile.jsx';
+// import { useLocation } from 'react-router-dom';
 
 import styled from 'styled-components';
 const axios = require('axios');
@@ -49,13 +50,17 @@ const ProfileText = styled.div`
   justify-content: center;
 `;
 
-const UserProfile = ({isCurrentUser, setIsCurrentUser, location, profileName}) => {
+// const UserProfile = ({isCurrentUser, setIsCurrentUser, location, profileName}) => {
+const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName, setProfileName}) => {
   // const { user } = useAuth();
   const [username, setUsername] = useState('leggo'); //update with Context when available
   const [profilePicture, setProfilePicture] = useState(dummyProfile.profilePicture);
   const [bio, setBio] = useState(dummyProfile.bio);
   const [isOpen, setModal] = useState(false);
-
+  // const [location, setLocation] = useLocation();
+  // const {location} = useLocation();
+  const [currentLocation, setCurrentLocation] = useState('');
+  
 
   const closeModal = () => {
     setModal(false);
@@ -90,12 +95,6 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, location, profileName}) =
 
         console.log(tempData);
 
-        // const optionGetPosts = {
-        //   // method: 'PUT',
-        //   url: 'api.soundtok.live/updateProfile',
-        //   data: tempData
-        // };
-
         axios.put('/updateProfile/', tempData)
           .then((response) => {
             console.log('response', response);
@@ -112,14 +111,21 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, location, profileName}) =
   };
 
   useEffect(() => {
-    let location = window.location.href;
-    let userProfile = location.slice((window.location.href.indexOf('profile') + 8));
+    let newLocation = window.location.href;
+    let userProfile = newLocation.slice((window.location.href.indexOf('profile') + 8));
+    // console.log('location:', newLocation);
+    setCurrentLocation(userProfile);
+    // setProfileName(userProfile);
+    console.log('current location', currentLocation);
+    // const location = useLocation();
+    // console.log('location: ', location);
 
     // console.log('userprofile ', userProfile);
     if (userProfile !== '') {
       setUsername(userProfile);
     } else {
       userProfile = username;
+
     }
 
     axios.get('/profile/', {
@@ -136,7 +142,7 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, location, profileName}) =
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [currentLocation]);
 
   //move to higher level
   // React.useEffect(() => {
@@ -161,7 +167,7 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, location, profileName}) =
       <ProfilePic alt='logo'
         src={profilePicture}>
       </ProfilePic>
-      <ProfileHeader>{`@${username}`}</ProfileHeader>
+      <ProfileHeader>{`@${profileName}`}</ProfileHeader>
       <ButtonWrapper>
         {isCurrentUser ?
           <Button onClick={() => setModal(true)}>Edit profile</Button>

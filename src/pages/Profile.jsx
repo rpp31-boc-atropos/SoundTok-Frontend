@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import EditProfile from '../components/profile/EditProfile.jsx';
 import UserProfile from '../components/profile/UserProfile.jsx';
 import UserPosts from '../components/profile/UserPosts.jsx';
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 import Loading from '../components/Loading.jsx';
 import { useUserInfo } from '../contexts/UserContext.jsx';
+
 
 import styled from 'styled-components';
 
@@ -24,13 +25,25 @@ const Profile = () => {
   const [profileName, setProfileName] = useState('testName');
   const { email, username } = useUserInfo();
   // const { email, username, isNewProfile, setIsNewProfile } = useUserInfo();
+  let location = useLocation();
 
+  const changeProfile = () => {
+
+  };
 
   useEffect(() => {
-    console.log('user email', email);  //this is the logged in username
-    console.log('user name', username);  //this is the logged in username
+    console.log('user email', email); //this is the logged in username
+    console.log('user name', username); //this is the logged in username
 
-  });
+
+    let newLocation = window.location.href;
+    let userProfile = newLocation.slice((window.location.href.indexOf('profile') + 8));
+    console.log('location:', location);
+    console.log('pathname', location.pathname);
+    console.log('pathname', location.pathname.split('/').pop());
+    setProfileName(location.pathname.split('/').pop());
+
+  }, [location]);
 
   //Nested routes
   return (
@@ -43,6 +56,7 @@ const Profile = () => {
           isCurrentUser={isCurrentUser}
           setIsCurrentUser={setIsCurrentUser}
           profileName={profileName}
+          setProfileName={setProfileName}
         ></UserProfile>
         <UserPosts
           isCurrentUser={isCurrentUser}
