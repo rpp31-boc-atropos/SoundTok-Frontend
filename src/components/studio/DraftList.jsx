@@ -1,53 +1,30 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import IconButton from '@material-ui/core/IconButton';
+//import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+//import IconButton from '@material-ui/core/IconButton';
+//import DeleteIcon from '@material-ui/icons/Delete';
 import Avatar from '@material-ui/core/Avatar';
-
-import DeleteIcon from '@material-ui/icons/Delete';
 import Folder from '@material-ui/icons/Folder';
-import Add from '@material-ui/icons/Add';
 
-import {Draft} from './Styles/styles.js';
-import fakeData from './fakeDraftdata.js';
+import { Draft } from './Styles/styles.js';
 
-//todo: selected draft
-// save/load drafts
+import { usePosts } from '../../contexts/PostsContext.jsx';
 
-const DraftList = ({ setDraft, newDraft }) => {
+const DraftList = ({ setDraft }) => {
 
-  const [draftList, setDraftList] = useState(null);
+  const { drafts } = usePosts();
 
-  useEffect(() => {
-
-    //axios get drafts from API
-    setDraftList(fakeData);
-
-  }, []);
-
-  if (draftList === null) {
+  if (drafts === null || drafts === undefined) {
     return null;
   }
 
   return (
     <div>
       <List dense={false}>
-        <Draft>
-          <ListItem button onClick={newDraft}>
-            <ListItemAvatar>
-              <Avatar>
-                <Add />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary='New Draft'
-            />
-          </ListItem>
-        </Draft>
-        {draftList.map((item, index) => (<DraftItem key={index} draft={item} setDraft={setDraft} />))}
+        {drafts.map((item, index) => (<DraftItem key={index} draft={item} setDraft={setDraft} />))}
       </List>
     </div>
   );
@@ -55,9 +32,7 @@ const DraftList = ({ setDraft, newDraft }) => {
 
 const DraftItem = ({draft, setDraft}) => {
 
-  console.log(draft.name);
-  const clickDraft = (event) => {
-    console.log('loading: ', draft.name);
+  const clickDraft = () => {
     setDraft(draft);
   };
 
@@ -71,8 +46,8 @@ const DraftItem = ({draft, setDraft}) => {
         </ListItemAvatar>
         <ListItemText
           secondaryTypographyProps={{style: {color: 'yellow'}}}
-          primary={draft.name}
-          secondary={draft.date}
+          primary={draft.projectTitle}
+          secondary={new Date(draft.timePosted).toLocaleString('en-US')}
         />
         {/* <ListItemSecondaryAction >
           <IconButton aria-label="Delete" m={0} onClick={() => {}}>

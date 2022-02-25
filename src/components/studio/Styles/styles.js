@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FaArrowsAltH, FaUpload, FaGripLinesVertical } from 'react-icons/fa';
+import { FaArrowsAltH, FaUpload, FaGripLinesVertical, FaTimesCircle } from 'react-icons/fa';
 import { BsPlayCircleFill, BsFillPauseCircleFill, BsStopBtnFill } from 'react-icons/bs';
 import { MdOutlineFastForward, MdOutlineFastRewind } from 'react-icons/md';
 
@@ -62,7 +62,7 @@ export const Header = styled.h3`
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-around;
-  width: 200px;
+  width: 250px;
   height: 40px;
   margin-right: 5px;
 `;
@@ -129,14 +129,16 @@ export const RightPanel = styled.div`
   height: 700px;
   width: 369px;
   border-left: 2px solid rgb(255, 250, 206);
+  overflow-y: auto;
 `;
 
 export const DraftTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 373px;
+  width: 333px;
   height: 50px;
+  padding: 10px 0;
   border-bottom: 2px solid rgb(255, 250, 206);
 `;
 
@@ -146,12 +148,12 @@ export const DraftWrapper = styled.div`
   align-items: center;
   justify-content: space-around;
   margin-top: 8px;
-  width: 369px;
+  width: 333px;
   height: auto;
 `;
 
 export const Draft = styled.div`
-  margin: 8px 0;
+  margin: 10px 0;
   border: 2px solid rgb(255, 250, 206);
   padding: 0.25em 0.5em;
   transition: -webkit-transform 0.2s;
@@ -159,7 +161,7 @@ export const Draft = styled.div`
 	transition: transform 0.2s, -webkit-transform 0.2s;
   &:hover {
     -webkit-transform: scale(1.5);
-	  transform: scale(1.5);
+	  transform: scale(1.2);
     cursor: pointer;
     background-color: purple;
   }
@@ -183,7 +185,7 @@ export const PlayWaveSurferButton = styled.button`
 `;
 
 export const Pause = styled(BsFillPauseCircleFill)`
-  color purple;
+  color: purple;
   font-size: 30px;
 
   &:hover {
@@ -192,7 +194,7 @@ export const Pause = styled(BsFillPauseCircleFill)`
 `;
 
 export const Play = styled(BsPlayCircleFill)`
-  color purple;
+  color: purple;
   font-size: 30px;
   &:hover {
     cursor: pointer;
@@ -200,7 +202,7 @@ export const Play = styled(BsPlayCircleFill)`
 `;
 
 export const Stop = styled(BsStopBtnFill)`
-  color purple;
+  color: purple;
   font-size: 35px;
   &:hover {
     cursor: pointer;
@@ -208,7 +210,7 @@ export const Stop = styled(BsStopBtnFill)`
 `;
 
 export const Rewind = styled(MdOutlineFastRewind)`
-  color purple;
+  color: purple;
   font-size: 40px;
   &:hover {
     cursor: pointer;
@@ -216,7 +218,7 @@ export const Rewind = styled(MdOutlineFastRewind)`
 `;
 
 export const FastForward = styled(MdOutlineFastForward)`
-  color purple;
+  color: purple;
   font-size: 40px;
   &:hover {
     cursor: pointer;
@@ -225,7 +227,7 @@ export const FastForward = styled(MdOutlineFastForward)`
 
 export const AllButtons = styled.div`
   height: 60px;
-  width 600px;
+  width: 800px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -243,7 +245,7 @@ export const EffectButton = styled.div`
 `;
 
 export const MoveAudio = styled(FaArrowsAltH)`
-  color purple;
+  color: purple;
   font-size: 30px;
   &:hover {
     cursor: pointer;
@@ -251,7 +253,7 @@ export const MoveAudio = styled(FaArrowsAltH)`
 `;
 
 export const Highligther = styled(FaGripLinesVertical)`
-  color purple;
+  color: purple;
   font-size: 25px;
   &:hover {
     cursor: pointer;
@@ -262,6 +264,44 @@ export const UploadIcon = styled(FaUpload)`
   margin-top: 5px;
   margin-right: 10px;
   color purple;
+  font-size: 25px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const ReverbModalWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const CloseModalIcon = styled(FaTimesCircle)`
+  color: black;
+  margin-left: 50px;
+  font-size: 20px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const ModalHeader = styled.h3`
+  color: black;
+  margin-right: 80px;
+  width: 200px;
+`;
+
+export const TrackNameWrapper = styled.div`
+  height: 150px;
+  width: 190px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const TrackName = styled.div`
+  color: black;
   font-size: 25px;
   &:hover {
     cursor: pointer;
