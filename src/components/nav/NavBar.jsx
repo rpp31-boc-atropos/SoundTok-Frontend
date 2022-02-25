@@ -26,15 +26,17 @@ const NavBar = () => {
       <li>
         <Link to="/studio">Studio</Link>
       </li>
-
+      <Search />
       <li>
         <Link to="/profile">Profile</Link>
       </li>
 
+
+
       {!isLoading && !isAuthenticated && (
         <button onClick={() => loginWithRedirect()}>Log In</button>
       )}
-      <Search />
+
       {!isLoading && isAuthenticated && (
         <div style={{
           display: 'flex',
