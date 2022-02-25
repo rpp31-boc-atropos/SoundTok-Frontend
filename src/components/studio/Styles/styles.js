@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FaArrowsAltH, FaUpload, FaGripLinesVertical } from 'react-icons/fa';
+import { FaArrowsAltH, FaUpload, FaGripLinesVertical, FaTimesCircle } from 'react-icons/fa';
 import { BsPlayCircleFill, BsFillPauseCircleFill, BsStopBtnFill } from 'react-icons/bs';
 import { MdOutlineFastForward, MdOutlineFastRewind } from 'react-icons/md';
 
@@ -185,7 +185,7 @@ export const PlayWaveSurferButton = styled.button`
 `;
 
 export const Pause = styled(BsFillPauseCircleFill)`
-  color purple;
+  color: purple;
   font-size: 30px;
 
   &:hover {
@@ -194,7 +194,7 @@ export const Pause = styled(BsFillPauseCircleFill)`
 `;
 
 export const Play = styled(BsPlayCircleFill)`
-  color purple;
+  color: purple;
   font-size: 30px;
   &:hover {
     cursor: pointer;
@@ -202,7 +202,7 @@ export const Play = styled(BsPlayCircleFill)`
 `;
 
 export const Stop = styled(BsStopBtnFill)`
-  color purple;
+  color: purple;
   font-size: 35px;
   &:hover {
     cursor: pointer;
@@ -210,7 +210,7 @@ export const Stop = styled(BsStopBtnFill)`
 `;
 
 export const Rewind = styled(MdOutlineFastRewind)`
-  color purple;
+  color: purple;
   font-size: 40px;
   &:hover {
     cursor: pointer;
@@ -218,7 +218,7 @@ export const Rewind = styled(MdOutlineFastRewind)`
 `;
 
 export const FastForward = styled(MdOutlineFastForward)`
-  color purple;
+  color: purple;
   font-size: 40px;
   &:hover {
     cursor: pointer;
@@ -227,7 +227,7 @@ export const FastForward = styled(MdOutlineFastForward)`
 
 export const AllButtons = styled.div`
   height: 60px;
-  width 600px;
+  width: 800px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -245,7 +245,7 @@ export const EffectButton = styled.div`
 `;
 
 export const MoveAudio = styled(FaArrowsAltH)`
-  color purple;
+  color: purple;
   font-size: 30px;
   &:hover {
     cursor: pointer;
@@ -253,7 +253,7 @@ export const MoveAudio = styled(FaArrowsAltH)`
 `;
 
 export const Highligther = styled(FaGripLinesVertical)`
-  color purple;
+  color: purple;
   font-size: 25px;
   &:hover {
     cursor: pointer;
@@ -264,6 +264,44 @@ export const UploadIcon = styled(FaUpload)`
   margin-top: 5px;
   margin-right: 10px;
   color purple;
+  font-size: 25px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const ReverbModalWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const CloseModalIcon = styled(FaTimesCircle)`
+  color: black;
+  margin-left: 50px;
+  font-size: 20px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const ModalHeader = styled.h3`
+  color: black;
+  margin-right: 80px;
+  width: 200px;
+`;
+
+export const TrackNameWrapper = styled.div`
+  height: 150px;
+  width: 190px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const TrackName = styled.div`
+  color: black;
   font-size: 25px;
   &:hover {
     cursor: pointer;

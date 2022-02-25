@@ -12,7 +12,7 @@ import Folder from '@material-ui/icons/Folder';
 import Add from '@material-ui/icons/Add';
 
 import {Draft} from './Styles/styles.js';
-import fakeData from './fakeDraftdata.js';
+import fakeData from './fakeDraftData.js';
 
 //todo: selected draft
 // save/load drafts
@@ -55,9 +55,9 @@ const DraftList = ({ setDraft, newDraft }) => {
 
 const DraftItem = ({draft, setDraft}) => {
 
-  console.log(draft.name);
+  // console.log(draft.name);
   const clickDraft = (event) => {
-    console.log('loading: ', draft.name);
+    // console.log('loading: ', draft.name);
     setDraft(draft);
   };
 
