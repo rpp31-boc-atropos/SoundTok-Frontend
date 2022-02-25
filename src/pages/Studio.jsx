@@ -243,7 +243,7 @@ const Studio = () => {
         <RightPanel style={{maxHeight: '100%'}}>
           <DraftTitle>Drafts</DraftTitle>
           <DraftWrapper>
-            <DraftList drafts={[]} setDraft={handleSetDraft} newDraft={handleNewDraft} />
+            <DraftList setDraft={handleSetDraft} newDraft={handleNewDraft} />
           </DraftWrapper>
         </RightPanel>
       </EditorWrapper>
