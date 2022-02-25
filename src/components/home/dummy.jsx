@@ -8,7 +8,7 @@ export default dummy = [
     timePosted: '2022-02-11T18:34:49.915-08:00',
     username: 'stella',
     postLikes: 0,
-    isDraft: false,
+    published: false,
     postText:
       "Chicago, i'm SO excited, to hold you guys over until then, here's a #teaser :)",
     tags: [{ teaser: 70 }],
@@ -27,7 +27,7 @@ export default dummy = [
     timePosted: '2022-02-04T18:34:49.915-08:00',
     username: 'panda',
     postLikes: 49,
-    isDraft: false,
+    published: false,
     postText:
       "it's been an incredible journey, but my first song is out #ep. thank you to my producer and my mom and dad and sister and #family",
     tags: [{ ep: 58 }, { family: 122 }],
@@ -47,7 +47,7 @@ export default dummy = [
     timePosted: '2022-01-11T18:34:49.915-08:00',
     username: 'leggo',
     postLikes: 302,
-    isDraft: false,
+    published: false,
     postText: 'the #grind is real',
     tags: { grind: 4 },
     projectAudioLink:
@@ -66,7 +66,7 @@ export default dummy = [
     timePosted: '2022-01-11T18:34:49.915-08:00',
     username: 'happi',
     postLikes: 3,
-    isDraft: false,
+    published: false,
     postText: 'i got my fav bugs yesterday, so today the #inspiration hit',
     tags: [{ inspiration: 42 }],
     projectAudioLink:
@@ -84,7 +84,7 @@ export default dummy = [
     timePosted: '2021-12-04T18:34:49.915-08:00',
     username: 'quokkaofficial',
     postLikes: 100,
-    isDraft: false,
+    published: false,
     postText: 'guys hey guys welcome to my #island life',
     tags: [{ island: 28 }],
     projectAudioLink:
@@ -103,7 +103,7 @@ export default dummy = [
     timePosted: '2021-11-11T18:34:49.915-08:00',
     username: 'leggo',
     postLikes: 3,
-    isDraft: false,
+    published: false,
     postText: 'this post has no tags or image attached',
     tags: [],
     projectAudioLink:
