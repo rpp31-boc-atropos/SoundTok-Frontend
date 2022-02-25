@@ -121,6 +121,7 @@ const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
       setIsCurrentUser(true);
     }
     // setUsername(userProfile);
+    // console.log('searching for: ', userProfile);
 
     // axios.get(`/profile/${profileName}`, {
     axios.get(`/profile`, {
@@ -153,7 +154,7 @@ const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
     //       console.log(err);
     //     });
     // }
-  }, []);
+  }, [profileName]);
   // }, [currentEndpoint]);
 
   return (

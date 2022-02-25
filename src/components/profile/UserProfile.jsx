@@ -118,7 +118,7 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName, setProfileNa
     // console.log('location:', newLocation);
     setCurrentLocation(userProfile);
     // setProfileName(userProfile);
-    console.log('current location', currentLocation);
+    // console.log('current location', currentLocation);
     // const location = useLocation();
     // console.log('location: ', location);
 
@@ -127,7 +127,6 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName, setProfileNa
       setUsername(userProfile);
     } else {
       userProfile = username;
-
     }
 
     axios.get('/profile/', {
@@ -139,12 +138,13 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName, setProfileNa
       .then((response) => {
         // console.log('profileresponse', response.data);
         setProfilePicture(response.data.profilePicture);
+        // console.log('getting bio back: ', response.data);
         setBio(response.data.userBio); //Maggie is working on adding this
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [currentLocation]);
+  }, [profileName]);
 
   //move to higher level
   // React.useEffect(() => {
