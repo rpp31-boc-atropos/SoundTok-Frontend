@@ -26,7 +26,7 @@ const Studio = () => {
 
   // User email from global context
   let {email} = useUserInfo();
-  let {drafts} = usePosts();
+  let {drafts, isDraftUpdated, setIsDraftUpdated} = usePosts();
 
   ee.on('audiorenderingstarting', function(offlineCtx) {
     // Set Tone offline to render effects properly.
@@ -70,6 +70,7 @@ const Studio = () => {
       axios.post('https://api.soundtok.live/drafts', reqBody)
         .then((response) => {
           console.log('save successful, ', response);
+          setIsDraftUpdated(!isDraftUpdated);
         })
         .catch((error) => {
           console.log('save fail ', error);
