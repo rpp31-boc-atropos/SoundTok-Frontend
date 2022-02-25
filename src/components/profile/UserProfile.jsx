@@ -60,7 +60,7 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName, setProfileNa
   // const [location, setLocation] = useLocation();
   // const {location} = useLocation();
   const [currentLocation, setCurrentLocation] = useState('');
-  
+
 
   const closeModal = () => {
     setModal(false);
@@ -71,6 +71,8 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName, setProfileNa
     formData.append('file', newPhoto);
     // formData.append('upload_preset', CLOUDINARY_PROFILE_PRESET);
     formData.append('upload_preset', 'zua1tfa6');
+
+    // console.log('newPhoto', newPhoto);
 
     axios.post('https://api.cloudinary.com/v1_1/rickkcloudinary/image/upload', formData)
       .then((response) => {
@@ -179,7 +181,8 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName, setProfileNa
           isOpen={isOpen}
           currentBio={bio}
           closeModal={closeModal.bind(this)}
-          handleUpdateProfile={handleUpdateProfile}>
+          handleUpdateProfile={handleUpdateProfile}
+          profilePicture={profilePicture}>
         </BioModal> : null}
       <ProfileText>{bio}</ProfileText>
     </ProfileWrapper>
