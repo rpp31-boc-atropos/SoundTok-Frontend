@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AllButtons, ButtonTop, ButtonWrapper, ControlBarWrapper, Draft, DraftTitle, DraftWrapper, EditorWrapper, EffectButton, FastForward, Header, Highligther, MainPanel, MoveAudio, Pause, Play, PlayerControls, Rewind, RightPanel, Stop, StudioHeader, StudioWrapper } from '../components/studio/Styles/styles.js';
+import { AllButtons, ButtonTop, ButtonWrapper, ControlBarWrapper, DraftTitle, DraftWrapper, EditorWrapper, EffectButton, FastForward, Header, Highligther, MainPanel, MoveAudio, Pause, Play, PlayerControls, Rewind, RightPanel, Select, Stop, StudioHeader, StudioWrapper } from '../components/studio/Styles/styles.js';
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 import Loading from '../components/Loading.jsx';
 import WaveformPlaylist from 'waveform-playlist';
@@ -7,16 +7,32 @@ import AudioUpload from '../components/studio/AudioUpload.jsx';
 import axios from 'axios';
 import EventEmitter from 'events';
 import { saveAs } from 'file-saver';
+import * as Tone from 'tone';
 import DraftList from '../components/studio/DraftList.jsx';
+import ReverbModal from '../components/studio/ReverbModal.jsx';
+import Modal from 'react-modal';
 
 const Studio = () => {
 
+  let toneCtx = Tone.getContext();
+  let audioCtx = toneCtx.rawContext;
+  let analyser = audioCtx.createAnalyser();
+
   const [ee] = useState(new EventEmitter());
   const [playlist, setPlayList] = useState(null);
-  const [count, setCount] = useState(1);
+  // const [flag, setFlag] = useState(false);
+
+  ee.on('audiorenderingstarting', function(offlineCtx) {
+    // Set Tone offline to render effects properly.
+    const offlineContext = new Tone.OfflineContext(offlineCtx);
+    Tone.setContext(offlineContext);
+  });
+  // const [count, setCount] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
   ee.on('audiorenderingfinished', function (type, data) {
+    //restore original ctx for further use.
+    Tone.setContext(toneCtx);
     if (type === 'wav') {
       saveAs(data, 'track.wav');
     }
@@ -32,9 +48,15 @@ const Studio = () => {
 
   const handleSetDraft = (draft) => {
     removeAllTracks();
+    // playlist.load(draft.tracks);
+
+    // setFlag(true);
     setIsLoading(true);
     playlist.load(draft.tracks)
-      .then(()=>{ setIsLoading(false); });
+      .then(()=>{
+        playlist.initExporter();
+        setIsLoading(false);
+      });
   };
 
   const handleNewDraft = () => {
@@ -42,10 +64,72 @@ const Studio = () => {
   };
 
   const handleSaveDraft = () => {
-    if (playlist.getInfo().length > 0) {
-      console.log(playlist.getInfo());
+
+    let hasEffect = false;
+
+    if (playlist.tracks.length > 0) {
+      let draftPlaylist = playlist.getInfo().tracks;
+
+      draftPlaylist.forEach(elem => {
+        if (elem.effects !== '') {
+          hasEffect = true;
+          return;
+        }
+      });
+
+      if (hasEffect) {
+        draftPlaylist.forEach(val => {
+          if (val.effects !== '') {
+            val.effects = function(graphEnd, masterGainNode) {
+              var effects = new Tone.Reverb(1.2);
+
+              Tone.connect(graphEnd, effects);
+              Tone.connect(effects, masterGainNode);
+
+              return function cleanup() {
+                effects.disconnect();
+                effects.dispose();
+              };
+            };
+          }
+        });
+
+        console.log(draftPlaylist);
+      } else {
+        console.log(playlist.getInfo().tracks);
+      }
     }
-    // console.log(playlist);
+
+  };
+
+  const handleEffects = (updatedPlaylist) => {
+    // removeAllTracks();
+    ee.emit('clear');
+
+    console.log('playlist updated Playlist: ', updatedPlaylist);
+
+    for (let i = 0; i < updatedPlaylist.length; i++) {
+      console.log(typeof updatedPlaylist[i].effects === 'string');
+      if (typeof updatedPlaylist[i].effects === 'string' && updatedPlaylist[i].effects !== '') {
+
+        updatedPlaylist[i].effects = function(graphEnd, masterGainNode) {
+          var effects = new Tone.Reverb(1.2);
+
+          Tone.connect(graphEnd, effects);
+          Tone.connect(effects, masterGainNode);
+
+          return function cleanup() {
+            effects.disconnect();
+            effects.dispose();
+          };
+        };
+
+
+      }
+    }
+
+    playlist.load(updatedPlaylist);
+
   };
 
   const handleUpload = (e) => {
@@ -60,12 +144,13 @@ const Studio = () => {
         console.log(result);
         playlist.load([{
           src: result.data.url,
-          name: `Track #${count}`
+          name: 'Track'
         }])
-          .then(()=>{ setIsLoading(false); });
-        playlist.initExporter();
-        // console.log(playlist.initExporter());
-        setCount(count + 1);
+          .then(()=>{
+            playlist.initExporter();
+            console.log(playlist);
+            setIsLoading(false);
+          });
       })
       .catch(err => {
         console.log(err);
@@ -74,6 +159,7 @@ const Studio = () => {
 
   useEffect(() => {
     setPlayList(WaveformPlaylist({
+      ac: audioCtx,
       samplesPerPixel: 1000,
       waveHeight: 131,
       barWidth: 3,
@@ -95,7 +181,14 @@ const Studio = () => {
         }
       },
       zoomLevels: [1000],
+      effects: function(masterGainNode, destination, isOffline) {
+        // analyser nodes don't work offline.
+        if (!isOffline) { masterGainNode.connect(analyser); }
+        masterGainNode.connect(destination);
+      }
     }, ee));
+
+    Modal.setAppElement('#editor');
   }, []);
 
 
@@ -106,7 +199,8 @@ const Studio = () => {
           <Header>Audio Creation Tool</Header>
         </div>
         <ButtonWrapper>
-          <ButtonTop onClick={() => { ee.emit('startaudiorendering', 'wav'); }}>Download</ButtonTop>
+          <ButtonTop onClick={() => { ee.emit('clear'); }}>Clear</ButtonTop>
+          <ButtonTop role='download' onClick={() => { ee.emit('startaudiorendering', 'wav'); }}>Download</ButtonTop>
           <ButtonTop onClick={handleSaveDraft}>Save</ButtonTop>
         </ButtonWrapper>
       </StudioHeader>
@@ -114,7 +208,7 @@ const Studio = () => {
         <MainPanel id='editor'>
           {isLoading ? <Loading /> : null}
         </MainPanel>
-        <RightPanel style={{maxHeight: '100%', overflow: 'auto'}}>
+        <RightPanel style={{maxHeight: '100%'}}>
           <DraftTitle>Drafts</DraftTitle>
           <DraftWrapper>
             <DraftList drafts={[]} setDraft={handleSetDraft} newDraft={handleNewDraft} />
@@ -134,6 +228,7 @@ const Studio = () => {
             <Highligther onClick={() => { ee.emit('statechange', 'select'); }}></Highligther>
             <EffectButton onClick={() => { ee.emit('statechange', 'fadein'); }}>Fade In</EffectButton>
             <EffectButton onClick={() => { ee.emit('statechange', 'fadeout'); }}>Fade Out</EffectButton>
+            {playlist ? <ReverbModal playlist={playlist} handleEffects={handleEffects}/> : <EffectButton>Reverb</EffectButton>}
             <EffectButton onClick={() => { ee.emit('trim'); }}>Trim</EffectButton>
             <EffectButton onClick={() => { ee.emit('statechange', 'cursor'); }}>Cursor</EffectButton>
           </AllButtons>
