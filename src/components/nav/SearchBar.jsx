@@ -7,7 +7,7 @@ import MoonLoader from 'react-spinners/MoonLoader';
 import useDebounce from './debounceHook.jsx';
 import axios from 'axios';
 import { Hashtag } from '../home/Hashtag.jsx';
-
+import { Link } from 'react-router-dom';
 // import {} from './hashtag.json';
 // import {} from './users.json';
 
@@ -19,6 +19,7 @@ const SearchBarContainer = styled(motion.div)`
   background-color: var(--main-color-blue-light);
   border-radius: 20px;
   box-shadow: 0px 2px 12px 3px rgba(0, 0, 0, 0.14);
+  margin: 0.3em;
 `;
 
 const SearchInputContainer = styled.div`
@@ -36,7 +37,7 @@ const SearchInput = styled.input`
   outline: none;
   border: none;
   font-size: 15px;
-  color: #12112e;
+  color: white;
   font-weight: 200;
   border-radius: 6px;
   background-color: transparent;
@@ -123,11 +124,14 @@ const containerTransition = { type: 'spring', damping: 22, stiffness: 150};
 const Search = () => {
   const [isExpanded, setExpanded] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [results, setResults] = useState([]);
-  const [noResult, setNoResult] = useState(false)
+  const [noResult, setNoResult] = useState(false);
   const [parentRef, isClickedOutside] = useClickOutside();
+  const [isUserSearch, setIsUserSearch] = useState(false);
   const inputRef = useRef();
+
 
   const changeHandler = (e) => {
     e.preventDefault();
@@ -143,6 +147,8 @@ const Search = () => {
     setResults([]);
     setNoResult(true);
     setLoading(false);
+    setIsUserSearch(false);
+    setIsEmpty(true);
     if (inputRef.current) {
       inputRef.current.value = "";
     }
@@ -155,28 +161,49 @@ const Search = () => {
   }, [isClickedOutside]);
 
   const prepareSearchQuery = (query) => {
-    const url = `https://api.soundtok.live/hashtag?q=${query}`
+    let url = '';
+    if (isUserSearch) {
+      url = `https://api.soundtok.live/user?q=${query}`
+    } else {
+      url = `https://api.soundtok.live/getHashtags?search=${query}`
+    }
     return encodeURI(url);
   }
 
   const searchAction = async () => {
-    console.log('triggered search', searchQuery)
-    if(!searchQuery || searchQuery.trim() === "")
+    // console.log('triggered search', searchQuery);
+    if (!searchQuery || searchQuery.trim() === "") {
       return;
+    }
+    if (searchQuery[0] == '@') {
+      setIsUserSearch(true);
+    }
+
     setLoading(true);
-    const URL = prepareSearchQuery(searchQuery)
+
+    const URL = prepareSearchQuery(searchQuery);
+    let response = {};
     // request data here
-    // const response = await axios.get(URL).catch((err) => {
-    //   console.log("Error: ", err)
-    // })
-    const response = {}
-    response.data = ['grind', 'inspiration', 'testing']
+    if (isUserSearch) {
+      response.data = ['stella', 'happi']
+    } else {
+      response = await axios.get(URL).catch((err) => {
+      console.log("Error: ", err)
+    })
+      response.data = response.data.map(each => each['txt'])
+    }
+
 
     if (response) {
-      console.log("Response", response.data)
       if (response.data && response.data.length == 0) {
         setNoResult(true);
+        setIsEmpty(true);
+      } else {
+        setNoResult(false);
+        setIsEmpty(false);
       }
+
+      // setResults(response.data.map(each => each['txt']));
       setResults(response.data);
     }
 
@@ -216,19 +243,30 @@ const Search = () => {
             </LoadingWrapper>
           )}
 
-          {!isLoading && (
+          {!isLoading && isEmpty && !noResult && (
+            <LoadingWrapper>
+              <WarningMessage>Start typing to Search</WarningMessage>
+            </LoadingWrapper>
+          )}
+
+          {!isLoading && isEmpty && noResult && (
+             <LoadingWrapper>
+                <WarningMessage>No match results</WarningMessage>
+             </LoadingWrapper>
+          )}
+
+          {!isLoading && !isEmpty && !noResult && (
             <>
-              {results.map(
-                (result, index) => {
-                return (
-                  // <div key={ index }>
-                  //   {result}
-                  // </div>
-                   <Hashtag key={index} text={`#${result}`}></Hashtag>
-                )}
-              )}
+              {results.map((result, index) => {return (
+                  isUserSearch?
+                   <Link key={index} to={`/profile/${result}`} onClick={collapseContainer}> @{result} </Link>
+                  :
+                  <Hashtag key={index} text={`#${result}`}></Hashtag>
+              )})}
             </>
           )}
+
+
         </SearchContent>
       )}
     </SearchBarContainer>
