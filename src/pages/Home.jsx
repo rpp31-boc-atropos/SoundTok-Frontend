@@ -16,7 +16,20 @@ import dummy from '../components/home/dummy.jsx';
 const Home = () => {
   const { user, isAuthenticated } = useAuth0();
   const { posts } = usePosts();
+
+  // state
+  const [textCharacterCount, setTextCharacterCount] = React.useState(0);
+  const [postTitle, setPostTitle] = React.useState(null);
+  const [uploadedAudio, setUploadedAudio] = React.useState(null);
+  const [audioDuration, setAudioDuration] = React.useState(0);
+  const [uploadedImage, setUploadedImage] = React.useState(null);
+  const [errorMessage, setErrorMessage] = React.useState(null);
+  const [infoMessage, setInfoMessage] = React.useState(null);
   const [isDraftToggled, setIsDraftToggled] = React.useState(false);
+
+  // refs
+  const projectTitle = React.useRef(null);
+  const projectText = React.useRef(null);
 
   React.useEffect(async () => {
     window.scroll(0, 0);
@@ -27,12 +40,38 @@ const Home = () => {
       <Feed>
         {user && (
           <WritePost
-            username={user}
+            projectTitle={projectTitle}
+            projectText={projectText}
+            textCharacterCount={textCharacterCount}
+            setTextCharacterCount={setTextCharacterCount}
+            uploadedAudio={uploadedAudio}
+            setUploadedAudio={setUploadedAudio}
+            audioDuration={audioDuration}
+            setAudioDuration={setAudioDuration}
+            uploadedImage={uploadedImage}
+            setUploadedImage={setUploadedImage}
+            errorMessage={errorMessage}
+            setErrorMessage={setErrorMessage}
+            infoMessage={infoMessage}
+            setInfoMessage={setInfoMessage}
             isDraftToggled={isDraftToggled}
             setIsDraftToggled={setIsDraftToggled}
           />
         )}
-        {isDraftToggled && <FeedDrafts />}
+        {isDraftToggled && (
+          <FeedDrafts
+            projectTitle={projectTitle}
+            projectText={projectText}
+            textCharacterCount={textCharacterCount}
+            setTextCharacterCount={setTextCharacterCount}
+            uploadedAudio={uploadedAudio}
+            setUploadedAudio={setUploadedAudio}
+            audioDuration={audioDuration}
+            setAudioDuration={setAudioDuration}
+            uploadedImage={uploadedImage}
+            setUploadedImage={setUploadedImage}
+          />
+        )}
         {posts.map((post, i) => {
           return (
             <Post

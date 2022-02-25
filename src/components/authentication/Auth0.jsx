@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { Auth0Provider } from '@auth0/auth0-react';
 
 import REACT_APP_AUTH0 from '../../config/.auth0.js';
@@ -7,13 +7,13 @@ import REACT_APP_AUTH0 from '../../config/.auth0.js';
 const Auth0ProviderWithHistory = ({ children }) => {
   const domain = REACT_APP_AUTH0.DOMAIN;
   const clientId = REACT_APP_AUTH0.CLIENT_ID;
-  const audience = REACT_APP_AUTH0.AUDIENCE;
+  // const audience = REACT_APP_AUTH0.AUDIENCE;
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const onRedirectCallback = (appState) => {
-    navigate(appState?.returnTo || window.location.pathname);
-  };
+  // const onRedirectCallback = (appState) => {
+  //   navigate(appState?.returnTo || window.location.pathname);
+  // };
   return (
     <Auth0Provider
       domain={domain}
