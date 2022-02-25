@@ -1,8 +1,36 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import dummy from './dummy.jsx';
+import helper from './helperFunctions.js';
 
 const FeedDrafts = (props) => {
-  return <Wrapper>TEST</Wrapper>;
+  const [drafts, setDrafts] = React.useState([]);
+
+  return (
+    <Wrapper>
+      <Spacer width="70" />
+      <Content>
+        {dummy.map((draft, i) => {
+          return (
+            <Draft
+              key={i}
+              type="button"
+              onClick={(event) => {
+                props.projectTitle.current.value = draft.projectTitle;
+                props.projectText.current.value = draft.postText;
+                props.setTextCharacterCount(draft.postText.length);
+                props.setUploadedImage(draft.projectImageLink);
+                props.setUploadedAudio(draft.projectAudioLink);
+              }}
+            >
+              <img src={draft.projectImageLink}></img>
+            </Draft>
+          );
+        })}
+      </Content>
+      <Spacer width="50" />
+    </Wrapper>
+  );
 };
 
 export default FeedDrafts;
@@ -16,4 +44,32 @@ const Wrapper = styled.div`
   box-sizing: border-box;
   border: 1px solid var(--font-line-color-yellow-transparent);
   border-bottom: none;
+  background: var(--main-color-black);
+`;
+
+const Content = styled.div`
+  display: inherit;
+  align-items: center;
+  flex-grow: 1;
+  flex-wrap: wrap;
+`;
+
+const Draft = styled.button`
+  width: 96px;
+  height: 96px;
+  margin: 12px;
+  border-radius: 12px;
+  background: var(--main-color-blue-gradient-light);
+  overflow: hidden;
+
+  img {
+    width: 96px;
+    height: 96px;
+    border-radius: 12px;
+  }
+`;
+
+const Spacer = styled.div`
+  width: ${(props) => props.width || 48}px;
+  height: ${(props) => props.height || 48}px;
 `;
