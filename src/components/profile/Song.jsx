@@ -99,7 +99,7 @@ const Song = (props) => {
         <CornerWrapper>
           <button></button>
           <Link to={'/studio/'}>
-            <PostRemixButton onClick={setSelectedProjectId(props.postId)}>
+            <PostRemixButton onClick={() => setSelectedProjectId(props.postId)}>
               <i className='ri-sound-module-line'></i>
             </PostRemixButton>
           </Link>
