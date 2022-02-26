@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AllButtons, ButtonTop, ButtonWrapper, ControlBarWrapper, DraftTitle, DraftWrapper, EditorWrapper, EffectButton, FastForward, Header, Highligther, MainPanel, MoveAudio, Pause, Play, PlayerControls, Rewind, RightPanel, Select, Stop, StudioHeader, StudioWrapper } from '../components/studio/Styles/styles.js';
+import { AllButtons, ButtonTop, ButtonWrapper, CloseModalIcon, ControlBarWrapper, DraftTitle, DraftWrapper, EditorWrapper, EffectButton, FastForward, Header, Highligther, MainPanel, ModalHeader, MoveAudio, Pause, Play, PlayerControls, ReverbModalWrapper, Rewind, RightPanel, Select, Stop, StudioHeader, StudioWrapper, TrackName, TrackNameWrapper } from '../components/studio/Styles/styles.js';
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 import Loading from '../components/Loading.jsx';
 import WaveformPlaylist from 'waveform-playlist';
@@ -9,10 +9,11 @@ import EventEmitter from 'events';
 import { saveAs } from 'file-saver';
 import * as Tone from 'tone';
 import DraftList from '../components/studio/DraftList.jsx';
-import ReverbModal from '../components/studio/ReverbModal.jsx';
+// import ReverbModal from '../components/studio/ReverbModal.jsx';
 import Modal from 'react-modal';
 import { useUserInfo } from '../contexts/UserContext.jsx';
 import { usePosts } from '../contexts/PostsContext.jsx';
+import ReverbFunc from '../components/studio/effectHelpers.js';
 
 const Studio = () => {
 
@@ -23,10 +24,36 @@ const Studio = () => {
   const [ee] = useState(new EventEmitter());
   const [playlist, setPlayList] = useState(null);
   const [trackSaver, setTrackSaver] = useState(1);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  // const [playlistInfo, setplaylistInfo] = useState(null);
 
   // User email from global context
   let {email} = useUserInfo();
   let {drafts, isDraftUpdated, setIsDraftUpdated} = usePosts();
+
+  const modalStyles = {
+    overlay: {
+      position: 'fixed',
+      top: 300,
+      left: 665,
+      right: 665,
+      bottom: 300,
+      backgroundColor: 'rgb(255, 250, 206)',
+      border: '2px solid rgb(255, 250, 206)',
+      borderRadius: '5px',
+      zIndex: 15
+    },
+    content: {
+      top: '30px',
+      left: '30px',
+      right: '30px',
+      bottom: '30px',
+      zIndex: 20,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    }
+  };
 
   ee.on('audiorenderingstarting', function(offlineCtx) {
     // Set Tone offline to render effects properly.
@@ -83,14 +110,14 @@ const Studio = () => {
   const handleSetDraft = (draft) => {
     removeAllTracks();
     // playlist.load(draft.tracks);
-    console.log('draft: ', draft);
+    // console.log('draft: ', draft);
 
     // setFlag(true);
-    setIsLoading(true);
+    // setIsLoading(true);
     playlist.load(draft.tracks)
       .then(()=>{
         playlist.initExporter();
-        setIsLoading(false);
+        // setIsLoading(false);
       });
   };
 
@@ -139,38 +166,74 @@ const Studio = () => {
 
   };
 
-  const handleEffects = (updatedPlaylist) => {
-    removeAllTracks();
+  const handleEffects = (trackIndex) => {
+
+    console.log('Before Effect Update (playlist log)', playlist);
+    console.log('playlist.getInfo()', playlist.getInfo());
+
+    // let info = playlist.getInfo();
+
+
+    // for (let i = 0; i < playlist.tracks.length; i++) {
+    //   if (i === trackIndex) {
+    //     playlist.tracks[i].effects = ReverbFunc();
+    //   }
+    // }
+
+    // console.log('playlist after effect update', playlist);
+
+    // console.log('playlist.getInfo() after update', playlist.getInfo());
+
+    // playlist.getInfo().tracks[trackIndex].effects = ReverbFunc();
+
+    // console.log('update', playlist);
+    // playlist.tracks[trackIndex] = update;
+    // playlist.load(playlist.tracks);
+    // console.log();
+
+    // removeAllTracks();
+
+    // setPlayList(playlist);
+    // setPlayList(playlist.tracks[trackIndex] = update);
+
+    // if (typeof info.effects === 'string') {
+    //   info.effects = function(masterGainNode, destination, isOffline) {
+    //     if (!isOffline) { masterGainNode.connect(analyser); }
+    //     masterGainNode.connect(destination);
+    //   };
+    // }
+
+    // console.log('info fixed no effect yet: ', info);
+
+    // for (let i = 0; i < info.tracks.length; i++) {
+    //   if (i === trackIndex) {
+    //     info.tracks[i].effects = ReverbFunc();
+    //   } else if (typeof info.tracks[i].effects === 'string' && info.tracks[i].effects !== '') {
+    //     info.tracks[i].effects = ReverbFunc();
+    //   }
+    // }
+
+    // console.log('playlistInfo after adding effect ', info);
+
+
     // ee.emit('clear');
-
-    //console.log('playlist updated Playlist: ', updatedPlaylist);
-
-    for (let i = 0; i < updatedPlaylist.length; i++) {
-      //console.log(typeof updatedPlaylist[i].effects === 'string');
-      if (typeof updatedPlaylist[i].effects === 'string' && updatedPlaylist[i].effects !== '') {
-
-        updatedPlaylist[i].effects = function(graphEnd, masterGainNode) {
-          var effects = new Tone.Reverb(5);
-
-          Tone.connect(graphEnd, effects);
-          Tone.connect(effects, masterGainNode);
-
-          return function cleanup() {
-            effects.disconnect();
-            effects.dispose();
-          };
-        };
+    // playlist.load(info.tracks);
+    setModalIsOpen(false);
 
 
-      }
-    }
+    // let currentPlaylistUpdate = playlistInfo.tracks;
 
-    playlist.load(updatedPlaylist);
+    // currentPlaylistUpdate[trackIndex].effects = ReverbFunc();
+
+    // console.log('currentPlaylistUpdate', currentPlaylistUpdate);
+
+    // playlist.load(currentPlaylistUpdate);
+    // setplaylistInfo(playlistInfo);
 
   };
 
   const handleUpload = (e) => {
-    setIsLoading(true);
+    // setIsLoading(true);
     const file = e.target.files[0];
     let formData = new FormData();
     formData.append('file', file);
@@ -178,15 +241,16 @@ const Studio = () => {
 
     axios.post('https://api.cloudinary.com/v1_1/poyraz96/video/upload', formData)
       .then(result => {
-        console.log(result);
+        // console.log(result);
         playlist.load([{
           src: result.data.url,
           name: 'Track'
         }])
           .then(()=>{
             playlist.initExporter();
-            console.log(playlist);
-            setIsLoading(false);
+            // setPlayList(playlist);
+            // setplaylistInfo(playlist.getInfo());
+            // setIsLoading(false);
           });
       })
       .catch(err => {
@@ -263,7 +327,21 @@ const Studio = () => {
             <FastForward onClick={() => { ee.emit('fastforward'); }}></FastForward>
             <MoveAudio onClick={() => { ee.emit('statechange', 'shift'); }}></MoveAudio>
             <Highligther onClick={() => { ee.emit('statechange', 'select'); }}></Highligther>
-            {playlist ? <ReverbModal playlist={playlist} handleEffects={handleEffects}/> : <EffectButton>Reverb</EffectButton>}
+            <EffectButton onClick={() => { setModalIsOpen(true); }}>Reverb</EffectButton>
+            <Modal style={modalStyles} isOpen={modalIsOpen}>
+              <ReverbModalWrapper>
+                <ModalHeader>Select Track</ModalHeader>
+                <CloseModalIcon onClick={() => { setModalIsOpen(false); }}></CloseModalIcon>
+              </ReverbModalWrapper>
+              {playlist && playlist.tracks.length > 0 ?
+                <TrackNameWrapper>
+                  {playlist.tracks.map((elem, i) => {
+                    return (
+                      <TrackName onClick={() => { handleEffects(i); }} key={i}>Track {i + 1}</TrackName>
+                    );
+                  })}
+                </TrackNameWrapper> : null}
+            </Modal>
             <EffectButton onClick={() => { ee.emit('statechange', 'fadein'); }}>Fade In</EffectButton>
             <EffectButton onClick={() => { ee.emit('statechange', 'fadeout'); }}>Fade Out</EffectButton>
             <EffectButton onClick={() => { ee.emit('trim'); }}>Trim</EffectButton>
