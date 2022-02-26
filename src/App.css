@@ -114,7 +114,7 @@ input {
 
 .logo {
   font-family: MuseoModerno;
-  color: var(--sound-bar-green-light);
+  color: #ECE659;
   font-weight: 600;
   font-size: 25px;
 }
