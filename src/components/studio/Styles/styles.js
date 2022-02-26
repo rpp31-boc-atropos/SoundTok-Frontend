@@ -136,7 +136,7 @@ export const DraftTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 353px;
+  width: 336px;
   height: 50px;
   padding: 10px 0;
   border-bottom: 2px solid rgb(255, 250, 206);
@@ -148,7 +148,7 @@ export const DraftWrapper = styled.div`
   align-items: center;
   justify-content: space-around;
   margin-top: 8px;
-  width: 333px;
+  width: 323px;
   height: auto;
 `;
 
