@@ -16,12 +16,12 @@ const Hashtag = () => {
   // console.log(q);
   // const posts = dummy;
   const [posts, setPosts] = useState([]);
-
+  // console.log("fetching");
   useEffect(async () => {
     const result = await axios(`https://api.soundtok.live/getHashtags/${q}`);
-    // console.log(window.location.href);
+
     setPosts(result.data);
-  }, [posts]);
+  }, [q]);
 
   return (
     <>

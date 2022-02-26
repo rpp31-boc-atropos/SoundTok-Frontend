@@ -33,7 +33,10 @@ const App = () => {
         {/* <Route path='/profile/*' element={isAuthenticated ? <Profile /> : <Navigate to='/' />} /> */}
         <Route path="/profile/*" element={<Profile />} />
         <Route path="/studio/*" element={<Studio />} />
-        <Route path="/hashtag" element={<Hashtag />} />
+        <Route
+          path="/hashtag"
+          element={<Hashtag key={window.location.pathname} />}
+        />
         <Route path="/*" element={<NotFound />} />
       </Routes>
       <AudioPlayer />
