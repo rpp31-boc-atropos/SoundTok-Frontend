@@ -132,7 +132,22 @@ const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
     })
       .then((response) => {
         // console.log('post response', response.data.projectdata);
-        setSongs(response.data.projectdata);
+
+        let songList = [];
+        let draftList = [];
+
+        for (let song of response.data.projectdata) {
+          console.log(song.draft);
+          if (song.draft) {
+            songList.push(song);
+          } else {
+            draftList.push(song);
+          }
+        }
+
+        setSongs(songList);
+        setDrafts(draftList);
+        // setSongs(response.data.projectdata);
 
       })
       .catch((err) => {
