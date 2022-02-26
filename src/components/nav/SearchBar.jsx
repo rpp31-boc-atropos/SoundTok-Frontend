@@ -126,11 +126,9 @@ const Search = () => {
   const [isLoading, setLoading] = useState(false);
   const [isEmpty, setIsEmpty] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  // const [url, setURL] = useState('');
   const [results, setResults] = useState([]);
   const [noResult, setNoResult] = useState(false);
   const [parentRef, isClickedOutside] = useClickOutside();
-  // const [isUserSearch, setIsUserSearch] = useState(false);
 
   const inputRef = useRef();
 
@@ -163,26 +161,8 @@ const Search = () => {
   }, [isClickedOutside]);
 
 
-
-  // const prepareSearchQuery = (query) => {
-  //   let url = '';
-  //   let isUserSearch = false;
-  //   if (query[0] == '#' || query[0] == '@') {
-  //     query = query.substring(1)
-  //   }
-
-
-  //   if (isUserSearch) {
-  //     console.log(isUserSearch, 't')
-  //     url = `https://api.soundtok.live/getUserSearch?search=${query}`
-  //   } else {
-  //     url = `https://api.soundtok.live/getHashtags?search=${query}`
-  //   }
-  //   return encodeURI(url);
-  // }
-
   const searchAction = async () => {
-    // console.log('triggered search', searchQuery);
+
     if (!searchQuery || searchQuery.trim() === "") {
       return;
     }
@@ -275,7 +255,8 @@ const Search = () => {
                   (searchQuery[0]=='@') ?
                    <Link key={index} to={`/profile/${result}`} > @{result} </Link>
                   :
-                  <Hashtag key={index} text={`#${result}`} ></Hashtag>
+                  <Link key={index} to={`/hashtag?q=${result}`} > #{result} </Link>
+                  // <Hashtag key={index} text={`#${result}`} ></Hashtag>
               )})}
             </>
           )}
