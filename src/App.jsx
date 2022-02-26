@@ -35,7 +35,7 @@ const App = () => {
         <Route path="/studio/*" element={<Studio />} />
         <Route
           path="/hashtag"
-          element={<Hashtag key={window.location.pathname} />}
+          element={<Hashtag key={window.location.href} />}
         />
         <Route path="/*" element={<NotFound />} />
       </Routes>
