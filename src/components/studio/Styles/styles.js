@@ -227,7 +227,7 @@ export const FastForward = styled(MdOutlineFastForward)`
 
 export const AllButtons = styled.div`
   height: 60px;
-  width: 800px;
+  width: 750px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -278,7 +278,7 @@ export const ReverbModalWrapper = styled.div`
 
 export const CloseModalIcon = styled(FaTimesCircle)`
   color: black;
-  margin-left: 50px;
+  margin-left: 90px;
   font-size: 20px;
   &:hover {
     cursor: pointer;
@@ -287,7 +287,7 @@ export const CloseModalIcon = styled(FaTimesCircle)`
 
 export const ModalHeader = styled.h3`
   color: black;
-  margin-right: 80px;
+  margin-right: 160px;
   width: 200px;
 `;
 

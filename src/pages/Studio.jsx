@@ -22,7 +22,7 @@ const Studio = () => {
 
   const [ee] = useState(new EventEmitter());
   const [playlist, setPlayList] = useState(null);
-  // const [flag, setFlag] = useState(false);
+  const [trackSaver, setTrackSaver] = useState(1);
 
   // User email from global context
   let {email} = useUserInfo();
@@ -40,7 +40,8 @@ const Studio = () => {
     //restore original ctx for further use.
     Tone.setContext(toneCtx);
     if (type === 'wav') {
-      saveAs(data, 'track.wav');
+      saveAs(data, `track${trackSaver}.wav`);
+      setTrackSaver(trackSaver + 1);
     }
   });
 
@@ -82,6 +83,7 @@ const Studio = () => {
   const handleSetDraft = (draft) => {
     removeAllTracks();
     // playlist.load(draft.tracks);
+    console.log('draft: ', draft);
 
     // setFlag(true);
     setIsLoading(true);
@@ -138,8 +140,8 @@ const Studio = () => {
   };
 
   const handleEffects = (updatedPlaylist) => {
-    // removeAllTracks();
-    ee.emit('clear');
+    removeAllTracks();
+    // ee.emit('clear');
 
     //console.log('playlist updated Playlist: ', updatedPlaylist);
 
@@ -148,7 +150,7 @@ const Studio = () => {
       if (typeof updatedPlaylist[i].effects === 'string' && updatedPlaylist[i].effects !== '') {
 
         updatedPlaylist[i].effects = function(graphEnd, masterGainNode) {
-          var effects = new Tone.Reverb(1.2);
+          var effects = new Tone.Reverb(5);
 
           Tone.connect(graphEnd, effects);
           Tone.connect(effects, masterGainNode);
@@ -261,9 +263,9 @@ const Studio = () => {
             <FastForward onClick={() => { ee.emit('fastforward'); }}></FastForward>
             <MoveAudio onClick={() => { ee.emit('statechange', 'shift'); }}></MoveAudio>
             <Highligther onClick={() => { ee.emit('statechange', 'select'); }}></Highligther>
+            {playlist ? <ReverbModal playlist={playlist} handleEffects={handleEffects}/> : <EffectButton>Reverb</EffectButton>}
             <EffectButton onClick={() => { ee.emit('statechange', 'fadein'); }}>Fade In</EffectButton>
             <EffectButton onClick={() => { ee.emit('statechange', 'fadeout'); }}>Fade Out</EffectButton>
-            {playlist ? <ReverbModal playlist={playlist} handleEffects={handleEffects}/> : <EffectButton>Reverb</EffectButton>}
             <EffectButton onClick={() => { ee.emit('trim'); }}>Trim</EffectButton>
             <EffectButton onClick={() => { ee.emit('statechange', 'cursor'); }}>Cursor</EffectButton>
           </AllButtons>
