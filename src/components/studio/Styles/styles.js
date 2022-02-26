@@ -136,7 +136,7 @@ export const DraftTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 333px;
+  width: 353px;
   height: 50px;
   padding: 10px 0;
   border-bottom: 2px solid rgb(255, 250, 206);

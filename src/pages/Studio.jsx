@@ -9,7 +9,6 @@ import EventEmitter from 'events';
 import { saveAs } from 'file-saver';
 import * as Tone from 'tone';
 import DraftList from '../components/studio/DraftList.jsx';
-// import ReverbModal from '../components/studio/ReverbModal.jsx';
 import Modal from 'react-modal';
 import { useUserInfo } from '../contexts/UserContext.jsx';
 import { usePosts } from '../contexts/PostsContext.jsx';
@@ -23,9 +22,8 @@ const Studio = () => {
 
   const [ee] = useState(new EventEmitter());
   const [playlist, setPlayList] = useState(null);
-  const [trackSaver, setTrackSaver] = useState(1);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  // const [playlistInfo, setplaylistInfo] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // User email from global context
   let {email} = useUserInfo();
@@ -60,15 +58,12 @@ const Studio = () => {
     const offlineContext = new Tone.OfflineContext(offlineCtx);
     Tone.setContext(offlineContext);
   });
-  // const [count, setCount] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
 
   ee.on('audiorenderingfinished', function (type, data) {
     //restore original ctx for further use.
     Tone.setContext(toneCtx);
     if (type === 'wav') {
-      saveAs(data, `track${trackSaver}.wav`);
-      setTrackSaver(trackSaver + 1);
+      saveAs(data, 'track.wav');
     }
   });
 
@@ -109,131 +104,44 @@ const Studio = () => {
 
   const handleSetDraft = (draft) => {
     removeAllTracks();
-    // playlist.load(draft.tracks);
-    // console.log('draft: ', draft);
 
-    // setFlag(true);
-    // setIsLoading(true);
+    console.log('draft: ', draft);
+
+    setIsLoading(true);
     playlist.load(draft.tracks)
       .then(()=>{
         playlist.initExporter();
-        // setIsLoading(false);
+        setIsLoading(false);
       });
-  };
-
-  const handleNewDraft = () => {
-    removeAllTracks();
   };
 
   const handleSaveDraft = () => {
 
-    let hasEffect = false;
+    let currPlaylist = playlist.getInfo().tracks;
 
-    if (playlist.tracks.length > 0) {
-      let draftPlaylist = playlist.getInfo().tracks;
+    console.log('currPlaylist', currPlaylist);
 
-      draftPlaylist.forEach(elem => {
-        if (elem.effects !== '') {
-          hasEffect = true;
-          return;
-        }
-      });
-
-      if (hasEffect) {
-        draftPlaylist.forEach(val => {
-          if (val.effects !== '') {
-            val.effects = function(graphEnd, masterGainNode) {
-              var effects = new Tone.Reverb(1.2);
-
-              Tone.connect(graphEnd, effects);
-              Tone.connect(effects, masterGainNode);
-
-              return function cleanup() {
-                effects.disconnect();
-                effects.dispose();
-              };
-            };
-          }
-        });
-
-        //console.log(draftPlaylist);
-        saveDraftToAPI(draftPlaylist);
-      } else {
-        //console.log(playlist.getInfo().tracks);
-        saveDraftToAPI(playlist.getInfo().tracks);
-      }
-    }
+    saveDraftToAPI(currPlaylist);
 
   };
 
   const handleEffects = (trackIndex) => {
 
-    console.log('Before Effect Update (playlist log)', playlist);
-    console.log('playlist.getInfo()', playlist.getInfo());
+    let updated = playlist.getInfo().tracks;
 
-    // let info = playlist.getInfo();
+    for (let i = 0; i < updated.length; i++) {
+      if (i === trackIndex) {
+        updated[i].effects = ReverbFunc();
+      }
+    }
 
-
-    // for (let i = 0; i < playlist.tracks.length; i++) {
-    //   if (i === trackIndex) {
-    //     playlist.tracks[i].effects = ReverbFunc();
-    //   }
-    // }
-
-    // console.log('playlist after effect update', playlist);
-
-    // console.log('playlist.getInfo() after update', playlist.getInfo());
-
-    // playlist.getInfo().tracks[trackIndex].effects = ReverbFunc();
-
-    // console.log('update', playlist);
-    // playlist.tracks[trackIndex] = update;
-    // playlist.load(playlist.tracks);
-    // console.log();
-
-    // removeAllTracks();
-
-    // setPlayList(playlist);
-    // setPlayList(playlist.tracks[trackIndex] = update);
-
-    // if (typeof info.effects === 'string') {
-    //   info.effects = function(masterGainNode, destination, isOffline) {
-    //     if (!isOffline) { masterGainNode.connect(analyser); }
-    //     masterGainNode.connect(destination);
-    //   };
-    // }
-
-    // console.log('info fixed no effect yet: ', info);
-
-    // for (let i = 0; i < info.tracks.length; i++) {
-    //   if (i === trackIndex) {
-    //     info.tracks[i].effects = ReverbFunc();
-    //   } else if (typeof info.tracks[i].effects === 'string' && info.tracks[i].effects !== '') {
-    //     info.tracks[i].effects = ReverbFunc();
-    //   }
-    // }
-
-    // console.log('playlistInfo after adding effect ', info);
-
-
-    // ee.emit('clear');
-    // playlist.load(info.tracks);
+    removeAllTracks();
+    playlist.load(updated);
     setModalIsOpen(false);
-
-
-    // let currentPlaylistUpdate = playlistInfo.tracks;
-
-    // currentPlaylistUpdate[trackIndex].effects = ReverbFunc();
-
-    // console.log('currentPlaylistUpdate', currentPlaylistUpdate);
-
-    // playlist.load(currentPlaylistUpdate);
-    // setplaylistInfo(playlistInfo);
-
   };
 
   const handleUpload = (e) => {
-    // setIsLoading(true);
+    setIsLoading(true);
     const file = e.target.files[0];
     let formData = new FormData();
     formData.append('file', file);
@@ -248,9 +156,7 @@ const Studio = () => {
         }])
           .then(()=>{
             playlist.initExporter();
-            // setPlayList(playlist);
-            // setplaylistInfo(playlist.getInfo());
-            // setIsLoading(false);
+            setIsLoading(false);
           });
       })
       .catch(err => {
@@ -312,7 +218,7 @@ const Studio = () => {
         <RightPanel style={{maxHeight: '100%'}}>
           <DraftTitle>Drafts</DraftTitle>
           <DraftWrapper>
-            <DraftList setDraft={handleSetDraft} newDraft={handleNewDraft} />
+            <DraftList setDraft={handleSetDraft} />
           </DraftWrapper>
         </RightPanel>
       </EditorWrapper>
