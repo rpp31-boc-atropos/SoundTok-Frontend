@@ -136,7 +136,7 @@ export const DraftTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 333px;
+  width: 336px;
   height: 50px;
   padding: 10px 0;
   border-bottom: 2px solid rgb(255, 250, 206);
@@ -148,7 +148,7 @@ export const DraftWrapper = styled.div`
   align-items: center;
   justify-content: space-around;
   margin-top: 8px;
-  width: 333px;
+  width: 323px;
   height: auto;
 `;
 
@@ -227,7 +227,7 @@ export const FastForward = styled(MdOutlineFastForward)`
 
 export const AllButtons = styled.div`
   height: 60px;
-  width: 800px;
+  width: 750px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -278,7 +278,7 @@ export const ReverbModalWrapper = styled.div`
 
 export const CloseModalIcon = styled(FaTimesCircle)`
   color: black;
-  margin-left: 50px;
+  margin-left: 90px;
   font-size: 20px;
   &:hover {
     cursor: pointer;
@@ -287,7 +287,7 @@ export const CloseModalIcon = styled(FaTimesCircle)`
 
 export const ModalHeader = styled.h3`
   color: black;
-  margin-right: 80px;
+  margin-right: 160px;
   width: 200px;
 `;
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AllButtons, ButtonTop, ButtonWrapper, ControlBarWrapper, DraftTitle, DraftWrapper, EditorWrapper, EffectButton, FastForward, Header, Highligther, MainPanel, MoveAudio, Pause, Play, PlayerControls, Rewind, RightPanel, Select, Stop, StudioHeader, StudioWrapper } from '../components/studio/Styles/styles.js';
+import { AllButtons, ButtonTop, ButtonWrapper, CloseModalIcon, ControlBarWrapper, DraftTitle, DraftWrapper, EditorWrapper, EffectButton, FastForward, Header, Highligther, MainPanel, ModalHeader, MoveAudio, Pause, Play, PlayerControls, ReverbModalWrapper, Rewind, RightPanel, Select, Stop, StudioHeader, StudioWrapper, TrackName, TrackNameWrapper } from '../components/studio/Styles/styles.js';
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 import Loading from '../components/Loading.jsx';
 import WaveformPlaylist from 'waveform-playlist';
@@ -9,10 +9,10 @@ import EventEmitter from 'events';
 import { saveAs } from 'file-saver';
 import * as Tone from 'tone';
 import DraftList from '../components/studio/DraftList.jsx';
-import ReverbModal from '../components/studio/ReverbModal.jsx';
 import Modal from 'react-modal';
 import { useUserInfo } from '../contexts/UserContext.jsx';
 import { usePosts } from '../contexts/PostsContext.jsx';
+import ReverbFunc from '../components/studio/effectHelpers.js';
 
 const Studio = () => {
 
@@ -22,19 +22,42 @@ const Studio = () => {
 
   const [ee] = useState(new EventEmitter());
   const [playlist, setPlayList] = useState(null);
-  // const [flag, setFlag] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // User email from global context
   let {email} = useUserInfo();
   let {drafts, isDraftUpdated, setIsDraftUpdated} = usePosts();
+
+  const modalStyles = {
+    overlay: {
+      position: 'fixed',
+      top: 300,
+      left: 665,
+      right: 665,
+      bottom: 300,
+      backgroundColor: 'rgb(255, 250, 206)',
+      border: '2px solid rgb(255, 250, 206)',
+      borderRadius: '5px',
+      zIndex: 15
+    },
+    content: {
+      top: '30px',
+      left: '30px',
+      right: '30px',
+      bottom: '30px',
+      zIndex: 20,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    }
+  };
 
   ee.on('audiorenderingstarting', function(offlineCtx) {
     // Set Tone offline to render effects properly.
     const offlineContext = new Tone.OfflineContext(offlineCtx);
     Tone.setContext(offlineContext);
   });
-  // const [count, setCount] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
 
   ee.on('audiorenderingfinished', function (type, data) {
     //restore original ctx for further use.
@@ -81,9 +104,9 @@ const Studio = () => {
 
   const handleSetDraft = (draft) => {
     removeAllTracks();
-    // playlist.load(draft.tracks);
 
-    // setFlag(true);
+    console.log('draft: ', draft);
+
     setIsLoading(true);
     playlist.load(draft.tracks)
       .then(()=>{
@@ -92,79 +115,29 @@ const Studio = () => {
       });
   };
 
-  const handleNewDraft = () => {
-    removeAllTracks();
-  };
-
   const handleSaveDraft = () => {
 
-    let hasEffect = false;
+    let currPlaylist = playlist.getInfo().tracks;
 
-    if (playlist.tracks.length > 0) {
-      let draftPlaylist = playlist.getInfo().tracks;
+    console.log('currPlaylist', currPlaylist);
 
-      draftPlaylist.forEach(elem => {
-        if (elem.effects !== '') {
-          hasEffect = true;
-          return;
-        }
-      });
-
-      if (hasEffect) {
-        draftPlaylist.forEach(val => {
-          if (val.effects !== '') {
-            val.effects = function(graphEnd, masterGainNode) {
-              var effects = new Tone.Reverb(1.2);
-
-              Tone.connect(graphEnd, effects);
-              Tone.connect(effects, masterGainNode);
-
-              return function cleanup() {
-                effects.disconnect();
-                effects.dispose();
-              };
-            };
-          }
-        });
-
-        //console.log(draftPlaylist);
-        saveDraftToAPI(draftPlaylist);
-      } else {
-        //console.log(playlist.getInfo().tracks);
-        saveDraftToAPI(playlist.getInfo().tracks);
-      }
-    }
+    saveDraftToAPI(currPlaylist);
 
   };
 
-  const handleEffects = (updatedPlaylist) => {
-    // removeAllTracks();
-    ee.emit('clear');
+  const handleEffects = (trackIndex) => {
 
-    //console.log('playlist updated Playlist: ', updatedPlaylist);
+    let updated = playlist.getInfo().tracks;
 
-    for (let i = 0; i < updatedPlaylist.length; i++) {
-      //console.log(typeof updatedPlaylist[i].effects === 'string');
-      if (typeof updatedPlaylist[i].effects === 'string' && updatedPlaylist[i].effects !== '') {
-
-        updatedPlaylist[i].effects = function(graphEnd, masterGainNode) {
-          var effects = new Tone.Reverb(1.2);
-
-          Tone.connect(graphEnd, effects);
-          Tone.connect(effects, masterGainNode);
-
-          return function cleanup() {
-            effects.disconnect();
-            effects.dispose();
-          };
-        };
-
-
+    for (let i = 0; i < updated.length; i++) {
+      if (i === trackIndex) {
+        updated[i].effects = ReverbFunc();
       }
     }
 
-    playlist.load(updatedPlaylist);
-
+    removeAllTracks();
+    playlist.load(updated);
+    setModalIsOpen(false);
   };
 
   const handleUpload = (e) => {
@@ -176,14 +149,13 @@ const Studio = () => {
 
     axios.post('https://api.cloudinary.com/v1_1/poyraz96/video/upload', formData)
       .then(result => {
-        console.log(result);
+        // console.log(result);
         playlist.load([{
           src: result.data.url,
           name: 'Track'
         }])
           .then(()=>{
             playlist.initExporter();
-            console.log(playlist);
             setIsLoading(false);
           });
       })
@@ -246,7 +218,7 @@ const Studio = () => {
         <RightPanel style={{maxHeight: '100%'}}>
           <DraftTitle>Drafts</DraftTitle>
           <DraftWrapper>
-            <DraftList setDraft={handleSetDraft} newDraft={handleNewDraft} />
+            <DraftList setDraft={handleSetDraft} />
           </DraftWrapper>
         </RightPanel>
       </EditorWrapper>
@@ -261,9 +233,23 @@ const Studio = () => {
             <FastForward onClick={() => { ee.emit('fastforward'); }}></FastForward>
             <MoveAudio onClick={() => { ee.emit('statechange', 'shift'); }}></MoveAudio>
             <Highligther onClick={() => { ee.emit('statechange', 'select'); }}></Highligther>
+            <EffectButton onClick={() => { setModalIsOpen(true); }}>Reverb</EffectButton>
+            <Modal style={modalStyles} isOpen={modalIsOpen}>
+              <ReverbModalWrapper>
+                <ModalHeader>Select Track</ModalHeader>
+                <CloseModalIcon onClick={() => { setModalIsOpen(false); }}></CloseModalIcon>
+              </ReverbModalWrapper>
+              {playlist && playlist.tracks.length > 0 ?
+                <TrackNameWrapper>
+                  {playlist.tracks.map((elem, i) => {
+                    return (
+                      <TrackName onClick={() => { handleEffects(i); }} key={i}>Track {i + 1}</TrackName>
+                    );
+                  })}
+                </TrackNameWrapper> : null}
+            </Modal>
             <EffectButton onClick={() => { ee.emit('statechange', 'fadein'); }}>Fade In</EffectButton>
             <EffectButton onClick={() => { ee.emit('statechange', 'fadeout'); }}>Fade Out</EffectButton>
-            {playlist ? <ReverbModal playlist={playlist} handleEffects={handleEffects}/> : <EffectButton>Reverb</EffectButton>}
             <EffectButton onClick={() => { ee.emit('trim'); }}>Trim</EffectButton>
             <EffectButton onClick={() => { ee.emit('statechange', 'cursor'); }}>Cursor</EffectButton>
           </AllButtons>
