@@ -230,7 +230,7 @@ const Search = () => {
       </SearchInputContainer >
       {isExpanded && <LineSeperator />}
       {isExpanded && (
-        <SearchContent onClick={()=> console.log('c')}>
+        <SearchContent>
           {isLoading && (
             <LoadingWrapper>
               <MoonLoader loading color="#000" size={20} />
