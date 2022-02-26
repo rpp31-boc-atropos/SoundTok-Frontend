@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { usePlayer } from '../../contexts/player/playerContext';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -29,7 +29,7 @@ const PhotoCard = ({ post, index }) => {
     return (s - (s %= 60)) / 60 + (9 < s ? ':' : ':0') + ~~s;
   };
 
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);

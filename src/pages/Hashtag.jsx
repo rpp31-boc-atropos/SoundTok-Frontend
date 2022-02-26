@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import axios from "axios";
 import PhotoCard from "../components/hashtag/PhotoCard";
 import Wave from "react-wavify";
 // import dummy from "../components/home/dummy.jsx";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import { Container } from "@material-ui/core";
 
@@ -14,15 +14,14 @@ const Hashtag = () => {
 
   const q = searchParams.get("q");
   // console.log(q);
-
   // const posts = dummy;
   const [posts, setPosts] = useState([]);
-
+  // console.log("fetching");
   useEffect(async () => {
     const result = await axios(`https://api.soundtok.live/getHashtags/${q}`);
-    // console.log(result.data);
+
     setPosts(result.data);
-  }, []);
+  }, [q]);
 
   return (
     <>
