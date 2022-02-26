@@ -73,7 +73,6 @@ const Home = () => {
           />
         )}
         {posts.map((post, i) => {
-          console.log({ post });
           return (
             <Post
               key={i}

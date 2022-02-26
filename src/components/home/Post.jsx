@@ -19,13 +19,11 @@ const Post = (props) => {
   const { isPostUpdated, setIsPostUpdated } = usePosts();
   const { SetCurrent, currentSong, songs } = usePlayer();
 
-  console.log(email, props.userEmail);
-
   const handleDeletePost = async (event) => {
     event.preventDefault();
     const postId = props.postId;
     await axios
-      .post('https://soundtok.live/deletePost', { postId })
+      .post('https://api.soundtok.live/deletePost', { postId })
       .then((response) => {})
       .catch((error) => {});
 
@@ -52,17 +50,19 @@ const Post = (props) => {
             {' · '}
             <time>{helpers.isoToTimeAgo(props.timePosted)}</time>
           </PostUsernameAndTime>
-          <Link to="/studio">
+          <PostHeaderIconWrap>
             {props.userEmail === email ? (
               <PostIcon onClick={handleDeletePost}>
                 <div className="ri-close-line" />
               </PostIcon>
             ) : null}
-            <Spacer width="12" height="0" />
-            <PostIcon onClick={handleRemix}>
-              <div className="ri-sound-module-line" />
-            </PostIcon>
-          </Link>
+            <Spacer width="6" height="0" />
+            <Link to="/studio">
+              <PostIcon onClick={handleRemix}>
+                <div className="ri-sound-module-line" />
+              </PostIcon>
+            </Link>
+          </PostHeaderIconWrap>
         </PostHeader>
         <Hashtag text={props.postText}></Hashtag>
         <PostMedia>
@@ -126,11 +126,19 @@ const PostHeader = styled.div`
   box-sizing: border-box;
 `;
 
+const PostHeaderIconWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
 const PostUsernameAndTime = styled.button`
   color: var(--font-line-color-yellow-transparent);
 `;
 
 const PostIcon = styled.button`
+  display: flex;
+  align-items: center;
   color: var(--font-line-color-yellow-transparent);
   font-size: 16px;
 
