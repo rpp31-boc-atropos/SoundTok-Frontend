@@ -194,9 +194,9 @@ const Search = () => {
       }
 
       if (searchQuery[0]=='@') {
-        setResults(response.data.map(each => each['username']));
+        setResults(response.data.map(each => each['username'].replace(/#|@/, '')));
       } else {
-        setResults(response.data.map(each => each['txt']))
+        setResults(response.data.map(each => each['txt'].replace(/#|@/, '')))
       }
 
     }
