@@ -9,14 +9,14 @@ const ReverbModal = ({playlist, handleEffects}) => {
   const [currentTracks, setcurrentTracks] = useState([]);
 
   useEffect(() => {
-    console.log('useEffect modal: ', playlist);
+    // console.log('useEffect modal: ', playlist);
     if (playlist.tracks.length > 0 || currentTracks.length > 0) {
       setcurrentTracks(playlist.getInfo().tracks);
     }
   }, [playlist.tracks]);
 
-  console.log('playlist from modal component: ', playlist);
-  console.log('curentTracks from modal component: ', currentTracks);
+  // console.log('playlist from modal component: ', playlist);
+  // console.log('curentTracks from modal component: ', currentTracks);
   const handleTrackSelection = (trackIndex) => {
 
     // console.log(trackIndex);

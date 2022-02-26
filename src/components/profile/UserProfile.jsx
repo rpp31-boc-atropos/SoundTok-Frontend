@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import BioModal from './BioModal.jsx';
 // import { useAuth } from '../../contexts/AuthContext.jsx';
 import dummyProfile from './dummyProfile.jsx';
+// import { useLocation } from 'react-router-dom';
 
 import styled from 'styled-components';
 const axios = require('axios');
@@ -49,12 +50,16 @@ const ProfileText = styled.div`
   justify-content: center;
 `;
 
-const UserProfile = ({isCurrentUser, setIsCurrentUser, location, profileName}) => {
+// const UserProfile = ({isCurrentUser, setIsCurrentUser, location, profileName}) => {
+const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName, setProfileName}) => {
   // const { user } = useAuth();
   const [username, setUsername] = useState('leggo'); //update with Context when available
   const [profilePicture, setProfilePicture] = useState(dummyProfile.profilePicture);
   const [bio, setBio] = useState(dummyProfile.bio);
   const [isOpen, setModal] = useState(false);
+  // const [location, setLocation] = useLocation();
+  // const {location} = useLocation();
+  const [currentLocation, setCurrentLocation] = useState('');
 
 
   const closeModal = () => {
@@ -67,10 +72,12 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, location, profileName}) =
     // formData.append('upload_preset', CLOUDINARY_PROFILE_PRESET);
     formData.append('upload_preset', 'zua1tfa6');
 
+    // console.log('newPhoto', newPhoto);
+
     axios.post('https://api.cloudinary.com/v1_1/rickkcloudinary/image/upload', formData)
       .then((response) => {
-        console.log('cloud photo link', response.data.secure_url);
-        console.log('new profile pic in state', profilePicture);
+        // console.log('cloud photo link', response.data.secure_url);
+        // console.log('new profile pic in state', profilePicture);
         return response.data.secure_url;
       })
       .catch((error) => {
@@ -79,9 +86,9 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, location, profileName}) =
       .then((newPicture) => {
         setBio(bio);
         setProfilePicture(newPicture);
-        console.log('hopefully url', newPicture);
+        // console.log('hopefully url', newPicture);
 
-        console.log('new profile url', profilePicture);
+        // console.log('new profile url', profilePicture);
         let tempData = {
           username: username,
           profilePicture: newPicture,
@@ -89,12 +96,6 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, location, profileName}) =
         };
 
         console.log(tempData);
-
-        // const optionGetPosts = {
-        //   // method: 'PUT',
-        //   url: 'api.soundtok.live/updateProfile',
-        //   data: tempData
-        // };
 
         axios.put('/updateProfile/', tempData)
           .then((response) => {
@@ -112,8 +113,14 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, location, profileName}) =
   };
 
   useEffect(() => {
-    let location = window.location.href;
-    let userProfile = location.slice((window.location.href.indexOf('profile') + 8));
+    let newLocation = window.location.href;
+    let userProfile = newLocation.slice((window.location.href.indexOf('profile') + 8));
+    // console.log('location:', newLocation);
+    setCurrentLocation(userProfile);
+    // setProfileName(userProfile);
+    // console.log('current location', currentLocation);
+    // const location = useLocation();
+    // console.log('location: ', location);
 
     // console.log('userprofile ', userProfile);
     if (userProfile !== '') {
@@ -131,12 +138,13 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, location, profileName}) =
       .then((response) => {
         // console.log('profileresponse', response.data);
         setProfilePicture(response.data.profilePicture);
+        // console.log('getting bio back: ', response.data);
         setBio(response.data.userBio); //Maggie is working on adding this
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [profileName]);
 
   //move to higher level
   // React.useEffect(() => {
@@ -161,19 +169,20 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, location, profileName}) =
       <ProfilePic alt='logo'
         src={profilePicture}>
       </ProfilePic>
-      <ProfileHeader>{`@${username}`}</ProfileHeader>
+      <ProfileHeader>{`@${profileName}`}</ProfileHeader>
       <ButtonWrapper>
         {isCurrentUser ?
           <Button onClick={() => setModal(true)}>Edit profile</Button>
           : null}
-        <Button onClick={() => setIsCurrentUser(!isCurrentUser)}>Log in/out</Button>
+        {/* <Button onClick={() => setIsCurrentUser(!isCurrentUser)}>Log in/out</Button> */}
       </ButtonWrapper>
       {(isOpen && isCurrentUser) ?
         <BioModal
           isOpen={isOpen}
           currentBio={bio}
           closeModal={closeModal.bind(this)}
-          handleUpdateProfile={handleUpdateProfile}>
+          handleUpdateProfile={handleUpdateProfile}
+          profilePicture={profilePicture}>
         </BioModal> : null}
       <ProfileText>{bio}</ProfileText>
     </ProfileWrapper>

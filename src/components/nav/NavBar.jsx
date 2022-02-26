@@ -15,6 +15,7 @@ const NavBar = () => {
   } = useAuth0();
 
   const { username, profilePic } = useUserInfo();
+
   // console.log (username, profilePic);
   return (
     <ul className="nav">
@@ -26,7 +27,8 @@ const NavBar = () => {
       </li>
       <Search />
       <li>
-        <Link to="/profile">Profile</Link>
+        {/* <Link to="/profile" state={{ url: 'home' }}>Profile</Link> */}
+        <Link to={`/profile/${username}`}>Profile</Link>
       </li>
 
 
