@@ -2,6 +2,7 @@ import React from 'react';
 // import { useAuth } from '../../contexts/AuthContext.jsx';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { usePosts } from '../../contexts/PostsContext.jsx';
 
 const SingleDraft = styled.div`
   width: 30%;
@@ -49,6 +50,8 @@ const DraftText = styled.p``;
 
 
 const Draft = (props) => {
+
+  const { setSelectedProjectId } = usePosts();
   // const { user } = useAuth();
   const deleteDraft = () => {
     // Stretch goal - add confirmation popup
@@ -79,7 +82,7 @@ const Draft = (props) => {
         </LogoButton>
         <DraftText>{convertSongLength(props.projectLength)}</DraftText>
         <Link to={`/studio/${props.postId}`}>
-          <PostRemixButton>
+          <PostRemixButton onClick={setSelectedProjectId(props.postId)}>
             <i className='ri-sound-module-line'></i>
           </PostRemixButton>
         </Link>

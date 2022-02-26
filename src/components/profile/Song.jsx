@@ -2,7 +2,8 @@ import React from 'react';
 // import { useAuth } from '../../contexts/AuthContext.jsx';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { usePlayer } from "../../contexts/player/playerContext";
+import { usePlayer } from '../../contexts/player/playerContext';
+import { usePosts } from '../../contexts/PostsContext.jsx';
 
 const SingleSong = styled.div`
   width: 30%;
@@ -56,6 +57,7 @@ const SongText = styled.p``;
 const Song = (props) => {
   // const { user } = useAuth();
   const { SetCurrent, currentSong, songs } = usePlayer();
+  const { setSelectedProjectId } = usePosts();
 
   const deleteSong = () => {
     props.removeSong(props.postId, 'Posts');
@@ -95,8 +97,9 @@ const Song = (props) => {
         </LogoButton> */}
         <div>{convertSongLength(props.projectLength)}</div>
         <CornerWrapper>
-          <Link to={`/studio/${props.postId}`}>
-            <PostRemixButton>
+          <button></button>
+          <Link to={'/studio/'}>
+            <PostRemixButton onClick={setSelectedProjectId(props.postId)}>
               <i className='ri-sound-module-line'></i>
             </PostRemixButton>
           </Link>
