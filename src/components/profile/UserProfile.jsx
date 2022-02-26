@@ -174,7 +174,7 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName, setProfileNa
         {isCurrentUser ?
           <Button onClick={() => setModal(true)}>Edit profile</Button>
           : null}
-        <Button onClick={() => setIsCurrentUser(!isCurrentUser)}>Log in/out</Button>
+        {/* <Button onClick={() => setIsCurrentUser(!isCurrentUser)}>Log in/out</Button> */}
       </ButtonWrapper>
       {(isOpen && isCurrentUser) ?
         <BioModal
