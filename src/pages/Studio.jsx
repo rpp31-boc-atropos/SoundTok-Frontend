@@ -151,7 +151,7 @@ const Studio = () => {
       .then(result => {
         // console.log(result);
         playlist.load([{
-          src: result.data.url,
+          src: result.data.secure_url,
           name: 'Track'
         }])
           .then(()=>{
