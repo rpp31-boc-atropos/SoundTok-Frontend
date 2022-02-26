@@ -12,6 +12,8 @@ const UserInfoProvider = ({ children }) => {
   const [userBio, setUserBio] = React.useState(null);
   const [isNewProfile, setIsNewProfile] = React.useState(false); //rk added
 
+  // TODO: Add selectedUser for Rick to query on
+
   // QUERY FOR USER PROPIC AND USERNAME HERE USING EMAIL
   React.useEffect(() => {
     if (isAuthenticated) {

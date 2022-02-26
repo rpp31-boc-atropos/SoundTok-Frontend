@@ -93,9 +93,9 @@ const WritePost = (props) => {
       });
   };
 
-  const handlePost = (event) => {
+  const handlePostOrSave = async (event, isPosting) => {
     event.preventDefault();
-    if (!props.uploadedAudio) {
+    if (!props.uploadedAudio & isPosting) {
       props.setErrorMessage('WARNING: Please attach an audio file');
     } else {
       props.setErrorMessage(null);
@@ -109,7 +109,7 @@ const WritePost = (props) => {
         username: username,
         userEmail: email,
         postLikes: 0,
-        published: true,
+        published: isPosting,
         postText: text,
         tags: tags,
         projectAudioLink: props.uploadedAudio,
@@ -119,8 +119,8 @@ const WritePost = (props) => {
         tracks: [],
       };
 
-      axios
-        .post(('https://api.soundtok.live/', post))
+      await axios
+        .post('https://api.soundtok.live/', post)
         .then((response) => {
           console.log(response);
         })
@@ -129,7 +129,7 @@ const WritePost = (props) => {
         });
 
       // eslint-disable-next-line no-extra-boolean-cast
-      setIsPostUpdated(!!!isPostUpdated);
+      setIsPostUpdated(!isPostUpdated);
       songs.unshift(post);
     }
   };
@@ -137,7 +137,11 @@ const WritePost = (props) => {
   return (
     <WritePostWrapper>
       <ProfilePicture username={username} profilePicture={profilePic} />
-      <Form onSubmit={handlePost}>
+      <Form
+        onSubmit={(event) => {
+          handlePostOrSave(event, true);
+        }}
+      >
         <FlexColumn>
           <Inputs>
             <FlexColumn>
@@ -178,7 +182,7 @@ const WritePost = (props) => {
                   <PostAudioIcon
                     type="button"
                     onClick={() => {
-                      props.setIsDraftToggled(!!!props.isDraftToggled);
+                      props.setIsDraftToggled(!props.isDraftToggled);
                     }}
                     onMouseEnter={() => {
                       props.setInfoMessage('Load from Drafts');
@@ -221,6 +225,9 @@ const WritePost = (props) => {
                       props.setInfoMessage('Save to Drafts');
                     }}
                     onMouseLeave={handleMouseLeave}
+                    onClick={(event) => {
+                      handlePostOrSave(event, false);
+                    }}
                   >
                     <div className="ri-save-3-line"></div>
                   </PostAudioIcon>

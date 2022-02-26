@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useUserInfo } from '../../contexts/UserContext.jsx';
 import ProfilePicture from '../ProfilePicture.jsx';
-// import styled from 'styled-components';
-// import { getId } from 'wavesurfer.js/src/util';
 
 
 const NavBar = () => {

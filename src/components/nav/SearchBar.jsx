@@ -129,7 +129,7 @@ const Search = () => {
   const [results, setResults] = useState([]);
   const [noResult, setNoResult] = useState(false);
   const [parentRef, isClickedOutside] = useClickOutside();
-  const [isUserSearch, setIsUserSearch] = useState(false);
+
   const inputRef = useRef();
 
 
@@ -147,7 +147,7 @@ const Search = () => {
     setResults([]);
     setNoResult(true);
     setLoading(false);
-    setIsUserSearch(false);
+    // setIsUserSearch(false);
     setIsEmpty(true);
     if (inputRef.current) {
       inputRef.current.value = "";
@@ -160,39 +160,29 @@ const Search = () => {
     }
   }, [isClickedOutside]);
 
-  const prepareSearchQuery = (query) => {
-    let url = '';
-    if (isUserSearch) {
-      url = `https://api.soundtok.live/user?q=${query}`
-    } else {
-      url = `https://api.soundtok.live/getHashtags?search=${query}`
-    }
-    return encodeURI(url);
-  }
 
   const searchAction = async () => {
-    // console.log('triggered search', searchQuery);
+
     if (!searchQuery || searchQuery.trim() === "") {
       return;
-    }
-    if (searchQuery[0] == '@') {
-      setIsUserSearch(true);
     }
 
     setLoading(true);
 
-    const URL = prepareSearchQuery(searchQuery);
-    let response = {};
-    // request data here
-    if (isUserSearch) {
-      response.data = ['stella', 'happi']
+    let URL = '';
+    let query = searchQuery.replace(/#|@/, '');
+    console.log(query)
+    if (searchQuery[0] == '@') {
+      URL = `https://api.soundtok.live/getUserSearch?search=${query}`
     } else {
-      response = await axios.get(URL).catch((err) => {
-      console.log("Error: ", err)
-    })
-      response.data = response.data.map(each => each['txt'])
+      URL = `https://api.soundtok.live/getHashtags?search=${query}`
     }
 
+    // get response from API
+    let response = await axios.get(URL).catch((err) => {
+      console.log("Error: ", err)
+    })
+    console.log(response.data)
 
     if (response) {
       if (response.data && response.data.length == 0) {
@@ -203,8 +193,12 @@ const Search = () => {
         setIsEmpty(false);
       }
 
-      // setResults(response.data.map(each => each['txt']));
-      setResults(response.data);
+      if (searchQuery[0]=='@') {
+        setResults(response.data.map(each => each['username'].replace(/#|@/, '')));
+      } else {
+        setResults(response.data.map(each => each['txt'].replace(/#|@/, '')))
+      }
+
     }
 
     setLoading(false);
@@ -233,7 +227,7 @@ const Search = () => {
           <IoClose/>
         </CloseIcon>
 
-      </SearchInputContainer>
+      </SearchInputContainer >
       {isExpanded && <LineSeperator />}
       {isExpanded && (
         <SearchContent>
@@ -258,10 +252,11 @@ const Search = () => {
           {!isLoading && !isEmpty && !noResult && (
             <>
               {results.map((result, index) => {return (
-                  isUserSearch?
-                   <Link key={index} to={`/profile/${result}`} onClick={collapseContainer}> @{result} </Link>
+                  (searchQuery[0]=='@') ?
+                   <Link key={index} to={`/profile/${result}`} > @{result} </Link>
                   :
-                  <Hashtag key={index} text={`#${result}`}></Hashtag>
+                  <Link key={index} to={`/hashtag?q=${result}`} > #{result} </Link>
+                  // <Hashtag key={index} text={`#${result}`} ></Hashtag>
               )})}
             </>
           )}
