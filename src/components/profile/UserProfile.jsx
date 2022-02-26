@@ -76,8 +76,8 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName, setProfileNa
 
     axios.post('https://api.cloudinary.com/v1_1/rickkcloudinary/image/upload', formData)
       .then((response) => {
-        console.log('cloud photo link', response.data.secure_url);
-        console.log('new profile pic in state', profilePicture);
+        // console.log('cloud photo link', response.data.secure_url);
+        // console.log('new profile pic in state', profilePicture);
         return response.data.secure_url;
       })
       .catch((error) => {
@@ -86,9 +86,9 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName, setProfileNa
       .then((newPicture) => {
         setBio(bio);
         setProfilePicture(newPicture);
-        console.log('hopefully url', newPicture);
+        // console.log('hopefully url', newPicture);
 
-        console.log('new profile url', profilePicture);
+        // console.log('new profile url', profilePicture);
         let tempData = {
           username: username,
           profilePicture: newPicture,
