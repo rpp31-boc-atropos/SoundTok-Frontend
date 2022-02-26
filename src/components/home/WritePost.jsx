@@ -94,6 +94,7 @@ const WritePost = (props) => {
   };
 
   const handlePostOrSave = async (event, isPosting) => {
+    console.log(isPosting);
     event.preventDefault();
     if (!props.uploadedAudio & isPosting) {
       props.setErrorMessage("WARNING: Please attach an audio file");
