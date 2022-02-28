@@ -81,7 +81,7 @@ const Draft = (props) => {
           <Logo src={props.songImage}></Logo>
         </LogoButton>
         <DraftText>{convertSongLength(props.projectLength)}</DraftText>
-        <Link to={`/studio/${props.postId}`}>
+        <Link to={'/studio'}>
           <PostRemixButton onClick={() => setSelectedProjectId(props.postId)}>
             <i className='ri-sound-module-line'></i>
           </PostRemixButton>
