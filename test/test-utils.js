@@ -3,7 +3,6 @@
 import React, { useState, useReducer } from 'react'
 import { render } from '@testing-library/react'
 import { MemoryRouter } from "react-router-dom";
-import { AuthProvider } from '../src/contexts/AuthContext'
 import { PlayerProvider } from '../src/contexts/player/PlayerContext'
 import playerReducer from '../src/contexts/player/playerReducer';
 import dummy from '../src/components/Home/dummy';
