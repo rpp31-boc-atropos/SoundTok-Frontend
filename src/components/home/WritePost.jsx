@@ -95,13 +95,8 @@ const WritePost = (props) => {
 
   const handlePostOrSave = async (event, isPosting) => {
     event.preventDefault();
-<<<<<<< HEAD
-    if (!props.uploadedAudio) {
-      props.setErrorMessage("WARNING: Please attach an audio file");
-=======
     if (!props.uploadedAudio & isPosting) {
-      props.setErrorMessage('WARNING: Please attach an audio file');
->>>>>>> 56d235f4a1c1e3449b3e076a351ff08f77b51ef1
+      props.setErrorMessage("WARNING: Please attach an audio file");
     } else {
       props.setErrorMessage(null);
       let title = props.projectTitle.current.value;
@@ -124,13 +119,8 @@ const WritePost = (props) => {
         tracks: [],
       };
 
-<<<<<<< HEAD
-      axios
-        .post(("https://api.soundtok.live/", post))
-=======
       await axios
-        .post('https://api.soundtok.live/', post)
->>>>>>> 56d235f4a1c1e3449b3e076a351ff08f77b51ef1
+        .post("https://api.soundtok.live/", post)
         .then((response) => {
           console.log(response);
         })
