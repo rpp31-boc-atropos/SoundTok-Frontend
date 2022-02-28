@@ -1,19 +1,21 @@
-/**
- * @jest-environment jsdom
- */
-
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, screen, fireEvent } from './test-utils';
 import Controls from '../src/components/audioPlayer/Controls';
 import { PlayerProvider } from '../src/contexts/player/playerContext';
+import { PostsProvider } from '../src/contexts/PostsContext';
+import { UserInfoProvider } from '../src/contexts/UserContext';
 
 const MockControls = () => {
 
   return (
-    <PlayerProvider>
-      <Controls />
-    </PlayerProvider>
+    <UserInfoProvider>
+      <PostsProvider>
+        <PlayerProvider>
+          <Controls />
+        </PlayerProvider>
+      </PostsProvider>
+    </UserInfoProvider>
   );
 };
 
