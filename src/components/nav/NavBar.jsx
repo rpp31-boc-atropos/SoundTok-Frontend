@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import Search from "./SearchBar.jsx";
 import { Link } from "react-router-dom";
@@ -6,6 +7,14 @@ import { useUserInfo } from "../../contexts/UserContext.jsx";
 import ProfilePicture from "../ProfilePicture.jsx";
 // import styled from 'styled-components';
 // import { getId } from 'wavesurfer.js/src/util';
+=======
+import React, { useEffect, useState } from 'react';
+import Search from './SearchBar.jsx';
+import { Link } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useUserInfo } from '../../contexts/UserContext.jsx';
+import ProfilePicture from '../ProfilePicture.jsx';
+>>>>>>> 56d235f4a1c1e3449b3e076a351ff08f77b51ef1
 
 const NavBar = () => {
   const { loginWithRedirect, logout, isLoading, isAuthenticated } = useAuth0();

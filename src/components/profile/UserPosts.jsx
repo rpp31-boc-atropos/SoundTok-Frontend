@@ -23,10 +23,11 @@ const PostWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content:space-around;
-  height: 600px;
+  max-height: 700px;
   width: 1000px;
   margin-top: 10px;
   flex-wrap: wrap;
+  overflow-y: auto;
 `;
 
 // const UserPosts = ({isCurrentUser}) => {
@@ -62,57 +63,18 @@ const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
     // axios.delete('/deletePost', {data: formData})
     axios.delete('/deletePost', {data: postToRemove})
       .then(function (response) {
-        // console.log(response);
         console.log('Project successfully deleted');
-        // if (source === 'Posts') {
-        //   //will need to filter out all songIds in the array
-        //   // setSongs(songs.filter(song => song.projectId !== projectId));
-        // } else {
-        //   // setDrafts(drafts.filter(draft => draft.projectId !== projectId));
-        // }
       })
       .catch(function (error) {
         //pop-up with with message - please review error and try again
-        //could make popup - warning
         // console.log('Project failed to delete. Please refresh the page and try again');
         console.log(error);
       });
-
-    // const optionGetPosts = {
-    //   // method: 'PUT',
-    //   url: 'api.soundtok.live/removePost',
-    //   data: formData
-    // };
-
-    // axios.delete(optionGetPosts)
-    //   .then((response) => {
-    //     console.log('response', response);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
   };
 
   useEffect(() => {
-    // const optionGetPosts = {
-    //   method: 'GET',
-    //   url: 'api.soundtok.live/getProfileData/projects/stella',
-    // };
-
-    // axios.get(optionGetPosts)
-    //   .then((response) => {
-    //     // setSongs(response.data);
-    //     console.log('response: ', response.data);
-    //     // setSongs(response.data);
-    //   })
-    //   .catch((err) => {
-    //     //make pop-up
-    //     console.log(err);
-    //   });
     let location = window.location.href;
     let userProfile = location.slice((window.location.href.indexOf('profile') + 8));
-    // console.log('endpoint', userProfile);
-    // setCurrentEndpoint('userProfile');
 
     if (userProfile !== '') {
       setUsername(userProfile);
@@ -131,9 +93,20 @@ const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
       }
     })
       .then((response) => {
-        // console.log('post response', response.data.projectdata);
-        setSongs(response.data.projectdata);
+        let songList = [];
+        let draftList = [];
 
+        for (let song of response.data.projectdata) {
+          if (song.draft) {
+            songList.push(song);
+          } else {
+            draftList.push(song);
+          }
+        }
+
+        setSongs(songList);
+        setDrafts(draftList);
+        // setSongs(response.data.projectdata);
       })
       .catch((err) => {
         console.log(err);
