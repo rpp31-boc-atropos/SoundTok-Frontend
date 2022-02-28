@@ -28,7 +28,7 @@ export default helpers = {
       const match = regex.exec(text);
       if (match) {
         const [tag] = match;
-        tags.push({[tag.slice(1)]: match.index});
+        tags.push({ [tag.slice(1)]: match.index });
       } else {
         return tags;
       }
@@ -57,5 +57,5 @@ export default helpers = {
         return time;
       }
     }
-  }
+  },
 };
