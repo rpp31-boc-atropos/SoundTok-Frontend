@@ -72,7 +72,7 @@ const WritePost = (props) => {
       //   props.setErrorMessage('WARNING: Audio file longer than 5 minutes');
       // } else {
       props.setErrorMessage(null);
-      props.setUploadedAudio(response.data.url);
+      props.setUploadedAudio(response.data.secure_url);
       props.setAudioDuration(response.data.duration);
       // }
     } catch (error) {
@@ -89,7 +89,7 @@ const WritePost = (props) => {
     axios
       .post("https://api.cloudinary.com/v1_1/xoxohorses/image/upload", formData)
       .then((response) => {
-        props.setUploadedImage(response.data.url);
+        props.setUploadedImage(response.data.secure_url);
       });
   };
 
