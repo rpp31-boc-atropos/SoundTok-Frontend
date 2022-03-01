@@ -4,13 +4,13 @@
 Anyone, from the casual listener and discoverer of new music to the veteran producer, will find a community on SoundTok. Put together a new track by uploading audio files from your computer or loading from saved drafts and layering different sounds and effects. Once you're satisfied, post the song with a description, image, and hashtags so others can discover your music through the feed or search bar. Keep your profile up to date, so others know who you are as an artist.
 
 # Table of Contents
-* [Nav Bar](https://github.com/rpp31-boc-atropos/SoundTok-Frontend/edit/main/README.md#the-navigation-bar)
-* [Studio](https://github.com/rpp31-boc-atropos/SoundTok-Frontend/edit/main/README.md#the-studio)
-* [Feed](https://github.com/rpp31-boc-atropos/SoundTok-Frontend/edit/main/README.md#the-feed)
-* [Hashtag Page](https://github.com/rpp31-boc-atropos/SoundTok-Frontend/edit/main/README.md#the-hashtag-page)
-* [Profile](https://github.com/rpp31-boc-atropos/SoundTok-Frontend/edit/main/README.md#the-profile)
-* [Tech Stack](https://github.com/rpp31-boc-atropos/SoundTok-Frontend/edit/main/README.md#tech-stack--libraries)
-* [Contributors](https://github.com/rpp31-boc-atropos/SoundTok-Frontend/edit/main/README.md#contributors)
+* [Nav Bar](#the-navigation-bar)
+* [Studio](#the-studio)
+* [Feed](#the-feed)
+* [Hashtag Page](#the-hashtag-page)
+* [Profile](#the-profile)
+* [Tech Stack](#tech-stack--libraries)
+* [Contributors](#contributors)
 
 ## The Navigation Bar
 
@@ -23,6 +23,27 @@ Anyone, from the casual listener and discoverer of new music to the veteran prod
 ## The Profile
 
 ## Tech Stack & Libraries
+_Deployment/Utility_
+* Circle CI
+* AWS EC2
+* [Jest](https://jestjs.io/)
+* [React-Testing-Library](https://testing-library.com/docs/react-testing-library/intro/)
+* [Eslint](https://eslint.org/)
+
+_Core Tech_
+* [Node v16](https://nodejs.org/dist/latest-v16.x/docs/api/)
+* [Express v4](https://expressjs.com/)
+* [React v17](https://reactjs.org/docs/getting-started.html)
+* [Postgres v14](https://www.postgresql.org/docs/)
+
+_Libraries_
+* [Styled-components](https://styled-components.com/)
+* [Luxon](https://moment.github.io/luxon/api-docs/index.html#duration)
+* [Axios](https://www.npmjs.com/package/axios)
+* [Auth0](https://auth0.com/docs/)
+* [Cloudinary](https://cloudinary.com/documentation)
+* [Linkify.js](https://linkify.js.org/docs/)
+
 
 ## Contributors
 [@xoxohorses](https://github.com/xoxohorses) - **Product Manager/Software Engineer** (Feed, Design, Project Management)  
