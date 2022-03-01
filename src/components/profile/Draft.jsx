@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 // import { useAuth } from '../../contexts/AuthContext.jsx';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { usePosts } from '../../contexts/PostsContext.jsx';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { usePosts } from "../../contexts/PostsContext.jsx";
 
 const SingleDraft = styled.div`
   width: 30%;
@@ -34,8 +34,7 @@ const PostRemixButton = styled.button`
   }
 `;
 
-const LogoButton = styled.button`
-`;
+const LogoButton = styled.button``;
 
 const Logo = styled.img`
   width: 48px;
@@ -48,28 +47,26 @@ const Logo = styled.img`
 
 const DraftText = styled.p``;
 
-
 const Draft = (props) => {
-
   const { setSelectedProjectId } = usePosts();
   // const { user } = useAuth();
   const deleteDraft = () => {
     // Stretch goal - add confirmation popup
-    props.removeDraft(props.postId, 'Drafts');
+    props.removeDraft(props.postId, "Drafts");
   };
   //possibly make song image the background
 
   const convertSongLength = (seconds) => {
     let length;
     if (seconds < 60) {
-      length = seconds + 's';
+      length = seconds + "s";
     } else {
       let min = Math.floor(seconds / 60);
       let sec = Math.floor(seconds % 60);
       if (sec < 10) {
-        sec = '0' + sec;
+        sec = "0" + sec;
       }
-      length = min + ':' + sec;
+      length = min + ":" + sec;
     }
     return length;
   };
@@ -83,7 +80,7 @@ const Draft = (props) => {
         <DraftText>{convertSongLength(props.projectLength)}</DraftText>
         <Link to={`/studio/${props.postId}`}>
           <PostRemixButton onClick={() => setSelectedProjectId(props.postId)}>
-            <i className='ri-sound-module-line'></i>
+            <i className="ri-sound-module-line"></i>
           </PostRemixButton>
         </Link>
         <button onClick={() => deleteDraft()}>XX</button>
