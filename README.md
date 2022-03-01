@@ -53,23 +53,23 @@ _Libraries_
 
 ## Contributors
 [@xoxohorses](https://github.com/xoxohorses) - **Product Manager/Software Engineer** (Feed, Design, Project Management)  
-[LinkedIn](https://www.linkedin.com/in/juliemyu/)  
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Julie%20Yu-blue)](https://www.linkedin.com/in/juliemyu/)  
   
 [@roastnewt](https://github.com/roastnewt) - **Architecture Owner/Software Engineer** (Deployment, CI/CD, Studio drafts)  
-LinkedIn  
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Clayton%20Watterson-blue)]()  
   
 [@imperium11](https://github.com/imperium11) - **UI Owner/Software Engineer** (Studio, Design)  
-[LinkedIn](https://www.linkedin.com/in/poyraz-akay/)  
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Poyraz%20Akay-blue)](https://www.linkedin.com/in/poyraz-akay/)  
   
 [@Maggie-Mango](https://github.com/Maggie-Mango) - **Software Engineer** (Database design, Deployment)  
-LinkedIn  
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Maggie%20Saldivia-blue)]()  
   
 [@rita0927](https://github.com/rita0927) - **Software Engineer** (Soundbar, Hashtag page, tests)  
-[LinkedIn](https://www.linkedin.com/in/yuzhang734680/)  
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Yu%20Zhang-blue)](https://www.linkedin.com/in/yuzhang734680/)  
   
 [@yuanqiwang](https://github.com/yuanqiwang) - **Software Engineer** (Authentication, Navigation bar/search)  
-[LinkedIn](https://www.linkedin.com/in/yuanqiw/)  
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Yuanqi%20Wang-blue)](https://www.linkedin.com/in/yuanqiw/)  
   
 [@rickkunz](https://github.com/rickkunz) - **Software Engineer** (Profile page)  
-[LinkedIn](https://www.linkedin.com/in/rickckunz/)  
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Rick%20Kunz-blue)](https://www.linkedin.com/in/rickckunz/)  
   
