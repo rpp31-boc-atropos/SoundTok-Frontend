@@ -4,23 +4,29 @@
 Anyone, from the casual listener and discoverer of new music to the veteran producer, will find a community on SoundTok. Put together a new track by uploading audio files from your computer or loading from saved drafts and layering different sounds and effects. Once you're satisfied, post the song with a description, image, and hashtags so others can discover your music through the feed or search bar. Keep your profile up to date, so others know who you are as an artist.
 
 # Table of Contents
-* [Nav Bar](#the-navigation-bar)
-* [Studio](#the-studio)
-* [Feed](#the-feed)
-* [Hashtag Page](#the-hashtag-page)
-* [Profile](#the-profile)
+* [Nav Bar](#navigation-bar)
+* [Studio](#studio)
+* [Feed](#feed)
+* [Hashtag Page](#hashtag-page)
+* [Profile](#profile)
+* [Schema](#schema-design)
+* [Authentication](#authentication)
 * [Tech Stack](#tech-stack--libraries)
 * [Contributors](#contributors)
 
-## The Navigation Bar
+## Navigation Bar
 
-## The Studio
+## Studio
 
-## The Feed
+## Feed
 
-## The Hashtag Page
+## Hashtag Page
 
-## The Profile
+## Profile
+
+## Schema Design
+
+## Authentication
 
 ## Tech Stack & Libraries
 _Deployment/Utility_
@@ -55,10 +61,10 @@ LinkedIn
 [@imperium11](https://github.com/imperium11) - **UI Owner/Software Engineer** (Studio, Design)  
 [LinkedIn](https://www.linkedin.com/in/poyraz-akay/)  
   
-[@Maggie-Mango](https://github.com/Maggie-Mango) - **Software Engineer** (Database implementation & design)  
+[@Maggie-Mango](https://github.com/Maggie-Mango) - **Software Engineer** (Database design, Deployment)  
 LinkedIn  
   
-[@rita0927](https://github.com/rita0927) - **Software Engineer** (Soundbar functionality, Hashtag page, tests)  
+[@rita0927](https://github.com/rita0927) - **Software Engineer** (Soundbar, Hashtag page, tests)  
 [LinkedIn](https://www.linkedin.com/in/yuzhang734680/)  
   
 [@yuanqiwang](https://github.com/yuanqiwang) - **Software Engineer** (Authentication, Navigation bar/search)  
