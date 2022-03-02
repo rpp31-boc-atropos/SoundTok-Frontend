@@ -19,6 +19,15 @@ Anyone, from the casual listener and discoverer of new music to the veteran prod
 ## Studio
 
 ## Feed
+_Main Features_
+* Post music by uploding an audio file, loading from drafts, or putting together a track in the studio
+* Posts include can include a title, description (limited to 140 char), and image
+* Explore others' musical projects, which are sorted with most recently posted on top
+* Discover relevant music and artists when clicking on a hashtag
+* Remix songs that pique your interest directly in the studio
+* Save unfinished posts to drafts to revisit later
+
+GIF TO BE ADDED
 
 ## Hashtag Page
 
