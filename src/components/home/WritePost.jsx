@@ -1,22 +1,29 @@
 // modules
-import * as React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import * as React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 // contexts
-import { useUserInfo } from "../../contexts/UserContext.jsx";
-import { usePosts } from "../../contexts/PostsContext.jsx";
-import { usePlayer } from "../../contexts/player/playerContext";
+import { useUserInfo } from '../../contexts/UserContext.jsx';
+import { usePosts } from '../../contexts/PostsContext.jsx';
+import { usePlayer } from '../../contexts/player/playerContext';
 
 // components
-import ProfilePicture from "../ProfilePicture.jsx";
-import helper from "./helperFunctions.js";
+import ProfilePicture from '../ProfilePicture.jsx';
+import helper from './helperFunctions.js';
 
 const WritePost = (props) => {
   // contexts
   const { username, email, profilePic } = useUserInfo();
-  const { posts, setPosts, isPostUpdated, setIsPostUpdated } = usePosts();
+  const {
+    posts,
+    setPosts,
+    isPostUpdated,
+    setIsPostUpdated,
+    isDraftUpdated,
+    setIsDraftUpdated,
+  } = usePosts();
   const { songs } = usePlayer();
 
   // clear content when a post is published
@@ -59,12 +66,12 @@ const WritePost = (props) => {
   const handleAudio = async (event) => {
     const file = event.target.files[0];
     const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "dllt65qw");
+    formData.append('file', file);
+    formData.append('upload_preset', 'dllt65qw');
 
     try {
       const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/xoxohorses/video/upload",
+        'https://api.cloudinary.com/v1_1/xoxohorses/video/upload',
         formData
       );
       // ERROR HANDLING FOR > 5 min audio
@@ -83,21 +90,20 @@ const WritePost = (props) => {
   const handleImage = (event) => {
     const file = event.target.files[0];
     const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "dllt65qw");
+    formData.append('file', file);
+    formData.append('upload_preset', 'dllt65qw');
 
     axios
-      .post("https://api.cloudinary.com/v1_1/xoxohorses/image/upload", formData)
+      .post('https://api.cloudinary.com/v1_1/xoxohorses/image/upload', formData)
       .then((response) => {
         props.setUploadedImage(response.data.secure_url);
       });
   };
 
   const handlePostOrSave = async (event, isPosting) => {
-    console.log(isPosting);
     event.preventDefault();
     if (!props.uploadedAudio & isPosting) {
-      props.setErrorMessage("WARNING: Please attach an audio file");
+      props.setErrorMessage('WARNING: Please attach an audio file');
     } else {
       props.setErrorMessage(null);
       let title = props.projectTitle.current.value;
@@ -121,7 +127,7 @@ const WritePost = (props) => {
       };
 
       await axios
-        .post("https://api.soundtok.live/", post)
+        .post('https://api.soundtok.live/', post)
         .then((response) => {
           console.log(response);
         })
@@ -129,9 +135,12 @@ const WritePost = (props) => {
           console.log(error);
         });
 
-      // eslint-disable-next-line no-extra-boolean-cast
-      setIsPostUpdated(!isPostUpdated);
-      songs.unshift(post);
+      if (isPosting) {
+        setIsPostUpdated(!isPostUpdated);
+        songs.unshift(post);
+      } else {
+        setIsDraftUpdated(!isDraftUpdated);
+      }
     }
   };
 
@@ -165,7 +174,7 @@ const WritePost = (props) => {
                   <PostAudioIcon
                     type="button"
                     onMouseEnter={() => {
-                      props.setInfoMessage("Upload Audio");
+                      props.setInfoMessage('Upload Audio');
                     }}
                     onMouseLeave={handleMouseLeave}
                   >
@@ -186,7 +195,7 @@ const WritePost = (props) => {
                       props.setIsDraftToggled(!props.isDraftToggled);
                     }}
                     onMouseEnter={() => {
-                      props.setInfoMessage("Load from Drafts");
+                      props.setInfoMessage('Load from Drafts');
                     }}
                     onMouseLeave={handleMouseLeave}
                   >
@@ -195,7 +204,7 @@ const WritePost = (props) => {
                   <PostAudioIcon
                     type="button"
                     onMouseEnter={() => {
-                      props.setInfoMessage("Go to Studio");
+                      props.setInfoMessage('Go to Studio');
                     }}
                     onMouseLeave={handleMouseLeave}
                   >
@@ -206,7 +215,7 @@ const WritePost = (props) => {
                   <PostAudioIcon
                     type="button"
                     onMouseEnter={() => {
-                      props.setInfoMessage("Upload Image");
+                      props.setInfoMessage('Upload Image');
                     }}
                     onMouseLeave={handleMouseLeave}
                   >
@@ -223,7 +232,7 @@ const WritePost = (props) => {
                   </PostAudioIcon>
                   <PostAudioIcon
                     onMouseEnter={() => {
-                      props.setInfoMessage("Save to Drafts");
+                      props.setInfoMessage('Save to Drafts');
                     }}
                     onMouseLeave={handleMouseLeave}
                     onClick={(event) => {
@@ -255,7 +264,7 @@ const WritePost = (props) => {
               <UploadedAudio
                 style={
                   props.uploadedAudio
-                    ? { border: "1px solid var(--font-line-color-yellow)" }
+                    ? { border: '1px solid var(--font-line-color-yellow)' }
                     : null
                 }
               >

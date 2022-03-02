@@ -32,12 +32,10 @@ const Post = (props) => {
       .then((response) => {})
       .catch((error) => {});
 
-    // eslint-disable-next-line no-extra-boolean-cast
     setIsPostUpdated(!isPostUpdated);
   };
 
   const handleRemix = (event) => {
-    event.preventDefault();
     const postId = props.postId;
     setSelectedProjectId(postId);
   };
@@ -57,13 +55,13 @@ const Post = (props) => {
           </PostUsernameAndTime>
           <PostHeaderIconWrap>
             {props.userEmail === email ? (
-              <PostIcon onClick={handleDeletePost}>
+              <PostIcon type="button" onClick={handleDeletePost}>
                 <div className="ri-close-line" />
               </PostIcon>
             ) : null}
             <Spacer width="6" height="0" />
             <Link to="/studio">
-              <PostIcon onClick={handleRemix}>
+              <PostIcon type="button" onClick={handleRemix}>
                 <div className="ri-sound-module-line" />
               </PostIcon>
             </Link>
