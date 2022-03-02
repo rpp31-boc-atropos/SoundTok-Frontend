@@ -61,8 +61,8 @@ _Libraries_
 [@imperium11](https://github.com/imperium11) - **UI Owner/Software Engineer** (Studio, Design)  
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Poyraz%20Akay-blue)](https://www.linkedin.com/in/poyraz-akay/)  
   
-[@Maggie-Mango](https://github.com/Maggie-Mango) - **Software Engineer** (Database design, Deployment)  
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Maggie%20Saldivia-blue)]()  
+[@Maggie-Mango](https://github.com/Maggie-Mango) - **Software Engineer** (Database design, Deployment, API tests)  
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Maggie%20Saldivia-blue)](www.linkedin.com/in/maggiesaldivia)  
   
 [@rita0927](https://github.com/rita0927) - **Software Engineer** (Soundbar, Hashtag page, tests)  
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Yu%20Zhang-blue)](https://www.linkedin.com/in/yuzhang734680/)  
