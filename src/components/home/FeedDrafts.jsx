@@ -1,16 +1,19 @@
 import * as React from 'react';
 import styled from 'styled-components';
+
+import { usePosts } from '../../contexts/PostsContext.jsx';
+
 import dummy from './dummy.jsx';
 import helper from './helperFunctions.js';
 
 const FeedDrafts = (props) => {
-  const [drafts, setDrafts] = React.useState([]);
+  const { drafts } = usePosts();
 
   return (
     <Wrapper>
       <Spacer width="70" />
       <Content>
-        {dummy.map((draft, i) => {
+        {drafts.map((draft, i) => {
           return (
             <Draft
               key={i}
