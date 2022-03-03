@@ -104,7 +104,6 @@ const WritePost = (props) => {
   };
 
   const handlePostOrSave = async (event, isPosting) => {
-    console.log(isPosting);
     event.preventDefault();
     if (!props.uploadedAudio & isPosting) {
       props.setErrorMessage('WARNING: Please attach an audio file');
@@ -125,7 +124,7 @@ const WritePost = (props) => {
         tags: tags,
         projectAudioLink: props.uploadedAudio,
         projectTitle: title,
-        projectLength: props.audioDuration,
+        projectLength: Math.floor(props.audioDuration),
         projectImageLink: props.uploadedImage,
         tracks: [],
       };
@@ -153,6 +152,7 @@ const WritePost = (props) => {
       <ProfilePicture username={username} profilePicture={profilePic} />
       <Form
         onSubmit={(event) => {
+          event.preventDefault();
           handlePostOrSave(event, true);
         }}
       >
@@ -242,6 +242,7 @@ const WritePost = (props) => {
                     onClick={(event) => {
                       handlePostOrSave(event, false);
                     }}
+                    type="button"
                   >
                     <div className="ri-save-3-line"></div>
                   </PostAudioIcon>
