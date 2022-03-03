@@ -106,7 +106,7 @@ const Song = (props) => {
           {props.isCurrentUser && <button onClick={() => deleteSong()}>XX</button>}
         </CornerWrapper>
       </SongHeader>
-      <button onClick={() => playSong()}>Play Song</button>
+      <button onClick={() => playSong()} role='profilePlaySong'>Play Song</button>
       <div>{props.songDescription}</div>
       <SongText>{props.projectTitle}</SongText>
     </SingleSong>

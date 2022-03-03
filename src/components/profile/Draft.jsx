@@ -86,7 +86,7 @@ const Draft = (props) => {
         <button onClick={() => deleteDraft()}>XX</button>
       </DraftHeader>
       <DraftText>{props.projectTitle}</DraftText>
-      <DraftText>{props.songDescription}</DraftText>
+      <DraftText role='draftTitle'>{props.songDescription}</DraftText>
     </SingleDraft>
   );
 };
