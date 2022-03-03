@@ -22,7 +22,12 @@ const Post = (props) => {
     selectedProjectId,
     setSelectedProjectId,
   } = usePosts();
-  const { SetCurrent, currentSong, songs } = usePlayer();
+  const { SetCurrent, currentSong, songs, playing, togglePlaying } =
+    usePlayer();
+
+  // refs
+  const canvas = React.useRef(null);
+  const audio = React.useRef(null);
 
   const handleDeletePost = async (event) => {
     event.preventDefault();
@@ -38,6 +43,56 @@ const Post = (props) => {
   const handleRemix = (event) => {
     const postId = props.postId;
     setSelectedProjectId(postId);
+  };
+
+  const visualize = () => {
+    audio.current.play();
+    let context = new AudioContext();
+    let src = context.createMediaElementSource(audio.current);
+    let analyser = context.createAnalyser();
+
+    let ctx = canvas.current.getContext('2d');
+    src.connect(analyser);
+    analyser.connect(context.destination);
+
+    analyser.fftSize = 256;
+    let bufferLength = analyser.frequencyBinCount;
+    console.log(bufferLength);
+
+    let dataArray = new Uint8Array(bufferLength);
+
+    let WIDTH = canvas.current.width;
+    let HEIGHT = canvas.current.height;
+
+    let barWidth = (WIDTH / bufferLength) * 2.5;
+    let barHeight;
+    let x = 0;
+
+    let renderFrame = () => {
+      requestAnimationFrame(renderFrame);
+
+      x = 0;
+
+      analyser.getByteFrequencyData(dataArray);
+
+      ctx.fillStyle = '#253a4e';
+      ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+      for (let i = 0; i < bufferLength; i++) {
+        barHeight = dataArray[i] / 2;
+
+        let r = 40;
+        let g = 130 + 100 * (i / bufferLength);
+        let b = 250 * (i / bufferLength);
+
+        ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
+        ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
+
+        x += barWidth + 1;
+      }
+    };
+
+    renderFrame();
   };
 
   return (
@@ -78,8 +133,16 @@ const Post = (props) => {
           <PostAudio
             onClick={() => {
               SetCurrent(props.index);
+              visualize();
             }}
-          />
+          >
+            <Canvas ref={canvas}></Canvas>
+            <audio
+              ref={audio}
+              src={props.projectAudioLink}
+              crossOrigin="anonymous"
+            ></audio>
+          </PostAudio>
           <Spacer width="16" height="0" />
         </PostMedia>
         <PostAudioInfo>
@@ -168,14 +231,23 @@ const PostImage = styled.div`
   }
 `;
 
-const PostAudio = styled.button`
+const PostAudio = styled.div`
   flex-grow: 1;
   height: 96px;
   border-radius: 12px;
   box-sizing: border-box;
-  background: var(--main-color-blue-light);
-  background-image: url('./wave.png');
+  background: transparent;
   margin-bottom: 4px;
+  position: relative;
+`;
+
+const Canvas = styled.canvas`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: var(--main-color-blue-gradient-light);
+  border-radius: inherit;
+  z-index: 2;
 `;
 
 const PostAudioInfo = styled.div`
