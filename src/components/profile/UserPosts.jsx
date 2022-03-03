@@ -47,8 +47,8 @@ const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
     // cut this section after post request is implemented
     //Modifying directly in state instead of waiting for response for faster user experience
 
-    console.log(postId);
-    console.log('source,', source);
+    // console.log(postId);
+    // console.log('source,', source);
     if (source === 'Posts') {
       setSongs(songs.filter(song => song.postId !== postId));
     } else {
@@ -97,6 +97,7 @@ const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
         let draftList = [];
 
         for (let song of response.data.projectdata) {
+          console.log(song);
           if (song.draft) {
             songList.push(song);
           } else {
@@ -145,7 +146,7 @@ const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
             <Song
               key={i}
               postId={song.postId}
-              songImage={song.projectImage}
+              projectImageLink={song.projectImageLink}
               projectTitle={song.projectTitle}
               songDescription={song.projectDescription}
               projectAudioLink={song.projectAudioLink}
@@ -162,7 +163,7 @@ const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
               key={i}
               postId={draft.postId}
               username={draft.username}
-              songImage={draft.projectImage}
+              // projectImageLink={draft.projectImageLink}
               projectTitle={draft.projectTitle}
               songDescription={draft.projectDescription}
               projectAudioLink={draft.projectAudioLink}

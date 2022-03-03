@@ -77,9 +77,9 @@ const Draft = (props) => {
   return (
     <SingleDraft>
       <DraftHeader>
-        <LogoButton>
-          <Logo src={props.songImage}></Logo>
-        </LogoButton>
+        {/* <LogoButton>
+          <Logo src={props.projectImageLink}></Logo>
+        </LogoButton> */}
         <DraftText>{convertSongLength(props.projectLength)}</DraftText>
         <Link to={'/studio'}>
           <PostRemixButton onClick={() => setSelectedProjectId(props.postId)}>
