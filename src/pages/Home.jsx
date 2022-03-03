@@ -58,7 +58,7 @@ const Home = () => {
             setIsDraftToggled={setIsDraftToggled}
           />
         )}
-        {isDraftToggled && (
+        {/* {isDraftToggled && (
           <FeedDrafts
             projectTitle={projectTitle}
             projectText={projectText}
@@ -71,7 +71,7 @@ const Home = () => {
             uploadedImage={uploadedImage}
             setUploadedImage={setUploadedImage}
           />
-        )}
+        )} */}
         {posts.map((post, i) => {
           return (
             <Post
