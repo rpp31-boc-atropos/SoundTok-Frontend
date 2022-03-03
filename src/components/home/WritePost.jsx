@@ -95,7 +95,7 @@ const WritePost = (props) => {
 
     axios
       .post(
-        'https://api.cloudinary.com/v1_1/xoxohorses/image/upload/c_crop,w_48,h_48/',
+        'https://api.cloudinary.com/v1_1/xoxohorses/image/upload/',
         formData
       )
       .then((response) => {
@@ -104,6 +104,7 @@ const WritePost = (props) => {
   };
 
   const handlePostOrSave = async (event, isPosting) => {
+    console.log(isPosting);
     event.preventDefault();
     if (!props.uploadedAudio & isPosting) {
       props.setErrorMessage('WARNING: Please attach an audio file');
