@@ -24,18 +24,18 @@ jest.mock("@auth0/auth0-react");
 
 // describe("NavBar Component Tests - Logged in", () => {
 //   beforeEach(() => {
-    // mockedUseAuth0.mockReturnValue({
-    //   isAuthenticated: true,
-    //   user,
-    //   logout: jest.fn(),
-    //   loginWithRedirect: jest.fn(),
-    //   getAccessTokenWithPopup: jest.fn(),
-    //   getAccessTokenSilently: jest.fn(),
-    //   getIdTokenClaims: jest.fn(),
-    //   loginWithPopup: jest.fn(),
-    //   isLoading: false,
-    // });
-  // });
+// mockedUseAuth0.mockReturnValue({
+//   isAuthenticated: true,
+//   user,
+//   logout: jest.fn(),
+//   loginWithRedirect: jest.fn(),
+//   getAccessTokenWithPopup: jest.fn(),
+//   getAccessTokenSilently: jest.fn(),
+//   getIdTokenClaims: jest.fn(),
+//   loginWithPopup: jest.fn(),
+//   isLoading: false,
+// });
+// });
 //   test("Login Button displays when not logged in", () => {
 //     render(
 //       <NavBar />

@@ -16,7 +16,12 @@ import helpers from './helperFunctions.js';
 
 const Post = (props) => {
   const { email } = useUserInfo();
-  const { isPostUpdated, setIsPostUpdated } = usePosts();
+  const {
+    isPostUpdated,
+    setIsPostUpdated,
+    selectedProjectId,
+    setSelectedProjectId,
+  } = usePosts();
   const { SetCurrent, currentSong, songs } = usePlayer();
 
   const handleDeletePost = async (event) => {
@@ -27,14 +32,12 @@ const Post = (props) => {
       .then((response) => {})
       .catch((error) => {});
 
-    // eslint-disable-next-line no-extra-boolean-cast
     setIsPostUpdated(!isPostUpdated);
   };
 
   const handleRemix = (event) => {
-    event.preventDefault();
-    const audioLink = props.projectAudioLink;
-    // console.log({ audioLink });
+    const postId = props.postId;
+    setSelectedProjectId(postId);
   };
 
   return (
@@ -52,13 +55,13 @@ const Post = (props) => {
           </PostUsernameAndTime>
           <PostHeaderIconWrap>
             {props.userEmail === email ? (
-              <PostIcon onClick={handleDeletePost}>
+              <PostIcon type="button" onClick={handleDeletePost}>
                 <div className="ri-close-line" />
               </PostIcon>
             ) : null}
             <Spacer width="6" height="0" />
             <Link to="/studio">
-              <PostIcon onClick={handleRemix}>
+              <PostIcon type="button" onClick={handleRemix}>
                 <div className="ri-sound-module-line" />
               </PostIcon>
             </Link>

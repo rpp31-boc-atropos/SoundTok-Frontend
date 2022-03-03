@@ -16,7 +16,14 @@ import helper from './helperFunctions.js';
 const WritePost = (props) => {
   // contexts
   const { username, email, profilePic } = useUserInfo();
-  const { posts, setPosts, isPostUpdated, setIsPostUpdated } = usePosts();
+  const {
+    posts,
+    setPosts,
+    isPostUpdated,
+    setIsPostUpdated,
+    isDraftUpdated,
+    setIsDraftUpdated,
+  } = usePosts();
   const { songs } = usePlayer();
 
   // clear content when a post is published
@@ -72,7 +79,7 @@ const WritePost = (props) => {
       //   props.setErrorMessage('WARNING: Audio file longer than 5 minutes');
       // } else {
       props.setErrorMessage(null);
-      props.setUploadedAudio(response.data.url);
+      props.setUploadedAudio(response.data.secure_url);
       props.setAudioDuration(response.data.duration);
       // }
     } catch (error) {
@@ -87,9 +94,12 @@ const WritePost = (props) => {
     formData.append('upload_preset', 'dllt65qw');
 
     axios
-      .post('https://api.cloudinary.com/v1_1/xoxohorses/image/upload', formData)
+      .post(
+        'https://api.cloudinary.com/v1_1/xoxohorses/image/upload/',
+        formData
+      )
       .then((response) => {
-        props.setUploadedImage(response.data.url);
+        props.setUploadedImage(response.data.secure_url);
       });
   };
 
@@ -114,7 +124,7 @@ const WritePost = (props) => {
         tags: tags,
         projectAudioLink: props.uploadedAudio,
         projectTitle: title,
-        projectLength: props.audioDuration,
+        projectLength: Math.floor(props.audioDuration),
         projectImageLink: props.uploadedImage,
         tracks: [],
       };
@@ -128,9 +138,12 @@ const WritePost = (props) => {
           console.log(error);
         });
 
-      // eslint-disable-next-line no-extra-boolean-cast
-      setIsPostUpdated(!isPostUpdated);
-      songs.unshift(post);
+      if (isPosting) {
+        setIsPostUpdated(!isPostUpdated);
+        songs.unshift(post);
+      } else {
+        setIsDraftUpdated(!isDraftUpdated);
+      }
     }
   };
 
@@ -139,6 +152,7 @@ const WritePost = (props) => {
       <ProfilePicture username={username} profilePicture={profilePic} />
       <Form
         onSubmit={(event) => {
+          event.preventDefault();
           handlePostOrSave(event, true);
         }}
       >
@@ -179,7 +193,7 @@ const WritePost = (props) => {
                       onChange={handleAudio}
                     ></UploadFile>
                   </PostAudioIcon>
-                  <PostAudioIcon
+                  {/* <PostAudioIcon
                     type="button"
                     onClick={() => {
                       props.setIsDraftToggled(!props.isDraftToggled);
@@ -190,7 +204,7 @@ const WritePost = (props) => {
                     onMouseLeave={handleMouseLeave}
                   >
                     <div className="ri-folder-upload-line" />
-                  </PostAudioIcon>
+                  </PostAudioIcon> */}
                   <PostAudioIcon
                     type="button"
                     onMouseEnter={() => {
@@ -228,6 +242,7 @@ const WritePost = (props) => {
                     onClick={(event) => {
                       handlePostOrSave(event, false);
                     }}
+                    type="button"
                   >
                     <div className="ri-save-3-line"></div>
                   </PostAudioIcon>
