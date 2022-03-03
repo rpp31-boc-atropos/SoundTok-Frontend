@@ -28,27 +28,22 @@ const Profile = () => {
   let location = useLocation();
 
   useEffect(() => {
-    console.log('user email', email); //this is the logged in username
-    console.log('user name', username); //this is the logged in username
+    // console.log('user email', email); //this is the logged in username
+    // console.log('user name', username); //this is the logged in username
 
-
-    let newLocation = window.location.href;
-    let userProfile = newLocation.slice((window.location.href.indexOf('profile') + 8));
-    // console.log('location:', location);
-    // console.log('pathname', location.pathname);
-    // console.log('pathname', location.pathname.split('/').pop());
+    // let newLocation = window.location.href;
+    // let userProfile = newLocation.slice((window.location.href.indexOf('profile') + 8));
     setProfileName(location.pathname.split('/').pop());
     if (location.pathname.split('/').pop() === username) {
       // console.log('viewing own page');
       setIsCurrentUser(true);
     } else {
-      // console.log('not your page!', location.pathname.split('/').pop());
-      console.log(username);
-
+      // console.log(username);
       setIsCurrentUser(false);
     }
-
-  }, [location]);
+  //Added username so user can edit profile/view drafts after being authenticated. Previously
+  //refreshing the profile page would remove editing privileges
+  }, [location, username]);
 
   //Nested routes
   return (

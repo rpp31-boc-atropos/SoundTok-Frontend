@@ -62,7 +62,7 @@ const BioModal = ({ isOpen, currentBio, handleUpdateProfile, closeModal, profile
                 <input type="file" onChange={(event) => { setImageSelected(event.target.files[0]); }} />
                 {/* <button onClick={uploadImage}> Upload Image</button> */}
               </div>
-              <div>
+              <div role='bioInstructions'>
                 <label>Please update your biography below</label>
               </div>
               <div>

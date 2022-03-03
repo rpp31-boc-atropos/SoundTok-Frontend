@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import BioModal from './BioModal.jsx';
 // import { useAuth } from '../../contexts/AuthContext.jsx';
-import dummyProfile from './dummyProfile.jsx';
+// import dummyProfile from './dummyProfile.jsx';
 // import { useLocation } from 'react-router-dom';
 
 import styled from 'styled-components';
@@ -54,8 +54,8 @@ const ProfileText = styled.div`
 const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName, setProfileName}) => {
   // const { user } = useAuth();
   const [username, setUsername] = useState('leggo'); //update with Context when available
-  const [profilePicture, setProfilePicture] = useState(dummyProfile.profilePicture);
-  const [bio, setBio] = useState(dummyProfile.bio);
+  const [profilePicture, setProfilePicture] = useState('');
+  const [bio, setBio] = useState('');
   const [isOpen, setModal] = useState(false);
   // const [location, setLocation] = useLocation();
   // const {location} = useLocation();
@@ -69,15 +69,10 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName, setProfileNa
   const handleUpdateProfile = (newPhoto, bio) => {
     const formData = new FormData();
     formData.append('file', newPhoto);
-    // formData.append('upload_preset', CLOUDINARY_PROFILE_PRESET);
     formData.append('upload_preset', 'zua1tfa6');
-
-    // console.log('newPhoto', newPhoto);
 
     axios.post('https://api.cloudinary.com/v1_1/rickkcloudinary/image/upload', formData)
       .then((response) => {
-        // console.log('cloud photo link', response.data.secure_url);
-        // console.log('new profile pic in state', profilePicture);
         return response.data.secure_url;
       })
       .catch((error) => {
@@ -86,16 +81,11 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName, setProfileNa
       .then((newPicture) => {
         setBio(bio);
         setProfilePicture(newPicture);
-        // console.log('hopefully url', newPicture);
-
-        // console.log('new profile url', profilePicture);
         let tempData = {
           username: username,
           profilePicture: newPicture,
           bio: bio
         };
-
-        console.log(tempData);
 
         axios.put('/updateProfile/', tempData)
           .then((response) => {
@@ -115,14 +105,9 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName, setProfileNa
   useEffect(() => {
     let newLocation = window.location.href;
     let userProfile = newLocation.slice((window.location.href.indexOf('profile') + 8));
-    // console.log('location:', newLocation);
-    setCurrentLocation(userProfile);
-    // setProfileName(userProfile);
-    // console.log('current location', currentLocation);
-    // const location = useLocation();
-    // console.log('location: ', location);
 
-    // console.log('userprofile ', userProfile);
+    setCurrentLocation(userProfile);
+
     if (userProfile !== '') {
       setUsername(userProfile);
     } else {
@@ -131,38 +116,17 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName, setProfileNa
 
     axios.get('/profile/', {
       params: {
-        // username: 'leggo'
         username: userProfile
       }
     })
       .then((response) => {
-        // console.log('profileresponse', response.data);
         setProfilePicture(response.data.profilePicture);
-        // console.log('getting bio back: ', response.data);
         setBio(response.data.userBio); //Maggie is working on adding this
       })
       .catch((err) => {
         console.log(err);
       });
   }, [profileName]);
-
-  //move to higher level
-  // React.useEffect(() => {
-  //   const optionGetPosts = {
-  //     method: 'GET',
-  //     url: 'api.soundtok.live/getProfileData/projects/stella',
-  //   };
-
-  //   axios.get(optionGetPosts)
-  //     .then((response) => {
-  //       console.log('response', response);
-  //       // setProfilePicture(response.data.profilePicture);
-  //       // setBio(response.data.bio);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // });
 
   return (
     <ProfileWrapper>

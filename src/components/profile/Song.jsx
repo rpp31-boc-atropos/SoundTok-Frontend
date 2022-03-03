@@ -6,10 +6,10 @@ import { usePlayer } from '../../contexts/player/playerContext';
 import { usePosts } from '../../contexts/PostsContext.jsx';
 
 const SingleSong = styled.div`
-  width: 30%;
+  width: 300px;
   height: 220px;
-  padding: 16px;
-  margin: 6px;
+  padding: 30px 16px;
+  margin: 20px 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -92,13 +92,13 @@ const Song = (props) => {
   return (
     <SingleSong>
       <SongHeader>
-        {/* <LogoButton>
-          <Logo src={props.songImage}></Logo>
-        </LogoButton> */}
+        <LogoButton>
+          <Logo src={props.projectImageLink}></Logo>
+        </LogoButton>
         <div>{convertSongLength(props.projectLength)}</div>
         <CornerWrapper>
           <button></button>
-          <Link to={'/studio/'}>
+          <Link to={'/studio'}>
             <PostRemixButton onClick={() => setSelectedProjectId(props.postId)}>
               <i className='ri-sound-module-line'></i>
             </PostRemixButton>
@@ -106,7 +106,7 @@ const Song = (props) => {
           {props.isCurrentUser && <button onClick={() => deleteSong()}>XX</button>}
         </CornerWrapper>
       </SongHeader>
-      <button onClick={() => playSong()}>Play Song</button>
+      <button onClick={() => playSong()} role='profilePlaySong'>Play Song</button>
       <div>{props.songDescription}</div>
       <SongText>{props.projectTitle}</SongText>
     </SingleSong>
