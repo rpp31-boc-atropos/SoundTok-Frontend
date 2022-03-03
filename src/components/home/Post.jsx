@@ -130,12 +130,19 @@ const Post = (props) => {
             ) : null}
           </PostImage>
           <Spacer width="12" height="0" />
-          <PostAudio
-            onClick={() => {
-              SetCurrent(props.index);
-              visualize();
-            }}
-          >
+          <PostAudio>
+            <PlayPause
+              onClick={() => {
+                SetCurrent(props.index);
+                visualize();
+              }}
+            >
+              <div
+                className={`playPause ${
+                  !playing ? 'ri-play-circle-fill' : 'ri-pause-circle-fill'
+                }`}
+              />
+            </PlayPause>
             <Canvas ref={canvas}></Canvas>
             <audio
               ref={audio}
@@ -241,13 +248,24 @@ const PostAudio = styled.div`
   position: relative;
 `;
 
+const PlayPause = styled.button`
+  position: absolute;
+  z-index: 2;
+  top: 16px;
+  left: 159px;
+
+  div {
+    font-size: 64px;
+  }
+`;
+
 const Canvas = styled.canvas`
   width: 100%;
   height: 100%;
   position: relative;
   background: var(--main-color-blue-gradient-light);
   border-radius: inherit;
-  z-index: 2;
+  z-index: 1;
 `;
 
 const PostAudioInfo = styled.div`
