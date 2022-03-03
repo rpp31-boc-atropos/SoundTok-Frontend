@@ -26,7 +26,9 @@ const Hashtag = () => {
   return (
     <>
       <h1 style={{ margin: "30px" }}>#Hashtag: {q}</h1>
-      <Container>
+      <Link to="/">Go Back to the Home Page</Link>
+      <br />
+      <Container style={{ maxHeight: "60%", overflow: "auto" }}>
         <Grid container spacing={3}>
           {posts.map((post, index) => (
             <Grid item key={index} xs={12} sm={6} md={3}>
@@ -35,14 +37,13 @@ const Hashtag = () => {
           ))}
         </Grid>
       </Container>
-      <br />
-      <Link to="/">Go Back to the Home Page</Link>
       <Wave
+        style={{ position: "fixed", bottom: 0 }}
         fill="#33495c"
         paused={false}
         options={{
-          height: 30,
-          amplitude: 30,
+          height: 40,
+          amplitude: 40,
           speed: 0.3,
           points: 3,
         }}

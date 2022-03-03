@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import './AudioPlayer.css';
 import './input.css';
 // import Playlist from './playlist/Playlist';
 import PlayerControls from './Controls';
@@ -9,7 +8,7 @@ import { useLocation } from 'react-router-dom';
 
 
 const Main = styled.div`
-  position: relative;
+  position: fixed;
   bottom: 0;
   width: 100%;
   box-sizing: border-box;
