@@ -48,7 +48,7 @@ const Profile = () => {
       setIsCurrentUser(false);
     }
   //Added username so user can edit profile/view drafts after being authenticated. Previously
-  //refreshing the profile page would remove editing priviledges
+  //refreshing the profile page would remove editing privileges
   }, [location, username]);
 
   //Nested routes

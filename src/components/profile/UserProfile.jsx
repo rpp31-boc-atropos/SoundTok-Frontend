@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import BioModal from './BioModal.jsx';
 // import { useAuth } from '../../contexts/AuthContext.jsx';
-import dummyProfile from './dummyProfile.jsx';
+// import dummyProfile from './dummyProfile.jsx';
 // import { useLocation } from 'react-router-dom';
 
 import styled from 'styled-components';
@@ -54,8 +54,8 @@ const ProfileText = styled.div`
 const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName, setProfileName}) => {
   // const { user } = useAuth();
   const [username, setUsername] = useState('leggo'); //update with Context when available
-  const [profilePicture, setProfilePicture] = useState(dummyProfile.profilePicture);
-  const [bio, setBio] = useState(dummyProfile.bio);
+  const [profilePicture, setProfilePicture] = useState('');
+  const [bio, setBio] = useState('');
   const [isOpen, setModal] = useState(false);
   // const [location, setLocation] = useLocation();
   // const {location} = useLocation();

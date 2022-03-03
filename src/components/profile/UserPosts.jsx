@@ -2,8 +2,8 @@ import React, {useState, useEffect} from 'react';
 // import { useAuth } from '../../contexts/AuthContext.jsx';
 import Song from './Song.jsx';
 import Draft from './Draft.jsx';
-import dummySongs from './dummySongs.jsx';
-import dummyDrafts from './dummyDrafts.jsx';
+// import dummySongs from './dummySongs.jsx';
+// import dummyDrafts from './dummyDrafts.jsx';
 import styled from 'styled-components';
 const axios = require('axios');
 
@@ -34,8 +34,8 @@ const PostWrapper = styled.div`
 const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
   // const { user } = useAuth();
   const [tab, setTab] = useState('Posts');
-  const [songs, setSongs] = useState(dummySongs);
-  const [drafts, setDrafts] = useState(dummyDrafts);
+  const [songs, setSongs] = useState([]);
+  const [drafts, setDrafts] = useState([]);
   // const {projectsToDelete, setProjectsToDelete} = useState([]); - stretch goal - delete multiple songs
   const [username, setUsername] = useState('leggo'); //update with Context when available
   // const [currentEndpoint, setCurrentEndpoint] = useState('test');
