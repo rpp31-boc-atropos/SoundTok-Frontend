@@ -30,44 +30,30 @@ const PostWrapper = styled.div`
   overflow-y: auto;
 `;
 
-// const UserPosts = ({isCurrentUser}) => {
 const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
-  // const { user } = useAuth();
   const [tab, setTab] = useState('Posts');
   const [songs, setSongs] = useState([]);
   const [drafts, setDrafts] = useState([]);
-  // const {projectsToDelete, setProjectsToDelete} = useState([]); - stretch goal - delete multiple songs
   const [username, setUsername] = useState('leggo'); //update with Context when available
   // const [currentEndpoint, setCurrentEndpoint] = useState('test');
 
 
   const removePost = (postId, source) => {
-    // needs call to remove from db. stretch goal - select and remove multiple songs
-    // to-dos: add confirmation popup, add select boxes to select multiple songs before clicking a separate delete button
-    // cut this section after post request is implemented
-    //Modifying directly in state instead of waiting for response for faster user experience
-
-    // console.log(postId);
-    // console.log('source,', source);
     if (source === 'Posts') {
       setSongs(songs.filter(song => song.postId !== postId));
     } else {
       setDrafts(drafts.filter(draft => draft.postId !== postId));
     }
 
-    // axios.post('/deleteProjects', projectsToDelete)
     let postToRemove = {
       postId: postId
     };
 
-    // axios.delete('/deletePost', {data: formData})
     axios.delete('/deletePost', {data: postToRemove})
       .then(function (response) {
         console.log('Project successfully deleted');
       })
       .catch(function (error) {
-        //pop-up with with message - please review error and try again
-        // console.log('Project failed to delete. Please refresh the page and try again');
         console.log(error);
       });
   };
@@ -82,13 +68,9 @@ const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
       userProfile = username;
       setIsCurrentUser(true);
     }
-    // setUsername(userProfile);
-    // console.log('searching for: ', userProfile);
 
-    // axios.get(`/profile/${profileName}`, {
     axios.get(`/profile`, {
       params: {
-        // username: 'leggo'
         username: userProfile
       }
     })
@@ -97,7 +79,6 @@ const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
         let draftList = [];
 
         for (let song of response.data.projectdata) {
-          console.log(song);
           if (song.draft) {
             songList.push(song);
           } else {
@@ -107,29 +88,11 @@ const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
 
         setSongs(songList);
         setDrafts(draftList);
-        // setSongs(response.data.projectdata);
       })
       .catch((err) => {
         console.log(err);
       });
-
-
-    // if (isCurrentUser) {  //update after team sets up sample draft data
-    //   axios.get('/userDrafts', {
-    //     params: {
-    //       username: profileName
-    //     }
-    //   })
-    //     .then((response) => {
-    //       // setDrafts(response.data);
-    //       console.log('response: ', response.data);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // }
   }, [profileName]);
-  // }, [currentEndpoint]);
 
   return (
     <>
