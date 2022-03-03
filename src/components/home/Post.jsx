@@ -126,7 +126,7 @@ const Post = (props) => {
         <PostMedia>
           <PostImage>
             {props.projectImageLink ? (
-              <img src={props.projectImageLink}></img>
+              <img src={props.projectImageLink} alt="Audio image"></img>
             ) : null}
           </PostImage>
           <Spacer width="12" height="0" />

@@ -274,7 +274,7 @@ const WritePost = (props) => {
                 }
               >
                 {props.uploadedImage ? (
-                  <img src={props.uploadedImage}></img>
+                  <img src={props.uploadedImage} alt="Uploaded image"></img>
                 ) : null}
               </UploadedAudio>
               <Submit
