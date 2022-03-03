@@ -32,8 +32,8 @@ const Profile = () => {
     console.log('user name', username); //this is the logged in username
 
 
-    let newLocation = window.location.href;
-    let userProfile = newLocation.slice((window.location.href.indexOf('profile') + 8));
+    // let newLocation = window.location.href;
+    // let userProfile = newLocation.slice((window.location.href.indexOf('profile') + 8));
     // console.log('location:', location);
     // console.log('pathname', location.pathname);
     // console.log('pathname', location.pathname.split('/').pop());
@@ -47,8 +47,9 @@ const Profile = () => {
 
       setIsCurrentUser(false);
     }
-
-  }, [location]);
+  //Added username so user can edit profile/view drafts after being authenticated. Previously
+  //refreshing the profile page would remove editing priviledges
+  }, [location, username]);
 
   //Nested routes
   return (
