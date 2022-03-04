@@ -12,7 +12,6 @@ import Collapse from '@material-ui/core/Collapse'
 import CardContent from '@material-ui/core/CardContent'
 import Avatar from '@material-ui/core/Avatar'
 
-
 const PhotoCard = ({ post, index }) => {
 
 
@@ -37,15 +36,13 @@ const PhotoCard = ({ post, index }) => {
 
   const { SetCurrent, currentSong, songs } = usePlayer();
 
-  const { username, postLikes, projectTitle, postText, profilePicture, projectLength, projectAudioLink } = post;
+  const { username, postLikes, projectTitle, postText, profilePicture, projectLength, projectAudioLink, projectImageLink } = post;
 
-  // console.log(songs)
   return (
     <div>
       <Card
         style={{ backgroundColor: ' #ffface' }}
         elevation={1}
-      // onClick={() => SetCurrent(index)}
       >
         <CardHeader
           titleTypographyProps={{ variant: 'body1' }}
@@ -68,21 +65,16 @@ const PhotoCard = ({ post, index }) => {
         <CardMedia
           component="img"
           height="180"
-          image={post.projectImageLink}
+          image={projectImageLink ? projectImageLink : 'https://i.pinimg.com/236x/1b/32/3e/1b323e0b909bdfa943208f3aad2ba8bb--designers.jpg'}
           alt="Project photo"
         />
         <CardActions disableSpacing>
           <Avatar
             alt="Profile Picture "
             src={profilePicture}
-            sx={{ width: 15, height: 15 }}
+            sx={{ width: '48px', height: '48px' }}
           />
           {username}
-          {/* <IconButton>
-            <Favorite />
-          </IconButton> */}
-          {/* {postLikes} */}
-
           <ExpandMore
             expand={expanded}
             onClick={handleExpandClick}
