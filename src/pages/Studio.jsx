@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AllButtons, ButtonTop, ButtonWrapper, CloseModalIcon, ControlBarWrapper, DraftTitle, DraftWrapper, EditorWrapper, EffectButton, FastForward, Header, Highligther, MainPanel, ModalHeader, MoveAudio, Pause, Play, PlayerControls, ReverbModalWrapper, Rewind, RightPanel, Select, Stop, StudioHeader, StudioWrapper, TrackName, TrackNameWrapper } from '../components/studio/Styles/styles.js';
+import { AllButtons, ButtonTop, ButtonWrapper, CloseModalIcon, ControlBarWrapper, DraftTitle, DraftWrapper, EditorWrapper, EffectButton, FastForward, Header, Highligther, MainPanel, ModalHeader, MoveAudio, Pause, Play, PlayerControls, ReverbModalWrapper, Rewind, RightPanel, Stop, StudioHeader, StudioWrapper, TrackName, TrackNameWrapper } from '../components/studio/Styles/styles.js';
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 import Loading from '../components/Loading.jsx';
 import WaveformPlaylist from 'waveform-playlist';
@@ -33,8 +33,8 @@ const Studio = () => {
     overlay: {
       position: 'fixed',
       top: 300,
-      left: 665,
-      right: 665,
+      left: 595,
+      right: 595,
       bottom: 300,
       backgroundColor: 'rgb(255, 250, 206)',
       border: '2px solid rgb(255, 250, 206)',
@@ -237,9 +237,9 @@ const Studio = () => {
           <Header>Audio Creation Tool</Header>
         </div>
         <ButtonWrapper>
-          <ButtonTop onClick={() => { ee.emit('clear'); }}>Clear</ButtonTop>
-          <ButtonTop role='download' onClick={() => { ee.emit('startaudiorendering', 'wav'); }}>Download</ButtonTop>
-          <ButtonTop onClick={handleSaveDraft}>Save</ButtonTop>
+          <ButtonTop role='button' onClick={() => { ee.emit('clear'); }}>Clear</ButtonTop>
+          <ButtonTop role='button' onClick={() => { ee.emit('startaudiorendering', 'wav'); }}>Download</ButtonTop>
+          <ButtonTop role='button' onClick={handleSaveDraft}>Save</ButtonTop>
         </ButtonWrapper>
       </StudioHeader>
       <EditorWrapper>
