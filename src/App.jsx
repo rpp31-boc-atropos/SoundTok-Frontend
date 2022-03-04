@@ -11,7 +11,7 @@ import Studio from "./pages/Studio.jsx";
 import Hashtag from "./pages/Hashtag.jsx";
 import AudioPlayer from "./components/audioPlayer/AudioPlayer";
 import NotFound from "./pages/NotFound.jsx";
-
+import PrimarySearchAppBar from './components/nav/PrimarySearchAppBar.jsx';
 //add new route above NotFound Route
 
 //add * to the path if you need to create nested routes
@@ -27,7 +27,8 @@ const App = () => {
 
   return (
     <div className="App">
-      <NavBar />
+      {/* <NavBar /> */}
+      <PrimarySearchAppBar />
       <Routes>
         <Route path="/" element={<Home />} />
         {/* <Route path='/profile/*' element={isAuthenticated ? <Profile /> : <Navigate to='/' />} /> */}

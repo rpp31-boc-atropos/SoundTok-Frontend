@@ -1,29 +1,36 @@
-import React, { useEffect, useState } from "react";
-import Search from "./SearchBar.jsx";
-import { Link } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
-import { useUserInfo } from "../../contexts/UserContext.jsx";
-import ProfilePicture from "../ProfilePicture.jsx";
+import React from 'react';
+import Search from './SearchBar.jsx';
+import { Link } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useUserInfo } from '../../contexts/UserContext.jsx';
+import ProfilePicture from '../ProfilePicture.jsx';
+
+// const Nav = styled.div`
+//   width: 100%;
+//   min-height: 1.5em;
+//   display: flex;
+//   align-items: center;
+//   padding: 2px 15px;
+// `;
+
 
 const NavBar = () => {
   const { loginWithRedirect, logout, isLoading, isAuthenticated } = useAuth0();
 
   const { username, profilePic } = useUserInfo();
 
-  // console.log (username, profilePic);
   return (
-    <ul className="nav">
-      <li className="logo">
+    <div className="nav">
+      <div className="logo" >
         <Link to="/">SoundTok</Link>
-      </li>
-      <li>
+      </div>
+      <div>
         <Link to="/studio">Studio</Link>
-      </li>
+      </div>
       <Search />
-      <li>
-        {/* <Link to="/profile" state={{ url: 'home' }}>Profile</Link> */}
+      <div>
         <Link to={`/profile/${username}`}>Profile</Link>
-      </li>
+      </div>
 
       {!isLoading && !isAuthenticated && (
         <button onClick={() => loginWithRedirect()}>Log In</button>
@@ -45,7 +52,8 @@ const NavBar = () => {
           <button onClick={() => logout()}>Log Out</button>
         </div>
       )}
-    </ul>
+
+    </div>
   );
 };
 

@@ -14,12 +14,15 @@ import { Link } from 'react-router-dom';
 const SearchBarContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
+  position: fixed;
+  left: 50%;
+  margin-top: 0.1em;
+  margin-left: -17em;
   width: 34em;
   height: 1.8em;
   background-color: var(--main-color-blue-light);
   border-radius: 20px;
   box-shadow: 0px 2px 12px 3px rgba(0, 0, 0, 0.14);
-  margin: 0.3em;
 `;
 
 const SearchInputContainer = styled.div`
@@ -111,17 +114,18 @@ const containerVariants = {
   expanded: {
     height: '20em',
     zIndex: '100',
-    // top: '10px'
+    marginTop: '18.3em'
   },
   collapsed: {
+    marginTop: '0.2em',
     height: '1.8em',
   },
 };
 
-const containerTransition = { type: 'spring', damping: 22, stiffness: 150};
+const containerTransition = { type: 'spring', damping: 20, stiffness: 150};
 
 
-const Search = () => {
+const SearchBar = () => {
   const [isExpanded, setExpanded] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [isEmpty, setIsEmpty] = useState(true);
@@ -223,9 +227,9 @@ const Search = () => {
           onFocus={expandContainer}
           onChange={changeHandler}
           ref={inputRef}/>
-        <CloseIcon onClick={collapseContainer}>
-          <IoClose/>
-        </CloseIcon>
+          <CloseIcon onClick={collapseContainer}>
+            <IoClose/>
+          </CloseIcon>
 
       </SearchInputContainer >
       {isExpanded && <LineSeperator />}
@@ -270,4 +274,4 @@ const Search = () => {
 };
 
 
-export default Search;
+export default SearchBar;
