@@ -6,10 +6,7 @@ import { useClickOutside } from 'react-click-outside-hook';
 import MoonLoader from 'react-spinners/MoonLoader';
 import useDebounce from './debounceHook.jsx';
 import axios from 'axios';
-import { Hashtag } from '../home/Hashtag.jsx';
 import { Link } from 'react-router-dom';
-// import {} from './hashtag.json';
-// import {} from './users.json';
 
 const SearchBarContainer = styled(motion.div)`
   display: flex;
@@ -112,9 +109,9 @@ const WarningMessage = styled.span`
 
 const containerVariants = {
   expanded: {
-    height: '20em',
+    height: '12em',
     zIndex: '100',
-    marginTop: '18.3em'
+    marginTop: '10.4em'
   },
   collapsed: {
     marginTop: '0.2em',
@@ -122,7 +119,7 @@ const containerVariants = {
   },
 };
 
-const containerTransition = { type: 'spring', damping: 20, stiffness: 150};
+const containerTransition = { type: 'Tween', damping: 20, stiffness: 150, bounce: 0 };
 
 
 const SearchBar = () => {
@@ -149,7 +146,7 @@ const SearchBar = () => {
     setExpanded(false);
     setSearchQuery("");
     setResults([]);
-    setNoResult(true);
+    setNoResult(false);
     setLoading(false);
     // setIsUserSearch(false);
     setIsEmpty(true);

@@ -19,6 +19,7 @@ import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useUserInfo } from '../../contexts/UserContext.jsx';
 import SearchBar from './SearchBar.jsx';
+import ProfilePicture from '../ProfilePicture.jsx';
 
 
 export default function PrimarySearchAppBar() {
@@ -100,25 +101,42 @@ export default function PrimarySearchAppBar() {
         width: '100%',
         borderBottom:'red',
         borderLeftStyle: 'solid',
-        borderLeftWidth: '0.1em'
+        borderLeftWidth: '0.1em',
+        maxHeight: '10em',
       }}>
       <AppBar
         position="static"
         style={{ background: '#000000'}}
       >
-        <Toolbar>
+        <Toolbar
+          style={{borderBottom:'solid #ffface60 1px'}}>
 
           <Typography
             variant="h6"
             noWrap
             // component="div"
-            sx={{ display: 'block', width: '10em'}}
+            sx={{
+              display: {xs: 'none', md: 'block'},
+              width: '10em',
+              fontFamily: 'MuseoModerno',
+              color: '#ECE659',
+              fontWeight: '600',
+              fontSize: '25px'}}
             component={Link}
             to="/"
-
           >
             SoundTok
           </Typography>
+          <Box
+            component="img"
+            sx={{
+              height: 40,
+              width: 40,
+              display: {xs: 'block', md: 'none'},
+            }}
+            alt="SoundTok"
+            src="./SoundTokLogo.png"
+          />
 
           <SearchBar />
           <Box sx={{ flexGrow: 1 }} />
@@ -141,7 +159,14 @@ export default function PrimarySearchAppBar() {
               to="/profile"
 
             >
-              <AccountCircle />
+              {isAuthenticated &&
+                <ProfilePicture
+                  username={username}
+                  profilePicture={profilePic}
+                  size={'25'}
+                />}
+              {!isAuthenticated &&
+                <AccountCircle />}
             </IconButton>
 
             <IconButton
