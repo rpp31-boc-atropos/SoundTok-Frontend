@@ -27,7 +27,7 @@ const Studio = () => {
 
   // User email from global context
   let {email} = useUserInfo();
-  let {drafts, isDraftUpdated, setIsDraftUpdated} = usePosts();
+  let {drafts, isDraftUpdated, setIsDraftUpdated, selectedProjectId, setSelectedProjectId} = usePosts();
 
   const modalStyles = {
     overlay: {
@@ -118,9 +118,6 @@ const Studio = () => {
   const handleSaveDraft = () => {
 
     let currPlaylist = playlist.getInfo().tracks;
-
-    console.log('currPlaylist', currPlaylist);
-
     saveDraftToAPI(currPlaylist);
 
   };
@@ -197,6 +194,27 @@ const Studio = () => {
 
     Modal.setAppElement('#editor');
   }, []);
+
+  useEffect(() => {
+
+    if (selectedProjectId != null) {
+      axios.get(`https://api.soundtok.live/drafts/id/${selectedProjectId}`)
+        .then(result => {
+          if (result.data[0].email !== email) {
+            playlist.load([{
+              src: result.data[0].projectaudiolink,
+              name: `${result.data[0].username}'s track`
+            }]);
+          } else {
+            playlist.load(result.data[0].tracks);
+          }
+          setSelectedProjectId(null);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }, [playlist]);
 
 
   return (
