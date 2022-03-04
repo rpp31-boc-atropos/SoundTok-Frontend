@@ -3,7 +3,6 @@ import React, {useState, useEffect} from 'react';
 import Song from './Song.jsx';
 import Draft from './Draft.jsx';
 // import dummySongs from './dummySongs.jsx';
-// import dummyDrafts from './dummyDrafts.jsx';
 import styled from 'styled-components';
 const axios = require('axios');
 
@@ -97,7 +96,7 @@ const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
   return (
     <>
       <ButtonWrapper>
-        <Button onClick={() => setTab('Posts')} >Posts</Button>
+        <Button role='postSelect' onClick={() => setTab('Posts')} >Posts</Button>
         {isCurrentUser ?
           <Button onClick={() => setTab('Drafts')}>Drafts</Button>
           : null}

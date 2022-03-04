@@ -93,11 +93,10 @@ const Song = (props) => {
     <SingleSong>
       <SongHeader>
         <LogoButton>
-          <Logo src={props.projectImageLink}></Logo>
+          <Logo src={props.projectImageLink || 'https://i.pinimg.com/236x/1b/32/3e/1b323e0b909bdfa943208f3aad2ba8bb--designers.jpg'} alt='Album cover'></Logo>
         </LogoButton>
         <div>{convertSongLength(props.projectLength)}</div>
         <CornerWrapper>
-          <button></button>
           <Link to={'/studio'}>
             <PostRemixButton onClick={() => setSelectedProjectId(props.postId)}>
               <i className='ri-sound-module-line'></i>
@@ -107,6 +106,7 @@ const Song = (props) => {
         </CornerWrapper>
       </SongHeader>
       <button onClick={() => playSong()} role='profilePlaySong'>Play Song</button>
+
       <div>{props.songDescription}</div>
       <SongText>{props.projectTitle}</SongText>
     </SingleSong>

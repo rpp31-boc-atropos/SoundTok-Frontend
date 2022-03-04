@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import EditProfile from '../components/profile/EditProfile.jsx';
 import UserProfile from '../components/profile/UserProfile.jsx';
 import UserPosts from '../components/profile/UserPosts.jsx';
 import { withAuthenticationRequired } from '@auth0/auth0-react';
@@ -31,14 +30,10 @@ const Profile = () => {
     // console.log('user email', email); //this is the logged in username
     // console.log('user name', username); //this is the logged in username
 
-    // let newLocation = window.location.href;
-    // let userProfile = newLocation.slice((window.location.href.indexOf('profile') + 8));
     setProfileName(location.pathname.split('/').pop());
     if (location.pathname.split('/').pop() === username) {
-      // console.log('viewing own page');
       setIsCurrentUser(true);
     } else {
-      // console.log(username);
       setIsCurrentUser(false);
     }
   //Added username so user can edit profile/view drafts after being authenticated. Previously
@@ -65,18 +60,8 @@ const Profile = () => {
         ></UserPosts>
       </ProfilePage>
 
-      {/* <ul className='nav'>
-        <li>
-          <Link to="userprofile">User Profile</Link>
-        </li>
-        <li>
-          <Link to="editprofile">Edit Profile</Link>
-        </li>
-      </ul> */}
-
       <Routes>
         <Route path="userprofile" element={<UserProfile />} />
-        <Route path="editprofile" element={<EditProfile />} />
       </Routes>
     </>
   );
