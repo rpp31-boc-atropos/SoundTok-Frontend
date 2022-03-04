@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AllButtons, ButtonTop, ButtonWrapper, CloseModalIcon, ControlBarWrapper, DraftTitle, DraftWrapper, EditorWrapper, EffectButton, FastForward, Header, Highligther, MainPanel, ModalHeader, MoveAudio, Pause, Play, PlayerControls, ReverbModalWrapper, Rewind, RightPanel, Select, Stop, StudioHeader, StudioWrapper, TrackName, TrackNameWrapper } from '../components/studio/Styles/styles.js';
+import { AllButtons, ButtonTop, ButtonWrapper, CloseModalIcon, ControlBarWrapper, DraftTitle, DraftWrapper, EditorWrapper, EffectButton, FastForward, Header, Highligther, MainPanel, ModalHeader, MoveAudio, Pause, Play, PlayerControls, ReverbModalWrapper, Rewind, RightPanel, Stop, StudioHeader, StudioWrapper, TrackName, TrackNameWrapper } from '../components/studio/Styles/styles.js';
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 import Loading from '../components/Loading.jsx';
 import WaveformPlaylist from 'waveform-playlist';
