@@ -33,8 +33,8 @@ const Studio = () => {
     overlay: {
       position: 'fixed',
       top: 300,
-      left: 665,
-      right: 665,
+      left: 595,
+      right: 595,
       bottom: 300,
       backgroundColor: 'rgb(255, 250, 206)',
       border: '2px solid rgb(255, 250, 206)',
