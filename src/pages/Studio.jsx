@@ -224,9 +224,9 @@ const Studio = () => {
           <Header>Audio Creation Tool</Header>
         </div>
         <ButtonWrapper>
-          <ButtonTop onClick={() => { ee.emit('clear'); }}>Clear</ButtonTop>
-          <ButtonTop role='download' onClick={() => { ee.emit('startaudiorendering', 'wav'); }}>Download</ButtonTop>
-          <ButtonTop onClick={handleSaveDraft}>Save</ButtonTop>
+          <ButtonTop role='button' onClick={() => { ee.emit('clear'); }}>Clear</ButtonTop>
+          <ButtonTop role='button' onClick={() => { ee.emit('startaudiorendering', 'wav'); }}>Download</ButtonTop>
+          <ButtonTop role='button' onClick={handleSaveDraft}>Save</ButtonTop>
         </ButtonWrapper>
       </StudioHeader>
       <EditorWrapper>
