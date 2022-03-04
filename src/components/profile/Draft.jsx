@@ -74,11 +74,11 @@ const Draft = (props) => {
   return (
     <SingleDraft>
       <DraftHeader>
-        <LogoButton>
-          <Logo src={props.songImage}></Logo>
-        </LogoButton>
+        {/* <LogoButton>
+          <Logo src={props.projectImageLink}></Logo>
+        </LogoButton> */}
         <DraftText>{convertSongLength(props.projectLength)}</DraftText>
-        <Link to={`/studio/${props.postId}`}>
+        <Link to={'/studio'}>
           <PostRemixButton onClick={() => setSelectedProjectId(props.postId)}>
             <i className="ri-sound-module-line"></i>
           </PostRemixButton>
@@ -86,7 +86,7 @@ const Draft = (props) => {
         <button onClick={() => deleteDraft()}>XX</button>
       </DraftHeader>
       <DraftText>{props.projectTitle}</DraftText>
-      <DraftText>{props.songDescription}</DraftText>
+      <DraftText role='draftTitle'>{props.songDescription}</DraftText>
     </SingleDraft>
   );
 };

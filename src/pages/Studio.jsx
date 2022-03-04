@@ -27,7 +27,7 @@ const Studio = () => {
 
   // User email from global context
   let {email} = useUserInfo();
-  let {drafts, isDraftUpdated, setIsDraftUpdated} = usePosts();
+  let {drafts, isDraftUpdated, setIsDraftUpdated, selectedProjectId, setSelectedProjectId} = usePosts();
 
   const modalStyles = {
     overlay: {
@@ -76,20 +76,27 @@ const Studio = () => {
   };
 
   // API METHODS
-  const saveDraftToAPI = (tracks) => {
-    if (tracks.length > 0) {
+  const saveDraftToAPI = (tracksToSave) => {
+    if (tracksToSave.length > 0) {
+
+      for (let i = 0; i < tracksToSave.length; i++) {
+        if ('effects' in tracksToSave[i] && tracksToSave[i].effects !== undefined) {
+          tracksToSave[i].effects = true;
+        }
+      }
 
       let reqBody = {
         email: email,
         projectTitle: 'Draft #' + (drafts.length + 1),
-        projectLength: 300,
+        projectLength: null,
         projectAudioLink: '',
-        tracks: JSON.stringify(tracks),
+        tracks: JSON.stringify(tracksToSave),
         timePosted: new Date().toISOString()
       };
 
       //console.log(playlist.getInfo());
-      console.log('saving: ', reqBody);
+      //console.log('saving: ', reqBody);
+      //console.log(tracksToSave);
       axios.post('https://api.soundtok.live/drafts', reqBody)
         .then((response) => {
           console.log('save successful, ', response);
@@ -105,9 +112,15 @@ const Studio = () => {
   const handleSetDraft = (draft) => {
     removeAllTracks();
 
-    console.log('draft: ', draft);
-
+    //console.log('draft: ', draft);
     setIsLoading(true);
+
+    // add reverb
+    for (let i = 0; i < draft.tracks.length; i++) {
+      if (draft.tracks[i].effects === true) {
+        draft.tracks[i].effects = ReverbFunc();
+      }
+    }
     playlist.load(draft.tracks)
       .then(()=>{
         playlist.initExporter();
@@ -118,9 +131,6 @@ const Studio = () => {
   const handleSaveDraft = () => {
 
     let currPlaylist = playlist.getInfo().tracks;
-
-    console.log('currPlaylist', currPlaylist);
-
     saveDraftToAPI(currPlaylist);
 
   };
@@ -197,6 +207,27 @@ const Studio = () => {
 
     Modal.setAppElement('#editor');
   }, []);
+
+  useEffect(() => {
+
+    if (selectedProjectId != null) {
+      axios.get(`https://api.soundtok.live/drafts/id/${selectedProjectId}`)
+        .then(result => {
+          if (result.data[0].email !== email) {
+            playlist.load([{
+              src: result.data[0].projectaudiolink,
+              name: `${result.data[0].username}'s track`
+            }]);
+          } else {
+            playlist.load(result.data[0].tracks);
+          }
+          setSelectedProjectId(null);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }, [playlist]);
 
 
   return (
