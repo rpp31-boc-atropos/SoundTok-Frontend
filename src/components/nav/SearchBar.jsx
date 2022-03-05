@@ -111,10 +111,10 @@ const containerVariants = {
   expanded: {
     height: '12em',
     zIndex: '100',
-    marginTop: '10.4em'
+    marginTop: '10.0em'
   },
   collapsed: {
-    marginTop: '0.2em',
+    marginTop: '-0.2em',
     height: '1.8em',
   },
 };

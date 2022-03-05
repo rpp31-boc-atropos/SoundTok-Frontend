@@ -80,7 +80,7 @@ body,
   padding-bottom: 5px;
   display: flex;
   background-color: var(--main-color-black) 0%;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 1.5px solid var(--font-line-color-yellow);
 }
