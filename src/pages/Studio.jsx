@@ -217,7 +217,7 @@ const Studio = () => {
     if (selectedProjectId != null) {
       axios.get(`https://api.soundtok.live/drafts/id/${selectedProjectId}`)
         .then(result => {
-          if (result.data[0].email !== email) {
+          if (result.data[0].published === true) {
             playlist.load([{
               src: result.data[0].projectaudiolink,
               name: `${result.data[0].username}'s track`
