@@ -1,12 +1,16 @@
-import React from 'react';
-import Search from './SearchBar.jsx';
-import { Link } from 'react-router-dom';
-import { useAuth0 } from '@auth0/auth0-react';
-import { useUserInfo } from '../../contexts/UserContext.jsx';
-import ProfilePicture from '../ProfilePicture.jsx';
+import React from "react";
+import Search from "./SearchBar.jsx";
+import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useUserInfo } from "../../contexts/UserContext.jsx";
+import ProfilePicture from "../ProfilePicture.jsx";
 
-import { MdAccountBox, MdMicNone, MdOutlineLogin, MdOutlineLogout } from 'react-icons/md';
-
+import {
+  MdAccountBox,
+  MdMicNone,
+  MdOutlineLogin,
+  MdOutlineLogout,
+} from "react-icons/md";
 
 const NavBar = () => {
   const { loginWithRedirect, logout, isLoading, isAuthenticated } = useAuth0();
@@ -15,14 +19,14 @@ const NavBar = () => {
 
   return (
     <div className="nav">
-
-      <div className="logo" >
+      <div className="logo" role="logo">
         <Link to="/">SoundTok</Link>
       </div>
 
       <Search />
 
-      <div className="controls"
+      <div
+        className="controls"
         style={{
           display: "flex",
           justifyContent: "space-evenly",
@@ -31,33 +35,35 @@ const NavBar = () => {
       >
         <div
           style={{
-            marginRight: '12px',
-          }}>
+            marginRight: "12px",
+          }}
+        >
           <Link to="/studio">
-            <MdMicNone size={25} alt='Studio'/>
+            <MdMicNone size={25} alt="Studio" />
           </Link>
         </div>
 
         {!isLoading && !isAuthenticated && (
           <div
             style={{
-              marginRight: '12px',
-            }}>
+              marginRight: "12px",
+            }}
+          >
             <Link to={`/profile/${username}`}>
               <MdAccountBox
                 size={25}
-                alt='Profile'
+                alt="Profile"
                 style={{
-                  marginRight: '12px',
+                  marginRight: "12px",
                 }}
               />
             </Link>
-            < MdOutlineLogin
+            <MdOutlineLogin
               size={25}
-              alt='Login'
+              alt="Login"
               style={{
-                marginRight: '12px',
-                cursor: 'pointer',
+                marginRight: "12px",
+                cursor: "pointer",
               }}
               onClick={() => loginWithRedirect()}
             />
@@ -70,23 +76,21 @@ const NavBar = () => {
               username={username}
               profilePicture={profilePic}
               size={"25"}
-
             />
             {/* <button onClick={() => logout()}>Out</button> */}
             <MdOutlineLogout
               size={25}
-              alt='Logout'
+              alt="Logout"
               style={{
-                marginRight: '12px',
-                cursor: 'pointer',
+                marginRight: "12px",
+                cursor: "pointer",
               }}
-              onClick={() => logout()}/>
+              onClick={() => logout()}
+            />
           </div>
         )}
       </div>
-
     </div>
-
   );
 };
 
