@@ -34,6 +34,13 @@ const PostRemixButton = styled.button`
   }
 `;
 
+const DeleteButton = styled.button`
+  &:hover {
+    color: red;
+  }
+  padding-bottom: 10px;
+`;
+
 const LogoButton = styled.button``;
 
 const Logo = styled.img`
@@ -83,7 +90,7 @@ const Draft = (props) => {
             <i className="ri-sound-module-line"></i>
           </PostRemixButton>
         </Link>
-        <button onClick={() => deleteDraft()}>XX</button>
+        <DeleteButton onClick={() => deleteDraft()}>X</DeleteButton>
       </DraftHeader>
       <DraftText>{props.projectTitle}</DraftText>
       <DraftText role='draftTitle'>{props.songDescription}</DraftText>
