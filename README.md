@@ -33,8 +33,6 @@ _Main Features_
 
 
 ![Screen Recording 2022-03-04 at 7 23 01 PM](https://user-images.githubusercontent.com/69382434/156866618-144e0a94-b6d1-4b46-bd25-63d14ce318de.gif)
->>>>>>> c9872c83e494c33c9cb6f0891157893b1c837b37
-
 
 ## Hashtag Page
 
