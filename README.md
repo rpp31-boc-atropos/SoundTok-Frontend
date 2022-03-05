@@ -56,6 +56,11 @@ GIF TO BE ADDED
 
 ## Schema Design
 
+<img width="886" alt="Screen Shot 2022-03-05 at 12 10 08 PM" src="https://user-images.githubusercontent.com/13864148/156893195-c5bea5c9-56f6-438d-a6f1-73a0dfe2fed8.png">
+
+The server utilizes a Postgres database on the backend with minimal JavaScript transformation.
+
+
 ## Authentication
 
 ## Tech Stack & Libraries
