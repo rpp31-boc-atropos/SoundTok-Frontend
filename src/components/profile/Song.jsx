@@ -110,7 +110,7 @@ const Song = (props) => {
           <div>{convertSongLength(props.projectLength)}</div>
         </CornerWrapper>
         <CornerWrapper>
-          {props.isCurrentUser && <DeleteButton onClick={() => deleteSong()}>XX</DeleteButton>}
+          {props.isCurrentUser && <DeleteButton onClick={() => deleteSong()}>X</DeleteButton>}
           <Link to={'/studio'}>
             <PostRemixButton onClick={() => setSelectedProjectId(props.postId)}>
               <i className='ri-sound-module-line'></i>
