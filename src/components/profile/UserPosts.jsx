@@ -22,11 +22,9 @@ const PostWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content:space-around;
-  max-height: 700px;
   width: 1000px;
   margin-top: 10px;
   flex-wrap: wrap;
-  overflow-y: auto;
 `;
 
 const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {

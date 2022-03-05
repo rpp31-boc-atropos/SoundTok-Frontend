@@ -27,6 +27,7 @@ const Logo = styled.img`
   border-radius: 100%;
   box-sizing: border-box;
   border: 2px solid var(--font-line-color-yellow);
+  object-fit: cover;
 `;
 
 const SongHeader = styled.div`

@@ -11,11 +11,12 @@ import styled from 'styled-components';
 
 const ProfilePage = styled.div`
   width: 1000px;
-  height: 100%;
+  height: 90%;
   border-left: solid 1px;
   border-right: solid 1px;
   background: var(--main-color-black);
   border-color: var(--font-line-color-yellow-transparent);
+  overflow: scroll;
 `;
 
 const Profile = () => {
