@@ -9,14 +9,24 @@ import { useUserInfo } from '../contexts/UserContext.jsx';
 
 import styled from 'styled-components';
 
+
+const ProfileWrapper = styled.div`
+  display:flex;
+  width: 100%;
+  overflow: scroll;
+  justify-content: center;
+  height: calc(100% - 95px);
+`;
+
 const ProfilePage = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
   width: 1000px;
-  height: 90%;
   border-left: solid 1px;
   border-right: solid 1px;
   background: var(--main-color-black);
   border-color: var(--font-line-color-yellow-transparent);
-  overflow: scroll;
 `;
 
 const Profile = () => {
@@ -47,6 +57,7 @@ const Profile = () => {
       {/* <h1>Profile Page</h1>
       <p>User from context: {user}</p> */}
 
+      <ProfileWrapper>
       <ProfilePage>
         <UserProfile
           isCurrentUser={isCurrentUser}
@@ -60,6 +71,7 @@ const Profile = () => {
           profileName={profileName}
         ></UserPosts>
       </ProfilePage>
+      </ProfileWrapper>
 
       <Routes>
         <Route path="userprofile" element={<UserProfile />} />
