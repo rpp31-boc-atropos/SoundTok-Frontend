@@ -263,7 +263,7 @@ export const Highligther = styled(FaGripLinesVertical)`
 export const UploadIcon = styled(FaUpload)`
   margin-top: 5px;
   margin-right: 10px;
-  color purple;
+  color: purple;
   font-size: 25px;
   &:hover {
     cursor: pointer;
