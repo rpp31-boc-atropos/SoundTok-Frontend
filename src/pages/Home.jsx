@@ -13,7 +13,7 @@ import FeedDrafts from '../components/home/FeedDrafts.jsx';
 import Post from '../components/home/Post.jsx';
 import dummy from '../components/home/dummy.jsx';
 
-const Home = () => {
+const Home = (props) => {
   const { user, isAuthenticated } = useAuth0();
   const { posts } = usePosts();
 
@@ -88,6 +88,7 @@ const Home = () => {
               projectImageLink={post.projectImageLink}
               tags={post.tags}
               timePosted={post.timePosted}
+              mainAudio={props.mainAudio}
             />
           );
         })}

@@ -13,7 +13,7 @@ const Main = styled.div`
   z-index: 2;
 `;
 
-const AudioPlayer = () => {
+const AudioPlayer = (props) => {
   const location = useLocation();
   const path = location.pathname;
   const [display, setDisplay] = useState(path !== '/studio' ? true : false);
@@ -22,7 +22,9 @@ const AudioPlayer = () => {
     setDisplay(path !== '/studio' ? true : false);
   }, [path]);
 
-  return <Main>{display && <PlayerControls />}</Main>;
+  return (
+    <Main>{display && <PlayerControls mainAudio={props.mainAudio} />}</Main>
+  );
 };
 
 export default AudioPlayer;

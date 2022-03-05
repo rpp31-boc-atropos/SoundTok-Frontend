@@ -47,6 +47,7 @@ const Post = (props) => {
 
   const visualize = () => {
     audio.current.play();
+    togglePlaying();
     let context = new AudioContext();
     let src = context.createMediaElementSource(audio.current);
     let analyser = context.createAnalyser();
@@ -57,7 +58,6 @@ const Post = (props) => {
 
     analyser.fftSize = 256;
     let bufferLength = analyser.frequencyBinCount;
-    console.log(bufferLength);
 
     let dataArray = new Uint8Array(bufferLength);
 
@@ -132,14 +132,22 @@ const Post = (props) => {
           <Spacer width="12" height="0" />
           <PostAudio>
             <PlayPause
-              onClick={() => {
-                SetCurrent(props.index);
-                visualize();
+              onClick={async (event) => {
+                if (!playing) {
+                  SetCurrent(props.index);
+                  visualize();
+                } else {
+                  audio.current.pause();
+                  togglePlaying();
+                  props.mainAudio.current.pause();
+                }
               }}
             >
               <div
                 className={`playPause ${
-                  !playing ? 'ri-play-circle-fill' : 'ri-pause-circle-fill'
+                  playing && currentSong === props.index
+                    ? 'ri-pause-circle-fill'
+                    : 'ri-play-circle-fill'
                 }`}
               />
             </PlayPause>
