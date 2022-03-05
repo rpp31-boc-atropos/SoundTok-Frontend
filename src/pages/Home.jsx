@@ -89,6 +89,7 @@ const Home = (props) => {
               tags={post.tags}
               timePosted={post.timePosted}
               mainAudio={props.mainAudio}
+              currentAudio={props.currentAudio}
             />
           );
         })}

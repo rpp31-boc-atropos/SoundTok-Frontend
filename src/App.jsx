@@ -21,6 +21,7 @@ import NotFound from './pages/NotFound.jsx';
 const App = () => {
   // refs
   const mainAudio = React.useRef(null);
+  const currentAudio = React.useRef(null);
 
   const callApi = () => {
     axios.get('/public');
@@ -33,7 +34,10 @@ const App = () => {
       <Suspense fallback={<div>Loading...</div>}>
         <NavBar />
         <Routes>
-          <Route path="/" element={<Home mainAudio={mainAudio} />} />
+          <Route
+            path="/"
+            element={<Home mainAudio={mainAudio} currentAudio={currentAudio} />}
+          />
           <Route path="/profile/*" element={<Profile />} />
           <Route path="/studio/*" element={<Studio />} />
           <Route
@@ -42,7 +46,7 @@ const App = () => {
           />
           <Route path="/*" element={<NotFound />} />
         </Routes>
-        <AudioPlayer mainAudio={mainAudio} />
+        <AudioPlayer mainAudio={mainAudio} currentAudio={currentAudio} />
       </Suspense>
     </div>
   );

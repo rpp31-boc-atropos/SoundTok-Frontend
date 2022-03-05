@@ -135,6 +135,7 @@ const Post = (props) => {
               onClick={async (event) => {
                 if (!playing) {
                   SetCurrent(props.index);
+                  props.currentAudio.current = audio;
                   visualize();
                 } else {
                   audio.current.pause();

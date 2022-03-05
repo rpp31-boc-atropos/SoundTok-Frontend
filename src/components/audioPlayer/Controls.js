@@ -29,10 +29,11 @@ const PlayerControls = (props) => {
     return (s - (s %= 60)) / 60 + (9 < s ? ':' : ':0') + ~~s;
   };
 
-  const toggleAudio = () =>
+  const toggleAudio = () => {
     props.mainAudio.current.paused
       ? props.mainAudio.current.play()
       : props.mainAudio.current.pause();
+  };
 
   const handleVolume = (q) => {
     setStateVolume(q);
@@ -72,7 +73,6 @@ const PlayerControls = (props) => {
               !playing ? 'ri-play-circle-fill' : 'ri-pause-circle-fill'
             }`}
             onClick={() => {
-              // console.log({ songs });
               togglePlaying();
               toggleAudio();
             }}

@@ -23,7 +23,14 @@ const AudioPlayer = (props) => {
   }, [path]);
 
   return (
-    <Main>{display && <PlayerControls mainAudio={props.mainAudio} />}</Main>
+    <Main>
+      {display && (
+        <PlayerControls
+          mainAudio={props.mainAudio}
+          currentAudio={props.currentAudio}
+        />
+      )}
+    </Main>
   );
 };
 
