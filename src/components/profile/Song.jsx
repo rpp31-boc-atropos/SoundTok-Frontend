@@ -8,7 +8,7 @@ import { usePosts } from '../../contexts/PostsContext.jsx';
 const SingleSong = styled.div`
   width: 300px;
   height: 220px;
-  padding: 30px 16px;
+  padding: 10px 16px;
   margin: 20px 6px;
   display: flex;
   flex-direction: column;
@@ -17,16 +17,14 @@ const SingleSong = styled.div`
   border: 1px solid var(--font-line-color-yellow-transparent);
 `;
 
-const LogoButton = styled.button`
-`;
-
 const Logo = styled.img`
   width: 48px;
   height: 48px;
-  margin-right: 12px;
   border-radius: 100%;
   box-sizing: border-box;
   border: 2px solid var(--font-line-color-yellow);
+  object-fit: cover;
+  margin-bottom: 5px;
 `;
 
 const SongHeader = styled.div`
@@ -41,7 +39,6 @@ const SongHeader = styled.div`
 const PostRemixButton = styled.button`
   color: var(--font-line-color-yellow-transparent);
   font-size: 16px;
-
   &:hover {
     color: var(--font-line-color-yellow);
   }
@@ -50,9 +47,24 @@ const PostRemixButton = styled.button`
 const CornerWrapper = styled.div`
   display:flex;
   flex-direction: column;
+  align-items: center;
 `;
 
-const SongText = styled.p``;
+const PlayButton = styled.button`
+  border: 2px solid var(--font-line-color-yellow-transparent);
+  padding: 5px;
+`;
+
+const DeleteButton = styled.button`
+  &:hover {
+    color: red;
+  }
+  padding-bottom: 10px;
+`;
+
+const SongText = styled.p`
+  margin: auto;
+`;
 
 const Song = (props) => {
   // const { user } = useAuth();
@@ -92,21 +104,22 @@ const Song = (props) => {
   return (
     <SingleSong>
       <SongHeader>
-        <LogoButton>
-          <Logo src={props.projectImageLink}></Logo>
-        </LogoButton>
-        <div>{convertSongLength(props.projectLength)}</div>
         <CornerWrapper>
-          <button></button>
+          <Logo src={props.projectImageLink || 'https://i.pinimg.com/236x/1b/32/3e/1b323e0b909bdfa943208f3aad2ba8bb--designers.jpg'} alt='Album cover'>
+          </Logo>
+          <div>{convertSongLength(props.projectLength)}</div>
+        </CornerWrapper>
+        <CornerWrapper>
+          {props.isCurrentUser && <DeleteButton onClick={() => deleteSong()}>X</DeleteButton>}
           <Link to={'/studio'}>
             <PostRemixButton onClick={() => setSelectedProjectId(props.postId)}>
               <i className='ri-sound-module-line'></i>
             </PostRemixButton>
           </Link>
-          {props.isCurrentUser && <button onClick={() => deleteSong()}>XX</button>}
         </CornerWrapper>
       </SongHeader>
-      <button onClick={() => playSong()} role='profilePlaySong'>Play Song</button>
+      <PlayButton onClick={() => playSong()} role='profilePlaySong'>Play Song</PlayButton>
+
       <div>{props.songDescription}</div>
       <SongText>{props.projectTitle}</SongText>
     </SingleSong>

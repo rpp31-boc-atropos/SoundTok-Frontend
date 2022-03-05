@@ -6,7 +6,7 @@ import { usePosts } from "../../contexts/PostsContext.jsx";
 
 const SingleDraft = styled.div`
   width: 30%;
-  height: 220px;
+  height: 140px;
   padding: 16px;
   margin: 6px;
   display: flex;
@@ -32,6 +32,13 @@ const PostRemixButton = styled.button`
   &:hover {
     color: var(--font-line-color-yellow);
   }
+`;
+
+const DeleteButton = styled.button`
+  &:hover {
+    color: red;
+  }
+  padding-bottom: 10px;
 `;
 
 const LogoButton = styled.button``;
@@ -83,7 +90,7 @@ const Draft = (props) => {
             <i className="ri-sound-module-line"></i>
           </PostRemixButton>
         </Link>
-        <button onClick={() => deleteDraft()}>XX</button>
+        <DeleteButton onClick={() => deleteDraft()}>X</DeleteButton>
       </DraftHeader>
       <DraftText>{props.projectTitle}</DraftText>
       <DraftText role='draftTitle'>{props.songDescription}</DraftText>

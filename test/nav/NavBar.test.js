@@ -33,8 +33,9 @@ describe('NavBar', () => {
 
   test('NavBar should exist', () => {
     render(<MockNavBar />);
-    expect(screen.getByText(/Studio/i)).toBeInTheDocument();
-    expect(screen.getByText(/Log Out/i)).toBeInTheDocument();
+    // expect(screen.getByText(/Studio/i)).toBeInTheDocument();
+    // expect(screen.getByText(/Log Out/i)).toBeInTheDocument();
+    expect(screen.getByRole(/logo/i)).toBeInTheDocument();
 
 
   });

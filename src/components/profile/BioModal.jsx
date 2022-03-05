@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const axios = require('axios'); //comment out once app is working
 
 const Overlay = styled.div`
-  display: fixed;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -13,14 +13,26 @@ const Overlay = styled.div`
   height: 100vh;
 `;
 
+const Modal = styled.div`
+  display: flex;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FFF;
+  padding: 30px;
+  z-index: 1000;
+  flex-direction: column;
+  color: black;
+`;
+
 const ButtonWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
 `;
 
 const Button = styled.button`
-  min-width: 100px;
-  padding: 16px 32px;
+  padding: 8px 16px;
   border-radius: 4px;
   border: none;
   background: #141414;
@@ -28,10 +40,15 @@ const Button = styled.button`
   font-size: 24px
   cursor: pointer;
 `;
-//comment out once app is working
-const FormWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+
+const Submit = styled.button`
+  font-family: Helvetica, Arial, sans-serif;
+  background-color: black;
+  height: 40px;
+  font-size: 16px;
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
 `;
 
 const BioModal = ({ isOpen, currentBio, handleUpdateProfile, closeModal, profilePicture }) => {
@@ -53,7 +70,8 @@ const BioModal = ({ isOpen, currentBio, handleUpdateProfile, closeModal, profile
     <>
       {isOpen ?
         <React.Fragment>
-          <Overlay>
+          <Overlay></Overlay>
+          <Modal>
             <form>
               <ButtonWrapper>
                 <Button onClick={() => closeModal()}>X</Button>
@@ -68,9 +86,11 @@ const BioModal = ({ isOpen, currentBio, handleUpdateProfile, closeModal, profile
               <div>
                 <input type="text" name="summary" size="60" placeholder={currentBio} onChange={handleChange}></input>
               </div>
-              <input type="submit" value="Update" onClick={handleSubmit}></input>
+              <Submit>
+                <input type="submit" value="Update" onClick={handleSubmit}></input>
+              </Submit>
             </form>
-          </Overlay>
+          </Modal>
         </React.Fragment>
         : null
       }

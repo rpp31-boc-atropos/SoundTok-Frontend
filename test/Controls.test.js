@@ -8,11 +8,18 @@ import { UserInfoProvider } from '../src/contexts/UserContext';
 
 const MockControls = () => {
 
+  const mainAudio = { play: function () { }, pause: function () { } }
+  const currentAudio = { play: function () { }, pause: function () { } }
+
+
   return (
     <UserInfoProvider>
       <PostsProvider>
         <PlayerProvider>
-          <Controls />
+          <Controls
+            mainAudio={mainAudio}
+            currentAudio={currentAudio}
+          />
         </PlayerProvider>
       </PostsProvider>
     </UserInfoProvider>
