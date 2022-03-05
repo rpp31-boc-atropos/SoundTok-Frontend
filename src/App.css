@@ -83,6 +83,7 @@ body,
   justify-content: space-between;
   align-items: center;
   border-bottom: 1.5px solid var(--font-line-color-yellow);
+  z-index: 100;
 }
 
 a {
