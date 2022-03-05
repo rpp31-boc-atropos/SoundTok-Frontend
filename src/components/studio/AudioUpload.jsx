@@ -13,7 +13,7 @@ const AudioUpload = ({HandleUpload}) => {
           onChange={HandleUpload}
         ></input>
         <label htmlFor='upload-audio'>
-          <UploadIcon></UploadIcon>
+          <UploadIcon role='upload-icon' ></UploadIcon>
         </label>
       </div>
       <div >Add a new track</div>
