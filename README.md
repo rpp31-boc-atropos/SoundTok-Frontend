@@ -56,7 +56,7 @@ GIF TO BE ADDED
 
 ## Schema Design
 
-<img width="886" alt="Screen Shot 2022-03-05 at 12 10 08 PM" src="https://user-images.githubusercontent.com/13864148/156893195-c5bea5c9-56f6-438d-a6f1-73a0dfe2fed8.png">
+<img width="879" alt="Screen Shot 2022-03-05 at 12 14 01 PM" src="https://user-images.githubusercontent.com/13864148/156893333-b053f28a-325c-475e-9faa-701246130abc.png">
 
 The server utilizes a Postgres database on the backend with minimal JavaScript transformation.
 
