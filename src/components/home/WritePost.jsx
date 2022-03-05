@@ -305,6 +305,7 @@ const WritePostWrapper = styled.div`
   border: 1px solid var(--font-line-color-yellow-transparent);
   background: var(--main-color-black);
   border-bottom: none;
+  position: relative;
 `;
 
 const InfoMessage = styled.div`
