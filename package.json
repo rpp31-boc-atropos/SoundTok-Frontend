@@ -8,6 +8,8 @@
     "@auth0/auth0-react": "^1.9.0",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
+    "@emotion/react": "^11.8.1",
+    "@emotion/styled": "^11.8.1",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/styles": "^4.11.4",
