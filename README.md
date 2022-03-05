@@ -20,7 +20,7 @@ Anyone, from the casual listener and discoverer of new music to the veteran prod
 
 ## Feed
 _Main Features_
-* Post music by uploding an audio file, loading from drafts, or putting together a track in the studio
+* Post music by uploading an audio file, loading from drafts, or putting together a track in the studio
 * Posts include can include a title, description (limited to 140 char), and image
 * Explore others' musical projects, which are sorted with most recently posted on top
 * Discover relevant music and artists when clicking on a hashtag
@@ -32,6 +32,15 @@ GIF TO BE ADDED
 ## Hashtag Page
 
 ## Profile
+_Main Features_
+* View user's profile picture and biography
+* Edit own profile picture and biography
+* View list of user's posts with relevant details
+* View list of own drafts with relevant details
+* Delete own songs and drafts
+* Remix selected song directly in the studio
+
+GIF TO BE ADDED
 
 ## Schema Design
 
