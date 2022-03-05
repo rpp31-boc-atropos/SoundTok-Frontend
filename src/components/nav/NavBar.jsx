@@ -1,51 +1,92 @@
-import React, { useEffect, useState } from "react";
-import Search from "./SearchBar.jsx";
-import { Link } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
-import { useUserInfo } from "../../contexts/UserContext.jsx";
-import ProfilePicture from "../ProfilePicture.jsx";
+import React from 'react';
+import Search from './SearchBar.jsx';
+import { Link } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useUserInfo } from '../../contexts/UserContext.jsx';
+import ProfilePicture from '../ProfilePicture.jsx';
+
+import { MdAccountBox, MdMicNone, MdOutlineLogin, MdOutlineLogout } from 'react-icons/md';
+
 
 const NavBar = () => {
   const { loginWithRedirect, logout, isLoading, isAuthenticated } = useAuth0();
 
   const { username, profilePic } = useUserInfo();
 
-  // console.log (username, profilePic);
   return (
-    <ul className="nav">
-      <li className="logo">
+    <div className="nav">
+
+      <div className="logo" >
         <Link to="/">SoundTok</Link>
-      </li>
-      <li>
-        <Link to="/studio">Studio</Link>
-      </li>
+      </div>
+
       <Search />
-      <li>
-        {/* <Link to="/profile" state={{ url: 'home' }}>Profile</Link> */}
-        <Link to={`/profile/${username}`}>Profile</Link>
-      </li>
 
-      {!isLoading && !isAuthenticated && (
-        <button onClick={() => loginWithRedirect()}>Log In</button>
-      )}
-
-      {!isLoading && isAuthenticated && (
+      <div className="controls"
+        style={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          alignItems: "center",
+        }}
+      >
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-          }}
-        >
-          <ProfilePicture
-            username={username}
-            profilePicture={profilePic}
-            size={"30"}
-          />
-          <button onClick={() => logout()}>Log Out</button>
+            marginRight: '12px',
+          }}>
+          <Link to="/studio">
+            <MdMicNone size={25} alt='Studio'/>
+          </Link>
         </div>
-      )}
-    </ul>
+
+        {!isLoading && !isAuthenticated && (
+          <div
+            style={{
+              marginRight: '12px',
+            }}>
+            <Link to={`/profile/${username}`}>
+              <MdAccountBox
+                size={25}
+                alt='Profile'
+                style={{
+                  marginRight: '12px',
+                }}
+              />
+            </Link>
+            < MdOutlineLogin
+              size={25}
+              alt='Login'
+              style={{
+                marginRight: '12px',
+                cursor: 'pointer',
+              }}
+              onClick={() => loginWithRedirect()}
+            />
+          </div>
+        )}
+
+        {!isLoading && isAuthenticated && (
+          <div>
+            <ProfilePicture
+              username={username}
+              profilePicture={profilePic}
+              size={"25"}
+
+            />
+            {/* <button onClick={() => logout()}>Out</button> */}
+            <MdOutlineLogout
+              size={25}
+              alt='Logout'
+              style={{
+                marginRight: '12px',
+                cursor: 'pointer',
+              }}
+              onClick={() => logout()}/>
+          </div>
+        )}
+      </div>
+
+    </div>
+
   );
 };
 

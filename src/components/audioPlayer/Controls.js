@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import ProfilePicture from '../ProfilePicture.jsx';
 
-const PlayerControls = () => {
+const PlayerControls = (props) => {
   const {
     currentSong,
     songs,
@@ -19,7 +19,7 @@ const PlayerControls = () => {
     handleEnd,
   } = usePlayer();
 
-  const audio = useRef('audio_tag');
+  // const props.mainAudio = useRef('audio_tag');
 
   const [statevolume, setStateVolume] = useState(0.3);
   const [dur, setDur] = useState(0);
@@ -29,22 +29,25 @@ const PlayerControls = () => {
     return (s - (s %= 60)) / 60 + (9 < s ? ':' : ':0') + ~~s;
   };
 
-  const toggleAudio = () =>
-    audio.current.paused ? audio.current.play() : audio.current.pause();
+  const toggleAudio = () => {
+    props.mainAudio.current.paused
+      ? props.mainAudio.current.play()
+      : props.mainAudio.current.pause();
+  };
 
   const handleVolume = (q) => {
     setStateVolume(q);
-    audio.current.volume = q;
+    props.mainAudio.current.volume = q;
   };
 
   const handleProgress = (e) => {
     let compute = (e.target.value * dur) / 100;
     setCurrentTime(compute);
-    audio.current.currentTime = compute;
+    props.mainAudio.current.currentTime = compute;
   };
 
   useEffect(() => {
-    audio.current.volume = statevolume;
+    props.mainAudio.current.volume = statevolume;
     if (playing) {
       toggleAudio();
     }
@@ -56,7 +59,7 @@ const PlayerControls = () => {
         onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)}
         onCanPlay={(e) => setDur(e.target.duration)}
         onEnded={handleEnd}
-        ref={audio}
+        ref={props.mainAudio}
         type="audio/mpeg"
         preload="true"
         src={songs[currentSong] ? songs[currentSong].projectAudioLink : ''}
@@ -66,14 +69,14 @@ const PlayerControls = () => {
           <div className="ri-skip-back-fill" onClick={prevSong} role="prev" />
           <Spacer />
           <div
-            className={`playPause ${!playing ? 'ri-play-circle-fill' : 'ri-pause-circle-fill'
-              }`}
+            className={`playPause ${
+              !playing ? 'ri-play-circle-fill' : 'ri-pause-circle-fill'
+            }`}
             onClick={() => {
-              // console.log({ songs });
               togglePlaying();
               toggleAudio();
             }}
-            role='play'
+            role="play"
           />
           <Spacer />
           <div
@@ -85,22 +88,20 @@ const PlayerControls = () => {
           <div
             className={`random ri-shuffle-line ${random ? 'active' : ''}`}
             onClick={toggleRandom}
-            role='random'
+            role="random"
           />
           <Spacer />
           <div
             className={`repeat ri-repeat-line ${repeat ? 'active' : ''}`}
             onClick={toggleRepeat}
-            role='repeat'
+            role="repeat"
           />
         </ControlButtons>
         <Spacer size="5" />
         <BarWrapper>
-          <div
-            className="currentT"
-            role="currentTime"
-          >
-            {fmtMSS(currentTime)}</div>
+          <div className="currentT" role="currentTime">
+            {fmtMSS(currentTime)}
+          </div>
           <Spacer size="2" />
           <Bar>
             <input
@@ -109,7 +110,7 @@ const PlayerControls = () => {
               type="range"
               name="progresBar"
               id="progressBar"
-              role='progressBar'
+              role="progressBar"
             />
             <div
               className="songtitle"
@@ -120,11 +121,9 @@ const PlayerControls = () => {
             </div>
           </Bar>
           <Spacer size="2" />
-          <div
-            className="totalT"
-            role='totalTime'
-          >
-            {fmtMSS(dur)}</div>
+          <div className="totalT" role="totalTime">
+            {fmtMSS(dur)}
+          </div>
         </BarWrapper>
         <Spacer size="3" />
         <ProfilePicture
@@ -134,7 +133,7 @@ const PlayerControls = () => {
           }
           size="36"
         />
-        <Volume role='volume'>
+        <Volume role="volume">
           <div className="ri-volume-up-fill" />
           <Spacer />
           <input

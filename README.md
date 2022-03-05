@@ -23,6 +23,7 @@ Anyone, from the casual listener and discoverer of new music to the veteran prod
 ## Feed
 
 _Main Features_
+<<<<<<< HEAD
 
 - Post music by uploding an audio file, loading from drafts, or putting together a track in the studio
 - Posts include can include a title, description (limited to 140 char), and image
@@ -30,8 +31,19 @@ _Main Features_
 - Discover relevant music and artists when clicking on a hashtag
 - Remix songs that pique your interest directly in the studio
 - Save unfinished posts to drafts to revisit later
+=======
+* Post music by uploading an audio file, loading from drafts, or putting together a track in the studio
+* Posts include can include a title, description (limited to 140 char), and image
+* Explore others' musical projects, which are sorted with most recently posted on top
+* Discover relevant music and artists when clicking on a hashtag
+* Remix songs that pique your interest directly in the studio
+* Save unfinished posts to drafts to revisit later
+* Delete posts after publishing
 
-GIF TO BE ADDED
+
+![Screen Recording 2022-03-04 at 7 23 01 PM](https://user-images.githubusercontent.com/69382434/156866618-144e0a94-b6d1-4b46-bd25-63d14ce318de.gif)
+>>>>>>> c9872c83e494c33c9cb6f0891157893b1c837b37
+
 
 ## Hashtag Page
 
@@ -43,6 +55,15 @@ _Main Features_
 - Add animated wave effect
 
 ## Profile
+_Main Features_
+* View user's profile picture and biography
+* Edit own profile picture and biography
+* View list of user's posts with relevant details
+* View list of own drafts with relevant details
+* Delete own songs and drafts
+* Remix selected song directly in the studio
+
+GIF TO BE ADDED
 
 ## Schema Design
 
