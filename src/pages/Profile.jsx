@@ -59,19 +59,19 @@ const Profile = () => {
       <p>User from context: {user}</p> */}
 
       <ProfileWrapper>
-      <ProfilePage>
-        <UserProfile
-          isCurrentUser={isCurrentUser}
-          setIsCurrentUser={setIsCurrentUser}
-          profileName={profileName}
-          setProfileName={setProfileName}
-        ></UserProfile>
-        <UserPosts
-          isCurrentUser={isCurrentUser}
-          setIsCurrentUser={setIsCurrentUser}
-          profileName={profileName}
-        ></UserPosts>
-      </ProfilePage>
+        <ProfilePage>
+          <UserProfile
+            isCurrentUser={isCurrentUser}
+            setIsCurrentUser={setIsCurrentUser}
+            profileName={profileName}
+            setProfileName={setProfileName}
+          ></UserProfile>
+          <UserPosts
+            isCurrentUser={isCurrentUser}
+            setIsCurrentUser={setIsCurrentUser}
+            profileName={profileName}
+          ></UserPosts>
+        </ProfilePage>
       </ProfileWrapper>
 
       <Routes>
