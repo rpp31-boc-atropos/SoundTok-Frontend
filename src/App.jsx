@@ -31,22 +31,6 @@ const App = () => {
 
   return (
     <div className="App">
-<<<<<<< HEAD
-      <NavBar />
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        {/* <Route path='/profile/*' element={isAuthenticated ? <Profile /> : <Navigate to='/' />} /> */}
-        <Route path="/profile/*" element={<Profile />} />
-        <Route path="/studio/*" element={<Studio />} />
-        <Route
-          path="/hashtag"
-          element={<Hashtag key={window.location.href} />}
-        />
-        <Route path="/*" element={<NotFound />} />
-      </Routes>
-      <AudioPlayer />
-=======
       <Suspense fallback={<div>Loading...</div>}>
         <NavBar />
         <Routes>
@@ -64,7 +48,6 @@ const App = () => {
         </Routes>
         <AudioPlayer mainAudio={mainAudio} currentAudio={currentAudio} />
       </Suspense>
->>>>>>> 1dbaef1ae7fefd93cd8157e2e100970f0dbd9783
     </div>
   );
 };
