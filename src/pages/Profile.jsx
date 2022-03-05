@@ -27,6 +27,7 @@ const ProfilePage = styled.div`
   border-right: solid 1px;
   background: var(--main-color-black);
   border-color: var(--font-line-color-yellow-transparent);
+  min-height: 100%;
 `;
 
 const Profile = () => {
