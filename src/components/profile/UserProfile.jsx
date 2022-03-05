@@ -43,6 +43,7 @@ const ProfilePic = styled.img`
   box-sizing: border-box;
   border: 2px solid var(--font-line-color-yellow);
   overflow: hidden;
+  object-fit: cover;
 `;
 
 const ProfileText = styled.div`
@@ -120,8 +121,9 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName, setProfileNa
       }
     })
       .then((response) => {
-        setProfilePicture(response.data.profilePicture);
-        setBio(response.data.userBio); //Maggie is working on adding this
+        setProfilePicture(response.data.profilePicture || 'https://upload.wikimedia.org/wikipedia/commons/b/b4/Sound_wave.jpg');
+        // console.log('response', response.data.profilePicture);
+        setBio(response.data.userBio);
       })
       .catch((err) => {
         console.log(err);
@@ -130,8 +132,8 @@ const UserProfile = ({isCurrentUser, setIsCurrentUser, profileName, setProfileNa
 
   return (
     <ProfileWrapper>
-      <ProfilePic alt='logo'
-        src={profilePicture}>
+      <ProfilePic alt='Pic'
+        src={profilePicture} role='profilePicture'>
       </ProfilePic>
       <ProfileHeader>{`@${profileName}`}</ProfileHeader>
       <ButtonWrapper>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import EditProfile from '../components/profile/EditProfile.jsx';
 import UserProfile from '../components/profile/UserProfile.jsx';
 import UserPosts from '../components/profile/UserPosts.jsx';
 import { withAuthenticationRequired } from '@auth0/auth0-react';
@@ -10,13 +9,25 @@ import { useUserInfo } from '../contexts/UserContext.jsx';
 
 import styled from 'styled-components';
 
+
+const ProfileWrapper = styled.div`
+  display:flex;
+  width: 100%;
+  overflow: scroll;
+  justify-content: center;
+  height: calc(100% - 95px);
+`;
+
 const ProfilePage = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
   width: 1000px;
-  height: 100%;
   border-left: solid 1px;
   border-right: solid 1px;
   background: var(--main-color-black);
   border-color: var(--font-line-color-yellow-transparent);
+  min-height: 100%;
 `;
 
 const Profile = () => {
@@ -31,14 +42,10 @@ const Profile = () => {
     // console.log('user email', email); //this is the logged in username
     // console.log('user name', username); //this is the logged in username
 
-    // let newLocation = window.location.href;
-    // let userProfile = newLocation.slice((window.location.href.indexOf('profile') + 8));
     setProfileName(location.pathname.split('/').pop());
     if (location.pathname.split('/').pop() === username) {
-      // console.log('viewing own page');
       setIsCurrentUser(true);
     } else {
-      // console.log(username);
       setIsCurrentUser(false);
     }
   //Added username so user can edit profile/view drafts after being authenticated. Previously
@@ -51,32 +58,24 @@ const Profile = () => {
       {/* <h1>Profile Page</h1>
       <p>User from context: {user}</p> */}
 
-      <ProfilePage>
-        <UserProfile
-          isCurrentUser={isCurrentUser}
-          setIsCurrentUser={setIsCurrentUser}
-          profileName={profileName}
-          setProfileName={setProfileName}
-        ></UserProfile>
-        <UserPosts
-          isCurrentUser={isCurrentUser}
-          setIsCurrentUser={setIsCurrentUser}
-          profileName={profileName}
-        ></UserPosts>
-      </ProfilePage>
-
-      {/* <ul className='nav'>
-        <li>
-          <Link to="userprofile">User Profile</Link>
-        </li>
-        <li>
-          <Link to="editprofile">Edit Profile</Link>
-        </li>
-      </ul> */}
+      <ProfileWrapper>
+        <ProfilePage>
+          <UserProfile
+            isCurrentUser={isCurrentUser}
+            setIsCurrentUser={setIsCurrentUser}
+            profileName={profileName}
+            setProfileName={setProfileName}
+          ></UserProfile>
+          <UserPosts
+            isCurrentUser={isCurrentUser}
+            setIsCurrentUser={setIsCurrentUser}
+            profileName={profileName}
+          ></UserPosts>
+        </ProfilePage>
+      </ProfileWrapper>
 
       <Routes>
         <Route path="userprofile" element={<UserProfile />} />
-        <Route path="editprofile" element={<EditProfile />} />
       </Routes>
     </>
   );

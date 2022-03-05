@@ -6,7 +6,7 @@ import { usePosts } from "../../contexts/PostsContext.jsx";
 
 const SingleDraft = styled.div`
   width: 30%;
-  height: 220px;
+  height: 140px;
   padding: 16px;
   margin: 6px;
   display: flex;
