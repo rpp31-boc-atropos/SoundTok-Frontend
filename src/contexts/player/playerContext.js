@@ -1,6 +1,5 @@
 import React, { useReducer, createContext, useEffect } from 'react';
 import playerReducer from './playerReducer';
-import dummy from '../../components/home/dummy.jsx';
 import { usePosts } from '../PostsContext.jsx';
 
 const PlayerContext = createContext();
