@@ -36,9 +36,9 @@ describe('App', () => {
   });
 
 
-  test("renders profile page", () => {
-    render(<MockApp />, { initialRoutes: ["/hashtag?q=cat"] });
-    expect(screen.getByText(/#Hashtag: cat/i)).toBeInTheDocument();
-  });
+  // test("renders hashtag page", () => {
+  //   render(<MockApp />, { initialRoutes: ["/hashtag?q=cat"] });
+  //   expect(screen.getByText(/#Hashtag: cat/i)).toBeInTheDocument();
+  // });
 
 });
