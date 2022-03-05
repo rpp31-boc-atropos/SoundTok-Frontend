@@ -274,7 +274,7 @@ const WritePost = (props) => {
                 }
               >
                 {props.uploadedImage ? (
-                  <img src={props.uploadedImage}></img>
+                  <img src={props.uploadedImage} alt="Uploaded image"></img>
                 ) : null}
               </UploadedAudio>
               <Submit
@@ -314,7 +314,7 @@ const InfoMessage = styled.div`
   color: var(--font-line-color-yellow);
   position: absolute;
   top: 4px;
-  left: 380px;
+  left: 390px;
   font-size: 10px;
   text-align: center;
 `;

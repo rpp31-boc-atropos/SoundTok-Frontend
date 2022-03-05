@@ -13,7 +13,7 @@ import FeedDrafts from '../components/home/FeedDrafts.jsx';
 import Post from '../components/home/Post.jsx';
 import dummy from '../components/home/dummy.jsx';
 
-const Home = () => {
+const Home = (props) => {
   const { user, isAuthenticated } = useAuth0();
   const { posts } = usePosts();
 
@@ -88,9 +88,12 @@ const Home = () => {
               projectImageLink={post.projectImageLink}
               tags={post.tags}
               timePosted={post.timePosted}
+              mainAudio={props.mainAudio}
+              currentAudio={props.currentAudio}
             />
           );
         })}
+        <Spacer />
       </Feed>
     </FeedWrapper>
   );
@@ -107,6 +110,10 @@ const FeedWrapper = styled.div`
 
 const Feed = styled.div`
   max-width: var(--feed-width);
+`;
+
+const Spacer = styled.div`
+  height: 60px;
 `;
 
 export default Home;
