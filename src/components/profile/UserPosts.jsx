@@ -3,7 +3,6 @@ import React, {useState, useEffect} from 'react';
 import Song from './Song.jsx';
 import Draft from './Draft.jsx';
 // import dummySongs from './dummySongs.jsx';
-// import dummyDrafts from './dummyDrafts.jsx';
 import styled from 'styled-components';
 const axios = require('axios');
 
@@ -23,11 +22,9 @@ const PostWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content:space-around;
-  max-height: 700px;
   width: 1000px;
   margin-top: 10px;
   flex-wrap: wrap;
-  overflow-y: auto;
 `;
 
 const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
@@ -82,6 +79,9 @@ const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
           if (song.draft) {
             songList.push(song);
           } else {
+            if (song.projectLength === null) {
+              song.projectLength = 0;
+            }
             draftList.push(song);
           }
         }
@@ -97,7 +97,7 @@ const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
   return (
     <>
       <ButtonWrapper>
-        <Button onClick={() => setTab('Posts')} >Posts</Button>
+        <Button role='postSelect' onClick={() => setTab('Posts')} >Posts</Button>
         {isCurrentUser ?
           <Button onClick={() => setTab('Drafts')}>Drafts</Button>
           : null}
