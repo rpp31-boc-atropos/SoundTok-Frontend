@@ -79,6 +79,9 @@ const UserPosts = ({isCurrentUser, setIsCurrentUser, profileName}) => {
           if (song.draft) {
             songList.push(song);
           } else {
+            if (song.projectLength === null) {
+              song.projectLength = 0;
+            }
             draftList.push(song);
           }
         }
