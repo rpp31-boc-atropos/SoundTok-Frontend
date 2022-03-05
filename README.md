@@ -26,8 +26,11 @@ _Main Features_
 * Discover relevant music and artists when clicking on a hashtag
 * Remix songs that pique your interest directly in the studio
 * Save unfinished posts to drafts to revisit later
+* Delete posts after publishing
 
-GIF TO BE ADDED
+
+![Screen Recording 2022-03-04 at 7 23 01 PM](https://user-images.githubusercontent.com/69382434/156866618-144e0a94-b6d1-4b46-bd25-63d14ce318de.gif)
+
 
 ## Hashtag Page
 

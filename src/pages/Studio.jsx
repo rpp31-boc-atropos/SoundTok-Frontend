@@ -79,16 +79,20 @@ const Studio = () => {
   const saveDraftToAPI = (tracksToSave) => {
     if (tracksToSave.length > 0) {
 
+      let longestTrackEnd = 0;
       for (let i = 0; i < tracksToSave.length; i++) {
         if ('effects' in tracksToSave[i] && tracksToSave[i].effects !== undefined) {
           tracksToSave[i].effects = true;
+        }
+        if (tracksToSave[i].end > longestTrackEnd) {
+          longestTrackEnd = tracksToSave[i].end;
         }
       }
 
       let reqBody = {
         email: email,
         projectTitle: 'Draft #' + (drafts.length + 1),
-        projectLength: null,
+        projectLength: Math.floor(longestTrackEnd),
         projectAudioLink: '',
         tracks: JSON.stringify(tracksToSave),
         timePosted: new Date().toISOString()

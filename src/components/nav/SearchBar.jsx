@@ -6,20 +6,20 @@ import { useClickOutside } from 'react-click-outside-hook';
 import MoonLoader from 'react-spinners/MoonLoader';
 import useDebounce from './debounceHook.jsx';
 import axios from 'axios';
-import { Hashtag } from '../home/Hashtag.jsx';
 import { Link } from 'react-router-dom';
-// import {} from './hashtag.json';
-// import {} from './users.json';
 
 const SearchBarContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
+  position: fixed;
+  left: 50%;
+  margin-top: 0.1em;
+  margin-left: -17em;
   width: 34em;
   height: 1.8em;
   background-color: var(--main-color-blue-light);
   border-radius: 20px;
   box-shadow: 0px 2px 12px 3px rgba(0, 0, 0, 0.14);
-  margin: 0.3em;
 `;
 
 const SearchInputContainer = styled.div`
@@ -109,19 +109,20 @@ const WarningMessage = styled.span`
 
 const containerVariants = {
   expanded: {
-    height: '20em',
+    height: '12em',
     zIndex: '100',
-    // top: '10px'
+    marginTop: '10.0em'
   },
   collapsed: {
+    marginTop: '-0.2em',
     height: '1.8em',
   },
 };
 
-const containerTransition = { type: 'spring', damping: 22, stiffness: 150};
+const containerTransition = { type: 'Tween', damping: 20, stiffness: 150, bounce: 0 };
 
 
-const Search = () => {
+const SearchBar = () => {
   const [isExpanded, setExpanded] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [isEmpty, setIsEmpty] = useState(true);
@@ -145,7 +146,7 @@ const Search = () => {
     setExpanded(false);
     setSearchQuery("");
     setResults([]);
-    setNoResult(true);
+    setNoResult(false);
     setLoading(false);
     // setIsUserSearch(false);
     setIsEmpty(true);
@@ -223,9 +224,9 @@ const Search = () => {
           onFocus={expandContainer}
           onChange={changeHandler}
           ref={inputRef}/>
-        <CloseIcon onClick={collapseContainer}>
-          <IoClose/>
-        </CloseIcon>
+          <CloseIcon onClick={collapseContainer}>
+            <IoClose/>
+          </CloseIcon>
 
       </SearchInputContainer >
       {isExpanded && <LineSeperator />}
@@ -270,4 +271,4 @@ const Search = () => {
 };
 
 
-export default Search;
+export default SearchBar;

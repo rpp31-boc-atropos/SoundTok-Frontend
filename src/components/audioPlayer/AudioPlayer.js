@@ -5,34 +5,32 @@ import './input.css';
 import PlayerControls from './Controls';
 import { useLocation } from 'react-router-dom';
 
-
-
 const Main = styled.div`
   position: fixed;
   bottom: 0;
   width: 100%;
   box-sizing: border-box;
+  z-index: 2;
 `;
 
-const AudioPlayer = () => {
-
+const AudioPlayer = (props) => {
   const location = useLocation();
   const path = location.pathname;
-  const [display, setDisplay] = useState(
-    path !== '/studio' ? true : false
-  );
+  const [display, setDisplay] = useState(path !== '/studio' ? true : false);
 
   useEffect(() => {
     setDisplay(path !== '/studio' ? true : false);
   }, [path]);
 
-
   return (
-
     <Main>
-      {display && <PlayerControls />}
+      {display && (
+        <PlayerControls
+          mainAudio={props.mainAudio}
+          currentAudio={props.currentAudio}
+        />
+      )}
     </Main>
-
   );
 };
 
