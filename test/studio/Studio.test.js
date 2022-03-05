@@ -1,6 +1,6 @@
-// /**
-//  * @jest-environment jsdom
-//  */
+/**
+ * @jest-environment jsdom
+ */
 
 // import React from 'react';
 // import '@testing-library/jest-dom';
@@ -10,9 +10,9 @@
 
 // test('Loads All Buttons correctly', () => {
 
-//   // render(<Studio />);
+//   render(<Studio />);
 
-//   // expect(screen.getAllByRole('download')).toHaveTextContent('Download');
+//   expect(screen.getAllByRole('button')[2]).toHaveTextContent('Download');
 
 // });
 
