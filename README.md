@@ -78,7 +78,7 @@ _Core Tech_
 - [Node v16](https://nodejs.org/dist/latest-v16.x/docs/api/)
 - [Express v4](https://expressjs.com/)
 - [React v17](https://reactjs.org/docs/getting-started.html)
-- [Postgres v14](https://www.postgresql.org/docs/)
+- [Postgres v16](https://www.postgresql.org/docs/)
 
 _Libraries_
 
