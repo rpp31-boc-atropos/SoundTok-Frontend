@@ -56,7 +56,8 @@ _Main Features_
 - Delete own songs and drafts
 - Remix selected song directly in the studio
 
-GIF TO BE ADDED
+![image](https://user-images.githubusercontent.com/19396164/157341127-0a75b302-bc7a-4691-a63f-ff5c41095d98.png)
+
 
 ## Schema Design
 
