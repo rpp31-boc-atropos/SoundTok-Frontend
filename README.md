@@ -23,14 +23,14 @@ Anyone, from the casual listener and discoverer of new music to the veteran prod
 ## Feed
 
 _Main Features_
-* Post music by uploading an audio file, loading from drafts, or putting together a track in the studio
-* Posts include can include a title, description (limited to 140 char), and image
-* Explore others' musical projects, which are sorted with most recently posted on top
-* Discover relevant music and artists when clicking on a hashtag
-* Remix songs that pique your interest directly in the studio
-* Save unfinished posts to drafts to revisit later
-* Delete posts after publishing
 
+- Post music by uploading an audio file, loading from drafts, or putting together a track in the studio
+- Posts include can include a title, description (limited to 140 char), and image
+- Explore others' musical projects, which are sorted with most recently posted on top
+- Discover relevant music and artists when clicking on a hashtag
+- Remix songs that pique your interest directly in the studio
+- Save unfinished posts to drafts to revisit later
+- Delete posts after publishing
 
 ![Screen Recording 2022-03-04 at 7 23 01 PM](https://user-images.githubusercontent.com/69382434/156866618-144e0a94-b6d1-4b46-bd25-63d14ce318de.gif)
 
@@ -44,13 +44,17 @@ _Main Features_
 - Add animated wave effect
 
 ## Profile
+
 _Main Features_
-* View user's profile picture and biography
-* Edit own profile picture and biography
-* View list of user's posts with relevant details
-* View list of own drafts with relevant details
-* Delete own songs and drafts
-* Remix selected song directly in the studio
+
+- View user's profile picture and biography
+- Edit own profile picture and biography
+- View list of user's posts with relevant details
+- View list of own drafts with relevant details
+- Delete own songs and drafts
+- Remix selected song directly in the studio
+
+<img width="1157" alt="BOC_hashtag" src="https://user-images.githubusercontent.com/83844510/157174776-bed212bf-a923-4939-a919-dee3a5707869.png">
 
 GIF TO BE ADDED
 
@@ -59,7 +63,6 @@ GIF TO BE ADDED
 <img width="879" alt="Screen Shot 2022-03-05 at 12 14 01 PM" src="https://user-images.githubusercontent.com/13864148/156893333-b053f28a-325c-475e-9faa-701246130abc.png">
 
 The server utilizes a Postgres database on the backend with minimal JavaScript transformation.
-
 
 ## Authentication
 
