@@ -43,6 +43,8 @@ _Main Features_
 - Re-render the posts content when a user searches other hashtags from the page
 - Add animated wave effect
 
+<img width="1157" alt="BOC_hashtag" src="https://user-images.githubusercontent.com/83844510/157174776-bed212bf-a923-4939-a919-dee3a5707869.png">g
+
 ## Profile
 
 _Main Features_
@@ -53,8 +55,6 @@ _Main Features_
 - View list of own drafts with relevant details
 - Delete own songs and drafts
 - Remix selected song directly in the studio
-
-<img width="1157" alt="BOC_hashtag" src="https://user-images.githubusercontent.com/83844510/157174776-bed212bf-a923-4939-a919-dee3a5707869.png">
 
 GIF TO BE ADDED
 
