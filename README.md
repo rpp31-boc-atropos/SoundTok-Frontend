@@ -17,8 +17,18 @@ Anyone, from the casual listener and discoverer of new music to the veteran prod
 - [Contributors](#contributors)
 
 ## Navigation Bar
+_Main Features_
+- Navigate to the home page by clicking on the SoundTok logo.
+- Login or signup by clicking on the Login icon.
+- Navigate to the Studio page by clicking on the Studio icon. If not logged in, the user will be redirected to the log in page.
+- Navigate to the Profile page by clicking on the Profile icon. If not logged in, the user will be redirected to the log in page. When logged in, the profile icon is replaced by user profile picture.
+- Search a user (start with '@') or hashtag (default or start with '#') in the search bar. A list of matched results will be displayed in the search research popup page. Click on one of the matched results will take the user to the corresponding hashtag page or profile page.
 
-## Studio
+![Screen Recording (Google Chrome)](https://user-images.githubusercontent.com/26532717/157350708-99d1dc8c-f243-4555-a430-1886a0c66f79.gif)
+
+
+## Studio!
+
 
 ## Feed
 
@@ -43,7 +53,7 @@ _Main Features_
 - Re-render the posts content when a user searches other hashtags from the page
 - Add animated wave effect
 
-<img width="1157" alt="BOC_hashtag" src="https://user-images.githubusercontent.com/83844510/157174776-bed212bf-a923-4939-a919-dee3a5707869.png">g
+<img width="1157" alt="BOC_hashtag" src="https://user-images.githubusercontent.com/83844510/157174776-bed212bf-a923-4939-a919-dee3a5707869.png">
 
 ## Profile
 
@@ -66,7 +76,9 @@ _Main Features_
 The server utilizes a Postgres database on the backend with minimal JavaScript transformation.
 
 ## Authentication
+Authentication uses Auth0 capabilities. It allows users to sign up and log in with username, email, and password, or through one of the social connections including Google, Facebook, and Twitter.
 
+<img width="200" alt="Screen Shot 2022-03-08 at 6 18 09 PM" src="https://user-images.githubusercontent.com/26532717/157349844-02e9baee-db68-4759-a3f5-41d333c61488.png">
 ## Tech Stack & Libraries
 
 _Deployment/Utility_
@@ -76,6 +88,7 @@ _Deployment/Utility_
 - [Jest](https://jestjs.io/)
 - [React-Testing-Library](https://testing-library.com/docs/react-testing-library/intro/)
 - [Eslint](https://eslint.org/)
+
 
 _Core Tech_
 
