@@ -27,8 +27,15 @@ _Main Features_
 ![Screen Recording (Google Chrome)](https://user-images.githubusercontent.com/26532717/157350708-99d1dc8c-f243-4555-a430-1886a0c66f79.gif)
 
 
-## Studio!
+## Studio
 
+_Main Features_
+
+- Upload audio files from your computer or select a draft that you want to keep working on
+- Add effects such as Fade-in, Fade-out & Reverb to individual tracks
+- Highlight a section of a track and trim to shorten the overall length
+- Download the the edited tracks as a single audio file
+- Save current project as a draft
 
 ## Feed
 
