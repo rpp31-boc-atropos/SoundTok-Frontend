@@ -37,6 +37,8 @@ _Main Features_
 - Download the the edited tracks as a single audio file
 - Save current project as a draft
 
+![studio-1](https://user-images.githubusercontent.com/81498700/157572777-2130d021-e653-48a6-8186-dbc9886117e3.gif)
+
 ## Feed
 
 _Main Features_
