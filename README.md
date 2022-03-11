@@ -34,7 +34,7 @@ _Main Features_
 - Upload audio files from your computer or select a draft that you want to keep working on
 - Add effects such as Fade-in, Fade-out & Reverb to individual tracks
 - Highlight a section of a track and trim to shorten the overall length
-- Download the the edited tracks as a single audio file
+- Download the edited tracks as a single audio file
 - Save current project as a draft
 
 ![studio-recording-forGIF](https://user-images.githubusercontent.com/81498700/157816199-3313e9f6-57f3-44d4-8f34-47bd82da112a.gif)
@@ -114,6 +114,7 @@ _Libraries_
 - [Auth0](https://auth0.com/docs/)
 - [Cloudinary](https://cloudinary.com/documentation)
 - [Linkify.js](https://linkify.js.org/docs/)
+- [Tone.js](https://tonejs.github.io/)
 
 ## Contributors
 
