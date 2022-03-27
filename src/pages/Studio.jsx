@@ -98,9 +98,6 @@ const Studio = () => {
         timePosted: new Date().toISOString()
       };
 
-      //console.log(playlist.getInfo());
-      //console.log('saving: ', reqBody);
-      //console.log(tracksToSave);
       axios.post('https://api.soundtok.live/drafts', reqBody)
         .then((response) => {
           console.log('save successful, ', response);
@@ -110,13 +107,10 @@ const Studio = () => {
           console.log('save fail ', error);
         });
     }
-    // console.log(playlist);
   };
 
   const handleSetDraft = (draft) => {
     removeAllTracks();
-
-    //console.log('draft: ', draft);
     setIsLoading(true);
 
     // add reverb
@@ -163,7 +157,6 @@ const Studio = () => {
 
     axios.post('https://api.cloudinary.com/v1_1/poyraz96/video/upload', formData)
       .then(result => {
-        // console.log(result);
         playlist.load([{
           src: result.data.secure_url,
           name: 'Track'
